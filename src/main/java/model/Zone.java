@@ -14,7 +14,6 @@ public class Zone {
     }
 
     public Zone(){
-
     }
 
     @Override
