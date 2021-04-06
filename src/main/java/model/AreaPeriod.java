@@ -1,6 +1,6 @@
 package model;
 
-public class AreaPeriod {
+public final class AreaPeriod {
     private int id;
     private int area;
 

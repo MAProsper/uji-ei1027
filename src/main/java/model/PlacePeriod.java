@@ -1,6 +1,6 @@
 package model;
 
-public class PlacePeriod {
+public final class PlacePeriod {
     private int id;
     private int place;
     private int period;

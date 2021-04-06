@@ -1,6 +1,6 @@
 package model;
 
-public class ReservationZone {
+public final class ReservationZone {
     private int id;
     private int reservation;
     private int zone;

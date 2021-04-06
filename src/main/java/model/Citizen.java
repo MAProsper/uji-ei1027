@@ -1,6 +1,6 @@
 package model;
 
-public class Citizen {
+public final class Citizen {
     private int person;
 
     public Citizen() {

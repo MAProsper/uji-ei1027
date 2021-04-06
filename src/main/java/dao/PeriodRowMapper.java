@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-public class PeriodRowMapper implements RowMapper<Period> {
+public final class PeriodRowMapper implements RowMapper<Period> {
 
     public Period mapRow(ResultSet rs, int rowNum) throws SQLException {
         Period period = new Period();

@@ -1,6 +1,6 @@
 package model;
 
-public class Address {
+public final class Address {
     private int id;
     private String country;
     private String city;

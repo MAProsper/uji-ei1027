@@ -1,6 +1,6 @@
 package model;
 
-public class MunicipalManagerIsAssignetTo {
+public final class MunicipalManagerIsAssignetTo {
     private int id;
     private int municipality;
 

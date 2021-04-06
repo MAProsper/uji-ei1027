@@ -1,6 +1,6 @@
 package model;
 
-public class Area {
+public final class Area {
     private int place;
     private int municipality;
     private String description;

@@ -1,6 +1,6 @@
 package model;
 
-public class AreaImage {
+public final class AreaImage {
     private int id;
     private int area;
     private String image;

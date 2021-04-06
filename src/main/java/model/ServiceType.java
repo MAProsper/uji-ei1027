@@ -1,6 +1,6 @@
 package model;
 
-public class ServiceType {
+public final class ServiceType {
     private int id;
     private String type;
     private String description;

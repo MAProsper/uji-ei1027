@@ -1,6 +1,6 @@
 package model;
 
-public class AreaComment {
+public final class AreaComment {
     private int id;
     private int area;
     private String comment;

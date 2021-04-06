@@ -1,6 +1,6 @@
 package model;
 
-public class Municipality {
+public final class Municipality {
     private int place;
 
     public Municipality(){

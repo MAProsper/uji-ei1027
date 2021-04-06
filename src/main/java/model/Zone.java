@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-public class Zone {
+public final class Zone {
     private int place;
 
     public int getPlace() {

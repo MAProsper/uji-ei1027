@@ -1,6 +1,6 @@
 package model;
 
-public class ControlStaffIsAssignetTo {
+public final class ControlStaffIsAssignetTo {
     private int id;
     private int controlStaff;
 
