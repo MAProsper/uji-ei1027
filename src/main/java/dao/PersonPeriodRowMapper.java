@@ -11,6 +11,7 @@ public final class PersonPeriodRowMapper implements RowMapper<PersonPeriod> {
         PersonPeriod personPeriod = new PersonPeriod();
         personPeriod.setId(rs.getInt("id"));
         personPeriod.setPerson(rs.getInt("person"));
+        personPeriod.setPeriod(rs.getInt("period"));
         return personPeriod;
     }
 }

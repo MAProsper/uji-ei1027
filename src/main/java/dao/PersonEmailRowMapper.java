@@ -8,6 +8,10 @@ import java.sql.SQLException;
 
 public class PersonEmailRowMapper implements RowMapper<PersonEmail> {
     public PersonEmail mapRow(ResultSet rs, int rowNum) throws SQLException {
-        return null;
+        PersonEmail personEmail = new PersonEmail();
+        personEmail.setId(rs.getInt("id"));
+        personEmail.setPerson(rs.getInt("person"));
+        personEmail.setEmail(rs.getString("email"));
+        return personEmail;
     }
 }

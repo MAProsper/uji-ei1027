@@ -4,7 +4,7 @@ public class Person {
     private int id;
     private String identification;
     private String name;
-    private String Username;
+    private String username;
     private String password;
 
     @Override
@@ -13,7 +13,7 @@ public class Person {
                 "id=" + id +
                 ", identification='" + identification + '\'' +
                 ", name='" + name + '\'' +
-                ", Username='" + Username + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
@@ -43,11 +43,11 @@ public class Person {
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        Username = username;
+        this.username = username;
     }
 
     public String getPassword() {

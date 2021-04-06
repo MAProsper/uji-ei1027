@@ -3,14 +3,8 @@ package model;
 public class AreaImage {
     private int id;
     private int area;
+    private String image;
 
-    @Override
-    public String toString() {
-        return "AreaImage{" +
-                "id=" + id +
-                ", area=" + area +
-                '}';
-    }
 
     public int getId() {
         return id;
@@ -29,6 +23,22 @@ public class AreaImage {
     }
 
     public AreaImage(){
+    }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "AreaImage{" +
+                "id=" + id +
+                ", area=" + area +
+                ", image='" + image + '\'' +
+                '}';
     }
 }

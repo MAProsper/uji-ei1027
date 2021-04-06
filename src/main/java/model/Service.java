@@ -31,4 +31,13 @@ public class Service {
     public void setArea(int area) {
         this.area = area;
     }
+
+    @Override
+    public String toString() {
+        return "Service{" +
+                "id=" + id +
+                ", serviceType=" + serviceType +
+                ", area=" + area +
+                '}';
+    }
 }
