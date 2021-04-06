@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
-
 public final class Zone {
     private int place;
 

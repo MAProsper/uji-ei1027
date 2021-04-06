@@ -3,9 +3,18 @@ package model;
 public final class ControlStaffIsAssignetTo {
     private int id;
     private int controlStaff;
+    private int areaPeriod;
 
     public ControlStaffIsAssignetTo(){
 
+    }
+
+    public int getAreaPeriod() {
+        return areaPeriod;
+    }
+
+    public void setAreaPeriod(int areaPeriod) {
+        this.areaPeriod = areaPeriod;
     }
 
     public int getId() {
@@ -29,6 +38,7 @@ public final class ControlStaffIsAssignetTo {
         return "ControlStaffIsAssignetTo{" +
                 "id=" + id +
                 ", controlStaff=" + controlStaff +
+                ", areaPeriod=" + areaPeriod +
                 '}';
     }
 }

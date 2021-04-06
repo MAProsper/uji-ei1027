@@ -3,9 +3,18 @@ package model;
 public final class ServicePeriod {
     private int id;
     private int service;
+    private int period;
 
     public ServicePeriod(){
 
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
     @Override
@@ -13,6 +22,7 @@ public final class ServicePeriod {
         return "ServicePeriod{" +
                 "id=" + id +
                 ", service=" + service +
+                ", period=" + period +
                 '}';
     }
 

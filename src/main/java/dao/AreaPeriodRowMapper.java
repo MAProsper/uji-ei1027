@@ -12,6 +12,7 @@ public final class AreaPeriodRowMapper implements RowMapper<AreaPeriod> {
         AreaPeriod areaPeriod = new AreaPeriod();
         areaPeriod.setId(rs.getInt("id"));
         areaPeriod.setArea(rs.getInt("area"));
+        areaPeriod.setPeriod(rs.getInt("period"));
         return areaPeriod;
     }
 }

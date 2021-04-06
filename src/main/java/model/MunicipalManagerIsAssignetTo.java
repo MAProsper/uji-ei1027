@@ -3,9 +3,27 @@ package model;
 public final class MunicipalManagerIsAssignetTo {
     private int id;
     private int municipality;
+    private int municipalManager;
+    private int period;
 
     public MunicipalManagerIsAssignetTo(){
 
+    }
+
+    public int getMunicipalManager() {
+        return municipalManager;
+    }
+
+    public void setMunicipalManager(int municipalManager) {
+        this.municipalManager = municipalManager;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
     @Override
@@ -13,6 +31,8 @@ public final class MunicipalManagerIsAssignetTo {
         return "MunicipalManagerIsAssignetTo{" +
                 "id=" + id +
                 ", municipality=" + municipality +
+                ", municipalManager=" + municipalManager +
+                ", period=" + period +
                 '}';
     }
 

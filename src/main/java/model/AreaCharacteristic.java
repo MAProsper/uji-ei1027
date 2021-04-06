@@ -3,9 +3,9 @@ package model;
 public final class AreaCharacteristic {
     private int id;
     private int area;
+    private String characteristic;
 
     public AreaCharacteristic(){
-
     }
 
     @Override
@@ -13,7 +13,16 @@ public final class AreaCharacteristic {
         return "AreaCharacteristic{" +
                 "id=" + id +
                 ", area=" + area +
+                ", characteristic='" + characteristic + '\'' +
                 '}';
+    }
+
+    public String getCharacteristic() {
+        return characteristic;
+    }
+
+    public void setCharacteristic(String characteristic) {
+        this.characteristic = characteristic;
     }
 
     public int getId() {

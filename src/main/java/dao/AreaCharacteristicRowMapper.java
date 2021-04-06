@@ -12,6 +12,7 @@ public final class AreaCharacteristicRowMapper implements RowMapper<AreaCharacte
         AreaCharacteristic areaCharacteristics = new AreaCharacteristic();
         areaCharacteristics.setId(rs.getInt("id"));
         areaCharacteristics.setArea(rs.getInt("area"));
+        areaCharacteristics.setCharacteristic(rs.getString("characteristic"));
         return areaCharacteristics;
     }
 }
