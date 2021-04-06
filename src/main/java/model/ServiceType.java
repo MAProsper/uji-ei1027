@@ -12,6 +12,15 @@ public final class ServiceType {
         return id;
     }
 
+    @Override
+    public String toString() {
+        return "ServiceType{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
     public void setId(int id) {
         this.id = id;
     }

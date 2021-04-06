@@ -31,4 +31,13 @@ public final class ReservationZone {
 
     public ReservationZone() {
     }
+
+    @Override
+    public String toString() {
+        return "ReservationZone{" +
+                "id=" + id +
+                ", reservation=" + reservation +
+                ", zone=" + zone +
+                '}';
+    }
 }

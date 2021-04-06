@@ -8,6 +8,15 @@ public final class AreaComment {
     public AreaComment() {
     }
 
+    @Override
+    public String toString() {
+        return "AreaComment{" +
+                "id=" + id +
+                ", area=" + area +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

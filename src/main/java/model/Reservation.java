@@ -10,6 +10,17 @@ public final class Reservation {
     public Reservation() {
     }
 
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", citizen=" + citizen +
+                ", code=" + code +
+                ", occupancy=" + occupancy +
+                ", areaPeriod=" + areaPeriod +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

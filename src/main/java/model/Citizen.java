@@ -10,6 +10,13 @@ public final class Citizen {
         return person;
     }
 
+    @Override
+    public String toString() {
+        return "Citizen{" +
+                "person=" + person +
+                '}';
+    }
+
     public void setPerson(int person) {
         this.person = person;
     }

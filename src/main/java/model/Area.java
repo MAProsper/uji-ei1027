@@ -49,4 +49,15 @@ public final class Area {
     public void setWidth(double width) {
         this.width = width;
     }
+
+    @Override
+    public String toString() {
+        return "Area{" +
+                "place=" + place +
+                ", municipality=" + municipality +
+                ", description='" + description + '\'' +
+                ", lenght=" + lenght +
+                ", width=" + width +
+                '}';
+    }
 }

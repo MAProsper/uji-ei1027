@@ -6,6 +6,13 @@ public final class MunicipalManager {
     public MunicipalManager() {
     }
 
+    @Override
+    public String toString() {
+        return "MunicipalManager{" +
+                "person=" + person +
+                '}';
+    }
+
     public int getPerson() {
         return person;
     }
