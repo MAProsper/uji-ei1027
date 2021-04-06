@@ -31,4 +31,14 @@ public class PersonPhone {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+
+    @Override
+    public String toString() {
+        return "PersonPhone{" +
+                "id=" + id +
+                ", person=" + person +
+                ", phone='" + phone + '\'' +
+                '}';
+    }
 }

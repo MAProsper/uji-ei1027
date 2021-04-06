@@ -1,16 +1,16 @@
 package model;
 
-public class AreaCharacteristics {
+public class AreaCharacteristic {
     private int id;
     private int area;
 
-    public AreaCharacteristics(){
+    public AreaCharacteristic(){
 
     }
 
     @Override
     public String toString() {
-        return "AreaCharacteristics{" +
+        return "AreaCharacteristic{" +
                 "id=" + id +
                 ", area=" + area +
                 '}';

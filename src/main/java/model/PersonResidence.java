@@ -3,9 +3,10 @@ package model;
 public class PersonResidence {
     private int id;
     private int person;
+    private int address;
 
     public PersonResidence(){
-
+        super();
     }
 
     public int getId() {
@@ -24,11 +25,20 @@ public class PersonResidence {
         this.person = person;
     }
 
+    public int getAddress() {
+        return address;
+    }
+
+    public void setAddress(int address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "PersonResidence{" +
                 "id=" + id +
                 ", person=" + person +
+                ", address=" + address +
                 '}';
     }
 }
