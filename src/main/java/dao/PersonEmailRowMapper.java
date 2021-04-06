@@ -1,7 +1,6 @@
 package dao;
 
 import model.PersonEmail;
-import model.PersonPeriod;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -3,13 +3,9 @@ package model;
 public class PersonPeriod {
     private int id;
     private int person;
+    private int period;
 
-    @Override
-    public String toString() {
-        return "PersonPeriod{" +
-                "id=" + id +
-                ", person=" + person +
-                '}';
+    public PersonPeriod(){
     }
 
     public int getId() {
@@ -28,7 +24,20 @@ public class PersonPeriod {
         this.person = person;
     }
 
-    public PersonPeriod(){
+    public int getPeriod() {
+        return period;
+    }
 
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonPeriod{" +
+                "id=" + id +
+                ", person=" + person +
+                ", period=" + period +
+                '}';
     }
 }
