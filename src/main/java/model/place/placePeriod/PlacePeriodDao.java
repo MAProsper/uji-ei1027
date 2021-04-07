@@ -40,4 +40,12 @@ public class PlacePeriodDao {
         }
     }
 
+    public PlacePeriod get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod WHERE id =?", new PlacePeriodRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

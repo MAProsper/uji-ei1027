@@ -38,4 +38,12 @@ public class MunicipalManagerDao {
         }
     }
 
+    public MunicipalManager get(int person) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM MunicipalManager WHERE id =?", new MunicipalManagerRowMapper(), person);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

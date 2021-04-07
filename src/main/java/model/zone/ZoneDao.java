@@ -37,4 +37,12 @@ public class ZoneDao {
         }
     }
 
+    public Zone get(int place) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Zone WHERE id =?", new ZoneRowMapper(), place);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }
