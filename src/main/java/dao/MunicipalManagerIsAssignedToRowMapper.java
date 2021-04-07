@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MunicipalManagerIsAssignedToRowMapper implements RowMapper<MunicipalManagerIsAssignetTo> {
+public final class MunicipalManagerIsAssignedToRowMapper implements RowMapper<MunicipalManagerIsAssignetTo> {
     @Override
     public MunicipalManagerIsAssignetTo mapRow(ResultSet resultSet, int i) throws SQLException {
         MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo = new MunicipalManagerIsAssignetTo();
