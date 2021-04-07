@@ -39,8 +39,7 @@ public class PersonResidenceDao {
     public PersonResidence get(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM PersonResidence WHERE id =?", new PersonResidenceRowMapper(), id);
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
