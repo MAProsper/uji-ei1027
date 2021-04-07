@@ -37,4 +37,12 @@ public class PlaceDao {
         }
     }
 
+    public Place get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Place WHERE id =?", new PlaceRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

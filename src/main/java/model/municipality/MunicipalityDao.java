@@ -40,4 +40,14 @@ public class MunicipalityDao {
             return new ArrayList<>();
         }
     }
+
+    public Municipality get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Municipality WHERE id =?", new MunicipalityRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 }

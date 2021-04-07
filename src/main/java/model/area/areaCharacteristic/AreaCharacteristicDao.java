@@ -36,4 +36,12 @@ public class AreaCharacteristicDao {
         }
     }
 
+    public AreaCharacteristic get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM AreaCharacteristic WHERE id =?", new AreaCharacteristicRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }
