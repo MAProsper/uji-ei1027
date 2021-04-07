@@ -7,7 +7,7 @@ public class Period {
     private LocalDateTime start;
     private LocalDateTime finish;
 
-    public Period(){
+    public Period() {
 
     }
 

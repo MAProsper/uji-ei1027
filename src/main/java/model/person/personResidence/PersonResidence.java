@@ -5,7 +5,7 @@ public class PersonResidence {
     private int person;
     private int address;
 
-    public PersonResidence(){
+    public PersonResidence() {
         super();
     }
 

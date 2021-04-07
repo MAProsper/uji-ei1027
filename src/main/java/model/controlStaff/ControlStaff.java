@@ -3,7 +3,7 @@ package model.controlStaff;
 public class ControlStaff {
     private int person;
 
-    public ControlStaff(){
+    public ControlStaff() {
 
     }
 

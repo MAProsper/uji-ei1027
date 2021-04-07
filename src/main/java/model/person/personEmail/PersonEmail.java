@@ -38,7 +38,7 @@ public class PersonEmail {
         this.email = email;
     }
 
-    public PersonEmail(){
+    public PersonEmail() {
 
     }
 }

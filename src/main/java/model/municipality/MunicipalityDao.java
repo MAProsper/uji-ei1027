@@ -36,8 +36,7 @@ public class MunicipalityDao {
     public List<Municipality> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM Municipality", new MunicipalityRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

@@ -1,7 +1,5 @@
 package model.reservation.reservationPeriod;
 
-import model.reservation.reservationZone.ReservationZone;
-import model.reservation.reservationZone.ReservationZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,8 +36,7 @@ public class ReservationPeriodDao {
     public List<ReservationPeriod> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM ReservationPeriod", new ReservationPeriodRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

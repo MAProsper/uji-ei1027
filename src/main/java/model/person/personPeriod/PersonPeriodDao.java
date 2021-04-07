@@ -36,8 +36,7 @@ public class PersonPeriodDao {
     public List<PersonPeriod> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM PersonPeriod", new PersonPeriodRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

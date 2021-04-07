@@ -5,7 +5,7 @@ public class ServicePeriod {
     private int service;
     private int period;
 
-    public ServicePeriod(){
+    public ServicePeriod() {
 
     }
 

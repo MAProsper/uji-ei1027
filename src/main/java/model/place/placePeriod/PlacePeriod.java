@@ -5,7 +5,7 @@ public class PlacePeriod {
     private int place;
     private int period;
 
-    public PlacePeriod(){
+    public PlacePeriod() {
     }
 
     @Override

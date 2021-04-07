@@ -38,7 +38,7 @@ public class ReservationPeriod {
         this.reservation = reservation;
     }
 
-    public ReservationPeriod(){
+    public ReservationPeriod() {
 
     }
 }

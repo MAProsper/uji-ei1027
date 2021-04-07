@@ -1,7 +1,5 @@
 package model.area;
 
-import model.reservation.reservationPeriod.ReservationPeriod;
-import model.reservation.reservationPeriod.ReservationPeriodRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

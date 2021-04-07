@@ -6,7 +6,7 @@ public class MunicipalManagerIsAssignetTo {
     private int municipalManager;
     private int period;
 
-    public MunicipalManagerIsAssignetTo(){
+    public MunicipalManagerIsAssignetTo() {
 
     }
 

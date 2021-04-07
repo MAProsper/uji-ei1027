@@ -3,7 +3,7 @@ package model.municipality;
 public class Municipality {
     private int place;
 
-    public Municipality(){
+    public Municipality() {
 
     }
 

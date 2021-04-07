@@ -1,7 +1,5 @@
 package model.person.personEmail;
 
-import model.area.Area;
-import model.area.AreaRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

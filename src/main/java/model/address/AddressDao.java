@@ -36,8 +36,7 @@ public class AddressDao {
     public List<Address> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM Address", new AddressRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }
@@ -45,8 +44,7 @@ public class AddressDao {
     public Address get(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM Address WHERE id =?", new AddressRowMapper(), id);
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }

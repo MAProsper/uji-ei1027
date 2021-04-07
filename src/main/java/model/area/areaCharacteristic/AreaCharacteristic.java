@@ -5,7 +5,7 @@ public class AreaCharacteristic {
     private int area;
     private String characteristic;
 
-    public AreaCharacteristic(){
+    public AreaCharacteristic() {
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Zone {
         this.place = place;
     }
 
-    public Zone(){
+    public Zone() {
     }
 
 

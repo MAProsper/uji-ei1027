@@ -8,7 +8,7 @@ public class Address {
     private int number;
     private String other;
 
-    public Address(){
+    public Address() {
 
     }
 

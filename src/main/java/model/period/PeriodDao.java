@@ -1,7 +1,5 @@
 package model.period;
 
-import model.service.Service;
-import model.service.ServiceRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -5,7 +5,7 @@ public class ControlStaffIsAssignedTo {
     private int controlStaff;
     private int areaPeriod;
 
-    public ControlStaffIsAssignedTo(){
+    public ControlStaffIsAssignedTo() {
 
     }
 

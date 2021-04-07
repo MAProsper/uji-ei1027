@@ -5,7 +5,7 @@ public class PersonPeriod {
     private int person;
     private int period;
 
-    public PersonPeriod(){
+    public PersonPeriod() {
     }
 
     public int getId() {

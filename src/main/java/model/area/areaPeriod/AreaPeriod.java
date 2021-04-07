@@ -5,7 +5,7 @@ public class AreaPeriod {
     private int area;
     private int period;
 
-    public AreaPeriod(){
+    public AreaPeriod() {
     }
 
     public int getId() {

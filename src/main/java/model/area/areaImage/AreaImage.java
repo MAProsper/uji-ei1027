@@ -22,7 +22,7 @@ public class AreaImage {
         this.area = area;
     }
 
-    public AreaImage(){
+    public AreaImage() {
     }
 
     public String getImage() {

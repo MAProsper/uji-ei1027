@@ -1,7 +1,5 @@
 package model.place.placePeriod;
 
-import model.address.Address;
-import model.address.AddressRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,23 +19,22 @@ public class PlacePeriodDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (PlacePeriod object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod() );
+    public void add(PlacePeriod object) {
+        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod());
     }
 
-    public void delete (PlacePeriod object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId() );
+    public void delete(PlacePeriod object) {
+        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId());
     }
 
-    public void update (PlacePeriod object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, place =?, period =? " , object.getId(), object.getPlace(), object.getPeriod());
+    public void update(PlacePeriod object) {
+        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, place =?, period =? ", object.getId(), object.getPlace(), object.getPeriod());
     }
 
-    public List<PlacePeriod> get (PlacePeriod object){
+    public List<PlacePeriod> get(PlacePeriod object) {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new PlacePeriodRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM " + this.NOMBRE_TABLA, new PlacePeriodRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }
@@ -45,8 +42,7 @@ public class PlacePeriodDao {
     public PlacePeriod get(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod WHERE id =?", new PlacePeriodRowMapper(), id);
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }

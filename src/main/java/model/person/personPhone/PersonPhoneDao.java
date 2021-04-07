@@ -1,7 +1,5 @@
 package model.person.personPhone;
 
-import model.citizen.Citizen;
-import model.citizen.CitizenRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,8 +36,7 @@ public class PersonPhoneDao {
     public List<PersonPhone> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM PersonPhone", new PersonPhoneRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }
@@ -47,8 +44,7 @@ public class PersonPhoneDao {
     public PersonPhone get(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM PersonPhone WHERE id =?", new PersonPhoneRowMapper(), id);
-        }
-        catch(EmptyResultDataAccessException e) {
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }

@@ -58,7 +58,7 @@ public class Person {
         this.password = password;
     }
 
-    public Person(){
+    public Person() {
 
     }
 }

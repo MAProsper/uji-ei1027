@@ -5,7 +5,7 @@ public class Place {
     private String name;
     private String location;
 
-    public Place(){
+    public Place() {
 
     }
 
