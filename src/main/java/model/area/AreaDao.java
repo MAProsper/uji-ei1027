@@ -11,30 +11,28 @@ import java.util.List;
 public class AreaDao {
 
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "Area";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (Area object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?, ?, ?)", object.getPlace(), object.getMunicipality(), object.getDescription(), object.getLenght(), object.getWidth());
+    public void add(Area area) {
+        jdbcTemplate.update("INSERT INTO Area VALUES(?, ?, ?, ?, ?)", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
     }
 
-    public void delete (Area object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE place = ?", object.getPlace() );
+    public void delete(Area area) {
+        jdbcTemplate.update("DELETE FROM Area  WHERE place = ?", area.getPlace());
     }
 
-    public void update (Area object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET place =?, municipality =?, description =?, length =?, width =?", object.getPlace(), object.getMunicipality(), object.getDescription(), object.getLenght(), object.getWidth());
+    public void update(Area area) {
+        jdbcTemplate.update("UPDATE Area SET place =?, municipality =?, description =?, length =?, width =?", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
     }
 
-    public List<Area> get (Area object){
+    public List<Area> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new AreaRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM Area", new AreaRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

@@ -10,30 +10,28 @@ import java.util.List;
 
 public class AreaCharacteristicDao {
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "AreaCharacteristic";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (AreaCharacteristic object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getArea(), object.getCharacteristic() );
+    public void add(AreaCharacteristic areaCharacteristic) {
+        jdbcTemplate.update("INSERT INTO AreaCharacteristic VALUES(?, ?, ?)", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
     }
 
-    public void delete (AreaCharacteristic object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId() );
+    public void delete(AreaCharacteristic areaCharacteristic) {
+        jdbcTemplate.update("DELETE FROM AreaCharacteristic  WHERE id = ?", areaCharacteristic.getId());
     }
 
-    public void update (AreaCharacteristic object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, are =?, characteristic =?", object.getId(), object.getArea(), object.getCharacteristic() );
+    public void update(AreaCharacteristic areaCharacteristic) {
+        jdbcTemplate.update("UPDATE AreaCharacteristic SET id =?, are =?, characteristic =?", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
     }
 
-    public List<AreaCharacteristic> get (AreaCharacteristic object){
+    public List<AreaCharacteristic> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new AreaCharacteristicRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM AreaCharacteristic", new AreaCharacteristicRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

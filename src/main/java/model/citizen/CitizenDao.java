@@ -11,30 +11,28 @@ import java.util.List;
 public class CitizenDao {
 
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "Citizen";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (Citizen object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?)", object.getPerson());
+    public void add(Citizen citizen) {
+        jdbcTemplate.update("INSERT INTO Citizen VALUES(?)", citizen.getPerson());
     }
 
-    public void delete (Citizen object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE person = ?", object.getPerson() );
+    public void delete(Citizen citizen) {
+        jdbcTemplate.update("DELETE FROM Citizen  WHERE person = ?", citizen.getPerson());
     }
 
-    public void update (Citizen object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET person =?", object.getPerson());
+    public void update(Citizen citizen) {
+        jdbcTemplate.update("UPDATE Citizen SET person =?", citizen.getPerson());
     }
 
-    public List<Citizen> get (Citizen object){
+    public List<Citizen> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new CitizenRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM Citizen", new CitizenRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

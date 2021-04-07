@@ -12,30 +12,28 @@ import java.util.List;
 @Repository
 public class MunicipalManagerDao {
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "MunicipalManager";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (MunicipalManager object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?)", object.getPerson() );
+    public void add(MunicipalManager municipalManager) {
+        jdbcTemplate.update("INSERT INTO MunicipalManager VALUES(?)", municipalManager.getPerson());
     }
 
-    public void delete (MunicipalManager object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getPerson() );
+    public void delete(MunicipalManager municipalManager) {
+        jdbcTemplate.update("DELETE FROM MunicipalManager  WHERE id = ?", municipalManager.getPerson());
     }
 
-    public void update (MunicipalManager object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET person =?", object.getPerson());
+    public void update(MunicipalManager municipalManager) {
+        jdbcTemplate.update("UPDATE MunicipalManager SET person =?", municipalManager.getPerson());
     }
 
-    public List<MunicipalManager> get (MunicipalManager object){
+    public List<MunicipalManager> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new MunicipalManagerRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM MunicipalManager", new MunicipalManagerRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

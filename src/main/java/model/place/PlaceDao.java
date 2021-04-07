@@ -11,30 +11,28 @@ import java.util.List;
 public class PlaceDao {
 
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "Place";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (Place object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getName(), object.getLocation() );
+    public void add(Place place) {
+        jdbcTemplate.update("INSERT INTO Place VALUES(?, ?, ?)", place.getId(), place.getName(), place.getLocation());
     }
 
-    public void delete (Place object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId() );
+    public void delete(Place place) {
+        jdbcTemplate.update("DELETE FROM Place  WHERE id = ?", place.getId());
     }
 
-    public void update (Place object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET place =?, name =?, location =?", object.getId(), object.getName(), object.getLocation());
+    public void update(Place place) {
+        jdbcTemplate.update("UPDATE Place SET place =?, name =?, location =?", place.getId(), place.getName(), place.getLocation());
     }
 
-    public List<Place> get (Place object){
+    public List<Place> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new PlaceRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM Place", new PlaceRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }

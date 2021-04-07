@@ -11,30 +11,28 @@ import java.util.List;
 public class ZoneDao {
 
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "Zone";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add (Zone object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?)", object.getPlace(), object.getCapacity() );
+    public void add(Zone zone) {
+        jdbcTemplate.update("INSERT INTO Zone VALUES(?, ?)", zone.getPlace(), zone.getCapacity());
     }
 
-    public void delete (Zone object){
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE place = ?", object.getPlace() );
+    public void delete(Zone zone) {
+        jdbcTemplate.update("DELETE FROM Zone  WHERE place = ?", zone.getPlace());
     }
 
-    public void update (Zone object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET place =?, capacity =?", object.getPlace(), object.getCapacity());
+    public void update(Zone zone) {
+        jdbcTemplate.update("UPDATE Zone SET place =?, capacity =?", zone.getPlace(), zone.getCapacity());
     }
 
-    public List<Zone> get (Zone object){
+    public List<Zone> get() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " +  this.NOMBRE_TABLA, new ZoneRowMapper());
-        }
-        catch(EmptyResultDataAccessException e) {
+            return jdbcTemplate.query("SELECT * FROM Zone", new ZoneRowMapper());
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
     }
