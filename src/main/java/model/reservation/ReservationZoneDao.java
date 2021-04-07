@@ -1,4 +1,4 @@
-package dao;
+package model.reservation;
 
 import model.reservation.ReservationZone;
 import model.reservation.ReservationZoneRowMapper;
