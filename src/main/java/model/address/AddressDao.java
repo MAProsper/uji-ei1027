@@ -41,4 +41,13 @@ public class AddressDao {
             return new ArrayList<>();
         }
     }
+
+    public Address get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Address WHERE id =?", new AddressRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }
