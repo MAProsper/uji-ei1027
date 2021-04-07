@@ -1,5 +1,7 @@
-package model.service;
+package model.service.servicePeriod;
 
+import model.area.Area;
+import model.area.AreaRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,4 +43,11 @@ public class ServicePeriodDao {
         }
     }
 
+    public ServicePeriod get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ServicePeriod WHERE id =?", new ServicePeriodRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

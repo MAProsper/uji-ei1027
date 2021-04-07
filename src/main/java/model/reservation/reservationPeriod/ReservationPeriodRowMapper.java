@@ -1,4 +1,4 @@
-package model.reservation;
+package model.reservation.reservationPeriod;
 
 import org.springframework.jdbc.core.RowMapper;
 

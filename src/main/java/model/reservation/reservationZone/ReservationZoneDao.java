@@ -1,7 +1,7 @@
-package model.reservation;
+package model.reservation.reservationZone;
 
-import model.reservation.ReservationZone;
-import model.reservation.ReservationZoneRowMapper;
+import model.reservation.Reservation;
+import model.reservation.ReservationRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,5 +41,12 @@ public class ReservationZoneDao {
             return new ArrayList<>();
         }
     }
-    
+
+    public ReservationZone get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ReservationZone WHERE id =?", new ReservationZoneRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

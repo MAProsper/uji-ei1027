@@ -1,4 +1,4 @@
-package model.reservation;
+package model.reservation.reservationZone;
 
 import org.springframework.jdbc.core.RowMapper;
 
