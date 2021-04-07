@@ -1,4 +1,4 @@
-package model.service;
+package model.service.servicePeriod;
 
 import org.springframework.jdbc.core.RowMapper;
 

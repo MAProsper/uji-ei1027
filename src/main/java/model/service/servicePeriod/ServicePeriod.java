@@ -1,4 +1,4 @@
-package model.service;
+package model.service.servicePeriod;
 
 public class ServicePeriod {
     private int id;

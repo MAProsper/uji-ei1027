@@ -1,5 +1,7 @@
 package model.place.placePeriod;
 
+import model.address.Address;
+import model.address.AddressRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -40,4 +42,12 @@ public class PlacePeriodDao {
         }
     }
 
+    public PlacePeriod get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod WHERE id =?", new PlacePeriodRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

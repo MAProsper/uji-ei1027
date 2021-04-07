@@ -1,5 +1,7 @@
 package model.area;
 
+import model.reservation.reservationPeriod.ReservationPeriod;
+import model.reservation.reservationPeriod.ReservationPeriodRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,4 +39,11 @@ public class AreaDao {
         }
     }
 
+    public Area get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Area WHERE id =?", new AreaRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

@@ -2,6 +2,8 @@ package model.service;
 
 import model.municipality.Municipality;
 import model.municipality.MunicipalityRowMapper;
+import model.person.personPhone.PersonPhone;
+import model.person.personPhone.PersonPhoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +43,15 @@ public class ServiceDao {
         }
         catch(EmptyResultDataAccessException e) {
             return new ArrayList<>();
+        }
+    }
+
+    public Service get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Service WHERE id =?", new ServiceRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
         }
     }
 }

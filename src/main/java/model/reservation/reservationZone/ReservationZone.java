@@ -1,4 +1,4 @@
-package model.reservation;
+package model.reservation.reservationZone;
 
 public class ReservationZone {
     private int id;

@@ -1,5 +1,7 @@
 package model.citizen;
 
+import model.place.placePeriod.PlacePeriod;
+import model.place.placePeriod.PlacePeriodRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,4 +39,12 @@ public class CitizenDao {
         }
     }
 
+    public Citizen get(int id) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM Citizen WHERE person =?", new CitizenRowMapper(), id);
+        }
+        catch(EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 }

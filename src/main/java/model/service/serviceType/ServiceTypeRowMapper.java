@@ -1,4 +1,4 @@
-package model.service;
+package model.service.serviceType;
 
 import org.springframework.jdbc.core.RowMapper;
 
