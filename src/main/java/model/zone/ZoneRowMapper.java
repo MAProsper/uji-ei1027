@@ -10,7 +10,8 @@ public class ZoneRowMapper implements RowMapper<Zone> {
     @Override
     public Zone mapRow(ResultSet rs, int i) throws SQLException {
         Zone zone = new Zone();
-        zone.setPlace(rs.getInt("id"));
+        zone.setPlace(rs.getInt("place"));
+        zone.setCapacity(rs.getInt("capacity"));
         return zone;
     }
 }
