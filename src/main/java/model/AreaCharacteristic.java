@@ -1,6 +1,6 @@
 package model;
 
-public final class AreaCharacteristic {
+public class AreaCharacteristic {
     private int id;
     private int area;
     private String characteristic;

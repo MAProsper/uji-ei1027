@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class AreaCommentRowMapper implements RowMapper<AreaComment> {
+public class AreaCommentRowMapper implements RowMapper<AreaComment> {
 
     public AreaComment mapRow(ResultSet rs, int rowNum) throws SQLException {
         AreaComment areaComment = new AreaComment();

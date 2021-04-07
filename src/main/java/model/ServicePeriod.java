@@ -1,6 +1,6 @@
 package model;
 
-public final class ServicePeriod {
+public class ServicePeriod {
     private int id;
     private int service;
     private int period;

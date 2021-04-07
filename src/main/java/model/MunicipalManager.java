@@ -1,6 +1,6 @@
 package model;
 
-public final class MunicipalManager {
+public class MunicipalManager {
     private int person;
 
     public MunicipalManager() {

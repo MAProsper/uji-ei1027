@@ -1,6 +1,6 @@
 package model;
 
-public final class Place {
+public class Place {
     private int id;
     private String name;
     private String location;

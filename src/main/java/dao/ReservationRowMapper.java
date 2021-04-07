@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class ReservationRowMapper implements RowMapper<Reservation> {
+public class ReservationRowMapper implements RowMapper<Reservation> {
 
     public Reservation mapRow(ResultSet rs, int rowNum) throws SQLException {
         Reservation reservation = new Reservation();

@@ -1,6 +1,6 @@
 package model;
 
-public final class Zone {
+public class Zone {
     private int place;
 
     public int getPlace() {

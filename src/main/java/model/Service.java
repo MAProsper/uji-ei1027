@@ -1,6 +1,6 @@
 package model;
 
-public final class Service {
+public class Service {
     private int id;
     private int serviceType;
     private int area;

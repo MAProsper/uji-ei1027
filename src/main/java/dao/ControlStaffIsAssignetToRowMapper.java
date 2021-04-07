@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class ControlStaffIsAssignetToRowMapper implements RowMapper<ControlStaffIsAssignetTo> {
+public class ControlStaffIsAssignetToRowMapper implements RowMapper<ControlStaffIsAssignetTo> {
     @Override
     public ControlStaffIsAssignetTo mapRow(ResultSet resultSet, int i) throws SQLException {
         ControlStaffIsAssignetTo controlStaffIsAssignetTo = new ControlStaffIsAssignetTo();

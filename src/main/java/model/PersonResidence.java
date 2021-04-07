@@ -1,6 +1,6 @@
 package model;
 
-public final class PersonResidence {
+public class PersonResidence {
     private int id;
     private int person;
     private int address;

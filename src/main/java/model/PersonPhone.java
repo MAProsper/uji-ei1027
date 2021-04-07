@@ -1,6 +1,6 @@
 package model;
 
-public final class PersonPhone {
+public class PersonPhone {
     private int id;
     private int person;
     private String phone;

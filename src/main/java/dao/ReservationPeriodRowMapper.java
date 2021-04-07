@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class ReservationPeriodRowMapper implements RowMapper<ReservationPeriod> {
+public class ReservationPeriodRowMapper implements RowMapper<ReservationPeriod> {
     @Override
     public ReservationPeriod mapRow(ResultSet resultSet, int i) throws SQLException {
         ReservationPeriod reservationPeriod = new ReservationPeriod();

@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class PersonPhoneRowMapper implements RowMapper<PersonPhone> {
+public class PersonPhoneRowMapper implements RowMapper<PersonPhone> {
 
     public PersonPhone mapRow(ResultSet rs, int rowNum) throws SQLException {
         PersonPhone personPhone = new PersonPhone();

@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class PlaceRowMapper implements RowMapper<Place> {
+public class PlaceRowMapper implements RowMapper<Place> {
 
     public Place mapRow(ResultSet rs, int rowNum) throws SQLException {
         Place place = new Place();

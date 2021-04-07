@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class AddressRowMapper implements RowMapper<Address> {
+public class AddressRowMapper implements RowMapper<Address> {
     @Override
     public Address mapRow(ResultSet rs, int i) throws SQLException {
         Address address = new Address();

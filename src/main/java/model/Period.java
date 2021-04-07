@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDateTime;
 
-public final class Period {
+public class Period {
     private int id;
     private LocalDateTime start;
     private LocalDateTime finish;

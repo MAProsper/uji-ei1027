@@ -1,6 +1,6 @@
 package model;
 
-public final class ControlStaff {
+public class ControlStaff {
     private int person;
 
     public ControlStaff(){

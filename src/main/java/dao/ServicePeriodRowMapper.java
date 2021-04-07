@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class ServicePeriodRowMapper implements RowMapper<ServicePeriod> {
+public class ServicePeriodRowMapper implements RowMapper<ServicePeriod> {
     @Override
     public ServicePeriod mapRow(ResultSet resultSet, int i) throws SQLException {
         ServicePeriod servicePeriod = new ServicePeriod();

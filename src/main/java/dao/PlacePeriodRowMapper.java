@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class PlacePeriodRowMapper implements RowMapper<PlacePeriod> {
+public class PlacePeriodRowMapper implements RowMapper<PlacePeriod> {
     @Override
     public PlacePeriod mapRow(ResultSet rs, int i) throws SQLException {
         PlacePeriod placePeriod = new PlacePeriod();

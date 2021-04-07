@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class PersonResidenceRowMapper implements RowMapper<PersonResidence> {
+public class PersonResidenceRowMapper implements RowMapper<PersonResidence> {
 
     public PersonResidence mapRow(ResultSet rs, int rowNum) throws SQLException {
         PersonResidence personResidence = new PersonResidence();

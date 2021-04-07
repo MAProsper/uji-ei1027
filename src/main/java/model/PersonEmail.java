@@ -1,6 +1,6 @@
 package model;
 
-public final class PersonEmail {
+public class PersonEmail {
     private int id;
     private int person;
     private String email;
