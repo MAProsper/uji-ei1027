@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ZonaRowMapper implements RowMapper<Zone> {
+public class ZoneRowMapper implements RowMapper<Zone> {
 
     @Override
     public Zone mapRow(ResultSet rs, int i) throws SQLException {
