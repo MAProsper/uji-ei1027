@@ -28,7 +28,7 @@ public class PlacePeriodDao {
     }
 
     public void update (PlacePeriod object){
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?", object.getId());
+        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, place =?, period =? " , object.getId(), object.getPlace(), object.getPeriod());
     }
 
     public List<PlacePeriod> get (PlacePeriod object){

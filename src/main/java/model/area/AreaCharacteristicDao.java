@@ -18,7 +18,7 @@ public class AreaCharacteristicDao {
     }
 
     public void add (AreaCharacteristic object){
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?, ?, ?)", object.getId(), object.getArea(), object.getCharacteristic() );
+        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getArea(), object.getCharacteristic() );
     }
 
     public void delete (AreaCharacteristic object){
