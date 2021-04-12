@@ -1,0 +1,241 @@
+-- Drop all the tables --
+DROP TABLE IF EXISTS ControlStaffIsAssignedTo;
+DROP TABLE IF EXISTS MunicipalManagerIsAsignedTo;
+DROP TABLE IF EXISTS ReservationZone;
+DROP TABLE IF EXISTS ReservationPeriod;
+DROP TABLE IF EXISTS Reservation;
+DROP TABLE IF EXISTS ServicePeriod;
+DROP TABLE IF EXISTS Service;
+DROP TABLE IF EXISTS ServiceType;
+DROP TABLE IF EXISTS Citizen;
+DROP TABLE IF EXISTS ControlStaff;
+DROP TABLE IF EXISTS MunicipalManager;
+DROP TABLE IF EXISTS PersonPeriod;
+DROP TABLE IF EXISTS PersonPhone;
+DROP TABLE IF EXISTS PersonEmail;
+DROP TABLE IF EXISTS PersonResidence;
+DROP TABLE IF EXISTS Person;
+DROP TABLE IF EXISTS Zone;
+DROP TABLE IF EXISTS AreaPeriod;
+DROP TABLE IF EXISTS AreaImage;
+DROP TABLE IF EXISTS AreaCharacteristic;
+DROP TABLE IF EXISTS AreaComment;
+DROP TABLE IF EXISTS Area;
+DROP TABLE IF EXISTS Municipality;
+DROP TABLE IF EXISTS PlacePeriod;
+DROP TABLE IF EXISTS Place;
+DROP TABLE IF EXISTS Address;
+DROP TABLE IF EXISTS Period;
+-- End of dropping all the tables --
+
+-- Start creating the tables --
+CREATE TABLE Period (
+  id SERIAL PRIMARY KEY,
+  start TIMESTAMP NOT NULL,
+  finish TIMESTAMP NULL
+);
+
+
+CREATE TABLE Address  (
+  id SERIAL PRIMARY KEY,
+  country TEXT NOT NULL,
+  city TEXT NOT NULL,
+  street INTEGER NOT NULL,
+  number INTEGER NOT NULL,
+  other TEXT NULL
+);
+
+CREATE TABLE Place(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  location TEXT NOT NULL
+);
+
+CREATE TABLE PlacePeriod(
+  id SERIAL PRIMARY KEY,
+  place INTEGER  NOT NULL,
+  CONSTRAINT PlacePeriod_place FOREIGN KEY (place) REFERENCES Place(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  period INTEGER  NOT NULL,
+  CONSTRAINT PlacePeriod_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE (place, period)
+);
+
+CREATE TABLE Municipality(
+  place SERIAL PRIMARY KEY,
+  CONSTRAINT Municipality_place FOREIGN KEY (place) REFERENCES Place(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Area(
+  place SERIAL PRIMARY KEY,
+  CONSTRAINT Area_place FOREIGN KEY (place) REFERENCES Place(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  municipality INTEGER NOT NULL,
+  CONSTRAINT Area_municipality FOREIGN KEY (municipality) REFERENCES Municipality(place) ON DELETE CASCADE ON UPDATE CASCADE,
+  description TEXT NOT NULL,
+  length REAL NOT NULL,
+  width REAL NOT NULL
+);
+
+CREATE TABLE AreaComment(
+  id SERIAL PRIMARY KEY,
+  area INTEGER  NOT NULL,
+  CONSTRAINT AreaComment_area FOREIGN KEY (area) REFERENCES Area(place) ON DELETE CASCADE ON UPDATE CASCADE,
+  comment TEXT NOT NULL,
+  UNIQUE(area, comment)
+);
+
+CREATE TABLE AreaCharacteristic(
+  id SERIAL PRIMARY KEY,
+  area INTEGER NOT NULL,
+  CONSTRAINT AreaCharacteristic_area FOREIGN KEY (area) REFERENCES Area(place) ON DELETE CASCADE ON UPDATE CASCADE,
+  characteristic TEXT NOT NULL,
+  UNIQUE(area, characteristic)
+);
+
+CREATE TABLE AreaImage(
+  id SERIAL PRIMARY KEY,
+  area INTEGER NOT NULL,
+  CONSTRAINT AreaImage_area FOREIGN KEY (area) REFERENCES Area(place) ON DELETE CASCADE ON UPDATE CASCADE,
+  image TEXT NOT NULL,
+  UNIQUE(area, image)
+);
+
+CREATE TABLE AreaPeriod(
+  id SERIAL PRIMARY KEY,
+  area INTEGER NOT NULL,
+  CONSTRAINT AreaPeriod_area FOREIGN KEY (area) REFERENCES Area(place) ON DELETE CASCADE ON UPDATE CASCADE,
+  period INTEGER  NOT NULL,
+  CONSTRAINT AreaPeriod_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE(area, period)
+);
+
+CREATE TABLE Zone(
+  place INTEGER PRIMARY KEY,
+  CONSTRAINT Zone_place FOREIGN KEY (place) REFERENCES Place(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  capacity INTEGER NOT NULL
+);
+
+CREATE TABLE Person(
+  id SERIAL PRIMARY KEY,
+  identification TEXT NOT NULL UNIQUE,
+  name TEXT NOT NULL UNIQUE,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE PersonResidence(
+  id SERIAL PRIMARY KEY,
+  person INTEGER NOT NULL,
+  CONSTRAINT PersonResidence_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  address INTEGER NOT NULL,
+  CONSTRAINT PersonResidence_address FOREIGN KEY (address) REFERENCES Address(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE(person, address)
+);
+
+CREATE TABLE PersonEmail(
+  id SERIAL PRIMARY KEY,
+  person INTEGER NOT NULL,
+  CONSTRAINT PersonEmail_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  email TEXT NOT NULL,
+  UNIQUE(person, email)
+);
+
+CREATE TABLE PersonPhone(
+  id SERIAL PRIMARY KEY,
+  person INTEGER NOT NULL,
+  CONSTRAINT PersonPhone_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  phone TEXT NOT NULL,
+  UNIQUE(person, phone)
+);
+
+CREATE TABLE PersonPeriod(
+  id SERIAL PRIMARY KEY,
+  person INTEGER NOT NULL,
+  CONSTRAINT PersonPeriod_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  period INTEGER  NOT NULL,
+  CONSTRAINT PersonPeriod_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE(person, period)
+);
+
+CREATE TABLE MunicipalManager(
+  person SERIAL PRIMARY KEY,
+  CONSTRAINT MunicipalManager_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ControlStaff(
+  person SERIAL PRIMARY KEY,
+  CONSTRAINT ControlStaff_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE Citizen(
+  person SERIAL PRIMARY KEY,
+  CONSTRAINT Citizen_person FOREIGN KEY (person) REFERENCES Person(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ServiceType(
+  id SERIAL PRIMARY KEY,
+  type TEXT NOT NULL UNIQUE,
+  description TEXT NOT NULL
+);
+
+CREATE TABLE Service(
+  id SERIAL PRIMARY KEY,
+  service_type INTEGER NOT NULL,
+  CONSTRAINT ServiceType_service_type FOREIGN KEY (service_type) REFERENCES ServiceType(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  area INTEGER NOT NULL,
+  CONSTRAINT Service_area FOREIGN KEY (area) REFERENCES Area(place) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE ServicePeriod(
+  id SERIAL PRIMARY KEY,
+  service INTEGER NOT NULL,
+  CONSTRAINT ServicePeriod_service FOREIGN KEY (service) REFERENCES Service(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  period INTEGER NOT NULL,
+  CONSTRAINT ServicePeriod_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  UNIQUE(service, period)
+);
+
+
+CREATE TABLE Reservation (
+  id SERIAL PRIMARY KEY,
+  citizen INTEGER NOT NULL,
+  CONSTRAINT Reservation_citizen FOREIGN KEY (citizen) REFERENCES Citizen(person) ON DELETE RESTRICT ON UPDATE CASCADE,
+  code INTEGER NOT NULL UNIQUE,
+  occupancy INTEGER NOT NULL,
+  area_period INTEGER NOT NULL,
+  CONSTRAINT Reservation_area_period FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE ReservationPeriod(
+  id SERIAL PRIMARY KEY,
+  reservation INTEGER NOT NULL ,
+  CONSTRAINT ReservationPeriod_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  period INTEGER  NOT NULL,
+  CONSTRAINT ReservationPeriod_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE ReservationZone(
+  id SERIAL PRIMARY KEY,
+  reservation INTEGER NOT NULL,
+  CONSTRAINT ReservationZone_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE CASCADE ON UPDATE CASCADE,
+  zone INTEGER NOT NULL,
+  CONSTRAINT ReservationZone_zone FOREIGN KEY (zone) REFERENCES Zone(place) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE MunicipalManagerIsAsignedTo(
+  id SERIAL PRIMARY KEY,
+  municipality INTEGER NOT NULL,
+  CONSTRAINT MunicipalManagerIsAsignedTo_municipality FOREIGN KEY (municipality) REFERENCES Municipality(place) ON DELETE RESTRICT ON UPDATE CASCADE,
+  municipal_manager INTEGER NOT NULL,
+  CONSTRAINT MunicipalManagerIsAsignedTo_municipal_manager FOREIGN KEY (municipal_manager) REFERENCES MunicipalManager(person) ON DELETE RESTRICT ON UPDATE CASCADE,
+  period INTEGER  NOT NULL,
+  CONSTRAINT MunicipalManagerIsAsignedTo_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+CREATE TABLE ControlStaffIsAssignedTo(
+  id SERIAL PRIMARY KEY,
+  control_staff INTEGER NOT NULL,
+  CONSTRAINT ControlStaffIsAssignedTo_control_staff FOREIGN KEY (control_staff) REFERENCES ControlStaff(person) ON DELETE RESTRICT ON UPDATE CASCADE,
+  area_period  INTEGER NOT NULL,
+  CONSTRAINT ControlStaffIsAssignedTo_area_period FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+-- All Tables created --
