@@ -1,1 +1,1 @@
-git log --shortstat --format=short | sed -E '/^$/d; /^(commit|Merge|  )/d; s/^Author: (.+) <.+>/\1: /' | uniq | sed -zE 's/\n /\t/g' | column -s $'\t' -t
+git log --shortstat --format=short | sed -E '/^$/d; /^(commit|Merge|  )/d; s/^Author: (.+) <.+>/\1: /; s/^Paul:/Paul Ximo Pluijter Izquierdo:/' | uniq | sed -zE 's/\n /\t/g' | column -s $'\t' -t
