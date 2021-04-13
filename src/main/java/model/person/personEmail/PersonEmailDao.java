@@ -1,5 +1,6 @@
 package model.person.personEmail;
 
+import model.person.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -39,6 +40,14 @@ public class PersonEmailDao {
     public PersonEmail get(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM PersonEmail WHERE id =?", new PersonEmailRowMapper(), id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+    public PersonEmail get(Person person) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM PersonEmail WHERE person =?", new PersonEmailRowMapper(), person.getId());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
