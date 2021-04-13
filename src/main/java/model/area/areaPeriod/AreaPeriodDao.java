@@ -1,7 +1,6 @@
 package model.area.areaPeriod;
 
-import model.area.areaImage.AreaImage;
-import model.area.areaImage.AreaImageRowMapper;
+import model.area.Area;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,4 +48,11 @@ public class AreaPeriodDao {
         }
     }
 
+    public List<AreaPeriod> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM AreaPeriod WHERE area =?", new AreaPeriodRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

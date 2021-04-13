@@ -1,7 +1,6 @@
 package model.area.areaImage;
 
-import model.area.areaComment.AreaComment;
-import model.area.areaComment.AreaCommentRowMapper;
+import model.area.Area;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,4 +48,11 @@ public class AreaImageDao {
         }
     }
 
+    public List<AreaImage> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM AreaImage WHERE area =?", new AreaImageRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package model.area.areaCharacteristic;
 
+import model.area.Area;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,6 +42,14 @@ public class AreaCharacteristicDao {
             return jdbcTemplate.queryForObject("SELECT * FROM AreaCharacteristic WHERE id =?", new AreaCharacteristicRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<AreaCharacteristic> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM AreaCharacteristic WHERE area =?", new AreaCharacteristicRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }

@@ -1,5 +1,6 @@
 package model.area.areaComment;
 
+import model.area.Area;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,4 +48,11 @@ public class AreaCommentDao {
         }
     }
 
+    public List<AreaComment> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM AreaComment WHERE area =?", new AreaCommentRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

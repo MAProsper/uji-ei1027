@@ -16,7 +16,7 @@ public class PersonDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add(Person person){
+    public void add(Person person) {
         jdbcTemplate.update("INSERT INTO Person VALUES(?, ?, ?, ?, ?)",
                 person.getId(), person.getIdentification(), person.getName(), person.getUsername(), person.getPassword());
     }
@@ -46,5 +46,4 @@ public class PersonDao {
             return null;
         }
     }
-
 }
