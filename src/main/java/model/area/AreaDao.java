@@ -1,8 +1,6 @@
 package model.area;
 
 import model.municipality.Municipality;
-import model.zone.Zone;
-import model.zone.ZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

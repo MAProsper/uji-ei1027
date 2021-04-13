@@ -1,9 +1,6 @@
 package model.reservation;
 
-import model.area.Area;
 import model.citizen.Citizen;
-import model.service.Service;
-import model.service.ServiceRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

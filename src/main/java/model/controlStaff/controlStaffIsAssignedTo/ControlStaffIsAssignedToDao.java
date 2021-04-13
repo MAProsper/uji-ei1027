@@ -1,12 +1,7 @@
 package model.controlStaff.controlStaffIsAssignedTo;
 
 import model.area.Area;
-import model.area.areaPeriod.AreaPeriod;
-import model.area.areaPeriod.AreaPeriodRowMapper;
 import model.controlStaff.ControlStaff;
-import model.municipalManager.municipalManagerIsAssignedTo.MunicipalManagerIsAssignedToRowMapper;
-import model.municipalManager.municipalManagerIsAssignedTo.MunicipalManagerIsAssignetTo;
-import model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

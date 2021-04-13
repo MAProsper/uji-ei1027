@@ -1,9 +1,6 @@
 package model.zone;
 
 import model.area.Area;
-import model.reservation.Reservation;
-import model.reservation.reservationZone.ReservationZone;
-import model.reservation.reservationZone.ReservationZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

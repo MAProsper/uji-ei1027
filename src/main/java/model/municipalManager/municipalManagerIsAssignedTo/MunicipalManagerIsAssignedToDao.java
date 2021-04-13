@@ -1,8 +1,5 @@
 package model.municipalManager.municipalManagerIsAssignedTo;
 
-import model.controlStaff.ControlStaff;
-import model.controlStaff.controlStaffIsAssignedTo.ControlStaffIsAssignedTo;
-import model.controlStaff.controlStaffIsAssignedTo.ControlStaffIsAssignedToRowMapper;
 import model.municipalManager.MunicipalManager;
 import model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
