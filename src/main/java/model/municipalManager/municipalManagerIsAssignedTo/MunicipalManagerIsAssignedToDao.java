@@ -1,5 +1,10 @@
 package model.municipalManager.municipalManagerIsAssignedTo;
 
+import model.controlStaff.ControlStaff;
+import model.controlStaff.controlStaffIsAssignedTo.ControlStaffIsAssignedTo;
+import model.controlStaff.controlStaffIsAssignedTo.ControlStaffIsAssignedToRowMapper;
+import model.municipalManager.MunicipalManager;
+import model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,4 +52,19 @@ public class MunicipalManagerIsAssignedToDao {
         }
     }
 
+    public List<MunicipalManagerIsAssignetTo> get(MunicipalManager municipalManager) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo WHERE municipal_manager =?", new MunicipalManagerIsAssignedToRowMapper(), municipalManager.getPerson());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<MunicipalManagerIsAssignetTo> get(Municipality municipality) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo WHERE municipality =?", new MunicipalManagerIsAssignedToRowMapper(), municipality.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

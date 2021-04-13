@@ -1,5 +1,9 @@
 package model.zone;
 
+import model.area.Area;
+import model.reservation.Reservation;
+import model.reservation.reservationZone.ReservationZone;
+import model.reservation.reservationZone.ReservationZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,6 +46,14 @@ public class ZoneDao {
             return jdbcTemplate.queryForObject("SELECT * FROM Zone WHERE id =?", new ZoneRowMapper(), place);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<Zone> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Zone WHERE area =?", new ZoneRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }

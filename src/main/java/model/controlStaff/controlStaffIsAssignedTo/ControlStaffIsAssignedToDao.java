@@ -1,5 +1,12 @@
 package model.controlStaff.controlStaffIsAssignedTo;
 
+import model.area.Area;
+import model.area.areaPeriod.AreaPeriod;
+import model.area.areaPeriod.AreaPeriodRowMapper;
+import model.controlStaff.ControlStaff;
+import model.municipalManager.municipalManagerIsAssignedTo.MunicipalManagerIsAssignedToRowMapper;
+import model.municipalManager.municipalManagerIsAssignedTo.MunicipalManagerIsAssignetTo;
+import model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -47,4 +54,19 @@ public class ControlStaffIsAssignedToDao {
         }
     }
 
+    public List<ControlStaffIsAssignedTo> get(ControlStaff controlStaff) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM ControlStaffIsAssignedTo WHERE control_staff =?", new ControlStaffIsAssignedToRowMapper(), controlStaff.getPerson());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<ControlStaffIsAssignedTo> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM ControlStaffIsAssignedTo WHERE area =?", new ControlStaffIsAssignedToRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
 }

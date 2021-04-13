@@ -1,5 +1,9 @@
 package model.reservation;
 
+import model.area.Area;
+import model.citizen.Citizen;
+import model.service.Service;
+import model.service.ServiceRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,6 +50,14 @@ public class ReservationDao {
             return jdbcTemplate.queryForObject("SELECT * FROM Reservation WHERE id =?", new ReservationRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<Reservation> get(Citizen citizen) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Reservation WHERE citizen =?", new ReservationRowMapper(), citizen.getPerson());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }

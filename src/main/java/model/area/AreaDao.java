@@ -1,5 +1,8 @@
 package model.area;
 
+import model.municipality.Municipality;
+import model.zone.Zone;
+import model.zone.ZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -42,6 +45,14 @@ public class AreaDao {
             return jdbcTemplate.queryForObject("SELECT * FROM Area WHERE id =?", new AreaRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<Area> get(Municipality municipality) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Area WHERE municipality =?", new AreaRowMapper(), municipality.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }

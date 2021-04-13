@@ -1,5 +1,8 @@
 package model.service;
 
+import model.area.Area;
+import model.zone.Zone;
+import model.zone.ZoneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,6 +49,14 @@ public class ServiceDao {
             return jdbcTemplate.queryForObject("SELECT * FROM Service WHERE id =?", new ServiceRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<Service> get(Area area) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Service WHERE area =?", new ServiceRowMapper(), area.getPlace());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }
