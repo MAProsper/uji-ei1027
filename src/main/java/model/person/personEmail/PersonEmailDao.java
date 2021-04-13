@@ -45,11 +45,11 @@ public class PersonEmailDao {
         }
     }
 
-    public PersonEmail get(Person person) {
+    public List<PersonEmail> get(Person person) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM PersonEmail WHERE person =?", new PersonEmailRowMapper(), person.getId());
+            return jdbcTemplate.query("SELECT * FROM PersonEmail WHERE person =?", new PersonEmailRowMapper(), person.getId());
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 }
