@@ -1,5 +1,9 @@
 package model.place.placePeriod;
 
+import model.person.Person;
+import model.person.personPeriod.PersonPeriod;
+import model.person.personPeriod.PersonPeriodRowMapper;
+import model.place.Place;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -44,6 +48,14 @@ public class PlacePeriodDao {
             return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod WHERE id =?", new PlacePeriodRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
             return null;
+        }
+    }
+
+    public List<PlacePeriod> get(Place place) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM PlacePeriod WHERE place =?", new PlacePeriodRowMapper(), place.getId());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
         }
     }
 }

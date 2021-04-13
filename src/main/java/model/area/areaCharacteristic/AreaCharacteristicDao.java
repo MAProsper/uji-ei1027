@@ -26,7 +26,7 @@ public class AreaCharacteristicDao {
     }
 
     public void update(AreaCharacteristic areaCharacteristic) {
-        jdbcTemplate.update("UPDATE AreaCharacteristic SET id =?, are =?, characteristic =?", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
+        jdbcTemplate.update("UPDATE AreaCharacteristic SET id =?, area =?, characteristic =?", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
     }
 
     public List<AreaCharacteristic> get() {
