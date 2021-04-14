@@ -16,7 +16,7 @@ public class ReservationRowMapper implements RowMapper<Reservation> {
         reservation.setCitizen(rs.getInt("phone"));
         reservation.setCode(rs.getInt("code"));
         reservation.setOccupancy(rs.getInt("occupancy"));
-        reservation.setDate(rs.getObject("day", LocalDateTime.class));
+        reservation.setDate(rs.getObject("date", LocalDateTime.class));
         return reservation;
     }
 }
