@@ -1,11 +1,14 @@
 package model.reservation;
 
+import java.time.LocalDateTime;
+
 public class Reservation {
     private int id;
     private int citizen;
     private int code;
     private int occupancy;
     private int areaPeriod;
+    private LocalDateTime day;
 
     public Reservation() {
     }
@@ -18,7 +21,16 @@ public class Reservation {
                 ", code=" + code +
                 ", occupancy=" + occupancy +
                 ", areaPeriod=" + areaPeriod +
+                ", day=" + day +
                 '}';
+    }
+
+    public void setDay(LocalDateTime day) {
+        this.day = day;
+    }
+
+    public LocalDateTime getDay() {
+        return day;
     }
 
     public int getId() {

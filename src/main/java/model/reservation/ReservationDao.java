@@ -20,13 +20,13 @@ public class ReservationDao {
     }
 
     public void add(Reservation reservation) {
-        jdbcTemplate.update("INSERT INTO Reservation VALUES(?, ?, ?, ?, ?, ?)",
-                reservation.getId(), reservation.getCitizen(), reservation.getCode(), reservation.getOccupancy(), reservation.getAreaPeriod());
+        jdbcTemplate.update("INSERT INTO Reservation VALUES(?, ?, ?, ?, ?, ?, ?)",
+                reservation.getId(), reservation.getCitizen(), reservation.getCode(), reservation.getOccupancy(), reservation.getAreaPeriod(), reservation.getDay());
     }
 
     public void update(Reservation reservation) {
-        jdbcTemplate.update("UPDATE Reservation SET id =?, citizen =?, code =?, occupancy =?, area_period =?",
-                reservation.getId(), reservation.getCitizen(), reservation.getCode(), reservation.getOccupancy(), reservation.getAreaPeriod());
+        jdbcTemplate.update("UPDATE Reservation SET id =?, citizen =?, code =?, occupancy =?, area_period =?, day =?",
+                reservation.getId(), reservation.getCitizen(), reservation.getCode(), reservation.getOccupancy(), reservation.getAreaPeriod(), reservation.getDay());
     }
 
     public void delete(Reservation reservation) {

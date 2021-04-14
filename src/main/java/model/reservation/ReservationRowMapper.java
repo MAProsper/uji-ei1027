@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 public class ReservationRowMapper implements RowMapper<Reservation> {
 
@@ -14,6 +15,7 @@ public class ReservationRowMapper implements RowMapper<Reservation> {
         reservation.setCitizen(rs.getInt("phone"));
         reservation.setCode(rs.getInt("code"));
         reservation.setOccupancy(rs.getInt("occupancy"));
+        reservation.setDay(rs.getObject("day", LocalDateTime.class));
         return reservation;
     }
 }
