@@ -26,6 +26,6 @@ public class SanaApplication implements CommandLineRunner {
     }
 
     public void run(String... strings) {
-        System.out.println(addressDao.getAll());
+        log.info(addressDao.getAll().toString());
     }
 }
