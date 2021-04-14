@@ -25,7 +25,7 @@ public class Reservation {
                 '}';
     }
 
-    public void setDay(LocalDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
