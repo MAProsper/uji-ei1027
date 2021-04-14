@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.logging.Logger;
 
 @SpringBootApplication
@@ -14,6 +15,11 @@ public class SanaApplication implements CommandLineRunner {
 
     @Autowired
     AddressDao addressDao;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(SanaApplication.class).run(args);
