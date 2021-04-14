@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,26 @@ public class PersonPeriodDao {
     public List<PersonPeriod> get(Person person) {
         try {
             return jdbcTemplate.query("SELECT * FROM PersonPeriod WHERE person =?", new PersonPeriodRowMapper(), person.getId());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<>();
+        }
+    }
+
+
+    /**
+     *  Devuelve la lista de elementos añadidos entre e
+     *  @param dateTime
+     *
+     */
+    public List<PersonPeriod> getByIncludedDate(LocalDateTime dateTime) {
+        try {
+            return jdbcTemplate.query(
+                    "SELECT * " +
+                        "FROM PersonPeriod as t1 JOIN Period as p " +
+                        "ON t1.period = p.period " +
+                        "WHERE p.start >= =? " +
+                        "AND COALESCE(Period.end, =?) <= =?",
+                    new PersonPeriodRowMapper(), dateTime);
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
