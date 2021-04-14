@@ -8,7 +8,7 @@ public class Reservation {
     private int code;
     private int occupancy;
     private int areaPeriod;
-    private LocalDateTime day;
+    private LocalDateTime date;
 
     public Reservation() {
     }
@@ -21,16 +21,16 @@ public class Reservation {
                 ", code=" + code +
                 ", occupancy=" + occupancy +
                 ", areaPeriod=" + areaPeriod +
-                ", day=" + day +
+                ", date=" + date +
                 '}';
     }
 
-    public void setDay(LocalDateTime day) {
-        this.day = day;
+    public void setDay(LocalDateTime date) {
+        this.date = date;
     }
 
-    public LocalDateTime getDay() {
-        return day;
+    public LocalDateTime getDate() {
+        return date;
     }
 
     public int getId() {

@@ -202,7 +202,7 @@ CREATE TABLE Reservation (
   code INTEGER NOT NULL UNIQUE,
   occupancy INTEGER NOT NULL,
   area_period INTEGER NOT NULL,
-  day TIMESTAMP NOT NULL,
+  date TIMESTAMP NOT NULL,
   CONSTRAINT Reservation_area_period FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 

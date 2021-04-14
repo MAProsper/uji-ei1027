@@ -20,7 +20,7 @@ INSERT INTO Citizen VALUES(1);
 INSERT INTO ServiceType VALUES(1, 1, 1);
 INSERT INTO Service VALUES(1, 1, 1);
 INSERT INTO ServicePeriod VALUES(1, 1, 1);
-INSERT INTO Reservation VALUES(1, 1, 1, 3, 1);
+INSERT INTO Reservation VALUES(1, 1, 1, 3, 1, '2017-07-23');
 INSERT INTO ReservationPeriod VALUES(1, 1, 1);
 INSERT INTO ReservationZone VALUES(1, 1, 1);
 INSERT INTO MunicipalManagerIsAsignedTo VALUES(1, 1, 1, 1);
