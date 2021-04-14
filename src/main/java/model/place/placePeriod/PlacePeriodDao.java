@@ -35,7 +35,7 @@ public class PlacePeriodDao {
         jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, place =?, period =? ", object.getId(), object.getPlace(), object.getPeriod());
     }
 
-    public List<PlacePeriod> get(PlacePeriod object) {
+    public List<PlacePeriod> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM " + this.NOMBRE_TABLA, new PlacePeriodRowMapper());
         } catch (EmptyResultDataAccessException e) {

@@ -33,7 +33,7 @@ public class ServicePeriodDao {
         jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?,  service =?, period =?", object.getId(), object.getService(), object.getPeriod());
     }
 
-    public List<ServicePeriod> get(ServicePeriod object) {
+    public List<ServicePeriod> get() {
         try {
             return jdbcTemplate.query("SELECT * FROM " + this.NOMBRE_TABLA, new ServicePeriodRowMapper());
         } catch (EmptyResultDataAccessException e) {
