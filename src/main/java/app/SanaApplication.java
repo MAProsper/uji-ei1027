@@ -24,7 +24,7 @@ public class SanaApplication implements CommandLineRunner {
     }
 
     void testDao() {
-        log.info("test/app.dao");
+        log.info("test/dao");
         log.info(addressDao.getAll().toString());
     }
 }
