@@ -1,11 +1,8 @@
 package app.dao;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 public interface Dao<T> {
-    void setDataSource(DataSource dataSource);
-
     void add(T address);
 
     void update(T address);
@@ -17,5 +14,4 @@ public interface Dao<T> {
     T getById(int id);
 
     void test();
-
 }

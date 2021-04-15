@@ -8,20 +8,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
 public class ZoneDao implements Dao<Zone> {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     public void add(Zone zone) {
         jdbcTemplate.update("INSERT INTO Zone VALUES(?, ?)", zone.getPlace(), zone.getCapacity());

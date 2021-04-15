@@ -8,20 +8,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
 public class PersonEmailDao implements Dao<PersonEmail> {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     public void add(PersonEmail personEmail) {
         jdbcTemplate.update("INSERT INTO PersonEmail VALUES(?, ?, ?)", personEmail.getId(), personEmail.getPerson(), personEmail.getEmail());

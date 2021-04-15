@@ -8,20 +8,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
 public class AreaCharacteristicDao implements Dao<AreaCharacteristic> {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     public void add(AreaCharacteristic areaCharacteristic) {
         jdbcTemplate.update("INSERT INTO AreaCharacteristic VALUES(?, ?, ?)", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());

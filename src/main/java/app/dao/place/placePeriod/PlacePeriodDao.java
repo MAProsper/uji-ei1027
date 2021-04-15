@@ -8,20 +8,14 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
 public class PlacePeriodDao implements Dao<PlacePeriod> {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     public void add(PlacePeriod object) {
         jdbcTemplate.update("INSERT INTO PlacePeriod VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod());

@@ -8,7 +8,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +15,8 @@ import java.util.logging.Logger;
 
 @Repository
 public class PersonPeriodDao implements Dao<PersonPeriod> {
-    private JdbcTemplate jdbcTemplate;
+    @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
     public void add(PersonPeriod personPeriod) {
         jdbcTemplate.update("INSERT INTO PersonPeriod VALUES(?, ?, ?)",
