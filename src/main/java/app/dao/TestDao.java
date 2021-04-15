@@ -78,11 +78,9 @@ public class TestDao {
         areaImageDao.test();
         areaPeriodDao.test();
         zoneDao.test();
-        periodDao.test();
         personDao.test();
         personResidenceDao.test();
         personEmailDao.test();
-        personPhoneDao.test();
         personPhoneDao.test();
         personPeriodDao.test();
         municipalManagerDao.test();
