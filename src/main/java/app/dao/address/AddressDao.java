@@ -9,10 +9,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
 public class AddressDao {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -48,5 +50,9 @@ public class AddressDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public void test() {
+        logger.info(AddressDao.class.getName() + ".getAll(): " + getAll());
     }
 }

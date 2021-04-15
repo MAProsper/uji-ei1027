@@ -1,6 +1,6 @@
 -- Drop all the tables --
 DROP TABLE IF EXISTS ControlStaffIsAssignedTo;
-DROP TABLE IF EXISTS MunicipalManagerIsAsignedTo;
+DROP TABLE IF EXISTS MunicipalManagerIsAssignedTo;
 DROP TABLE IF EXISTS ReservationZone;
 DROP TABLE IF EXISTS ReservationPeriod;
 DROP TABLE IF EXISTS Reservation;
@@ -222,14 +222,14 @@ CREATE TABLE ReservationZone(
   CONSTRAINT ReservationZone_zone FOREIGN KEY (zone) REFERENCES Zone(place) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE MunicipalManagerIsAsignedTo(
+CREATE TABLE MunicipalManagerIsAssignedTo(
   id SERIAL PRIMARY KEY,
   municipality INTEGER NOT NULL,
-  CONSTRAINT MunicipalManagerIsAsignedTo_municipality FOREIGN KEY (municipality) REFERENCES Municipality(place) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT MunicipalManagerIsAssignedTo_municipality FOREIGN KEY (municipality) REFERENCES Municipality(place) ON DELETE RESTRICT ON UPDATE CASCADE,
   municipal_manager INTEGER NOT NULL,
-  CONSTRAINT MunicipalManagerIsAsignedTo_municipal_manager FOREIGN KEY (municipal_manager) REFERENCES MunicipalManager(person) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT MunicipalManagerIsAssignedTo_municipal_manager FOREIGN KEY (municipal_manager) REFERENCES MunicipalManager(person) ON DELETE RESTRICT ON UPDATE CASCADE,
   period INTEGER  NOT NULL,
-  CONSTRAINT MunicipalManagerIsAsignedTo_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT MunicipalManagerIsAssignedTo_period FOREIGN KEY (period) REFERENCES Period(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE ControlStaffIsAssignedTo(

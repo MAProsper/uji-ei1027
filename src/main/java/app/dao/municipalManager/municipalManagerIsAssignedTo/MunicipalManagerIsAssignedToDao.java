@@ -22,12 +22,12 @@ public class MunicipalManagerIsAssignedToDao {
     }
 
     public void add(MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo) {
-        jdbcTemplate.update("INSERT INTO MunicipalManagerIsAssignetTo VALUES(?, ?, ?, ?)",
+        jdbcTemplate.update("INSERT INTO MunicipalManagerIsAssignedTo VALUES(?, ?, ?, ?)",
                 municipalManagerIsAssignetTo.getId(), municipalManagerIsAssignetTo.getMunicipality(), municipalManagerIsAssignetTo.getMunicipalManager(), municipalManagerIsAssignetTo.getPeriod());
     }
 
     public void update(MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo) {
-        jdbcTemplate.update("UPDATE MunicipalManagerIsAssignetTo SET id =?, municipality =?, municipal_manager =?, period =?",
+        jdbcTemplate.update("UPDATE MunicipalManagerIsAssignedTo SET id =?, municipality =?, municipal_manager =?, period =?",
                 municipalManagerIsAssignetTo.getId(), municipalManagerIsAssignetTo.getMunicipality(), municipalManagerIsAssignetTo.getMunicipalManager(), municipalManagerIsAssignetTo.getPeriod());
     }
 

@@ -11,7 +11,7 @@ public class ServicePeriodRowMapper implements RowMapper<ServicePeriod> {
     public ServicePeriod mapRow(ResultSet resultSet, int i) throws SQLException {
         ServicePeriod servicePeriod = new ServicePeriod();
         servicePeriod.setId(resultSet.getInt("id"));
-        servicePeriod.setService(resultSet.getInt("app/service"));
+        servicePeriod.setService(resultSet.getInt("service"));
         return servicePeriod;
     }
 }

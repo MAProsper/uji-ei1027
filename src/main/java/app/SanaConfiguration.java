@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
+import java.util.logging.Logger;
 
 @Configuration
 public class SanaConfiguration {
@@ -13,5 +14,10 @@ public class SanaConfiguration {
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
+    }
+
+    @Bean
+    public Logger logger() {
+        return Logger.getLogger(SanaApplication.class.getName());
     }
 }
