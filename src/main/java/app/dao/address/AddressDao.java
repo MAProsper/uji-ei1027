@@ -53,6 +53,6 @@ public class AddressDao {
     }
 
     public void test() {
-        logger.info(AddressDao.class.getName() + ".getAll(): " + getAll());
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }
