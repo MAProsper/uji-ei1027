@@ -13,9 +13,7 @@ import java.util.List;
 
 @Repository
 public class ServicePeriodDao {
-
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "ServicePeriod";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -23,20 +21,20 @@ public class ServicePeriodDao {
     }
 
     public void add(ServicePeriod object) {
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getService(), object.getPeriod());
+        jdbcTemplate.update("INSERT INTO ServicePeriod VALUES(?, ?, ?)", object.getId(), object.getService(), object.getPeriod());
     }
 
     public void delete(ServicePeriod object) {
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId());
+        jdbcTemplate.update("DELETE FROM ServicePeriod  WHERE id = ?", object.getId());
     }
 
     public void update(ServicePeriod object) {
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?,  app.service =?, period =?", object.getId(), object.getService(), object.getPeriod());
+        jdbcTemplate.update("UPDATE ServicePeriod SET id =?,  service =?, period =?", object.getId(), object.getService(), object.getPeriod());
     }
 
     public List<ServicePeriod> getAll() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " + this.NOMBRE_TABLA, new ServicePeriodRowMapper());
+            return jdbcTemplate.query("SELECT * FROM ServicePeriod", new ServicePeriodRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
@@ -52,7 +50,7 @@ public class ServicePeriodDao {
 
     public List<ServicePeriod> getByService(Service service) {
         try {
-            return jdbcTemplate.query("SELECT * FROM ServicePeriod WHERE app.service =?", new ServicePeriodRowMapper(), service.getId());
+            return jdbcTemplate.query("SELECT * FROM ServicePeriod WHERE service =?", new ServicePeriodRowMapper(), service.getId());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }

@@ -6,11 +6,13 @@ import app.model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class MunicipalManagerIsAssignedToDao {
     private JdbcTemplate jdbcTemplate;
 

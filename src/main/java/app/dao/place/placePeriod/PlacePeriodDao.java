@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class PlacePeriodDao {
     private JdbcTemplate jdbcTemplate;
-    private final String NOMBRE_TABLA = "PlacePeriod";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -22,20 +21,20 @@ public class PlacePeriodDao {
     }
 
     public void add(PlacePeriod object) {
-        jdbcTemplate.update("INSERT INTO " + this.NOMBRE_TABLA + " VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod());
+        jdbcTemplate.update("INSERT INTO PlacePeriod VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod());
     }
 
     public void delete(PlacePeriod object) {
-        jdbcTemplate.update("DELETE FROM " + this.NOMBRE_TABLA + "  WHERE id = ?", object.getId());
+        jdbcTemplate.update("DELETE FROM PlacePeriod  WHERE id = ?", object.getId());
     }
 
     public void update(PlacePeriod object) {
-        jdbcTemplate.update("UPDATE " + this.NOMBRE_TABLA + " SET id =?, place =?, period =? ", object.getId(), object.getPlace(), object.getPeriod());
+        jdbcTemplate.update("UPDATE PlacePeriod SET id =?, place =?, period =? ", object.getId(), object.getPlace(), object.getPeriod());
     }
 
     public List<PlacePeriod> getAll() {
         try {
-            return jdbcTemplate.query("SELECT * FROM " + this.NOMBRE_TABLA, new PlacePeriodRowMapper());
+            return jdbcTemplate.query("SELECT * FROM PlacePeriod", new PlacePeriodRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }

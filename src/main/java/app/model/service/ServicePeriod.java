@@ -21,7 +21,7 @@ public class ServicePeriod {
     public String toString() {
         return "ServicePeriod{" +
                 "id=" + id +
-                ", app.service=" + service +
+                ", service=" + service +
                 ", period=" + period +
                 '}';
     }
