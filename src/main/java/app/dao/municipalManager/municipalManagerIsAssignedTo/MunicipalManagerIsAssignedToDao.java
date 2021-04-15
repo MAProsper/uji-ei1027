@@ -1,7 +1,8 @@
 package app.dao.municipalManager.municipalManagerIsAssignedTo;
 
+import app.dao.Dao;
 import app.model.municipalManager.MunicipalManager;
-import app.model.municipalManager.MunicipalManagerIsAssignetTo;
+import app.model.municipalManager.MunicipalManagerIsAssignedTo;
 import app.model.municipality.Municipality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,32 +12,34 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class MunicipalManagerIsAssignedToDao {
+public class MunicipalManagerIsAssignedToDao implements Dao<MunicipalManagerIsAssignedTo> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void add(MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo) {
+    public void add(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
         jdbcTemplate.update("INSERT INTO MunicipalManagerIsAssignedTo VALUES(?, ?, ?, ?)",
-                municipalManagerIsAssignetTo.getId(), municipalManagerIsAssignetTo.getMunicipality(), municipalManagerIsAssignetTo.getMunicipalManager(), municipalManagerIsAssignetTo.getPeriod());
+                municipalManagerIsAssignedTo.getId(), municipalManagerIsAssignedTo.getMunicipality(), municipalManagerIsAssignedTo.getMunicipalManager(), municipalManagerIsAssignedTo.getPeriod());
     }
 
-    public void update(MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo) {
+    public void update(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
         jdbcTemplate.update("UPDATE MunicipalManagerIsAssignedTo SET id =?, municipality =?, municipal_manager =?, period =?",
-                municipalManagerIsAssignetTo.getId(), municipalManagerIsAssignetTo.getMunicipality(), municipalManagerIsAssignetTo.getMunicipalManager(), municipalManagerIsAssignetTo.getPeriod());
+                municipalManagerIsAssignedTo.getId(), municipalManagerIsAssignedTo.getMunicipality(), municipalManagerIsAssignedTo.getMunicipalManager(), municipalManagerIsAssignedTo.getPeriod());
     }
 
-    public void delete(MunicipalManagerIsAssignetTo municipalManagerIsAssignetTo) {
+    public void delete(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
         jdbcTemplate.update("DELETE FROM MunicipalManagerIsAssignedTo WHERE id =?",
-                municipalManagerIsAssignetTo.getId());
+                municipalManagerIsAssignedTo.getId());
     }
 
-    public List<MunicipalManagerIsAssignetTo> getAll() {
+    public List<MunicipalManagerIsAssignedTo> getAll() {
         try {
             return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo", new MunicipalManagerIsAssignedToRowMapper());
         } catch (EmptyResultDataAccessException e) {
@@ -44,7 +47,7 @@ public class MunicipalManagerIsAssignedToDao {
         }
     }
 
-    public MunicipalManagerIsAssignetTo getById(int id) {
+    public MunicipalManagerIsAssignedTo getById(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM MunicipalManagerIsAssignedTo WHERE id =?", new MunicipalManagerIsAssignedToRowMapper(), id);
         } catch (EmptyResultDataAccessException e) {
@@ -52,7 +55,7 @@ public class MunicipalManagerIsAssignedToDao {
         }
     }
 
-    public List<MunicipalManagerIsAssignetTo> getByMunicipalManager(MunicipalManager municipalManager) {
+    public List<MunicipalManagerIsAssignedTo> getByMunicipalManager(MunicipalManager municipalManager) {
         try {
             return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo WHERE municipal_manager =?", new MunicipalManagerIsAssignedToRowMapper(), municipalManager.getPerson());
         } catch (EmptyResultDataAccessException e) {
@@ -60,11 +63,15 @@ public class MunicipalManagerIsAssignedToDao {
         }
     }
 
-    public List<MunicipalManagerIsAssignetTo> getByMunicipality(Municipality municipality) {
+    public List<MunicipalManagerIsAssignedTo> getByMunicipality(Municipality municipality) {
         try {
             return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo WHERE municipality =?", new MunicipalManagerIsAssignedToRowMapper(), municipality.getPlace());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

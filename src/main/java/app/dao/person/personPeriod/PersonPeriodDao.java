@@ -1,5 +1,6 @@
 package app.dao.person.personPeriod;
 
+import app.dao.Dao;
 import app.model.person.Person;
 import app.model.person.PersonPeriod;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,12 @@ import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class PersonPeriodDao {
+public class PersonPeriodDao implements Dao<PersonPeriod> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -66,5 +69,9 @@ public class PersonPeriodDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

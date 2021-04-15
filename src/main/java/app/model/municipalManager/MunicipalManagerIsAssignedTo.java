@@ -1,12 +1,12 @@
 package app.model.municipalManager;
 
-public class MunicipalManagerIsAssignetTo {
+public class MunicipalManagerIsAssignedTo {
     private int id;
     private int municipality;
     private int municipalManager;
     private int period;
 
-    public MunicipalManagerIsAssignetTo() {
+    public MunicipalManagerIsAssignedTo() {
 
     }
 

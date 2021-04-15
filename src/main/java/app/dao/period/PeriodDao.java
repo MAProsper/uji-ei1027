@@ -1,5 +1,6 @@
 package app.dao.period;
 
+import app.dao.Dao;
 import app.model.period.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class PeriodDao {
+public class PeriodDao implements Dao<Period> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -48,6 +51,10 @@ public class PeriodDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }
 

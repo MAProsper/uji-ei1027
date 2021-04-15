@@ -1,5 +1,6 @@
 package app.dao.municipalManager;
 
+import app.dao.Dao;
 import app.model.municipalManager.MunicipalManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class MunicipalManagerDao {
+public class MunicipalManagerDao implements Dao<MunicipalManager> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -45,5 +48,9 @@ public class MunicipalManagerDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

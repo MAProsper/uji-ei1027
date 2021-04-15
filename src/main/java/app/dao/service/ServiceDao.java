@@ -1,5 +1,6 @@
 package app.dao.service;
 
+import app.dao.Dao;
 import app.model.area.Area;
 import app.model.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class ServiceDao {
+public class ServiceDao implements Dao<Service> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -57,5 +60,9 @@ public class ServiceDao {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

@@ -1,5 +1,6 @@
 package app.dao.area.areaImage;
 
+import app.dao.Dao;
 import app.model.area.Area;
 import app.model.area.AreaImage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class AreaImageDao {
+public class AreaImageDao implements Dao<AreaImage> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -57,5 +60,9 @@ public class AreaImageDao {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

@@ -1,5 +1,6 @@
 package app.dao.controlStaff;
 
+import app.dao.Dao;
 import app.model.controlStaff.ControlStaff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class ControlStaffDao {
+public class ControlStaffDao implements Dao<ControlStaff> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -50,4 +53,8 @@ public class ControlStaffDao {
         }
     }
 
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
+    }
 }

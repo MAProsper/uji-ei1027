@@ -1,5 +1,6 @@
 package app.dao.reservation.reservationZone;
 
+import app.dao.Dao;
 import app.model.reservation.Reservation;
 import app.model.reservation.ReservationZone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class ReservationZoneDao {
+public class ReservationZoneDao implements Dao<ReservationZone> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -57,5 +60,9 @@ public class ReservationZoneDao {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

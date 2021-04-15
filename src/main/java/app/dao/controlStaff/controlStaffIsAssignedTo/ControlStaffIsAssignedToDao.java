@@ -1,5 +1,6 @@
 package app.dao.controlStaff.controlStaffIsAssignedTo;
 
+import app.dao.Dao;
 import app.model.area.Area;
 import app.model.controlStaff.ControlStaff;
 import app.model.controlStaff.ControlStaffIsAssignedTo;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Repository
-public class ControlStaffIsAssignedToDao {
+public class ControlStaffIsAssignedToDao implements Dao<ControlStaffIsAssignedTo> {
     private JdbcTemplate jdbcTemplate;
+    @Autowired Logger logger;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -66,5 +69,9 @@ public class ControlStaffIsAssignedToDao {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
+    }
+
+    public void test() {
+        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

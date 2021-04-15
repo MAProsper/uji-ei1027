@@ -1,5 +1,6 @@
 package app.dao.address;
 
+import app.dao.Dao;
 import app.model.address.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AddressDao {
+public class AddressDao implements Dao<Address> {
     private JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
