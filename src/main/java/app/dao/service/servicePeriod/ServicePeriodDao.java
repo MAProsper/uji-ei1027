@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -50,6 +51,14 @@ public class ServicePeriodDao implements Dao<ServicePeriod> {
             return jdbcTemplate.query("SELECT * FROM ServicePeriod WHERE service =?", new ServicePeriodRowMapper(), service.getId());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
+        }
+    }
+
+    public ServicePeriod getByDate(LocalDateTime date) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ServicePeriod AS t1 JOIN Period AS p ON t1.period = p.id WHERE p.start <= =? AND COALESCE(p.end, =?) >= =?", new ServicePeriodRowMapper(), date);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 

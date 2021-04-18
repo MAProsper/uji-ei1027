@@ -9,6 +9,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -62,6 +63,14 @@ public class ControlStaffIsAssignedToDao implements Dao<ControlStaffIsAssignedTo
             return jdbcTemplate.query("SELECT * FROM ControlStaffIsAssignedTo WHERE area =?", new ControlStaffIsAssignedToRowMapper(), area.getPlace());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
+        }
+    }
+
+    public ControlStaffIsAssignedTo getByDate(LocalDateTime date) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM ControlStaffIsAssignedTo AS t1 JOIN Period AS p ON t1.period = p.id WHERE p.start <= =? AND COALESCE(p.end, =?) >= =?", new ControlStaffIsAssignedToRowMapper(), date);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 

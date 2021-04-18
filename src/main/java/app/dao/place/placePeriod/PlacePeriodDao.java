@@ -8,6 +8,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -53,6 +54,13 @@ public class PlacePeriodDao implements Dao<PlacePeriod> {
         }
     }
 
+    public PlacePeriod getByDate(LocalDateTime date) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod AS t1 JOIN Period AS p ON t1.period = p.id WHERE p.start <= =? AND COALESCE(p.end, =?) >= =?", new PlacePeriodRowMapper(), date);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
 
     public void test() {
         logger.info(getClass().getName() + ".getAll() = " + getAll());
