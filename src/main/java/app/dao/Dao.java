@@ -21,17 +21,17 @@ public abstract class Dao<T> {
     protected String table = getClass().getName().replaceFirst(".*?(\\w+)Dao$", "$1");
     protected Class<? extends RowMapper<T>> rowMapper;
 
-    /**
-     * @param object Para añadir en la tabla, se pasa un objeto del tipo adecuado, y en cada DAO se gestiona como añadirlo
+    /** Para añadir en la tabla, se pasa un objeto del tipo adecuado, y en cada DAO se gestiona como añadirlo
+     * @param object objeto cuyos atributos serán los datos que se pongan en la Base de Datos
      */
     public abstract void add(T object);
 
-    /**
-     * @param object Para actualizar en la tabla, se pasa un objeto del tipo adecuado con los nuevos valores, y en cada DAO se gestiona como actualizarlos
+    /** Para actualizar en la tabla, se pasa un objeto del tipo adecuado con los nuevos valores, y en cada DAO se gestiona como actualizarlos
+     * @param object objeto cuyos atributos serán los datos que se pongan en la Base de Datos; utilizará la clave del objeto para actualizarla en la BD.
      */
     public abstract void update(T object);
 
-    /**
+    /** Método de borrado por columnas
      * @param column El nombre de la columna mediante la cual se quiere borrar
      * @param value El valor por el cual se quiere borrar
      */
@@ -39,7 +39,7 @@ public abstract class Dao<T> {
         jdbcTemplate.update(String.format("DELETE FROM Person WHERE %s =?", column), value);
     }
 
-    /**
+    /** Método para obtener un listado de todas las filas de la tabla
      * @return Devuelve una lista de objetos tal que cada objeto es una fila de la tabla.
      */
     protected List<T> getAll(){
@@ -52,7 +52,7 @@ public abstract class Dao<T> {
         }
     }
 
-    /**
+    /** Método para obtener un elemento cualquiera de la tabla (por favor, no hagas inyección SQL, crea un método específico para ello)
      * @param column El nombre de la columna de la cual quieres obtener datos
      * @param value El valor por el cual quieres buscar
      * @return Un objeto con todos los datos resultados de la búsqueda o null
