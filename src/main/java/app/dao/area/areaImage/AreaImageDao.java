@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AreaImageDao implements Dao<AreaImage> {
+public class AreaImageDao extends Dao<AreaImage> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -27,36 +27,11 @@ public class AreaImageDao implements Dao<AreaImage> {
                 areaImage.getId(), areaImage.getArea(), areaImage.getImage());
     }
 
-    public void delete(AreaImage areaImage) {
-        jdbcTemplate.update("DELETE FROM AreaImage WHERE id =?",
-                areaImage.getId());
-    }
-
-    public List<AreaImage> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM AreaImage", new AreaImageRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public AreaImage getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM AreaImage WHERE id =?", new AreaImageRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
     public List<AreaImage> getByArea(Area area) {
         try {
             return jdbcTemplate.query("SELECT * FROM AreaImage WHERE area =?", new AreaImageRowMapper(), area.getPlace());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

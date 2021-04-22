@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AreaCharacteristicDao implements Dao<AreaCharacteristic> {
+public class AreaCharacteristicDao extends Dao<AreaCharacteristic> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -21,28 +21,8 @@ public class AreaCharacteristicDao implements Dao<AreaCharacteristic> {
         jdbcTemplate.update("INSERT INTO AreaCharacteristic VALUES(?, ?, ?)", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
     }
 
-    public void delete(AreaCharacteristic areaCharacteristic) {
-        jdbcTemplate.update("DELETE FROM AreaCharacteristic  WHERE id = ?", areaCharacteristic.getId());
-    }
-
     public void update(AreaCharacteristic areaCharacteristic) {
         jdbcTemplate.update("UPDATE AreaCharacteristic SET id =?, area =?, characteristic =?", areaCharacteristic.getId(), areaCharacteristic.getArea(), areaCharacteristic.getCharacteristic());
-    }
-
-    public List<AreaCharacteristic> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM AreaCharacteristic", new AreaCharacteristicRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public AreaCharacteristic getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM AreaCharacteristic WHERE id =?", new AreaCharacteristicRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<AreaCharacteristic> getByArea(Area area) {
@@ -51,9 +31,5 @@ public class AreaCharacteristicDao implements Dao<AreaCharacteristic> {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

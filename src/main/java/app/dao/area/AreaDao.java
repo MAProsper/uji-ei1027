@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AreaDao implements Dao<Area> {
+public class AreaDao extends Dao<Area> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -21,28 +21,8 @@ public class AreaDao implements Dao<Area> {
         jdbcTemplate.update("INSERT INTO Area VALUES(?, ?, ?, ?, ?)", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
     }
 
-    public void delete(Area area) {
-        jdbcTemplate.update("DELETE FROM Area  WHERE place = ?", area.getPlace());
-    }
-
     public void update(Area area) {
         jdbcTemplate.update("UPDATE Area SET place =?, municipality =?, description =?, length =?, width =?", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
-    }
-
-    public List<Area> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Area", new AreaRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public Area getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Area WHERE place =?", new AreaRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<Area> getByMunicipality(Municipality municipality) {
@@ -51,9 +31,5 @@ public class AreaDao implements Dao<Area> {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

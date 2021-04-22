@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PersonEmailDao implements Dao<PersonEmail> {
+public class PersonEmailDao extends Dao<PersonEmail> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -21,28 +21,8 @@ public class PersonEmailDao implements Dao<PersonEmail> {
         jdbcTemplate.update("INSERT INTO PersonEmail VALUES(?, ?, ?)", personEmail.getId(), personEmail.getPerson(), personEmail.getEmail());
     }
 
-    public void delete(PersonEmail personEmail) {
-        jdbcTemplate.update("DELETE FROM PersonEmail  WHERE id = ?", personEmail.getId());
-    }
-
     public void update(PersonEmail personEmail) {
         jdbcTemplate.update("UPDATE PersonEmail SET id =?, person =?, email =?", personEmail.getId(), personEmail.getPerson(), personEmail.getEmail());
-    }
-
-    public List<PersonEmail> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM PersonEmail", new PersonEmailRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public PersonEmail getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM PersonEmail WHERE id =?", new PersonEmailRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<PersonEmail> getByPerson(Person person) {
@@ -53,7 +33,4 @@ public class PersonEmailDao implements Dao<PersonEmail> {
         }
     }
 
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
-    }
 }

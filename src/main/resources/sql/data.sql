@@ -24,4 +24,4 @@ INSERT INTO Reservation VALUES(1, 1, 1, 3, 1, '2017-07-23');
 INSERT INTO ReservationPeriod VALUES(1, 1, 1);
 INSERT INTO ReservationZone VALUES(1, 1, 1);
 INSERT INTO MunicipalManagerIsAssignedTo VALUES(1, 1, 1, 1);
-INSERT INTO ControlStaffIsAssignedTo VALUES(1, 1, 1);
+INSERT INTO ControlStaffIsAssignedTo VALUES(1, 1, 1) ;

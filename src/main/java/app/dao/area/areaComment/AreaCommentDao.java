@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AreaCommentDao implements Dao<AreaComment> {
+public class AreaCommentDao extends Dao<AreaComment> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -27,36 +27,11 @@ public class AreaCommentDao implements Dao<AreaComment> {
                 areaComment.getId(), areaComment.getArea(), areaComment.getComment());
     }
 
-    public void delete(AreaComment areaComment) {
-        jdbcTemplate.update("DELETE FROM AreaComment WHERE id =?",
-                areaComment.getId());
-    }
-
-    public List<AreaComment> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM AreaComment", new AreaCommentRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public AreaComment getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM AreaComment WHERE id =?", new AreaCommentRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
     public List<AreaComment> getByArea(Area area) {
         try {
             return jdbcTemplate.query("SELECT * FROM AreaComment WHERE area =?", new AreaCommentRowMapper(), area.getPlace());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

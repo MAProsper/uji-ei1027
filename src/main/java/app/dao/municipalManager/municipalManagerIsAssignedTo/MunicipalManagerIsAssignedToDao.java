@@ -15,9 +15,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class MunicipalManagerIsAssignedToDao implements Dao<MunicipalManagerIsAssignedTo> {
+public class MunicipalManagerIsAssignedToDao extends Dao<MunicipalManagerIsAssignedTo> {
     @Autowired JdbcTemplate jdbcTemplate;
-    @Autowired Logger logger;
 
     public void add(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
         jdbcTemplate.update("INSERT INTO MunicipalManagerIsAssignedTo VALUES(?, ?, ?, ?)",
@@ -27,27 +26,6 @@ public class MunicipalManagerIsAssignedToDao implements Dao<MunicipalManagerIsAs
     public void update(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
         jdbcTemplate.update("UPDATE MunicipalManagerIsAssignedTo SET id =?, municipality =?, municipal_manager =?, period =?",
                 municipalManagerIsAssignedTo.getId(), municipalManagerIsAssignedTo.getMunicipality(), municipalManagerIsAssignedTo.getMunicipalManager(), municipalManagerIsAssignedTo.getPeriod());
-    }
-
-    public void delete(MunicipalManagerIsAssignedTo municipalManagerIsAssignedTo) {
-        jdbcTemplate.update("DELETE FROM MunicipalManagerIsAssignedTo WHERE id =?",
-                municipalManagerIsAssignedTo.getId());
-    }
-
-    public List<MunicipalManagerIsAssignedTo> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM MunicipalManagerIsAssignedTo", new MunicipalManagerIsAssignedToRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public MunicipalManagerIsAssignedTo getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM MunicipalManagerIsAssignedTo WHERE id =?", new MunicipalManagerIsAssignedToRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<MunicipalManagerIsAssignedTo> getByMunicipalManager(MunicipalManager municipalManager) {
@@ -72,9 +50,5 @@ public class MunicipalManagerIsAssignedToDao implements Dao<MunicipalManagerIsAs
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class CitizenDao implements Dao<Citizen> {
+public class CitizenDao extends Dao<Citizen> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -20,31 +20,8 @@ public class CitizenDao implements Dao<Citizen> {
         jdbcTemplate.update("INSERT INTO Citizen VALUES(?)", citizen.getPerson());
     }
 
-    public void delete(Citizen citizen) {
-        jdbcTemplate.update("DELETE FROM Citizen  WHERE person = ?", citizen.getPerson());
-    }
-
     public void update(Citizen citizen) {
         jdbcTemplate.update("UPDATE Citizen SET person =?", citizen.getPerson());
     }
 
-    public List<Citizen> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Citizen", new CitizenRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public Citizen getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Citizen WHERE person =?", new CitizenRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
-    }
 }

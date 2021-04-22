@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PlacePeriodDao implements Dao<PlacePeriod> {
+public class PlacePeriodDao extends Dao<PlacePeriod> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -22,28 +22,8 @@ public class PlacePeriodDao implements Dao<PlacePeriod> {
         jdbcTemplate.update("INSERT INTO PlacePeriod VALUES(?, ?, ?)", object.getId(), object.getPlace(), object.getPeriod());
     }
 
-    public void delete(PlacePeriod object) {
-        jdbcTemplate.update("DELETE FROM PlacePeriod  WHERE id = ?", object.getId());
-    }
-
     public void update(PlacePeriod object) {
         jdbcTemplate.update("UPDATE PlacePeriod SET id =?, place =?, period =? ", object.getId(), object.getPlace(), object.getPeriod());
-    }
-
-    public List<PlacePeriod> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM PlacePeriod", new PlacePeriodRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public PlacePeriod getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM PlacePeriod WHERE id =?", new PlacePeriodRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<PlacePeriod> getByPlace(Place place) {
@@ -60,9 +40,5 @@ public class PlacePeriodDao implements Dao<PlacePeriod> {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

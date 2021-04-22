@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ControlStaffIsAssignedToDao implements Dao<ControlStaffIsAssignedTo> {
+public class ControlStaffIsAssignedToDao extends Dao<ControlStaffIsAssignedTo> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -27,27 +27,6 @@ public class ControlStaffIsAssignedToDao implements Dao<ControlStaffIsAssignedTo
     public void update(ControlStaffIsAssignedTo controlStaffIsAssignedTo) {
         jdbcTemplate.update("UPDATE ControlStaffIsAssignedTo SET id =?, control_staff =?, area_period =?",
                 controlStaffIsAssignedTo.getId(), controlStaffIsAssignedTo.getControlStaff(), controlStaffIsAssignedTo.getAreaPeriod());
-    }
-
-    public void delete(ControlStaffIsAssignedTo controlStaffIsAssignedTo) {
-        jdbcTemplate.update("DELETE FROM ControlStaffIsAssignedTo WHERE id =?",
-                controlStaffIsAssignedTo.getId());
-    }
-
-    public List<ControlStaffIsAssignedTo> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM ControlStaffIsAssignedTo", new ControlStaffIsAssignedToRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public ControlStaffIsAssignedTo getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM ControlStaffIsAssignedTo WHERE id =?", new ControlStaffIsAssignedToRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<ControlStaffIsAssignedTo> getByControlStaff(ControlStaff controlStaff) {
@@ -72,9 +51,5 @@ public class ControlStaffIsAssignedToDao implements Dao<ControlStaffIsAssignedTo
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

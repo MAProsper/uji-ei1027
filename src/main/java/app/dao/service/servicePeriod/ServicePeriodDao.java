@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ServicePeriodDao implements Dao<ServicePeriod> {
+public class ServicePeriodDao extends Dao<ServicePeriod> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -22,28 +22,8 @@ public class ServicePeriodDao implements Dao<ServicePeriod> {
         jdbcTemplate.update("INSERT INTO ServicePeriod VALUES(?, ?, ?)", object.getId(), object.getService(), object.getPeriod());
     }
 
-    public void delete(ServicePeriod object) {
-        jdbcTemplate.update("DELETE FROM ServicePeriod  WHERE id = ?", object.getId());
-    }
-
     public void update(ServicePeriod object) {
         jdbcTemplate.update("UPDATE ServicePeriod SET id =?,  service =?, period =?", object.getId(), object.getService(), object.getPeriod());
-    }
-
-    public List<ServicePeriod> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM ServicePeriod", new ServicePeriodRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public ServicePeriod getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM ServicePeriod WHERE id =?", new ServicePeriodRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<ServicePeriod> getByService(Service service) {
@@ -60,9 +40,5 @@ public class ServicePeriodDao implements Dao<ServicePeriod> {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PlaceDao implements Dao<Place> {
+public class PlaceDao extends Dao<Place> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -20,31 +20,8 @@ public class PlaceDao implements Dao<Place> {
         jdbcTemplate.update("INSERT INTO Place VALUES(?, ?, ?)", place.getId(), place.getName(), place.getLocation());
     }
 
-    public void delete(Place place) {
-        jdbcTemplate.update("DELETE FROM Place  WHERE id = ?", place.getId());
-    }
-
     public void update(Place place) {
         jdbcTemplate.update("UPDATE Place SET place =?, name =?, location =?", place.getId(), place.getName(), place.getLocation());
     }
 
-    public List<Place> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Place", new PlaceRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public Place getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Place WHERE id =?", new PlaceRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
-    }
 }

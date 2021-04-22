@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ServiceTypeDao implements Dao<ServiceType> {
+public class ServiceTypeDao extends Dao<ServiceType> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -26,29 +26,4 @@ public class ServiceTypeDao implements Dao<ServiceType> {
                 serviceType.getId(), serviceType.getType(), serviceType.getDescription());
     }
 
-    public void delete(ServiceType serviceType) {
-        jdbcTemplate.update("DELETE FROM ServiceType WHERE id =?",
-                serviceType.getId());
-    }
-
-    public List<ServiceType> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM ServiceType", new ServiceTypeRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public ServiceType getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM ServiceType WHERE id =?", new ServiceTypeRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
-    }
 }

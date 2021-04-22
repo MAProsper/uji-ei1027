@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class AddressDao implements Dao<Address> {
+public class AddressDao extends Dao<Address> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -24,30 +24,5 @@ public class AddressDao implements Dao<Address> {
     public void update(Address address) {
         jdbcTemplate.update("UPDATE Address SET id =?, country =?, city =?, street =?, number =?, other =?",
                 address.getId(), address.getCountry(), address.getCity(), address.getStreet(), address.getNumber(), address.getOther());
-    }
-
-    public void delete(Address address) {
-        jdbcTemplate.update("DELETE FROM Address WHERE id =?",
-                address.getId());
-    }
-
-    public List<Address> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Address", new AddressRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public Address getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Address WHERE id =?", new AddressRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

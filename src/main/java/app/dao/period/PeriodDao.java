@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PeriodDao implements Dao<Period> {
+public class PeriodDao extends Dao<Period> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -24,31 +24,6 @@ public class PeriodDao implements Dao<Period> {
     public void update(Period period) {
         jdbcTemplate.update("UPDATE Period SET id =?, start =?, finish =?",
                 period.getId(), period.getStart(), period.getFinish());
-    }
-
-    public void delete(Period period) {
-        jdbcTemplate.update("DELETE FROM Period WHERE id =?",
-                period.getId());
-    }
-
-    public List<Period> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Period", new PeriodRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public Period getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM Period WHERE id =?", new PeriodRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }
 

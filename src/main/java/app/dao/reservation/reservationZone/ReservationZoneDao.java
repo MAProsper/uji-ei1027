@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ReservationZoneDao implements Dao<ReservationZone> {
+public class ReservationZoneDao extends Dao<ReservationZone> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -27,36 +27,11 @@ public class ReservationZoneDao implements Dao<ReservationZone> {
                 reservationZone.getId(), reservationZone.getReservation(), reservationZone.getZone());
     }
 
-    public void delete(ReservationZone reservationZone) {
-        jdbcTemplate.update("DELETE FROM ReservationZone WHERE id =?",
-                reservationZone.getId());
-    }
-
-    public List<ReservationZone> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM ReservationZone", new ReservationZoneRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public ReservationZone getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM ReservationZone WHERE id =?", new ReservationZoneRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
     public List<ReservationZone> getByReservation(Reservation reservation) {
         try {
             return jdbcTemplate.query("SELECT * FROM ReservationZone WHERE reservation =?", new ReservationZoneRowMapper(), reservation.getId());
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<>();
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

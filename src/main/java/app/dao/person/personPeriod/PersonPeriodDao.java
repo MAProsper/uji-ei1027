@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class PersonPeriodDao implements Dao<PersonPeriod> {
+public class PersonPeriodDao extends Dao<PersonPeriod> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -26,27 +26,6 @@ public class PersonPeriodDao implements Dao<PersonPeriod> {
     public void update(PersonPeriod personPeriod) {
         jdbcTemplate.update("UPDATE PersonPeriod SET id =?, person =?, period =?",
                 personPeriod.getId(), personPeriod.getPerson(), personPeriod.getPeriod());
-    }
-
-    public void delete(PersonPeriod personPeriod) {
-        jdbcTemplate.update("DELETE FROM PersonPeriod WHERE id =?",
-                personPeriod.getId());
-    }
-
-    public List<PersonPeriod> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM PersonPeriod", new PersonPeriodRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public PersonPeriod getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM PersonPeriod WHERE id =?", new PersonPeriodRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
     }
 
     public List<PersonPeriod> getByPerson(Person person) {
@@ -63,9 +42,5 @@ public class PersonPeriodDao implements Dao<PersonPeriod> {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }

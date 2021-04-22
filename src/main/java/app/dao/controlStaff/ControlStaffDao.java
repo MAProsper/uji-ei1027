@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Repository
-public class ControlStaffDao implements Dao<ControlStaff> {
+public class ControlStaffDao extends Dao<ControlStaff> {
     @Autowired JdbcTemplate jdbcTemplate;
     @Autowired Logger logger;
 
@@ -24,31 +24,5 @@ public class ControlStaffDao implements Dao<ControlStaff> {
     public void update(ControlStaff controlStaff) {
         jdbcTemplate.update("UPDATE ControlStaff SET person =?",
                 controlStaff.getPerson());
-    }
-
-    public void delete(ControlStaff controlStaff) {
-        jdbcTemplate.update("DELETE FROM ControlStaff WHERE person =?",
-                controlStaff.getPerson());
-    }
-
-    public List<ControlStaff> getAll() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM ControlStaff", new ControlStaffRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public ControlStaff getById(int id) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM ControlStaff WHERE person =?", new ControlStaffRowMapper(), id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
     }
 }
