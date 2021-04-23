@@ -4,7 +4,7 @@ public class Area {
     private int place;
     private int municipality;
     private String description;
-    private double lenght;
+    private double length;
     private double width;
 
     public Area() {
@@ -34,12 +34,12 @@ public class Area {
         this.description = description;
     }
 
-    public double getLenght() {
-        return lenght;
+    public double getLength() {
+        return length;
     }
 
-    public void setLenght(double lenght) {
-        this.lenght = lenght;
+    public void setLength(double length) {
+        this.length = length;
     }
 
     public double getWidth() {
@@ -56,7 +56,7 @@ public class Area {
                 "place=" + place +
                 ", municipality=" + municipality +
                 ", description='" + description + '\'' +
-                ", lenght=" + lenght +
+                ", lenght=" + length +
                 ", width=" + width +
                 '}';
     }

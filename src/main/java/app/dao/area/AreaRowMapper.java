@@ -14,7 +14,7 @@ public class AreaRowMapper implements RowMapper<Area> {
         area.setPlace(rs.getInt("place"));
         area.setMunicipality(rs.getInt("municipality"));
         area.setDescription(rs.getString("description"));
-        area.setLenght(rs.getDouble("length"));
+        area.setLength(rs.getDouble("length"));
         area.setWidth(rs.getDouble("width"));
         return area;
     }

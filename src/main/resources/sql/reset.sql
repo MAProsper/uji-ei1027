@@ -40,7 +40,7 @@ CREATE TABLE Address  (
   id SERIAL PRIMARY KEY,
   country TEXT NOT NULL,
   city TEXT NOT NULL,
-  street INTEGER NOT NULL,
+  street TEXT NOT NULL,
   number INTEGER NOT NULL,
   other TEXT NULL
 );

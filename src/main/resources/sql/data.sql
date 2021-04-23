@@ -1,5 +1,5 @@
 INSERT INTO Period VALUES(1,'2017-07-23');
-INSERT INTO Address VALUES(1, 'Spain', 'Benicassim', 12, 41);
+INSERT INTO Address VALUES(1, 'Spain', 'Benicassim', 'Calle', 41, 'otros');
 INSERT INTO Place VALUES(1, 'SQLand', 'LetterQ');
 INSERT INTO PlacePeriod VALUES(1, 1, 1);
 INSERT INTO Municipality VALUES(1);

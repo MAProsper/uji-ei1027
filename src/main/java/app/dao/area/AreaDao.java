@@ -18,11 +18,11 @@ public class AreaDao extends Dao<Area> {
     @Autowired Logger logger;
 
     public void add(Area area) {
-        jdbcTemplate.update("INSERT INTO Area VALUES(?, ?, ?, ?, ?)", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
+        jdbcTemplate.update("INSERT INTO Area VALUES(?, ?, ?, ?, ?)", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLength(), area.getWidth());
     }
 
     public void update(Area area) {
-        jdbcTemplate.update("UPDATE Area SET place =?, municipality =?, description =?, length =?, width =?", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLenght(), area.getWidth());
+        jdbcTemplate.update("UPDATE Area SET place =?, municipality =?, description =?, length =?, width =?", area.getPlace(), area.getMunicipality(), area.getDescription(), area.getLength(), area.getWidth());
     }
 
     public List<Area> getByMunicipality(Municipality municipality) {
