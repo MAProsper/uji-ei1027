@@ -27,7 +27,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void add(T object) {
-        updateQuery("INSERT INTO %s VALUES(%s)", "%s =?", ", ", object);
+        executeUpdate("INSERT INTO %s VALUES(%s)", "%s =?", ", ", object);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        updateQuery("UPDATE %s SET %s", "?", ", ", object);
+        executeUpdate("UPDATE %s SET %s", "?", ", ", object);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void delete(T object) {
-        updateQuery("DELETE FROM %s WHERE %s", "%s =?", " AND ", object);
+        executeUpdate("DELETE FROM %s WHERE %s", "%s =?", " AND ", object);
     }
 
     /**
@@ -69,7 +69,7 @@ public class Dao<T> {
      * @param delimiter delimitador entre atributos
      * @param object    objeto referencia
      */
-    protected void updateQuery(String query, String format, String delimiter, T object) {
+    protected void executeUpdate(String query, String format, String delimiter, T object) {
         jdbc.update(String.format(query, mapper.getTableName(), formatQuery(format, delimiter)), mapper.toRow(object));
     }
 
