@@ -70,7 +70,22 @@ public class Dao<T> {
      * @param object    objeto referencia
      */
     protected void executeUpdate(String query, String format, String delimiter, T object) {
-        jdbc.update(String.format(query, mapper.getTableName(), formatQuery(format, delimiter)), mapper.toRow(object));
+        jdbc.update(String.format(query, mapper.getTableName(), format(format, delimiter)), mapper.toRow(object));
+    }
+
+    /**
+     * Obtener todos los objetos de la tabla que cumplan todos los atributos espedificados
+     *
+     * @param fields atributos de busqueda
+     * @return objetos encontrados
+     */
+    protected List<T> executeQuery(Map<String, Object> fields) {
+        String query = format("%s =?", " AND ", fields.keySet());
+        try {
+            return jdbc.query(String.format("SELECT * FROM %s WHERE %s", mapper.getTableName(), query), mapper, fields.values().toArray());
+        } catch (EmptyResultDataAccessException e) {
+            return Collections.emptyList();
+        }
     }
 
     /**
@@ -80,8 +95,8 @@ public class Dao<T> {
      * @param delimiter delimitador entre atributos
      * @return cadena SQL
      */
-    protected String formatQuery(String format, String delimiter) {
-        return formatQuery(format, delimiter, mapper.getColumnNames());
+    protected String format(String format, String delimiter) {
+        return format(format, delimiter, mapper.getColumnNames());
     }
 
     /**
@@ -92,29 +107,14 @@ public class Dao<T> {
      * @param fields    atributos a ultilizar
      * @return cadena SQL
      */
-    protected String formatQuery(String format, String delimiter, Set<String> fields) {
+    protected String format(String format, String delimiter, Set<String> fields) {
         return mapper.mapField(fields).stream().map(field -> format).collect(Collectors.joining(delimiter));
-    }
-
-    /**
-     * Obtener todos los objetos de la tabla que cumplan todos los atributos espedificados
-     *
-     * @param fields atributos de busqueda
-     * @return objetos encontrados
-     */
-    protected List<T> getByField(Map<String, Object> fields) {
-        String query = formatQuery("%s =?", " AND ", fields.keySet());
-        try {
-            return jdbc.query(String.format("SELECT * FROM %s WHERE %s", mapper.getTableName(), query), mapper, fields.values().toArray());
-        } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
-        }
     }
 
     /**
      * Tests ejecutados durante a comprobacion de DAOs
      */
     public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
+        logger.info(String.format("%s.getAll() = %s", getClass().getName(), getAll()));
     }
 }
