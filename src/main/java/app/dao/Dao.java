@@ -54,11 +54,7 @@ public class Dao<T> {
      * @return objetos encontrados
      */
     public List<T> getAll() {
-        try {
-            return jdbc.query(String.format("SELECT * FROM %s", mapper.getTableName()), mapper);
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
+        return executeQuery(Map.of("true", true));
     }
 
     /**
@@ -108,7 +104,7 @@ public class Dao<T> {
      * @return cadena SQL
      */
     protected String format(String format, String delimiter, Set<String> fields) {
-        return mapper.mapField(fields).stream().map(field -> format).collect(Collectors.joining(delimiter));
+        return mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
     }
 
     /**
