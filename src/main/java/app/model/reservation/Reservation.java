@@ -3,12 +3,12 @@ package app.model.reservation;
 import java.time.LocalDateTime;
 
 public class Reservation {
-    private int id;
-    private int citizen;
-    private int code;
-    private int occupancy;
-    private int areaPeriod;
-    private LocalDateTime date;
+    public int id;
+    public int citizen;
+    public int code;
+    public int occupancy;
+    public int areaPeriod;
+    public LocalDateTime date;
 
     public Reservation() {
     }

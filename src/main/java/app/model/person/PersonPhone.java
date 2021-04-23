@@ -1,9 +1,9 @@
 package app.model.person;
 
 public class PersonPhone {
-    private int id;
-    private int person;
-    private String phone;
+    public int id;
+    public int person;
+    public String phone;
 
     public PersonPhone() {
     }

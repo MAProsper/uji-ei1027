@@ -1,11 +1,11 @@
 package app.model.person;
 
 public class Person {
-    private int id;
-    private String identification;
-    private String name;
-    private String username;
-    private String password;
+    public int id;
+    public String identification;
+    public String name;
+    public String username;
+    public String password;
 
     @Override
     public String toString() {

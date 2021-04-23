@@ -1,9 +1,9 @@
 package app.model.service;
 
 public class ServiceType {
-    private int id;
-    private String type;
-    private String description;
+    public int id;
+    public String type;
+    public String description;
 
     public ServiceType() {
     }

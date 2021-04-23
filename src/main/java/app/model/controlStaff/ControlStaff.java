@@ -1,7 +1,7 @@
 package app.model.controlStaff;
 
 public class ControlStaff {
-    private int person;
+    public int person;
 
     public ControlStaff() {
 

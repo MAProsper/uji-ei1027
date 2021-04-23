@@ -1,11 +1,11 @@
 package app.model.area;
 
 public class Area {
-    private int place;
-    private int municipality;
-    private String description;
-    private double length;
-    private double width;
+    public int place;
+    public int municipality;
+    public String description;
+    public double length;
+    public double width;
 
     public Area() {
     }

@@ -1,7 +1,7 @@
 package app.model.municipality;
 
 public class Municipality {
-    private int place;
+    public int place;
 
     public Municipality() {
 

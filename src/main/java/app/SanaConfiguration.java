@@ -12,14 +12,14 @@ import java.util.logging.Logger;
 @Configuration
 public class SanaConfiguration {
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource dataSource() {
+    @ConfigurationProperties(prefix = "source")
+    public DataSource source() {
         return DataSourceBuilder.create().build();
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        return new JdbcTemplate(dataSource());
+    public JdbcTemplate jdbc() {
+        return new JdbcTemplate(source());
     }
 
     @Bean

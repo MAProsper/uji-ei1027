@@ -1,9 +1,9 @@
 package app.model.person;
 
 public class PersonPeriod {
-    private int id;
-    private int person;
-    private int period;
+    public int id;
+    public int person;
+    public int period;
 
     public PersonPeriod() {
     }

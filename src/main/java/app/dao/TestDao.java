@@ -2,11 +2,7 @@ package app.dao;
 
 
 import app.dao.address.AddressDao;
-import app.dao.area.AreaDao;
-import app.dao.area.AreaCharacteristicDao;
-import app.dao.area.AreaCommentDao;
-import app.dao.area.AreaImageDao;
-import app.dao.area.AreaPeriodDao;
+import app.dao.area.*;
 import app.dao.citizen.CitizenDao;
 import app.dao.controlStaff.ControlStaffDao;
 import app.dao.controlStaff.ControlStaffIsAssignedToDao;
@@ -14,11 +10,7 @@ import app.dao.municipalManager.MunicipalManagerDao;
 import app.dao.municipalManager.MunicipalManagerIsAssignedToDao;
 import app.dao.municipality.MunicipalityDao;
 import app.dao.period.PeriodDao;
-import app.dao.person.PersonDao;
-import app.dao.person.PersonEmailDao;
-import app.dao.person.PersonPeriodDao;
-import app.dao.person.PersonPhoneDao;
-import app.dao.person.PersonResidenceDao;
+import app.dao.person.*;
 import app.dao.place.PlaceDao;
 import app.dao.place.PlacePeriodDao;
 import app.dao.reservation.ReservationDao;

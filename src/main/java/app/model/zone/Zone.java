@@ -1,8 +1,8 @@
 package app.model.zone;
 
 public class Zone {
-    private int place;
-    private int capacity;
+    public int place;
+    public int capacity;
 
     public int getPlace() {
         return place;

@@ -1,9 +1,9 @@
 package app.model.area;
 
 public class AreaPeriod {
-    private int id;
-    private int area;
-    private int period;
+    public int id;
+    public int area;
+    public int period;
 
     public AreaPeriod() {
     }

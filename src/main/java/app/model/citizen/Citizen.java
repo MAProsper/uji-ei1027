@@ -1,7 +1,7 @@
 package app.model.citizen;
 
 public class Citizen {
-    private int person;
+    public int person;
 
     public Citizen() {
     }

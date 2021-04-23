@@ -1,9 +1,9 @@
 package app.model.service;
 
 public class ServicePeriod {
-    private int id;
-    private int service;
-    private int period;
+    public int id;
+    public int service;
+    public int period;
 
     public ServicePeriod() {
 

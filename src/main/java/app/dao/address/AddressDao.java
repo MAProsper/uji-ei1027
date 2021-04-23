@@ -5,4 +5,8 @@ import app.model.address.Address;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AddressDao extends Dao<Address> {}
+public class AddressDao extends Dao<Address> {
+    public AddressDao() {
+        super(Address.class);
+    }
+}

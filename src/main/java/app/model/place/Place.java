@@ -1,9 +1,9 @@
 package app.model.place;
 
 public class Place {
-    private int id;
-    private String name;
-    private String location;
+    public int id;
+    public String name;
+    public String location;
 
     public Place() {
 

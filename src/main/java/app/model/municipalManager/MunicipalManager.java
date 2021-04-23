@@ -1,7 +1,7 @@
 package app.model.municipalManager;
 
 public class MunicipalManager {
-    private int person;
+    public int person;
 
     public MunicipalManager() {
     }

@@ -1,9 +1,9 @@
 package app.model.area;
 
 public class AreaImage {
-    private int id;
-    private int area;
-    private String image;
+    public int id;
+    public int area;
+    public String image;
 
 
     public int getId() {

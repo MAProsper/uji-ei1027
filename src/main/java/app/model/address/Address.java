@@ -1,15 +1,14 @@
 package app.model.address;
 
 public class Address {
-    private int id;
-    private String country;
-    private String city;
-    private String street;
-    private int number;
-    private String other;
+    public int id;
+    public String country;
+    public String city;
+    public String street;
+    public int number;
+    public String other;
 
     public Address() {
-
     }
 
     @Override

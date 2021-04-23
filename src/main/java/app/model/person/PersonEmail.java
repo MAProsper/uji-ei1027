@@ -1,9 +1,9 @@
 package app.model.person;
 
 public class PersonEmail {
-    private int id;
-    private int person;
-    private String email;
+    public int id;
+    public int person;
+    public String email;
 
     public int getId() {
         return id;

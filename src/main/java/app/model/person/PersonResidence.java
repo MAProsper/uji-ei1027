@@ -1,9 +1,9 @@
 package app.model.person;
 
 public class PersonResidence {
-    private int id;
-    private int person;
-    private int address;
+    public int id;
+    public int person;
+    public int address;
 
     public PersonResidence() {
         super();

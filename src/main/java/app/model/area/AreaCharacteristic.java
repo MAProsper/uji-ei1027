@@ -1,9 +1,9 @@
 package app.model.area;
 
 public class AreaCharacteristic {
-    private int id;
-    private int area;
-    private String characteristic;
+    public int id;
+    public int area;
+    public String characteristic;
 
     public AreaCharacteristic() {
     }

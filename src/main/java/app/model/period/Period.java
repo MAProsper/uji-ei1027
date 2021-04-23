@@ -3,9 +3,9 @@ package app.model.period;
 import java.time.LocalDateTime;
 
 public class Period {
-    private int id;
-    private LocalDateTime start;
-    private LocalDateTime finish;
+    public int id;
+    public LocalDateTime start;
+    public LocalDateTime finish;
 
     public Period() {
 

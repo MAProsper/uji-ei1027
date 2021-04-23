@@ -1,9 +1,9 @@
 package app.model.place;
 
 public class PlacePeriod {
-    private int id;
-    private int place;
-    private int period;
+    public int id;
+    public int place;
+    public int period;
 
     public PlacePeriod() {
     }

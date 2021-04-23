@@ -1,9 +1,9 @@
 package app.model.service;
 
 public class Service {
-    private int id;
-    private int serviceType;
-    private int area;
+    public int id;
+    public int serviceType;
+    public int area;
 
     public Service() {
     }

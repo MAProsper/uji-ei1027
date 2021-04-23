@@ -1,9 +1,9 @@
 package app.model.reservation;
 
 public class ReservationPeriod {
-    private int id;
-    private int reservation;
-    private int period;
+    public int id;
+    public int reservation;
+    public int period;
 
     public int getPeriod() {
         return period;

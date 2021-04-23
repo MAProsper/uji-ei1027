@@ -1,9 +1,9 @@
 package app.model.controlStaff;
 
 public class ControlStaffIsAssignedTo {
-    private int id;
-    private int controlStaff;
-    private int areaPeriod;
+    public int id;
+    public int controlStaff;
+    public int areaPeriod;
 
     public ControlStaffIsAssignedTo() {
 

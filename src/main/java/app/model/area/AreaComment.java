@@ -1,9 +1,9 @@
 package app.model.area;
 
 public class AreaComment {
-    private int id;
-    private int area;
-    private String comment;
+    public int id;
+    public int area;
+    public String comment;
 
     public AreaComment() {
     }
