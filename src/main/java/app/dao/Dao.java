@@ -54,7 +54,7 @@ public class Dao<T> {
      * @return objetos encontrados
      */
     public List<T> getAll() {
-        return executeQuery(Map.of("true", true));
+        return executeQuery(Collections.emptyMap());
     }
 
     /**
@@ -66,7 +66,7 @@ public class Dao<T> {
      * @param object    objeto referencia
      */
     protected void executeUpdate(String query, String format, String delimiter, T object) {
-        jdbc.update(String.format(query, mapper.getTableName(), format(format, delimiter)), mapper.toRow(object));
+        jdbc.update(String.format(query, mapper.getTableName(), format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
     }
 
     /**
@@ -89,22 +89,12 @@ public class Dao<T> {
      *
      * @param format    formato aplicado a cada atributo
      * @param delimiter delimitador entre atributos
-     * @return cadena SQL
-     */
-    protected String format(String format, String delimiter) {
-        return format(format, delimiter, mapper.getColumnNames());
-    }
-
-    /**
-     * Prepara una cadena SQL dando un formato determinado a cada atributo y concatenado los con un delimitador
-     *
-     * @param format    formato aplicado a cada atributo
-     * @param delimiter delimitador entre atributos
      * @param fields    atributos a ultilizar
      * @return cadena SQL
      */
     protected String format(String format, String delimiter, Set<String> fields) {
-        return mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
+        String sql = mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
+        return sql.isBlank() ? "TRUE" : sql;
     }
 
     /**
