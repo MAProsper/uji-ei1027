@@ -21,14 +21,18 @@ public class Reflect<T> {
     }
 
     /**
-     * @return clase de objectos los objetos reflejados
+     * Obtiene la clase de los objetos reflejados
+     *
+     * @return objeto clase
      */
     public Class<T> getReflectClass() {
         return cls;
     }
 
     /**
-     * @return nueva instancia del objecto relefjado
+     * Crea una nueva instancia del objeto reflejado
+     *
+     * @return instancia de objeto
      */
     public T newInstance() {
         try {
@@ -39,7 +43,9 @@ public class Reflect<T> {
     }
 
     /**
-     * @return lista de atributos en la clase reflejada
+     * Obtener una lista con todos los atributos del objeto
+     *
+     * @return lista de atributos
      */
     public Set<String> getFields() {
         return fields.keySet();
