@@ -29,7 +29,7 @@ public class Mapper<T> implements RowMapper<T> {
     }
 
     /**
-     * Traducción de nombres del modelo a columnas de SQL
+     * Traducción de un atributo del modelo a columna de SQL
      *
      * @param field nombre de atributo
      * @return nombre de columna
@@ -39,7 +39,7 @@ public class Mapper<T> implements RowMapper<T> {
     }
 
     /**
-     * Traducción de varios nombres del modelo a columnas de SQL
+     * Traducción de varios atributo del modelo a columnas de SQL
      *
      * @param fields nombres de atributos
      * @return nombres de columnas
