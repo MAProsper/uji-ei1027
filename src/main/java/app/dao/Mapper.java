@@ -77,7 +77,8 @@ public class Mapper<T> implements RowMapper<T> {
     @Override
     public T mapRow(@NonNull ResultSet resultSet, int i) throws SQLException {
         T obj = reflect.newInstance();
-        for (String param : reflect.getFields()) reflect.set(obj, param, mapType(resultSet.getObject(mapField(param))));
+        for (String field : reflect.getFields())
+            reflect.set(obj, field, mapType(resultSet.getObject(mapField(field))));
         return obj;
     }
 
