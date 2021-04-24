@@ -78,7 +78,7 @@ public class Dao<T> {
      * @return objetos encontrados
      */
     protected List<T> executeQuery(Map<String, Object> fields) {
-        String query = SqlUtil.format("%s =?", " AND ", mapper.mapField(fields.keySet()));
+        String query = SqlUtil.format("%s =?", " AND ", mapper.mapName(fields.keySet()));
         try {
             return jdbc.query(String.format("SELECT * FROM %s WHERE %s", mapper.getTableName(), query), mapper, fields.values().toArray());
         } catch (EmptyResultDataAccessException e) {

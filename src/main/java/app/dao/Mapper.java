@@ -18,37 +18,6 @@ public class Mapper<T> implements RowMapper<T> {
     }
 
     /**
-     * Traducción de objetos SQL a objetos del modelo
-     *
-     * @param object objeto SQL
-     * @return objeto para el modelo
-     */
-    public Object mapType(Object object) {
-        if (object instanceof Timestamp) return ((Timestamp) object).toLocalDateTime();
-        return object;
-    }
-
-    /**
-     * Traducción de un atributo del modelo a columna de SQL
-     *
-     * @param field nombre de atributo
-     * @return nombre de columna
-     */
-    public String mapField(String field) {
-        return field.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
-    }
-
-    /**
-     * Traducción de varios atributo del modelo a columnas de SQL
-     *
-     * @param fields nombres de atributos
-     * @return nombres de columnas
-     */
-    public Set<String> mapField(Set<String> fields) {
-        return fields.stream().map(this::mapField).collect(Collectors.toSet());
-    }
-
-    /**
      * Nombre de la tabla SQL a partir del modelo
      *
      * @return nombre de tabla
@@ -63,7 +32,38 @@ public class Mapper<T> implements RowMapper<T> {
      * @return nombre de las columnas
      */
     public Set<String> getColumnNames() {
-        return mapField(reflect.getFields());
+        return mapName(reflect.getFields());
+    }
+
+    /**
+     * Traducción de un atributo del modelo a columna de SQL
+     *
+     * @param field nombre de atributo
+     * @return nombre de columna
+     */
+    public String mapName(String field) {
+        return field.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+    }
+
+    /**
+     * Traducción de varios atributo del modelo a columnas de SQL
+     *
+     * @param fields nombres de atributos
+     * @return nombres de columnas
+     */
+    public Set<String> mapName(Set<String> fields) {
+        return fields.stream().map(this::mapName).collect(Collectors.toSet());
+    }
+
+    /**
+     * Traducción de objetos SQL a objetos del modelo
+     *
+     * @param object objeto SQL
+     * @return objeto para el modelo
+     */
+    public Object mapType(Object object) {
+        if (object instanceof Timestamp) return ((Timestamp) object).toLocalDateTime();
+        return object;
     }
 
     /**
@@ -78,7 +78,7 @@ public class Mapper<T> implements RowMapper<T> {
     public T mapRow(@NonNull ResultSet resultSet, int i) throws SQLException {
         T obj = reflect.newInstance();
         for (String field : reflect.getFields())
-            reflect.set(obj, field, mapType(resultSet.getObject(mapField(field))));
+            reflect.set(obj, field, mapType(resultSet.getObject(mapName(field))));
         return obj;
     }
 
