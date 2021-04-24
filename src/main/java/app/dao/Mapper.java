@@ -38,21 +38,21 @@ public class Mapper<T> implements RowMapper<T> {
     /**
      * Traducción de un atributo del modelo a columna de SQL
      *
-     * @param field nombre de atributo
+     * @param name nombre de atributo
      * @return nombre de columna
      */
-    public String mapName(String field) {
-        return field.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+    public String mapName(String name) {
+        return name.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
     }
 
     /**
      * Traducción de varios atributo del modelo a columnas de SQL
      *
-     * @param fields nombres de atributos
+     * @param names nombres de atributos
      * @return nombres de columnas
      */
-    public Set<String> mapName(Set<String> fields) {
-        return fields.stream().map(this::mapName).collect(Collectors.toSet());
+    public Set<String> mapName(Set<String> names) {
+        return names.stream().map(this::mapName).collect(Collectors.toSet());
     }
 
     /**
