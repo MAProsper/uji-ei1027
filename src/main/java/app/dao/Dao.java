@@ -27,7 +27,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void add(T object) {
-        executeUpdate("INSERT INTO %s VALUES(%s)", "%s =?", ", ", object);
+        executeUpdate("INSERT INTO %s VALUES(%s)", "?", ", ", object);
     }
 
     /**
@@ -36,7 +36,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        executeUpdate("UPDATE %s SET %s", "?", ", ", object);
+        executeUpdate("UPDATE %s SET %s", "%s = ?", ", ", object);
     }
 
     /**
