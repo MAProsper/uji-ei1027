@@ -1,12 +1,12 @@
 package app.dao;
 
+import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class Dao<T> {
     @Autowired protected JdbcTemplate jdbc;
@@ -66,7 +66,7 @@ public class Dao<T> {
      * @param object    objeto referencia
      */
     protected void executeUpdate(String query, String format, String delimiter, T object) {
-        jdbc.update(String.format(query, mapper.getTableName(), format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
+        jdbc.update(String.format(query, mapper.getTableName(), SqlUtil.format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
     }
 
     /**
@@ -76,25 +76,12 @@ public class Dao<T> {
      * @return objetos encontrados
      */
     protected List<T> executeQuery(Map<String, Object> fields) {
-        String query = format("%s =?", " AND ", fields.keySet());
+        String query = SqlUtil.format("%s =?", " AND ", mapper.mapField(fields.keySet()));
         try {
             return jdbc.query(String.format("SELECT * FROM %s WHERE %s", mapper.getTableName(), query), mapper, fields.values().toArray());
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }
-    }
-
-    /**
-     * Prepara una cadena SQL dando un formato determinado a cada atributo y concatenado los con un delimitador
-     *
-     * @param format    formato aplicado a cada atributo
-     * @param delimiter delimitador entre atributos
-     * @param fields    atributos a ultilizar
-     * @return cadena SQL
-     */
-    protected String format(String format, String delimiter, Set<String> fields) {
-        String query = mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
-        return query.isBlank() ? "TRUE" : query;
     }
 
     /**

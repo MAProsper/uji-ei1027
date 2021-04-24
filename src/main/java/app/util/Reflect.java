@@ -15,7 +15,7 @@ public class Reflect<T> {
     public Reflect(Class<T> cls) {
         this.cls = cls;
         fields = new HashMap<>();
-        for (Field field : cls.getDeclaredFields())
+        for (Field field : cls.getFields())
             fields.put(field.getName(), field);
     }
 
