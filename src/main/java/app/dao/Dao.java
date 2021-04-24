@@ -93,8 +93,8 @@ public class Dao<T> {
      * @return cadena SQL
      */
     protected String format(String format, String delimiter, Set<String> fields) {
-        String sql = mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
-        return sql.isBlank() ? "TRUE" : sql;
+        String query = mapper.mapField(fields).stream().map(field -> String.format(format, field)).collect(Collectors.joining(delimiter));
+        return query.isBlank() ? "TRUE" : query;
     }
 
     /**
