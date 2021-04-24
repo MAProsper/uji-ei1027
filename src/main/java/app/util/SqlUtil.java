@@ -35,7 +35,7 @@ public class SqlUtil {
     }
 
     /**
-     * Prepara una cadena SQL dando un formato determinado a cada columna y concatenado los con un delimitador
+     * Prepara una cadena SQL dando un formato determinado a cada columna y concatenado las con un delimitador
      *
      * @param format    formato aplicado a cada atributo
      * @param delimiter delimitador entre atributos
