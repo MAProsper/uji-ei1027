@@ -3,7 +3,6 @@ package app.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.stereotype.Repository;
