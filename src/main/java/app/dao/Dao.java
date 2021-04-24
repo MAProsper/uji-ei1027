@@ -98,7 +98,7 @@ public class Dao<T> {
     }
 
     /**
-     * Tests ejecutados durante a comprobacion de DAOs
+     * Tests ejecutados durante la comprobacion de DAOs
      */
     public void test() {
         logger.info(String.format("%s.getAll() = %s", getClass().getName(), getAll()));
