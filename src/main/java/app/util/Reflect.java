@@ -79,6 +79,4 @@ public class Reflect<T> {
             throw new DataRetrievalFailureException(e.getMessage(), e);
         }
     }
-
-
 }
