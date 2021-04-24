@@ -36,7 +36,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        executeUpdate("UPDATE %s SET %s", "%s = ?", ", ", object);
+        executeUpdate("UPDATE %s SET %s", "%s =?", ", ", object);
     }
 
     /**
