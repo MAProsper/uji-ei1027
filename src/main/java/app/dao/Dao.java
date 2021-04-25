@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 public class Dao<T> {
@@ -38,7 +37,7 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        executeUpdate("UPDATE %s SET %s", "%s =?", ", ", object);
+        executeUpdate("UPDATE %s SET %s", "%s = ?", ", ", object);
     }
 
     /**
@@ -47,16 +46,16 @@ public class Dao<T> {
      * @param object objeto referencia
      */
     public void delete(T object) {
-        executeUpdate("DELETE FROM %s WHERE %s", "%s =?", " AND ", object);
+        executeUpdate("DELETE FROM %s WHERE %s", "%s = ?", " AND ", object);
     }
 
     /**
-     * Obtener todos los objetos de la tabla en la base de datos
+     * Obtener todos los objetos de la base de datos
      *
      * @return objetos encontrados
      */
     public List<T> getAll() {
-        return executeQuery(Collections.emptyMap());
+        return executeQuery(String.format("SELECT * FROM %s", mapper.getTableName()));
     }
 
     /**
@@ -72,15 +71,15 @@ public class Dao<T> {
     }
 
     /**
-     * Obtener todos los objetos de la tabla que cumplan todos los atributos espedificados
+     * Obtener todos los objetos de la sentencia SQL
      *
-     * @param fields atributos de busqueda
+     * @param query sentencia SQL
+     * @param values valores incrustados
      * @return objetos encontrados
      */
-    protected List<T> executeQuery(Map<String, Object> fields) {
-        String query = SqlUtil.format("%s =?", " AND ", mapper.mapName(fields.keySet()));
+    protected List<T> executeQuery(String query, Object... values) {
         try {
-            return jdbc.query(String.format("SELECT * FROM %s WHERE %s", mapper.getTableName(), query), mapper, fields.values().toArray());
+            return jdbc.query(query, mapper, values);
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }
