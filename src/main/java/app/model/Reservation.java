@@ -1,9 +1,11 @@
 package app.model;
 
+import app.model.generic.Model;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-public class Reservation {
+public class Reservation extends Model {
     public int id;
     public int citizen;
     public int areaPeriod;
