@@ -1,6 +1,6 @@
 package app.dao.generic;
 
-import app.model.generic.Signble;
+import app.model.generic.Signable;
 
 import java.time.LocalDateTime;
 
@@ -9,10 +9,13 @@ import java.time.LocalDateTime;
  *      - si se añade y ya estaba dado de alta, acutualiza.
  *      - si se borra, se cambia el signDown por la fecha del borrado.
  */
-public abstract class SignableDao<T extends Signble> extends Dao<T>{
-
-    public SignableDao(Class<T> cls){
+public abstract class SignableDao<T extends Signable> extends Dao<T>{
+    public SignableDao(Class<T> cls) {
         super(cls);
+    }
+
+    public SignableDao(Mapper<T> mapper) {
+        super(mapper);
     }
 
     //TODO: mirar si hacer la "fijación" de hora en el controlador

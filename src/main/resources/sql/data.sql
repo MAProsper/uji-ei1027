@@ -1,0 +1,1 @@
+INSERT INTO ServiceType VALUES(0, 'TipoTest');

@@ -21,6 +21,6 @@ public class Validator<T extends Model> implements org.springframework.validatio
         validate(cls.cast(object), errors);
     }
 
-    public void validate(T objet, Errors errors) {
+    public void validate(T object, Errors errors) {
     }
 }

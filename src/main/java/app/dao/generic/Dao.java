@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Dao<T extends Model> {
+public abstract class Dao<T extends Model> {
     @Autowired protected JdbcTemplate jdbc;
     @Autowired protected Logger logger;
     protected Mapper<T> mapper;

@@ -1,6 +1,6 @@
 package app.model.generic;
 
-public abstract class Person extends Signble {
+public abstract class Person extends Signable {
     public int id;
     public String identification;
     public String name;

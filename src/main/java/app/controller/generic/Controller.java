@@ -1,41 +1,32 @@
 package app.controller.generic;
 
 import app.dao.generic.Dao;
-import app.dao.generic.Mapper;
+import app.model.generic.Model;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@org.springframework.stereotype.Controller
-public abstract class Controller<T extends app.model.generic.Model> {
+import java.util.logging.Logger;
+
+@org.springframework.stereotype.Service
+public abstract class Controller<D extends Dao<? extends Model>> {
 
     //TODO: Hacer
-    protected Mapper<T> mapper;
-    protected Dao<T> dao;
-    private String name;
+    @Autowired protected D dao;
+    @Autowired protected Logger logger;
 
-    public Controller(Class<T> cls) {
-        this.mapper = new Mapper<>(cls);
-        this.dao = new Dao<T>(cls);
-        this.name = this.mapper.getTableName();
-    }
-
-    @Autowired
-    public void setDao(Dao<T> dao) {
-        this.dao=dao;
+    public Controller() {
     }
 
     @RequestMapping("/add")
-    public abstract String add(Model model);
+    public abstract String add(org.springframework.ui.Model model);
 
     @RequestMapping("/list")
-    public String list(Model model){
-        model.addAttribute(this.name+"s", this.dao.getAll());
-        return name+"/list";
+    public String list(org.springframework.ui.Model model){
+        return "/list";
     }
 
     @RequestMapping("/update")
-    public abstract String update(Model model);
+    public abstract String update(org.springframework.ui.Model model);
 
     @RequestMapping("/delete/{id}")
     public abstract String delete();
