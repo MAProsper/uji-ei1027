@@ -1,5 +1,6 @@
 package app.dao.generic;
 
+import app.model.generic.Model;
 import app.util.Reflect;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
@@ -8,7 +9,7 @@ import java.sql.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Mapper<T> implements RowMapper<T> {
+public class Mapper<T extends Model> implements RowMapper<T> {
     protected Reflect<T> reflect;
 
     public Mapper(Class<T> cls) {

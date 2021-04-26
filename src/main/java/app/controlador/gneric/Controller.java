@@ -1,6 +1,7 @@
-package app.controlador;
+package app.controlador.gneric;
 
 import app.dao.generic.Dao;
+import app.dao.generic.Mapper;
 import app.util.Reflect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -8,17 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.stereotype.Controller
-public abstract class Controller<T> {
+public abstract class Controller<T extends app.model.generic.Model> {
 
     //TODO: Hacer
-    protected Reflect<T> reflect;
+    protected Mapper<T> mapper;
     protected Dao<T> dao;
     private String name;
 
     public Controller(Class<T> cls) {
-        this.reflect = new Reflect<>(cls);
+        this.mapper = new Mapper<>(cls);
         this.dao = new Dao<T>(cls);
-        this.name = this.reflect.getReflectClass().getSimpleName().toLowerCase();
+        this.name = this.mapper.getTableName();
     }
 
     @Autowired

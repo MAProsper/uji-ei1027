@@ -1,5 +1,6 @@
 package app.dao.generic;
 
+import app.model.generic.Model;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Dao<T> {
+public class Dao<T extends Model> {
     @Autowired protected JdbcTemplate jdbc;
     @Autowired protected Logger logger;
     protected Mapper<T> mapper;
