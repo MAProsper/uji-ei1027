@@ -1,14 +1,10 @@
 package app.model;
 
-import java.time.LocalDateTime;
-
-public abstract class Person {
+public abstract class Person extends SignDowneable{
     public int id;
     public String identification;
     public String name;
     public String password;
-    public LocalDateTime singUp;
-    public LocalDateTime singDown;  //
 
     public Person() {
         super();
@@ -46,29 +42,11 @@ public abstract class Person {
         this.password = password;
     }
 
-    public LocalDateTime getSingUp() {
-        return singUp;
-    }
-
-    public LocalDateTime getSingDown() {
-        return singDown;
-    }
-
-    public void setSingUp(LocalDateTime singUp) {
-        this.singUp = singUp;
-    }
-
-    public void setSingDown(LocalDateTime singDown) {
-        this.singDown = singDown;
-    }
-
     @Override
     public String toString() {
         return  "id=" + id +
                 ", identification='" + identification + '\'' +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", singUp=" + singUp +
-                ", singDown=" + singDown ;
+                ", password='" + password + '\'' + super.toString();
     }
 }
