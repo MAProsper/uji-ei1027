@@ -1,9 +1,11 @@
 package app.model;
 
+import app.model.generic.Model;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AreaPeriod {
+public class AreaPeriod extends Model {
 
     public int id;
     public LocalDate scheduleStart;

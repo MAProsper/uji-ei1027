@@ -1,6 +1,8 @@
 package app.model;
 
-public class ServiceType {
+import app.model.generic.Model;
+
+public class ServiceType extends Model {
     public int id;
     public String name;
 
