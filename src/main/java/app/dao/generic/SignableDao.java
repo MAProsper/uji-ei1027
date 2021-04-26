@@ -1,8 +1,6 @@
 package app.dao.generic;
 
-//TODO: Buscar nombre mejor
-
-import app.model.SignDowneable;
+import app.model.Signble;
 
 import java.time.LocalDateTime;
 
@@ -11,22 +9,22 @@ import java.time.LocalDateTime;
  *      - si se añade y ya estaba dado de alta, acutualiza.
  *      - si se borra, se cambia el signDown por la fecha del borrado.
  */
-public class DaoSignDown extends Dao<SignDowneable>{
+public abstract class SignableDao<T extends Signble> extends Dao<T>{
 
-    public DaoSignDown(){
-        super(SignDowneable.class);
+    public SignableDao(Class<T> cls){
+        super(cls);
     }
 
     //TODO: mirar si hacer la "fijación" de hora en el controlador
 
     @Override
-    public void add(SignDowneable object){
+    public void add(T object){
         object.setSingUp(LocalDateTime.now());
         super.update(object);
     }
 
     @Override
-    public void delete(SignDowneable object){
+    public void delete(T object){
         object.setSingDown( LocalDateTime.now() );
         super.update(object);
     }

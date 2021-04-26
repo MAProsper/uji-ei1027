@@ -1,8 +1,6 @@
 package app.model;
 
-import java.time.LocalDateTime;
-
-public abstract class Place extends SignDowneable{
+public abstract class Place extends Signble {
     public int id;
     public String name;
 

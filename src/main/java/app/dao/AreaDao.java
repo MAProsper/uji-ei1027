@@ -1,6 +1,6 @@
 package app.dao;
 
-import app.dao.generic.Dao;
+import app.dao.generic.PlaceSignableDao;
 import app.model.Area;
 import app.model.Municipality;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AreaDao extends Dao<Area>{
+public class AreaDao extends PlaceSignableDao<Area> {
     public AreaDao() {
         super(Area.class);
     }

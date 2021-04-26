@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 /**
  * *Abstracción*: para hacer un DAO más simple que, al borrar en realidad ponga la fecha de baja en vez de borrar.
  */
-public abstract class SignDowneable {
+public abstract class Signble {
 
     public LocalDateTime signUp;
     public LocalDateTime signDowm; // Importante: admite *null* (si no se ha dado de baja)
 
-    public SignDowneable(){
+    public Signble(){
         super();
     }
 

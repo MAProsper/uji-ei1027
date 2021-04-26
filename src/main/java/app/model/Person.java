@@ -1,6 +1,6 @@
 package app.model;
 
-public abstract class Person extends SignDowneable{
+public abstract class Person extends Signble {
     public int id;
     public String identification;
     public String name;
