@@ -28,7 +28,6 @@ public class MunicipalManager extends Person {
     public String toString() {
         return super.toString() + ',' +
                 "phone='" + phone + '\'' +
-                ", municipality=" + municipality +
-                ;
+                ", municipality=" + municipality;
     }
 }
