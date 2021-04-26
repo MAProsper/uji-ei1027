@@ -6,7 +6,7 @@ import app.model.enums.Country;
 public class Citizen extends Person {
 
     public String mail;
-    public Country country;  // TODO: hacer un listado de todos los paises
+    public int country;  // TODO: hacer un listado de todos los paises
     public String town;
     public String address;
 
@@ -23,11 +23,11 @@ public class Citizen extends Person {
     }
 
     public Country getCountry() {
-        return country;
+        return Country.values()[country];
     }
 
     public void setCountry(Country country) {
-        this.country = country;
+        this.country = country.ordinal();
     }
 
     public String getTown() {

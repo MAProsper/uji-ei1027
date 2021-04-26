@@ -5,7 +5,7 @@ import app.model.enums.AreaType;
 public class Area extends Place {
 
     public int municipality; // id del municipio
-    public AreaType type;  // TODO: Hacer esto correctamente
+    public int type;  // TODO: Hacer esto correctamente
     public String description;
     public String location;
 
@@ -14,11 +14,11 @@ public class Area extends Place {
     }
 
     public AreaType getType() {
-        return type;
+        return AreaType.values()[type];
     }
 
     public void setType(AreaType type) {
-        this.type = type;
+        this.type = type.ordinal();
     }
 
     public String getDescription() {
