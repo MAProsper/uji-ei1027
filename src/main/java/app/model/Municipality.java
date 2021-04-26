@@ -1,6 +1,8 @@
 package app.model;
 
-public class Municipality extends Place{
+import app.model.generic.Place;
+
+public class Municipality extends Place {
     
     public Municipality(){
         super();

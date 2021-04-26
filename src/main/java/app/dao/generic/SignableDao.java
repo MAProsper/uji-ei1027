@@ -1,6 +1,6 @@
 package app.dao.generic;
 
-import app.model.Signble;
+import app.model.generic.Signble;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,7 @@
 package app.model;
 
 import app.model.enums.AreaType;
+import app.model.generic.Place;
 
 public class Area extends Place {
 

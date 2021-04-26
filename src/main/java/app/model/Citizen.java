@@ -2,6 +2,7 @@ package app.model;
 
 
 import app.model.enums.Country;
+import app.model.generic.Person;
 
 public class Citizen extends Person {
 

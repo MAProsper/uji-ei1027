@@ -1,6 +1,8 @@
 package app.model;
 
-public class Zone extends Place{
+import app.model.generic.Place;
+
+public class Zone extends Place {
 
     public int area; // id del área asociada
     int capacity;

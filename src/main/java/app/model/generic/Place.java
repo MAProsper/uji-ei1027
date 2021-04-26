@@ -1,4 +1,4 @@
-package app.model;
+package app.model.generic;
 
 public abstract class Place extends Signble {
     public int id;

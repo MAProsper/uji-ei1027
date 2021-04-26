@@ -1,6 +1,8 @@
 package app.model;
 
-public class ControlStaff extends Person{
+import app.model.generic.Person;
+
+public class ControlStaff extends Person {
 
     public ControlStaff() {
         super();

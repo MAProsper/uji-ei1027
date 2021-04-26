@@ -1,5 +1,7 @@
 package app.model;
 
+import app.model.generic.Person;
+
 public class MunicipalManager extends Person {
     public String phone;
     public int municipality;
