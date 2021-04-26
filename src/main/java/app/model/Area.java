@@ -13,8 +13,8 @@ public class Area extends Place {
         super();
     }
 
-    public String getType() {
-        return type.getType();
+    public AreaType getType() {
+        return type;
     }
 
     public void setType(AreaType type) {
@@ -41,7 +41,7 @@ public class Area extends Place {
     public String toString() {
         return super.toString() + "," +
                 " municipality='" + municipality + '\'' +
-                ", type='" + type.toString() + '\'' +
+                ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'';
     }

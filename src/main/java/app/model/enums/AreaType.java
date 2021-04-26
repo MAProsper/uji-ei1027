@@ -8,13 +8,13 @@ public enum AreaType {
     BOSQUE("Bosque"),
     OTRO("Otro");
 
-    private String type;
+    private final String name;
 
-    AreaType(final String type){
-        this.type = type;
+    AreaType(final String name){
+        this.name = name;
     }
 
-    public String getType(){
-        return this.type;
+    public String getName(){
+        return this.name;
     }
 }
