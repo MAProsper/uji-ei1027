@@ -50,12 +50,32 @@ public class Dao<T> {
     }
 
     /**
+     * Elimina el objeto de la base de datos
+     *
+     * @param id clave primaria
+     */
+    public void deleteById(int id) {
+        executeUpdate("DELETE FROM %s WHERE id = ?", id);
+    }
+
+    /**
+     * Obtener un objeto de la base de datos
+     *
+     * @param id clave primaria
+     * @return objeto encontrado
+     */
+    public T getById(int id) {
+        List<T> objets = executeQuery("WHERE id = ?", id);
+        return objets.isEmpty() ? null : objets.get(0);
+    }
+
+    /**
      * Obtener todos los objetos de la base de datos
      *
      * @return objetos encontrados
      */
     public List<T> getAll() {
-        return executeQuery(String.format("SELECT * FROM %s", mapper.getTableName()));
+        return executeQuery("");
     }
 
     /**
@@ -67,7 +87,17 @@ public class Dao<T> {
      * @param object    objeto referencia
      */
     protected void executeUpdate(String query, String format, String delimiter, T object) {
-        jdbc.update(String.format(query, mapper.getTableName(), SqlUtil.format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
+        executeUpdate(String.format(query, "%s", SqlUtil.format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
+    }
+
+    /**
+     * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
+     *
+     * @param query     formato sentencia SQL
+     * @param values    valores incrustados
+     */
+    protected void executeUpdate(String query, Object... values) {
+        jdbc.update(String.format(query, mapper.getTableName()), values);
     }
 
     /**
@@ -79,7 +109,7 @@ public class Dao<T> {
      */
     protected List<T> executeQuery(String query, Object... values) {
         try {
-            return jdbc.query(query, mapper, values);
+            return jdbc.query(String.format("SELECT * FROM %s AS T %s", mapper.getTableName(), query), mapper, values);
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }

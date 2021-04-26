@@ -4,9 +4,7 @@ import app.util.Reflect;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -63,6 +61,8 @@ public class Mapper<T> implements RowMapper<T> {
      */
     public Object mapType(Object object) {
         if (object instanceof Timestamp) return ((Timestamp) object).toLocalDateTime();
+        if (object instanceof Date) return ((Date) object).toLocalDate();
+        if (object instanceof Time) return ((Time) object).toLocalTime();
         return object;
     }
 
