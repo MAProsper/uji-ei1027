@@ -10,7 +10,7 @@ public enum AreaType {
 
     private final String name;
 
-    AreaType(final String name){
+    AreaType(String name){
         this.name = name;
     }
 
