@@ -3,8 +3,7 @@ package app.model.generic;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Scheduleable extends Model{
-
+public abstract class Scheduleable extends Model {
     public int id;
     public LocalDate scheduleStart;
     public LocalDate scheduleEnd;

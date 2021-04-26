@@ -16,10 +16,6 @@ public class ReservationDao extends Dao<Reservation> {
     }
 
     public List<Reservation> getByCitizen(Citizen citizen) {
-        try {
-            return jdbc.query("SELECT * FROM Reservation WHERE citizen =?", mapper, citizen.getId());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
+        return executeQuery("WHERE citizen = ?", citizen.getId());
     }
 }

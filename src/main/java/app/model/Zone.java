@@ -5,7 +5,7 @@ import app.model.generic.Place;
 public class Zone extends Place {
 
     public int area; // id del área asociada
-    int capacity;
+    public int capacity;
 
     public Zone(){
         super();

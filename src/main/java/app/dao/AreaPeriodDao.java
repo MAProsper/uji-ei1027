@@ -16,31 +16,7 @@ public class AreaPeriodDao extends Dao<AreaPeriod> {
         super(AreaPeriod.class);
     }
 
-    public AreaPeriod getById(int id) {
-        try {
-            return jdbc.queryForObject("SELECT * FROM AreaPeriod WHERE id =?", mapper, id);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
     public List<AreaPeriod> getByArea(Area area) {
-        try {
-            return jdbc.query("SELECT * FROM AreaPeriod WHERE area =?", mapper, area.getId());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
-    }
-
-    public AreaPeriod getByDate(LocalDateTime date) {
-        try {
-            return jdbc.queryForObject("SELECT * FROM AreaPeriod AS t1 JOIN Period AS p ON t1.period = p.id WHERE p.start <= =? AND COALESCE(p.end, =?) >= =?", mapper, date);
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-    public void test() {
-        logger.info(getClass().getName() + ".getAll() = " + getAll());
+        return executeQuery("WHERE area = ?", area.getId());
     }
 }

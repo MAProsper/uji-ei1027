@@ -16,10 +16,6 @@ public class ZoneDao extends PlaceDao<Zone> {
     }
 
     public List<Zone> getByArea(Area area) {
-        try {
-            return jdbc.query("SELECT * FROM Zone WHERE area =?", mapper, area.getId());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
+        return executeQuery("WHERE area = ?", area.getId());
     }
 }

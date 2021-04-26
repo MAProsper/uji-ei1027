@@ -16,10 +16,6 @@ public class ServiceDao extends Dao<Service> {
     }
 
     public List<Service> getByArea(Area area) {
-        try {
-            return jdbc.query("SELECT * FROM Service WHERE area =?", mapper, area.getPlace());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
+        return executeQuery("WHERE area = ?", area.getId());
     }
 }

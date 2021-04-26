@@ -16,10 +16,6 @@ public class AreaDao extends PlaceDao<Area> {
     }
 
     public List<Area> getByMunicipality(Municipality municipality) {
-        try {
-            return jdbc.query("SELECT * FROM Area WHERE municipality =?", mapper, municipality.getId());
-        } catch (EmptyResultDataAccessException e) {
-            return new ArrayList<>();
-        }
+        return executeQuery("WHERE municipality = ?", municipality.getId());
     }
 }
