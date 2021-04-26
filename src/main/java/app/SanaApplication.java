@@ -1,6 +1,6 @@
 package app;
 
-import app.dao.TestDao;
+import app.dao.generic.TestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
