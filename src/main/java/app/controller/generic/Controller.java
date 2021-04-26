@@ -1,11 +1,9 @@
-package app.controlador.gneric;
+package app.controller.generic;
 
 import app.dao.generic.Dao;
 import app.dao.generic.Mapper;
-import app.util.Reflect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.stereotype.Controller
