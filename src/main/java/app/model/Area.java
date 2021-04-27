@@ -9,6 +9,7 @@ public class Area extends Place {
     public int type;  // TODO: Hacer esto correctamente
     public String description;
     public String location;
+    public String image;
 
     public Area() {
         super();
@@ -38,12 +39,30 @@ public class Area extends Place {
         this.location = location;
     }
 
+    public int getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(int municipality) {
+        this.municipality = municipality;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return super.toString() + "," +
-                " municipality='" + municipality + '\'' +
-                ", type='" + type + '\'' +
+        return "Area{" +
+                "municipality=" + municipality +
+                ", type=" + type +
                 ", description='" + description + '\'' +
-                ", location='" + location + '\'';
+                ", location='" + location + '\'' +
+                ", image='" + image + '\'' +
+                "} " + super.toString();
     }
 }

@@ -10,7 +10,7 @@ public abstract class Scheduleable extends Model {
     public LocalTime periodStart;
     public LocalTime periodEnd; // Importante: **NO **admite *null*
 
-    public Scheduleable(){
+    public Scheduleable() {
         super();
     }
 
@@ -57,11 +57,12 @@ public abstract class Scheduleable extends Model {
 
     @Override
     public String toString() {
-        return  "id=" + id +
+        return "Scheduleable{" +
+                "id=" + id +
                 ", scheduleStart=" + scheduleStart +
                 ", scheduleEnd=" + scheduleEnd +
                 ", periodStart=" + periodStart +
-                ", periodEnd=" + periodEnd;
+                ", periodEnd=" + periodEnd +
+                "} " + super.toString();
     }
-
 }

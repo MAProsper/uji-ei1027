@@ -3,10 +3,8 @@ package app.dao;
 import app.dao.generic.Dao;
 import app.model.Citizen;
 import app.model.Reservation;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -7,7 +7,7 @@ public class Zone extends Place {
     public int area; // id del área asociada
     public int capacity;
 
-    public Zone(){
+    public Zone() {
         super();
     }
 
@@ -19,10 +19,19 @@ public class Zone extends Place {
         this.capacity = capacity;
     }
 
+    public int getArea() {
+        return area;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
     @Override
     public String toString() {
-        return super.toString() +
-                ", area ='" + area +
-                ", capacity=" + capacity ;
+        return "Zone{" +
+                "area=" + area +
+                ", capacity=" + capacity +
+                "} " + super.toString();
     }
 }

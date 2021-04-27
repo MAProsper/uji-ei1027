@@ -1,1 +1,11 @@
-INSERT INTO ServiceType VALUES(0, 'TipoTest');
+INSERT INTO municipality VALUES(1, 'Benicassim', '2021-01-01 00:00:00', '2021-01-01 12:00:00');
+INSERT INTO area VALUES(1, 'area1', '2021-01-01 00:00:00', '2021-01-01 12:00:00', 1, 'A very nice description', 'location', 'http://example.com/', 1);
+INSERT INTO areaperiod VALUES(1, 1, '2021-01-01', '2021-01-02', '00:00:00', '12:00:00');
+INSERT INTO citizen VALUES(1, 'identification01', 'Carlos', 'password', '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'CarlosEmail@gmial.com', 12, 'Taumatawhakatangihangakoauauotamateaturipukakapikimaungahoronukupokaiwhenuakitanatahu.', 'addres');
+INSERT INTO controlstaff VALUES(1, 'identification01', 'Alberto', 'querty', '2021-01-01 00:00:00', '2021-01-01 12:00:00', 1);
+INSERT INTO municipalmanager VALUES(1, 'identification01', 'Juan', '123456', '2021-01-01 00:00:00', '2021-01-01 12:00:00', '653577395', 1);
+INSERT INTO reservation VALUES(1, 12, '2021-01-02', 12, '00:00:00', '12:00:00', 1, 1);
+INSERT INTO zone VALUES(1, 'zone01', '2021-01-01 00:00:00', '2021-01-01 12:00:00', 12, 1);
+INSERT INTO reservationzone VALUES(1, 1, 1);
+INSERT INTO servicetype VALUES(1, 'servicetypename');
+INSERT INTO service VALUES(1, 1, '2021-01-01', '2021-01-02', '00:00:00', '12:00:00');

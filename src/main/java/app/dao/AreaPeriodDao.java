@@ -3,11 +3,8 @@ package app.dao;
 import app.dao.generic.Dao;
 import app.model.Area;
 import app.model.AreaPeriod;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

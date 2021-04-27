@@ -11,7 +11,11 @@ public class ScheduleableValidator<T extends Scheduleable> extends Validator<T> 
     @Override
     public void validate(T object, Errors errors) {
         super.validate(object, errors);
-        if (object.getScheduleStart().compareTo(object.getScheduleEnd()) < 0) errors.rejectValue(ValidatorMessage.SHEDULE_ORDER.getHuman(), ValidatorMessage.SHEDULE_ORDER.getMachine());
-        if (object.getPeriodStart().compareTo(object.getPeriodEnd()) < 0) errors.rejectValue(ValidatorMessage.PERDIOD_ORDER.getHuman(), ValidatorMessage.PERDIOD_ORDER.getMachine());
+
+        if (object.getScheduleStart().compareTo(object.getScheduleEnd()) < 0)
+            errors.rejectValue("La fecha de fin deber ser posterior a la de incio", "scheduleOrder");
+
+        if (object.getPeriodStart().compareTo(object.getPeriodEnd()) < 0)
+            errors.rejectValue("La hora de fin deber ser posterior a la de incio", "periodOrder");
     }
 }

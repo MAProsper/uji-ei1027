@@ -1,7 +1,6 @@
 package app.dao.generic;
 
 
-import app.controller.Test;
 import app.dao.*;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ public class TestDao {
     @Autowired ServiceDao serviceDao;
     @Autowired ReservationDao reservationDao;
     @Autowired ReservationZoneDao reservationZoneDao;
-    @Autowired Test test;
 
     public void run() {
         sqlUtil.executeScript("reset");
@@ -38,7 +36,5 @@ public class TestDao {
         serviceDao.test();
         reservationDao.test();
         reservationZoneDao.test();
-
-        test.test();
     }
 }

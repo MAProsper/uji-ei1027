@@ -12,7 +12,7 @@ public abstract class Signable extends Model {
     public LocalDateTime signUp;
     public LocalDateTime signDowm; // Importante: admite *null* (si no se ha dado de baja)
 
-    public Signable(){
+    public Signable() {
         super();
     }
 
@@ -33,9 +33,10 @@ public abstract class Signable extends Model {
     }
 
     @Override
-    public String toString(){
-        return  ", signUp='"+this.signUp+'\''+
-                ", signDown='"+this.signDowm+'\'';
+    public String toString() {
+        return "Signable{" +
+                "signUp=" + signUp +
+                ", signDowm=" + signDowm +
+                "} " + super.toString();
     }
-
 }

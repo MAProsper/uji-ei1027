@@ -1,7 +1,9 @@
 package app.model;
 
 import app.model.generic.Model;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ServiceType extends Model {
     public int id;
     public String name;
@@ -29,7 +31,9 @@ public class ServiceType extends Model {
 
     @Override
     public String toString() {
-        return  "id=" + id +
-                ", name='" + name + '\'';
+        return "ServiceType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                "} " + super.toString();
     }
 }

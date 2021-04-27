@@ -28,8 +28,9 @@ public class MunicipalManager extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + ',' +
+        return "MunicipalManager{" +
                 "phone='" + phone + '\'' +
-                ", municipality=" + municipality;
+                ", municipality=" + municipality +
+                "} " + super.toString();
     }
 }

@@ -19,7 +19,7 @@ public class Reservation extends Model {
         super();
     }
 
-   public void setDate(LocalDateTime date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -85,13 +85,15 @@ public class Reservation extends Model {
 
     @Override
     public String toString() {
-        return  "id=" + id +
+        return "Reservation{" +
+                "id=" + id +
                 ", citizen=" + citizen +
                 ", areaPeriod=" + areaPeriod +
                 ", code=" + code +
                 ", date=" + date +
                 ", occupied=" + occupied +
                 ", enter=" + enter +
-                ", exit=" + exit;
+                ", exit=" + exit +
+                "} " + super.toString();
     }
 }

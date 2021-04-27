@@ -34,4 +34,13 @@ public class ReservationZone extends Model {
     public void setZone(int zone) {
         this.zone = zone;
     }
+
+    @Override
+    public String toString() {
+        return "ReservationZone{" +
+                "id=" + id +
+                ", reservation=" + reservation +
+                ", zone=" + zone +
+                "} " + super.toString();
+    }
 }

@@ -1,10 +1,10 @@
 package app.validator.generic;
 
 import app.model.generic.Model;
-import org.springframework.validation.Errors;
 import org.springframework.lang.NonNull;
+import org.springframework.validation.Errors;
 
-public class Validator<T extends Model> implements org.springframework.validation.Validator  {
+public class Validator<T extends Model> implements org.springframework.validation.Validator {
     protected Class<T> cls;
 
     public Validator(Class<T> cls) {

@@ -3,10 +3,8 @@ package app.dao;
 import app.dao.generic.PlaceDao;
 import app.model.Area;
 import app.model.Municipality;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

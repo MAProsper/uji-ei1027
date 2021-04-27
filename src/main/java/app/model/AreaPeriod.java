@@ -2,13 +2,10 @@ package app.model;
 
 import app.model.generic.Scheduleable;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class AreaPeriod extends Scheduleable {
     public int area;
 
-    public AreaPeriod(){
+    public AreaPeriod() {
         super();
     }
 
@@ -18,5 +15,12 @@ public class AreaPeriod extends Scheduleable {
 
     public void setArea(int area) {
         this.area = area;
+    }
+
+    @Override
+    public String toString() {
+        return "AreaPeriod{" +
+                "area=" + area +
+                "} " + super.toString();
     }
 }

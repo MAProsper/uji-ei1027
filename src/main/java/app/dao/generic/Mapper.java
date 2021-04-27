@@ -103,4 +103,8 @@ public class Mapper<T extends Model> implements RowMapper<T> {
     public Object[] toRow(T object, Set<String> fields) {
         return fields.stream().map(field -> reflect.get(object, field)).toArray();
     }
+
+    public Reflect<T> getReflect() {
+        return reflect;
+    }
 }

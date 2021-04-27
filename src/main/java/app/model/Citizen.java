@@ -11,7 +11,7 @@ public class Citizen extends Person {
     public String town;
     public String address;
 
-    public Citizen(){
+    public Citizen() {
         super();
     }
 
@@ -49,10 +49,11 @@ public class Citizen extends Person {
 
     @Override
     public String toString() {
-        return super.toString() +
-                ", mail='" + mail + '\'' +
-                ", country='" + country + '\'' +
+        return "Citizen{" +
+                "mail='" + mail + '\'' +
+                ", country=" + country +
                 ", town='" + town + '\'' +
-                ", address='" + address + '\'' ;
+                ", address='" + address + '\'' +
+                "} " + super.toString();
     }
 }

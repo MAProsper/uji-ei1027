@@ -31,6 +31,7 @@ CREATE TABLE Area(
   type INTEGER NOT NULL,
   description TEXT NOT NULL,
   location TEXT NOT NULL,
+  image TEXT NULL,
   municipality INTEGER NOT NULL,
   CONSTRAINT area_ca1 UNIQUE (name, sign_up),
   CONSTRAINT area_ca2 UNIQUE (name, sign_down),

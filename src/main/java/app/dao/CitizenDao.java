@@ -1,6 +1,5 @@
 package app.dao;
 
-import app.dao.generic.Dao;
 import app.dao.generic.PersonDao;
 import app.model.Citizen;
 import org.springframework.stereotype.Repository;

@@ -10,11 +10,11 @@ public enum AreaType {
 
     private final String name;
 
-    AreaType(String name){
+    AreaType(String name) {
         this.name = name;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 }

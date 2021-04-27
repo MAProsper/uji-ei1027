@@ -5,7 +5,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.dao.DataRetrievalFailureException;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
-import org.springframework.jdbc.datasource.init.UncategorizedScriptException;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;

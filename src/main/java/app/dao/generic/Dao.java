@@ -94,8 +94,8 @@ public abstract class Dao<T extends Model> {
     /**
      * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
      *
-     * @param query     formato sentencia SQL
-     * @param values    valores incrustados
+     * @param query  formato sentencia SQL
+     * @param values valores incrustados
      */
     protected void executeUpdate(String query, Object... values) {
         jdbc.update(String.format(query, mapper.getTableName()), values);
@@ -104,7 +104,7 @@ public abstract class Dao<T extends Model> {
     /**
      * Obtener todos los objetos de la sentencia SQL
      *
-     * @param query sentencia SQL
+     * @param query  sentencia SQL
      * @param values valores incrustados
      * @return objetos encontrados
      */
@@ -121,5 +121,9 @@ public abstract class Dao<T extends Model> {
      */
     public void test() {
         logger.info(String.format("%s.getAll() = %s", getClass().getName(), getAll()));
+    }
+
+    public Mapper<T> getMapper() {
+        return mapper;
     }
 }

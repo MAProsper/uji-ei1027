@@ -1,17 +1,13 @@
 package app.model;
 
-import app.model.generic.Model;
 import app.model.generic.Scheduleable;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Service extends Scheduleable {
 
     public int serviceType;
     public int area;
 
-    public Service(){
+    public Service() {
         super();
     }
 
@@ -32,9 +28,10 @@ public class Service extends Scheduleable {
     }
 
     @Override
-    public String toString(){
-        return super.toString()+
-               ", serviceType='"+ this.serviceType+
-                ", serviceType='"+ this.area;
+    public String toString() {
+        return "Service{" +
+                "serviceType=" + serviceType +
+                ", area=" + area +
+                "} " + super.toString();
     }
 }

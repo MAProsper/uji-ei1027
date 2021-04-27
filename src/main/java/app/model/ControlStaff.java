@@ -16,4 +16,11 @@ public class ControlStaff extends Person {
     public void setAreaPeriod(int areaPeriod) {
         this.areaPeriod = areaPeriod;
     }
+
+    @Override
+    public String toString() {
+        return "ControlStaff{" +
+                "areaPeriod=" + areaPeriod +
+                "} " + super.toString();
+    }
 }

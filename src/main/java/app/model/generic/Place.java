@@ -19,7 +19,9 @@ public abstract class Place extends Signable {
 
     @Override
     public String toString() {
-        return  "id=" + id +
-                ", name='" + name + '\'' + super.toString();
+        return "Place{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                "} " + super.toString();
     }
 }

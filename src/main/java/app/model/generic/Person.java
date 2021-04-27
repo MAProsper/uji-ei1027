@@ -44,9 +44,11 @@ public abstract class Person extends Signable {
 
     @Override
     public String toString() {
-        return  "id=" + id +
+        return "Person{" +
+                "id=" + id +
                 ", identification='" + identification + '\'' +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' + super.toString();
+                ", password='" + password + '\'' +
+                "} " + super.toString();
     }
 }
