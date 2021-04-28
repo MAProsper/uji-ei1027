@@ -3,7 +3,7 @@ package app.validator.generic;
 import app.model.generic.Scheduleable;
 import org.springframework.validation.Errors;
 
-public class ScheduleableValidator<T extends Scheduleable> extends Validator<T> {
+public abstract class ScheduleableValidator<T extends Scheduleable> extends Validator<T> {
     @Override
     public void validate(T object, Errors errors) {
         super.validate(object, errors);

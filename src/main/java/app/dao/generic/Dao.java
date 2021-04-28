@@ -100,9 +100,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void executeUpdate(String action, T object) {
-        Class<T> cls = getReflect().getReflectClass();
         try {
-            getClass().getMethod(action, cls).invoke(this, object);
+            getClass().getMethod(action, getParametrizedType()).invoke(this, object);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
             throw new ApplicationException(e.getMessage(), e);
         }

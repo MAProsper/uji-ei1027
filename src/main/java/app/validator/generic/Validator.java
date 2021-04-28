@@ -5,7 +5,7 @@ import app.util.Parametrized;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.Errors;
 
-public class Validator<T extends Model> extends Parametrized<T> implements org.springframework.validation.Validator {
+public abstract class Validator<T extends Model> extends Parametrized<T> implements org.springframework.validation.Validator {
     @Override
     public boolean supports(@NonNull Class<?> cls) {
         return getParametrizedType().isAssignableFrom(cls);
