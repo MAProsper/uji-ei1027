@@ -112,7 +112,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object    objeto referencia
      */
     protected void executeUpdate(String query, String format, String delimiter, T object) {
-        executeUpdate(String.format(query, "%s", SqlUtil.format(format, delimiter, mapper.getColumnNames())), mapper.toRow(object));
+        String args = SqlUtil.format(format, delimiter, mapper.getColumnNames());
+        executeUpdate(String.format(query, "%s", args), mapper.toRow(object));
     }
 
     /**
@@ -122,8 +123,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param values valores incrustados
      */
     protected void executeUpdate(String query, Object... values) {
+        query = String.format(query, mapper.getTableName());
         try {
-            jdbc.update(String.format(query, mapper.getTableName()), values);
+            jdbc.update(query, values);
         } catch (DataIntegrityViolationException e) {
             throw new ApplicationException("error de integridad", e);
         }
@@ -137,8 +139,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @return objetos encontrados
      */
     protected List<T> executeQuery(String query, Object... values) {
+        query = String.format("SELECT * FROM %s AS T %s", mapper.getTableName(), query);
         try {
-            return jdbc.query(String.format("SELECT * FROM %s AS T %s", mapper.getTableName(), query), mapper, values);
+            return jdbc.query(query, mapper, values);
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }
@@ -150,7 +153,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @return id disponible
      */
     protected int getNextId() {
-        Integer id = jdbc.queryForObject(String.format("SELECT MAX(id) FROM %s", mapper.getTableName()), Integer.class);
+        String query = String.format("SELECT MAX(id) FROM %s", mapper.getTableName());
+        Integer id = jdbc.queryForObject(query, Integer.class);
         return id == null ? 0 : ++id;
     }
 
