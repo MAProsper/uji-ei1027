@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.logging.Logger;
 
 public abstract class Controller<M extends Model, D extends Dao<M>, V extends Validator<M>> {
-
-    //TODO: Hacer
     @Autowired protected D dao;
     @Autowired protected V validator;
     @Autowired protected Logger logger;
