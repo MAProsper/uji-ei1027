@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import java.util.logging.Logger;
 
 @org.springframework.context.annotation.Configuration
-public class Configuration {
+public class ApplicationConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "source")
     public DataSource source() {

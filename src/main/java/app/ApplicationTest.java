@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Test implements Runnable {
+public class ApplicationTest implements Runnable {
     @Autowired SqlUtil sqlUtil;
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaDao areaDao;

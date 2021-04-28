@@ -1,5 +1,7 @@
 package app.util;
 
+import app.ApplicationException;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -35,7 +37,7 @@ public class Reflect<T> {
         try {
             return cls.getConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            throw new SanaException(e.getMessage(), e);
+            throw new ApplicationException(e.getMessage(), e);
         }
     }
 
@@ -59,7 +61,7 @@ public class Reflect<T> {
         try {
             fields.get(name).set(object, value);
         } catch (IllegalAccessException e) {
-            throw new SanaException(e.getMessage(), e);
+            throw new ApplicationException(e.getMessage(), e);
         }
     }
 
@@ -74,7 +76,7 @@ public class Reflect<T> {
         try {
             return fields.get(name).get(object);
         } catch (IllegalAccessException e) {
-            throw new SanaException(e.getMessage(), e);
+            throw new ApplicationException(e.getMessage(), e);
         }
     }
 }

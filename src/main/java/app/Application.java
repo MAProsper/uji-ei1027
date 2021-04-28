@@ -7,13 +7,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-    @Autowired Test test;
+    @Autowired ApplicationTest applicationTest;
 
     public static void main(String[] args) {
         new SpringApplicationBuilder(Application.class).run(args);
     }
 
     public void run(String... strings) {
-        test.run();
+        applicationTest.run();
     }
 }

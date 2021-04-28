@@ -3,7 +3,7 @@ package app.dao.generic;
 import app.model.generic.Model;
 import app.util.Parametrized;
 import app.util.Reflect;
-import app.util.SanaException;
+import app.ApplicationException;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -92,7 +92,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         try {
             getClass().getMethod(action, cls).invoke(this, object);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new SanaException(e.getMessage(), e);
+            throw new ApplicationException(e.getMessage(), e);
         }
     }
 
@@ -118,7 +118,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         try {
             jdbc.update(String.format(query, mapper.getTableName()), values);
         } catch (DataIntegrityViolationException e) {
-            throw new SanaException("error de integridad", e);
+            throw new ApplicationException("error de integridad", e);
         }
     }
 
