@@ -5,7 +5,7 @@ import app.model.generic.Person;
 
 public class Citizen extends Person {
     public String mail;
-    public int country;  // TODO: hacer un listado de todos los paises
+    public int country;
     public String town;
     public String address;
 
