@@ -1,9 +1,7 @@
 package app.model;
 
 import app.model.generic.Model;
-import org.springframework.stereotype.Service;
 
-@Service
 public class ServiceType extends Model {
     public String name;
 

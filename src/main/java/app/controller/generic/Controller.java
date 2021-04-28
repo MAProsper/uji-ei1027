@@ -54,8 +54,8 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     /**
      * Gestiona respuesta POST validando el modelo y actualizando la base datos
      *
-     * @param action accion ha gestionar
-     * @param model objeto referencia
+     * @param action  accion ha gestionar
+     * @param model   objeto referencia
      * @param binding binding del objeto
      * @return sigiente vista
      */

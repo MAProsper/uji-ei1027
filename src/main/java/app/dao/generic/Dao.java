@@ -30,6 +30,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void add(T object) {
+        object.setId(getNextId());
         executeUpdate("INSERT INTO %s VALUES(%s)", "?", ", ", object);
     }
 
@@ -134,6 +135,16 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         } catch (EmptyResultDataAccessException e) {
             return Collections.emptyList();
         }
+    }
+
+    /**
+     * Obtiene el siguiente id disponible
+     *
+     * @return id disponible
+     */
+    protected int getNextId() {
+        Integer id = jdbc.queryForObject(String.format("SELECT MAX(id) FROM %s", mapper.getTableName()), Integer.class);
+        return id == null ? 0 : ++id;
     }
 
     /**
