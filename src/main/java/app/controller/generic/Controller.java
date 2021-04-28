@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("model") M model, BindingResult binding) {
-        return executeUpdate(model, binding, dao::add);
+        return executeUpdate("add", model, binding);
     }
 
     @RequestMapping("/update/{id}")
@@ -47,7 +48,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("model") M model, BindingResult binding) {
-        return executeUpdate(model, binding, dao::update);
+        return executeUpdate("update", model, binding);
     }
 
     @RequestMapping("/delete/{id}")
@@ -56,17 +57,22 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
         return "redirect:list";
     }
 
-    protected String executeUpdate(M model, BindingResult binding, Consumer<M> dao) {
+    protected String executeUpdate(String action, M model, BindingResult binding) {
         validator.validate(model, binding);
-        if (binding.hasErrors()) return getView("add");
+        if (binding.hasErrors()) return getView(action);
+        executeUpdate(action, model);
+        return getView("list");
+    }
 
+    protected void executeUpdate(String action, M model) {
+        Class<M> cls = getReflect().getReflectClass();
         try {
-            dao.accept(model);
+            dao.getClass().getMethod(action, cls).invoke(dao, model);
         } catch (DataIntegrityViolationException e) {
             throw new SanaException("error de integridad", e);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            throw new SanaException(e.getMessage(), e);
         }
-
-        return getView("list");
     }
 
     protected Mapper<M> getMapper() {
