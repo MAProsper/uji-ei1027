@@ -88,7 +88,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @return objetos relacionados
      */
     public List<T> getByOther(Model other) {
-        String join = new Mapper<>(other.getClass()).getTableName();
+        Mapper<?> mapper = new Mapper<>(other.getClass());
+        String join = mapper.mapName(mapper.getTableName());
         return executeQuery(String.format("WHERE %s = ?", join), other.getId());
     }
 
