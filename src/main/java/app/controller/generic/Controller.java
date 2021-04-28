@@ -10,12 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.logging.Logger;
-
 public abstract class Controller<M extends Model, D extends Dao<M>, V extends Validator<M>> {
     @Autowired protected D dao;
     @Autowired protected V validator;
-    @Autowired protected Logger logger;
 
     @RequestMapping("/list")
     public String list(org.springframework.ui.Model model) {
