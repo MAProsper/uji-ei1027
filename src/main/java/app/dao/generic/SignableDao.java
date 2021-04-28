@@ -16,5 +16,4 @@ public abstract class SignableDao<T extends Signable> extends Dao<T> {
         object.setSingDown(LocalDateTime.now());
         super.update(object);
     }
-
 }
