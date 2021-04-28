@@ -3,11 +3,14 @@ package app.dao.generic;
 import app.model.generic.Model;
 import app.util.Parametrized;
 import app.util.Reflect;
+import app.util.SanaException;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
@@ -78,6 +81,21 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     }
 
     /**
+     * Ejecutar metodo de actualizacion por nombre
+     *
+     * @param action nombre de metodo
+     * @param object objeto referencia
+     */
+    public void executeUpdate(String action, T object) {
+        Class<T> cls = getReflect().getReflectClass();
+        try {
+            getClass().getMethod(action, cls).invoke(this, object);
+        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
+            throw new SanaException(e.getMessage(), e);
+        }
+    }
+
+    /**
      * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
      *
      * @param query     formato sentencia SQL
@@ -96,7 +114,11 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param values valores incrustados
      */
     protected void executeUpdate(String query, Object... values) {
-        jdbc.update(String.format(query, mapper.getTableName()), values);
+        try {
+            jdbc.update(String.format(query, mapper.getTableName()), values);
+        } catch (DataIntegrityViolationException e) {
+            throw new SanaException("error de integridad", e);
+        }
     }
 
     /**
@@ -123,5 +145,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
 
     public Mapper<T> getMapper() {
         return mapper;
+    }
+
+    public Reflect<T> getReflect() {
+        return mapper.getReflect();
     }
 }
