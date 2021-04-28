@@ -1,9 +1,9 @@
 package app.dao.generic;
 
+import app.ApplicationException;
 import app.model.generic.Model;
 import app.util.Parametrized;
 import app.util.Reflect;
-import app.ApplicationException;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
