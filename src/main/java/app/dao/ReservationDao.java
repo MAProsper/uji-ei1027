@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public class ReservationDao extends Dao<Reservation> {
-    public List<Reservation> getByCitizen(Citizen citizen) {
-        return executeQuery("WHERE citizen = ?", citizen.getId());
-    }
 }

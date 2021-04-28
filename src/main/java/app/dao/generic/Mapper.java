@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class Mapper<T extends Model> implements RowMapper<T> {
     protected Reflect<T> reflect;
 
-    public Mapper(Reflect<T> reflect) {
-        this.reflect = reflect;
+    public Mapper(Class<T> cls) {
+        this.reflect = new Reflect<>(cls);
     }
 
     /**

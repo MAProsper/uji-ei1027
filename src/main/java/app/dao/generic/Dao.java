@@ -21,7 +21,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     protected Mapper<T> mapper;
 
     public Dao() {
-        mapper = new Mapper<>(new Reflect<>(getParametrizedType()));
+        mapper = new Mapper<>(getParametrizedType());
     }
 
     /**
@@ -79,6 +79,17 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     public List<T> getAll() {
         return executeQuery("");
+    }
+
+    /**
+     * Obtiene todos los objetos que tengan a otro como referencia
+     *
+     * @param other objeto referencia
+     * @return objetos relacionados
+     */
+    public List<T> getByOther(Model other) {
+        String join = new Mapper<>(other.getClass()).getTableName();
+        return executeQuery(String.format("WHERE %s = ?", join), other.getId());
     }
 
     /**

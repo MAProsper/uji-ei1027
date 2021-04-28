@@ -9,7 +9,4 @@ import java.util.List;
 
 @Repository
 public class AreaPeriodDao extends Dao<AreaPeriod> {
-    public List<AreaPeriod> getByArea(Area area) {
-        return executeQuery("WHERE area = ?", area.getId());
-    }
 }
