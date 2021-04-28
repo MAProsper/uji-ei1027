@@ -16,13 +16,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class Dao<T extends Model> extends Parametrized<T> {
+    protected Mapper<T> mapper = new Mapper<>(getParametrizedType());
     @Autowired protected JdbcTemplate jdbc;
     @Autowired protected Logger logger;
-    protected Mapper<T> mapper;
-
-    public Dao() {
-        mapper = new Mapper<>(getParametrizedType());
-    }
 
     /**
      * Añadir el objeto a la base de datos
