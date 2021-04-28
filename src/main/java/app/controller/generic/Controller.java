@@ -36,7 +36,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("model") M model, BindingResult binding) {
-        return update(model, binding, dao::add);
+        return executeUpdate(model, binding, dao::add);
     }
 
     @RequestMapping("/update/{id}")
@@ -47,7 +47,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
     public String update(@ModelAttribute("model") M model, BindingResult binding) {
-        return update(model, binding, dao::update);
+        return executeUpdate(model, binding, dao::update);
     }
 
     @RequestMapping("/delete/{id}")
@@ -56,7 +56,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
         return "redirect:list";
     }
 
-    protected String update(M model, BindingResult binding, Consumer<M> dao) {
+    protected String executeUpdate(M model, BindingResult binding, Consumer<M> dao) {
         validator.validate(model, binding);
         if (binding.hasErrors()) return getView("add");
 
