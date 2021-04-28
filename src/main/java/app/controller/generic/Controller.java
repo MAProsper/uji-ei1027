@@ -21,9 +21,6 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     @Autowired protected V validator;
     @Autowired protected Logger logger;
 
-    public Controller() {
-    }
-
     @RequestMapping("/list")
     public String list(org.springframework.ui.Model model) {
         model.addAttribute("list", dao.getAll());
