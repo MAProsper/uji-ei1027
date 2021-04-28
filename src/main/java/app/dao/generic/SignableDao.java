@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * Como el otro DAO, pero:
- * - si se añade y ya estaba dado de alta, acutualiza.
+ * - si se añade, se cambia el signUp por la fecha del alta.
  * - si se borra, se cambia el signDown por la fecha del borrado.
  */
 public abstract class SignableDao<T extends Signable> extends Dao<T> {
