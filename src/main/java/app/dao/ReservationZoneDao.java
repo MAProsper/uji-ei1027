@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ReservationZoneDao extends Dao<ReservationZone> {
-    public ReservationZoneDao() {
-        super(ReservationZone.class);
-    }
 }

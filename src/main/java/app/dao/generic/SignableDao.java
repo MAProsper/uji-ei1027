@@ -10,14 +10,6 @@ import java.time.LocalDateTime;
  * - si se borra, se cambia el signDown por la fecha del borrado.
  */
 public abstract class SignableDao<T extends Signable> extends Dao<T> {
-    public SignableDao(Class<T> cls) {
-        super(cls);
-    }
-
-    public SignableDao(Mapper<T> mapper) {
-        super(mapper);
-    }
-
     //TODO: mirar si hacer la "fijación" de hora en el controlador
 
     @Override

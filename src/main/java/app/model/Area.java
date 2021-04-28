@@ -4,16 +4,11 @@ import app.model.enums.AreaType;
 import app.model.generic.Place;
 
 public class Area extends Place {
-
     public int municipality; // id del municipio
     public int type;  // TODO: Hacer esto correctamente
     public String description;
     public String location;
     public String image;
-
-    public Area() {
-        super();
-    }
 
     public AreaType getType() {
         return AreaType.values()[type];

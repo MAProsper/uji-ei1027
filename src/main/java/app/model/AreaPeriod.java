@@ -5,10 +5,6 @@ import app.model.generic.Scheduleable;
 public class AreaPeriod extends Scheduleable {
     public int area;
 
-    public AreaPeriod() {
-        super();
-    }
-
     public int getArea() {
         return area;
     }

@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ServiceTypeDao extends Dao<ServiceType> {
-    public ServiceTypeDao() {
-        super(ServiceType.class);
-    }
 }

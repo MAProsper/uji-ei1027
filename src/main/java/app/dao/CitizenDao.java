@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CitizenDao extends PersonDao<Citizen> {
-    public CitizenDao() {
-        super(Citizen.class);
-    }
 }

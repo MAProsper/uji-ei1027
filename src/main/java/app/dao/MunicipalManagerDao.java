@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MunicipalManagerDao extends Dao<MunicipalManager> {
-    public MunicipalManagerDao() {
-        super(MunicipalManager.class);
-    }
 }

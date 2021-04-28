@@ -1,27 +1,12 @@
 package app.model.generic;
 
 public abstract class Place extends Signable {
-    public int id;
     public String name;
-
-
-    public Place() {
-        super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
         return "Place{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 "} " + super.toString();
     }
 }

@@ -1,22 +1,9 @@
 package app.model.generic;
 
 public abstract class Person extends Signable {
-    public int id;
     public String identification;
     public String name;
     public String password;
-
-    public Person() {
-        super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getIdentification() {
         return identification;
@@ -45,8 +32,7 @@ public abstract class Person extends Signable {
     @Override
     public String toString() {
         return "Person{" +
-                "id=" + id +
-                ", identification='" + identification + '\'' +
+                "identification='" + identification + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 "} " + super.toString();

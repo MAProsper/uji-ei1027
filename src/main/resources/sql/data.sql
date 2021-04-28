@@ -8,4 +8,4 @@ INSERT INTO reservation VALUES(1, 12, '2021-01-02', 12, '00:00:00', '12:00:00', 
 INSERT INTO zone VALUES(1, 'zone01', '2021-01-01 00:00:00', '2021-01-01 12:00:00', 12, 1);
 INSERT INTO reservationzone VALUES(1, 1, 1);
 INSERT INTO servicetype VALUES(1, 'servicetypename');
-INSERT INTO service VALUES(1, 1, '2021-01-01', '2021-01-02', '00:00:00', '12:00:00');
+INSERT INTO service VALUES(1, 1, 1, '2021-01-01', '2021-01-02', '00:00:00', '12:00:00');

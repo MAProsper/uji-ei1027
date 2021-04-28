@@ -1,13 +1,20 @@
 package app.model.generic;
 
 public abstract class Model {
+    public int id;
 
-    public Model() {
-        super();
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
-        return "Model{}";
+        return "Model{" +
+                "id=" + id +
+                '}';
     }
 }

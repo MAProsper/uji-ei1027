@@ -6,7 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ControlStaffDao extends Dao<ControlStaff> {
-    public ControlStaffDao() {
-        super(ControlStaff.class);
-    }
 }

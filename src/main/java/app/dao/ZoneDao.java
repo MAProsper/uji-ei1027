@@ -9,10 +9,6 @@ import java.util.List;
 
 @Repository
 public class ZoneDao extends PlaceDao<Zone> {
-    public ZoneDao() {
-        super(Zone.class);
-    }
-
     public List<Zone> getByArea(Area area) {
         return executeQuery("WHERE area = ?", area.getId());
     }

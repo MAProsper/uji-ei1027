@@ -2,38 +2,17 @@ package app.model;
 
 import app.model.generic.Model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Reservation extends Model {
-    public int id;
     public int citizen;
     public int areaPeriod;
     public int code;
-    public LocalDateTime date;
+    public LocalDate date;
     public int occupied;
     public LocalTime enter;
     public LocalTime exit;
-
-    public Reservation() {
-        super();
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getCitizen() {
         return citizen;
@@ -41,6 +20,14 @@ public class Reservation extends Model {
 
     public void setCitizen(int citizen) {
         this.citizen = citizen;
+    }
+
+    public int getAreaPeriod() {
+        return areaPeriod;
+    }
+
+    public void setAreaPeriod(int areaPeriod) {
+        this.areaPeriod = areaPeriod;
     }
 
     public int getCode() {
@@ -51,12 +38,12 @@ public class Reservation extends Model {
         this.code = code;
     }
 
-    public int getAreaPeriod() {
-        return areaPeriod;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
-    public void setAreaPeriod(int areaPeriod) {
-        this.areaPeriod = areaPeriod;
+    public LocalDate getDate() {
+        return date;
     }
 
     public int getOccupied() {
@@ -86,8 +73,7 @@ public class Reservation extends Model {
     @Override
     public String toString() {
         return "Reservation{" +
-                "id=" + id +
-                ", citizen=" + citizen +
+                "citizen=" + citizen +
                 ", areaPeriod=" + areaPeriod +
                 ", code=" + code +
                 ", date=" + date +

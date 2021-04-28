@@ -12,8 +12,8 @@ public class Validator<T extends Model> implements org.springframework.validatio
     }
 
     @Override
-    public boolean supports(Class<?> cls) {
-        return cls.isAssignableFrom(cls);
+    public boolean supports(@NonNull Class<?> cls) {
+        return this.cls.isAssignableFrom(cls);
     }
 
     @Override

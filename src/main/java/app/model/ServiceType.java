@@ -5,21 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ServiceType extends Model {
-    public int id;
     public String name;
-
-    public ServiceType() {
-        super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
 
     public String getName() {
         return name;
@@ -32,8 +18,7 @@ public class ServiceType extends Model {
     @Override
     public String toString() {
         return "ServiceType{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 "} " + super.toString();
     }
 }

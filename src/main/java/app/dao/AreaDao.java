@@ -9,10 +9,6 @@ import java.util.List;
 
 @Repository
 public class AreaDao extends PlaceDao<Area> {
-    public AreaDao() {
-        super(Area.class);
-    }
-
     public List<Area> getByMunicipality(Municipality municipality) {
         return executeQuery("WHERE municipality = ?", municipality.getId());
     }

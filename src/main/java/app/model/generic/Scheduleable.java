@@ -4,24 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public abstract class Scheduleable extends Model {
-    public int id;
     public LocalDate scheduleStart;
     public LocalDate scheduleEnd;
     public LocalTime periodStart;
     public LocalTime periodEnd; // Importante: **NO **admite *null*
-
-    public Scheduleable() {
-        super();
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public LocalDate getScheduleStart() {
         return scheduleStart;
@@ -58,8 +44,7 @@ public abstract class Scheduleable extends Model {
     @Override
     public String toString() {
         return "Scheduleable{" +
-                "id=" + id +
-                ", scheduleStart=" + scheduleStart +
+                "scheduleStart=" + scheduleStart +
                 ", scheduleEnd=" + scheduleEnd +
                 ", periodStart=" + periodStart +
                 ", periodEnd=" + periodEnd +

@@ -3,11 +3,4 @@ package app.dao.generic;
 import app.model.generic.Scheduleable;
 
 public abstract class ScheduleableDao<T extends Scheduleable> extends Dao<T> {
-    public ScheduleableDao(Class<T> cls) {
-        super(cls);
-    }
-
-    public ScheduleableDao(Mapper<T> mapper) {
-        super(mapper);
-    }
 }

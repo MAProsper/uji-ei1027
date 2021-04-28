@@ -5,15 +5,10 @@ import app.model.enums.Country;
 import app.model.generic.Person;
 
 public class Citizen extends Person {
-
     public String mail;
     public int country;  // TODO: hacer un listado de todos los paises
     public String town;
     public String address;
-
-    public Citizen() {
-        super();
-    }
 
     public String getMail() {
         return mail;

@@ -9,10 +9,6 @@ import java.util.List;
 
 @Repository
 public class ServiceDao extends Dao<Service> {
-    public ServiceDao() {
-        super(Service.class);
-    }
-
     public List<Service> getByArea(Area area) {
         return executeQuery("WHERE area = ?", area.getId());
     }

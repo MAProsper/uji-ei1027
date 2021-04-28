@@ -123,14 +123,16 @@ CREATE TABLE ServiceType(
 
 CREATE TABLE Service(
   id SERIAL PRIMARY KEY,
-  serviceType INTEGER NOT NULL,
+  service_type INTEGER NOT NULL,
+  area INTEGER NOT NULL,
   schedule_start DATE NOT NULL,
   schedule_end DATE NOT NULL,
   period_start TIME NOT NULL,
   period_end TIME NOT NULL,
   CONSTRAINT service_c1 CHECK (schedule_start < schedule_end),
   CONSTRAINT service_c2 CHECK (period_start < period_end),
-  CONSTRAINT service_caServiceType FOREIGN KEY (serviceType) REFERENCES ServiceType(id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT service_caServiceType FOREIGN KEY (service_type) REFERENCES ServiceType(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT service_caArea FOREIGN KEY (area) REFERENCES Area(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE Reservation(

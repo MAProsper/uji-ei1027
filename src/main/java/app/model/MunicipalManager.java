@@ -6,10 +6,6 @@ public class MunicipalManager extends Person {
     public String phone;
     public int municipality;
 
-    public MunicipalManager() {
-        super();
-    }
-
     public String getPhone() {
         return phone;
     }

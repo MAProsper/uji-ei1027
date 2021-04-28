@@ -3,21 +3,8 @@ package app.model;
 import app.model.generic.Model;
 
 public class ReservationZone extends Model {
-    public int id;
     public int reservation;
     public int zone;
-
-    public ReservationZone() {
-        super();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getReservation() {
         return reservation;
@@ -38,8 +25,7 @@ public class ReservationZone extends Model {
     @Override
     public String toString() {
         return "ReservationZone{" +
-                "id=" + id +
-                ", reservation=" + reservation +
+                "reservation=" + reservation +
                 ", zone=" + zone +
                 "} " + super.toString();
     }
