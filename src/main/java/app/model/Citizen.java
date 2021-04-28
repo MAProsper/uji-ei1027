@@ -46,7 +46,7 @@ public class Citizen extends Person {
     public String toString() {
         return "Citizen{" +
                 "mail='" + mail + '\'' +
-                ", country=" + country +
+                ", country=" + getCountry() +
                 ", town='" + town + '\'' +
                 ", address='" + address + '\'' +
                 "} " + super.toString();

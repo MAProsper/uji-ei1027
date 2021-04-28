@@ -1,27 +1,24 @@
 package app.dao.generic;
 
 import app.model.generic.Model;
+import app.util.Parametrized;
 import app.util.Reflect;
 import app.util.SqlUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class Dao<T extends Model> {
+public abstract class Dao<T extends Model> extends Parametrized<T> {
     @Autowired protected JdbcTemplate jdbc;
     @Autowired protected Logger logger;
     protected Mapper<T> mapper;
 
-    @SuppressWarnings("unchecked")
     public Dao() {
-        ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-        Class<T> cls = (Class<T>) type.getActualTypeArguments()[0];
-        mapper = new Mapper<>(new Reflect<>(cls));
+        mapper = new Mapper<>(new Reflect<>(getParametrizedType()));
     }
 
     /**

@@ -3,14 +3,13 @@ package app;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 import java.util.logging.Logger;
 
-@Configuration
-public class SanaConfiguration {
+@org.springframework.context.annotation.Configuration
+public class Configuration {
     @Bean
     @ConfigurationProperties(prefix = "source")
     public DataSource source() {
@@ -24,6 +23,6 @@ public class SanaConfiguration {
 
     @Bean
     public Logger logger() {
-        return Logger.getLogger(SanaApplication.class.getName());
+        return Logger.getLogger(Application.class.getName());
     }
 }

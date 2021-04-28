@@ -4,10 +4,6 @@ import app.model.generic.Scheduleable;
 import org.springframework.validation.Errors;
 
 public class ScheduleableValidator<T extends Scheduleable> extends Validator<T> {
-    public ScheduleableValidator(Class<T> cls) {
-        super(cls);
-    }
-
     @Override
     public void validate(T object, Errors errors) {
         super.validate(object, errors);

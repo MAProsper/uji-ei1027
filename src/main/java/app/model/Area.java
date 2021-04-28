@@ -54,7 +54,7 @@ public class Area extends Place {
     public String toString() {
         return "Area{" +
                 "municipality=" + municipality +
-                ", type=" + type +
+                ", type=" + getType() +
                 ", description='" + description + '\'' +
                 ", location='" + location + '\'' +
                 ", image='" + image + '\'' +

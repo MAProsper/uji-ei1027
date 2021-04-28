@@ -1,4 +1,4 @@
-package app.dao.generic;
+package app;
 
 
 import app.dao.*;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TestDao {
+public class Test implements Runnable {
     @Autowired SqlUtil sqlUtil;
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaDao areaDao;
