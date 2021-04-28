@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 public abstract class Controller<M extends Model, D extends Dao<M>, V extends Validator<M>> {
@@ -34,17 +35,8 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("model") M model, BindingResult bindingResult) {
-        validator.validate(model, bindingResult);
-        if (bindingResult.hasErrors()) return getView("add");
-
-        try {
-            dao.add(model);
-        } catch (DataIntegrityViolationException e) {
-            throw new SanaException("error de integridad", e);
-        }
-
-        return getView("list");
+    public String add(@ModelAttribute("model") M model, BindingResult binding) {
+        return update(model, binding, dao::add);
     }
 
     @RequestMapping("/update/{id}")
@@ -54,23 +46,27 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     }
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute("model") M model, BindingResult bindingResult) {
-        validator.validate(model, bindingResult);
-        if (bindingResult.hasErrors()) return getView("add");
-
-        try {
-            dao.update(model);
-        } catch (DataIntegrityViolationException e) {
-            throw new SanaException("error de integridad", e);
-        }
-
-        return getView("list");
+    public String update(@ModelAttribute("model") M model, BindingResult binding) {
+        return update(model, binding, dao::update);
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
         dao.deleteById(id);
         return "redirect:list";
+    }
+
+    protected String update(M model, BindingResult binding, Consumer<M> dao) {
+        validator.validate(model, binding);
+        if (binding.hasErrors()) return getView("add");
+
+        try {
+            dao.accept(model);
+        } catch (DataIntegrityViolationException e) {
+            throw new SanaException("error de integridad", e);
+        }
+
+        return getView("list");
     }
 
     protected Mapper<M> getMapper() {
