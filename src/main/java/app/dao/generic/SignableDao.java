@@ -15,7 +15,7 @@ public abstract class SignableDao<T extends Signable> extends Dao<T> {
     @Override
     public void add(T object) {
         object.setSingUp(LocalDateTime.now());
-        super.update(object);
+        super.add(object);
     }
 
     @Override
