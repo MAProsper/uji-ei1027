@@ -3,6 +3,7 @@ package app.model.generic;
 public abstract class Person extends Signable {
     public String identification;
     public String name;
+    public String mail;
     public String password;
 
     public String getIdentification() {
@@ -21,6 +22,14 @@ public abstract class Person extends Signable {
         this.name = name;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -34,6 +43,7 @@ public abstract class Person extends Signable {
         return "Person{" +
                 "identification='" + identification + '\'' +
                 ", name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
                 ", password='" + password + '\'' +
                 "} " + super.toString();
     }

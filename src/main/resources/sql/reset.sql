@@ -1,4 +1,4 @@
--- Start droping tables --
+-- Start dropping tables --
 DROP TABLE IF EXISTS Municipality CASCADE;
 DROP TABLE IF EXISTS Area CASCADE;
 DROP TABLE IF EXISTS Zone CASCADE;
@@ -74,12 +74,14 @@ CREATE TABLE ControlStaff(
   sign_down TIMESTAMP NOT NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
+  mail TEXT NOT NULL,
   password TEXT NOT NULL,
   area_period INTEGER NOT NULL,
   CONSTRAINT control_staff_ca1 UNIQUE (identification, sign_up),
   CONSTRAINT control_staff_ca2 UNIQUE (identification, sign_down),
+  CONSTRAINT control_staff_c1 CHECK (mail LIKE '%@%'),
   CONSTRAINT control_staff_caAreaPeriod FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT control_staff_c1 CHECK (sign_down IS NULL OR sign_up < sign_down)
+  CONSTRAINT control_staff_c2 CHECK (sign_down IS NULL OR sign_up < sign_down)
 );
 
 CREATE TABLE MunicipalManager(
@@ -88,13 +90,16 @@ CREATE TABLE MunicipalManager(
   sign_down TIMESTAMP NOT NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
+  mail TEXT NOT NULL,
   password TEXT NOT NULL,
   municipality INTEGER NOT NULL,
   phone TEXT NOT NULL,
   CONSTRAINT municipal_manager_ca1 UNIQUE (identification, sign_up),
   CONSTRAINT municipal_manager_ca2 UNIQUE (identification, sign_down),
+  CONSTRAINT municipal_manager_c1 CHECK (mail LIKE '%@%'),
+  CONSTRAINT municipal_manager_c2 CHECK (LENGTH(phone) >= 9),
   CONSTRAINT municipal_manager_caMunicipality FOREIGN KEY (municipality) REFERENCES Municipality(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT municipal_manager_c1 CHECK (sign_down IS NULL OR sign_up < sign_down)
+  CONSTRAINT municipal_manager_c3 CHECK (sign_down IS NULL OR sign_up < sign_down)
 );
 
 CREATE TABLE Citizen(
@@ -103,14 +108,15 @@ CREATE TABLE Citizen(
   sign_down TIMESTAMP NOT NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
-  password TEXT NOT NULL,
   mail TEXT NOT NULL,
+  password TEXT NOT NULL,
   country INTEGER NOT NULL,
   town TEXT NOT NULL,
   address TEXT NOT NULL,
   CONSTRAINT citizen_ca1 UNIQUE (identification, sign_up),
   CONSTRAINT citizen_ca2 UNIQUE (identification, sign_down),
-  CONSTRAINT citizen_c1 CHECK (sign_down IS NULL OR sign_up < sign_down),
+  CONSTRAINT citizen_c1 CHECK (mail LIKE '%@%'),
+  CONSTRAINT citizen_c2 CHECK (sign_down IS NULL OR sign_up < sign_down),
   CONSTRAINT citizen_eCountry CHECK (country >= 0 AND country <= 248)
 );
 

@@ -4,18 +4,9 @@ import app.model.enums.Country;
 import app.model.generic.Person;
 
 public class Citizen extends Person {
-    public String mail;
     public int country;
     public String town;
     public String address;
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
 
     public Country getCountry() {
         return Country.values()[country];
@@ -44,8 +35,7 @@ public class Citizen extends Person {
     @Override
     public String toString() {
         return "Citizen{" +
-                "mail='" + mail + '\'' +
-                ", country=" + getCountry() +
+                "country=" + getCountry() +
                 ", town='" + town + '\'' +
                 ", address='" + address + '\'' +
                 "} " + super.toString();
