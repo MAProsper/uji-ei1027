@@ -90,12 +90,12 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     }
 
     /**
-     * Ejecutar metodo de actualizacion por nombre
+     * Ejecutar metodo basico por nombre
      *
      * @param action nombre de metodo
      * @param object objeto referencia
      */
-    public void executeUpdate(String action, T object) {
+    public void executeByName(String action, T object) {
         try {
             getClass().getMethod(action, getParametrizedType()).invoke(this, object);
         } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {

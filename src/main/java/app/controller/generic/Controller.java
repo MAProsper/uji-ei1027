@@ -59,7 +59,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     protected String executePost(String action, M model, BindingResult binding) {
         validator.validate(model, binding);
         if (binding.hasErrors()) return getView(action);
-        dao.executeUpdate(action, model);
+        dao.executeByName(action, model);
         return "redirect:../list";
     }
 
