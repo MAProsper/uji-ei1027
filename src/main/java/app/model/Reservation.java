@@ -6,20 +6,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Reservation extends Model {
-    public int citizen;
-    public int areaPeriod;
     public int code;
+    public int areaPeriod;
     public LocalDate date;
+    public int citizen;
     public int occupied;
     public LocalTime enter;
     public LocalTime exit;
 
-    public int getCitizen() {
-        return citizen;
+    public int getCode() {
+        return code;
     }
 
-    public void setCitizen(int citizen) {
-        this.citizen = citizen;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public int getAreaPeriod() {
@@ -30,20 +30,20 @@ public class Reservation extends Model {
         this.areaPeriod = areaPeriod;
     }
 
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public int getCitizen() {
+        return citizen;
+    }
+
+    public void setCitizen(int citizen) {
+        this.citizen = citizen;
     }
 
     public int getOccupied() {
