@@ -78,15 +78,14 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     }
 
     /**
-     * Obtiene todos los objetos que tengan a otro como referencia
+     * Obtiene todos los objetos que tengan un campo concreto
      *
-     * @param other objeto referencia
+     * @param field nombre de objeto referencia
+     * @param value id del objeto referencia
      * @return objetos relacionados
      */
-    public List<T> getByOther(Model other) {
-        Mapper<?> mapper = new Mapper<>(other.getClass());
-        String join = mapper.mapName(mapper.getTableName());
-        return executeQuery(String.format("WHERE %s = ?", join), other.getId());
+    public List<T> getByField(String field, Object value) {
+        return executeQuery(String.format("WHERE %s = ?", mapper.mapName(field)), value);
     }
 
     /**

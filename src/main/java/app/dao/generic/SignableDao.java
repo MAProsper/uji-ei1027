@@ -12,6 +12,14 @@ public abstract class SignableDao<T extends Signable> extends Dao<T> {
     }
 
     @Override
+    public void update(T object) {
+        T prev = getById(object.getId());
+        object.setSingUp(prev.getSingUp());
+        object.setSingDown(prev.getSingDown());
+        super.update(object);
+    }
+
+    @Override
     public void delete(T object) {
         object.setSingDown(LocalDateTime.now());
         super.update(object);
