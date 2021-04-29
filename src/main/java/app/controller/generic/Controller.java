@@ -45,7 +45,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
         dao.deleteById(id);
-        return "redirect:list";
+        return "redirect:../list";
     }
 
     /**
@@ -60,7 +60,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
         validator.validate(model, binding);
         if (binding.hasErrors()) return getView(action);
         dao.executeUpdate(action, model);
-        return getView("list");
+        return "redirect:../list";
     }
 
     /**
