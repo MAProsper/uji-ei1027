@@ -44,7 +44,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        dao.deleteById(id);
+        dao.delete(id);
         return "redirect:../list";
     }
 

@@ -20,7 +20,8 @@ public abstract class SignableDao<T extends Signable> extends Dao<T> {
     }
 
     @Override
-    public void delete(T object) {
+    public void delete(int id) {
+        T object = getById(id);
         object.setSingDown(LocalDateTime.now());
         super.update(object);
     }

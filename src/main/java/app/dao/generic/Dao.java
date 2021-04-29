@@ -44,7 +44,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      *
      * @param id clave primaria
      */
-    public void deleteById(int id) {
+    public void delete(int id) {
         executeUpdate("DELETE FROM %s WHERE id = ?", id);
     }
 
@@ -71,8 +71,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     /**
      * Obtiene todos los objetos que tengan un campo concreto
      *
-     * @param field nombre de objeto referencia
-     * @param value id del objeto referencia
+     * @param field nombre del atributo
+     * @param value valor del atributo
      * @return objetos relacionados
      */
     protected List<T> getByField(String field, Object value) {
