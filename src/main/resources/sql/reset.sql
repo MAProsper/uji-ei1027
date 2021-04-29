@@ -1,4 +1,4 @@
--- Drop all the tables --
+-- Start droping tables --
 DROP TABLE IF EXISTS Municipality CASCADE;
 DROP TABLE IF EXISTS Area CASCADE;
 DROP TABLE IF EXISTS Zone CASCADE;
@@ -10,11 +10,11 @@ DROP TABLE IF EXISTS ServiceType CASCADE;
 DROP TABLE IF EXISTS AreaPeriod CASCADE;
 DROP TABLE IF EXISTS Reservation CASCADE;
 DROP TABLE IF EXISTS ReservationZone CASCADE;
--- End of dropping all the tables --
+-- End dropping tables --
 
--- Start creating the tables --
+-- Start creating tables --
 CREATE TABLE Municipality(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
   sign_up TIMESTAMP NOT NULL,
   sign_down TIMESTAMP NULL,
@@ -24,7 +24,7 @@ CREATE TABLE Municipality(
 );
 
 CREATE TABLE Area(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
   sign_up TIMESTAMP NOT NULL,
   sign_down TIMESTAMP NULL,
@@ -33,56 +33,57 @@ CREATE TABLE Area(
   location TEXT NOT NULL,
   image TEXT NULL,
   municipality INTEGER NOT NULL,
-  CONSTRAINT area_ca1 UNIQUE (name, sign_up),
-  CONSTRAINT area_ca2 UNIQUE (name, sign_down),
+  CONSTRAINT area_ca1 UNIQUE (name, municipality, sign_up),
+  CONSTRAINT area_ca2 UNIQUE (name, municipality, sign_down),
   CONSTRAINT area_caMunicipality FOREIGN KEY (municipality) REFERENCES Municipality(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT area_c1 CHECK (sign_down IS NULL OR sign_up < sign_down),
   CONSTRAINT area_eType CHECK (type >= 0 AND type <= 5)
 );
 
 CREATE TABLE AreaPeriod(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   area INTEGER NOT NULL,
   schedule_start DATE NOT NULL,
   schedule_end DATE NOT NULL,
   period_start TIME NOT NULL,
   period_end TIME NOT NULL,
+  CONSTRAINT area_period_ca1 UNIQUE (area, schedule_start, schedule_end, period_start),
+  CONSTRAINT area_period_ca2 UNIQUE (area, schedule_start, schedule_end, period_end),
   CONSTRAINT area_period_c1 CHECK (schedule_start < schedule_end),
   CONSTRAINT area_period_c2 CHECK (period_start < period_end),
   CONSTRAINT area_period_caArea FOREIGN KEY (area) REFERENCES Area(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 CREATE TABLE Zone(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
   sign_up TIMESTAMP NOT NULL,
   sign_down TIMESTAMP NULL,
   capacity INTEGER NOT NULL,
   area INTEGER NOT NULL,
-  CONSTRAINT zone_ca1 UNIQUE (name, sign_up),
-  CONSTRAINT zone_ca2 UNIQUE (name, sign_down),
+  CONSTRAINT zone_ca1 UNIQUE (name, area, sign_up),
+  CONSTRAINT zone_ca2 UNIQUE (name, area, sign_down),
   CONSTRAINT zone_caArea FOREIGN KEY (area) REFERENCES Area(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT zone_c1 CHECK (sign_down IS NULL OR sign_up < sign_down),
   CONSTRAINT zone_c3 CHECK (capacity > 0)
 );
 
 CREATE TABLE ControlStaff(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   password TEXT NOT NULL,
   sign_up TIMESTAMP NOT NULL,
   sign_down TIMESTAMP NOT NULL,
   area_period INTEGER NOT NULL,
-  CONSTRAINT control_staff_ca1 UNIQUE (name, identification),
-  CONSTRAINT control_staff_ca2 UNIQUE (name, sign_up),
-  CONSTRAINT control_staff_ca3 UNIQUE (name, sign_down),
+  CONSTRAINT control_staff_ca1 UNIQUE (identification, sign_up),
+  CONSTRAINT control_staff_ca2 UNIQUE (identification, sign_down),
   CONSTRAINT control_staff_caAreaPeriod FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT control_staff_c1 CHECK (sign_down IS NULL OR sign_up < sign_down)
 );
 
 CREATE TABLE MunicipalManager(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   password TEXT NOT NULL,
@@ -90,15 +91,14 @@ CREATE TABLE MunicipalManager(
   sign_down TIMESTAMP NOT NULL,
   phone TEXT NOT NULL,
   municipality INTEGER NOT NULL,
-  CONSTRAINT municipal_manager_ca1 UNIQUE (name, identification),
-  CONSTRAINT municipal_manager_ca2 UNIQUE (name, sign_up),
-  CONSTRAINT municipal_manager_ca3 UNIQUE (name, sign_down),
+  CONSTRAINT municipal_manager_ca1 UNIQUE (identification, sign_up),
+  CONSTRAINT municipal_manager_ca2 UNIQUE (identification, sign_down),
   CONSTRAINT municipal_manager_caMunicipality FOREIGN KEY (municipality) REFERENCES Municipality(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT municipal_manager_c1 CHECK (sign_down IS NULL OR sign_up < sign_down)
 );
 
 CREATE TABLE Citizen(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   password TEXT NOT NULL,
@@ -108,21 +108,20 @@ CREATE TABLE Citizen(
   country INTEGER NOT NULL,
   town TEXT NOT NULL,
   address TEXT NOT NULL,
-  CONSTRAINT citizen_ca1 UNIQUE (name, identification),
-  CONSTRAINT citizen_ca2 UNIQUE (name, sign_up),
-  CONSTRAINT citizen_ca3 UNIQUE (name, sign_down),
+  CONSTRAINT citizen_ca1 UNIQUE (identification, sign_up),
+  CONSTRAINT citizen_ca2 UNIQUE (identification, sign_down),
   CONSTRAINT citizen_c1 CHECK (sign_down IS NULL OR sign_up < sign_down),
   CONSTRAINT citizen_eCountry CHECK (country >= 0 AND country <= 248)
 );
 
 CREATE TABLE ServiceType(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
-  CONSTRAINT service_type_ca1 UNIQUE(name)
+  CONSTRAINT service_type_ca1 UNIQUE (name)
 );
 
 CREATE TABLE Service(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   service_type INTEGER NOT NULL,
   area INTEGER NOT NULL,
   schedule_start DATE NOT NULL,
@@ -136,7 +135,7 @@ CREATE TABLE Service(
 );
 
 CREATE TABLE Reservation(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   code INTEGER NOT NULL,
   date DATE NOT NULL,
   occupied INTEGER NOT NULL,
@@ -152,11 +151,11 @@ CREATE TABLE Reservation(
 );
 
 CREATE TABLE ReservationZone(
-  id SERIAL PRIMARY KEY,
+  id INTEGER PRIMARY KEY,
   reservation INTEGER NOT NULL,
   zone INTEGER NOT NULL,
-  CONSTRAINT reservationZone_ca1 UNIQUE(reservation, zone),
+  CONSTRAINT reservationZone_ca1 UNIQUE (reservation, zone),
   CONSTRAINT reservationZone_caReservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT reservationZone_caZone FOREIGN KEY (zone) REFERENCES Zone(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
--- All Tables created --
+-- End creating tables --

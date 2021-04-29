@@ -5,5 +5,5 @@ import app.model.AreaPeriod;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AreaPeriodDao extends Dao<AreaPeriod> {
+public class AreaPeriodDao extends Dao<AreaPeriod> { //TODO: comprobar que horarios no se solapan
 }
