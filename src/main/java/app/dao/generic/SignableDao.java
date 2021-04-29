@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public abstract class SignableDao<T extends Signable> extends Dao<T> {
     @Override
-    public void add(T object) { //TODO: comprobar que no instancas activas (salta excepcion por los UNIQUE) (coprobacion basada en UNIQUE solo posible en daos final?)
+    public void add(T object) {
         object.setSingUp(LocalDateTime.now());
         super.add(object);
     }
