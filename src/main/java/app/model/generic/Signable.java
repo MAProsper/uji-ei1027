@@ -26,6 +26,11 @@ public abstract class Signable extends Model {
         this.signDown = singDown;
     }
 
+    public boolean isActive() {
+        LocalDateTime now = LocalDateTime.now();
+        return signUp.isBefore(now) && (signDown == null || signDown.isAfter(now));
+    }
+
     @Override
     public String toString() {
         return "Signable{" +

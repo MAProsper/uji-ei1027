@@ -41,8 +41,8 @@ public abstract class Scheduleable extends Model {
         this.periodEnd = periodEnd;
     }
 
-    public static boolean overlap(Scheduleable a, Scheduleable b) {
-        return a.getPeriodStart().compareTo(b.getPeriodEnd()) < 0 && a.getPeriodEnd().compareTo(b.getPeriodStart()) < 0;
+    public boolean overlapsWith(Scheduleable other) {
+        return getPeriodStart().isBefore(other.getPeriodEnd()) && getPeriodEnd().isBefore(other.getPeriodStart());
     }
 
     @Override

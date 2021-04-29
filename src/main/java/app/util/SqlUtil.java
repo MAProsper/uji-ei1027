@@ -35,15 +35,14 @@ public class SqlUtil {
     }
 
     /**
-     * Prepara una cadena SQL dando un formato determinado a cada columna y concatenado las con un delimitador
+     * Prepara una cadena SQL dando un formato determinado a cada columna
      *
-     * @param format    formato aplicado a cada atributo
-     * @param delimiter delimitador entre atributos
-     * @param columns   columnas a ultilizar
+     * @param format  formato aplicado a cada atributo
+     * @param columns columnas a ultilizar
      * @return cadena SQL
      */
-    public static String format(String format, String delimiter, Set<String> columns) {
-        String query = columns.stream().map(column -> String.format(format, column)).collect(Collectors.joining(delimiter));
+    public static String format(String format, Set<String> columns) {
+        String query = columns.stream().map(column -> String.format(format, column)).collect(Collectors.joining(", "));
         return query.isBlank() ? "TRUE" : query;
     }
 }

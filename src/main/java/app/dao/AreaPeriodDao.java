@@ -3,7 +3,6 @@ package app.dao;
 import app.ApplicationException;
 import app.dao.generic.ScheduleableDao;
 import app.model.AreaPeriod;
-import app.model.generic.Scheduleable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,9 +21,13 @@ public class AreaPeriodDao extends ScheduleableDao<AreaPeriod> {
         super.update(object);
     }
 
+    public List<AreaPeriod> getByArea(int id) {
+        return getByField("area", id);
+    }
+
     protected void overlapValidator(AreaPeriod object) {
-        List<AreaPeriod> periods = getByField("area", object.getArea());
-        if (periods.stream().anyMatch(period -> period.getId() != object.getId() && Scheduleable.overlap(period, object)))
+        List<AreaPeriod> periods = getByArea(object.getArea());
+        if (periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object)))
             throw new ApplicationException("periodo se solapa con otro");
     }
 }

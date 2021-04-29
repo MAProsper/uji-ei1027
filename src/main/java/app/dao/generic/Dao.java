@@ -27,7 +27,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     public void add(T object) {
         object.setId(getNextId());
-        executeUpdate("INSERT INTO %s VALUES(%s)", "?", ", ", object);
+        executeUpdate("INSERT INTO %s VALUES(%s)", "?", object);
     }
 
     /**
@@ -36,16 +36,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        executeUpdate("UPDATE %s SET %s", "%s = ?", ", ", object);
-    }
-
-    /**
-     * Elimina el objeto de la base de datos
-     *
-     * @param object objeto referencia
-     */
-    public void delete(T object) {
-        executeUpdate("DELETE FROM %s WHERE %s", "%s = ?", " AND ", object);
+        executeUpdate("UPDATE %s SET %s", "%s = ?", object);
     }
 
     /**
@@ -84,7 +75,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param value id del objeto referencia
      * @return objetos relacionados
      */
-    public List<T> getByField(String field, Object value) {
+    protected List<T> getByField(String field, Object value) {
         return executeQuery(String.format("WHERE %s = ?", mapper.mapName(field)), value);
     }
 
@@ -105,13 +96,12 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     /**
      * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
      *
-     * @param query     formato sentencia SQL
-     * @param format    formato aplicado a cada atributo
-     * @param delimiter delimitador entre atributos
-     * @param object    objeto referencia
+     * @param query  formato sentencia SQL
+     * @param format formato aplicado a cada atributo
+     * @param object objeto referencia
      */
-    protected void executeUpdate(String query, String format, String delimiter, T object) {
-        String args = SqlUtil.format(format, delimiter, mapper.getColumnNames());
+    protected void executeUpdate(String query, String format, T object) {
+        String args = SqlUtil.format(format, mapper.getColumnNames());
         executeUpdate(String.format(query, "%s", args), mapper.toRow(object));
     }
 
