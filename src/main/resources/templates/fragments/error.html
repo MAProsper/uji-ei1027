@@ -1,3 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<main layout:fragment="content">Bienvenido al gestor de areas naturales</main>
+<main layout:fragment="content">
+  <h2>Error durante la operación</h2>
+  <p th:text="${message}"></p>
+</main>

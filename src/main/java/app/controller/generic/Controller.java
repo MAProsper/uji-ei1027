@@ -70,6 +70,6 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
      * @return ruta de la vista
      */
     protected String getView(String view) {
-        return String.format("%s/%s", dao.getMapper().getTableName(), view); //TODO: Revisar el formato de las vistas en disco
+        return String.format("%s/%s", dao.getMapper().getTableName(), view).toLowerCase(); //TODO: Revisar el formato de las vistas en disco
     }
 }

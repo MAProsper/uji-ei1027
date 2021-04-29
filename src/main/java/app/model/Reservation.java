@@ -70,6 +70,10 @@ public class Reservation extends Model {
         this.exit = exit;
     }
 
+    public boolean isActive() {
+        return enter != exit;
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +

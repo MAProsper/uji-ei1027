@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+        <link type="text/css" th:href="@{/css/base.css}" href="/css/base.css" rel="stylesheet"/>
+        <title layout:title-pattern="$CONTENT_TITLE">Safe Access to Natural Areas</title>
+    </head>
+    <body class="container">
+        <header class="page-header">
+            <h1>Safe Access to Natural Areas</h1>
+            <nav th:replace="fragments/nav"></nav>
+        </header>
+        <main layout:fragment="content"></main>
+        <footer class="text-muted">EI1027 - Diseño y Implementacioon de Sistemas de la Información</footer>
+    </body>
+</html>
