@@ -9,9 +9,9 @@ public abstract class ScheduleableValidator<T extends Scheduleable> extends Vali
         super.validate(object, errors);
 
         if (object.getScheduleStart().compareTo(object.getScheduleEnd()) > 0)
-            errors.rejectValue("La fecha de fin deber ser posterior a la de incio", "scheduleOrder");
+            errors.rejectValue("scheduleEnd", "validador", "La fecha de fin deber ser posterior a la de incio");
 
         if (object.getPeriodStart().compareTo(object.getPeriodEnd()) > 0)
-            errors.rejectValue("La hora de fin deber ser posterior a la de incio", "periodOrder");
+            errors.rejectValue("periodEnd", "validador", "La hora de fin deber ser posterior a la de incio");
     }
 }

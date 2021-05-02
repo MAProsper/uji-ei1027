@@ -2,6 +2,7 @@ package app.controller.generic;
 
 import app.dao.generic.Dao;
 import app.model.generic.Model;
+import app.service.generic.Service;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -10,41 +11,48 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public abstract class Controller<M extends Model, D extends Dao<M>, V extends Validator<M>> {
-    @Autowired protected D dao;
-    @Autowired protected V validator;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public abstract class Controller<M extends Model> {
+    @Autowired protected Service<M> service;
+    @Autowired protected Validator<M> validator;
 
     @RequestMapping("/list")
-    public String list(org.springframework.ui.Model model) {
-        model.addAttribute("list", dao.getAll());
+    public String list(org.springframework.ui.Model model, HttpSession session) {
+        List<M> objects = service.getAll(session);
+        model.addAttribute("columns", service.getColumnNames());
+        model.addAttribute("rows", objects.stream().map(service::mapRow).collect(Collectors.toList()));
+        model.addAttribute("objects", objects);
         return getView("list");
     }
 
     @RequestMapping("/add")
     public String add(org.springframework.ui.Model model) {
-        model.addAttribute("model", dao.getReflect().newInstance());
+        model.addAttribute("object", getDao().getReflect().newInstance());
         return getView("add");
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute("model") M model, BindingResult binding) {
-        return executePost("add", model, binding);
+    public String add(@ModelAttribute M object, BindingResult binding) {
+        return executePost("add", object, binding);
     }
 
     @RequestMapping("/update/{id}")
     public String update(org.springframework.ui.Model model, @PathVariable int id) {
-        model.addAttribute("model", dao.getById(id));
+        model.addAttribute("object", getDao().getById(id));
         return getView("update");
     }
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute("model") M model, BindingResult binding) {
-        return executePost("update", model, binding);
+    public String update(@ModelAttribute M object, BindingResult binding) {
+        return executePost("update", object, binding);
     }
 
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
-        dao.delete(id);
+        getDao().delete(id);
         return "redirect:../list";
     }
 
@@ -59,7 +67,7 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
     protected String executePost(String action, M model, BindingResult binding) {
         validator.validate(model, binding);
         if (binding.hasErrors()) return getView(action);
-        dao.executeByName(action, model);
+        getDao().executeByName(action, model);
         return "redirect:../list";
     }
 
@@ -70,6 +78,10 @@ public abstract class Controller<M extends Model, D extends Dao<M>, V extends Va
      * @return ruta de la vista
      */
     protected String getView(String view) {
-        return String.format("%s/%s", dao.getMapper().getTableName(), view).toLowerCase(); //TODO: Revisar el formato de las vistas en disco
+        return String.format("%s/%s", getDao().getMapper().getTableName(), view).toLowerCase(); //TODO: Revisar el formato de las vistas en disco
+    }
+
+    protected Dao<M> getDao() {
+        return service.getDao();
     }
 }

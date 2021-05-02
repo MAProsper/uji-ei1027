@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<title>Inicio de sesion</title>
+<main layout:fragment="content">
+  <h2>Inicio de sesion</h2>
+  <form th:object="${object}" method="post">
+    <input type="text" th:field="*{identification}" />
+    <input type="password" th:field="*{password}" />
+    <span th:each="err : ${#fields.errors('password')}" th:text="${err}"></span>
+    <input type="submit" />
+  </form>
+</main>

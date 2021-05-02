@@ -55,8 +55,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @return objeto encontrado
      */
     public T getById(int id) {
-        List<T> objets = executeQuery("WHERE id = ?", id);
-        return objets.isEmpty() ? null : objets.get(0);
+        return getFirst(getByField("id", id));
     }
 
     /**
@@ -152,6 +151,10 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     public void test() {
         logger.info(String.format("%s.getAll() = %s", getClass().getName(), getAll()));
+    }
+
+    protected T getFirst(List<T> objects) {
+        return objects.isEmpty() ? null : objects.get(0);
     }
 
     public Mapper<T> getMapper() {

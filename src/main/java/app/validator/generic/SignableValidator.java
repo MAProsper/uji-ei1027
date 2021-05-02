@@ -9,6 +9,6 @@ public abstract class SignableValidator<T extends Signable> extends Validator<T>
         super.validate(object, errors);
 
         if (object.getSingDown() != null && object.getSingUp().compareTo(object.getSingDown()) > 0)
-            errors.rejectValue("La fecha de baja deber ser posterior a la de alta", "signOrder");
+            errors.rejectValue("signDown", "validador", "La fecha de baja deber ser posterior a la de alta");
     }
 }

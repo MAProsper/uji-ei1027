@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 public class Reflect<T> {
     protected Class<T> cls;
@@ -14,7 +15,7 @@ public class Reflect<T> {
 
     public Reflect(Class<T> cls) {
         this.cls = cls;
-        fields = new HashMap<>();
+        fields = new TreeMap<>();
         for (Field field : cls.getFields())
             fields.put(field.getName(), field);
     }

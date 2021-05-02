@@ -7,6 +7,7 @@ import org.springframework.lang.NonNull;
 
 import java.sql.*;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class Mapper<T extends Model> implements RowMapper<T> {
@@ -51,7 +52,7 @@ public class Mapper<T extends Model> implements RowMapper<T> {
      * @return nombres de columnas
      */
     public Set<String> mapName(Set<String> names) {
-        return names.stream().map(this::mapName).collect(Collectors.toSet());
+        return names.stream().map(this::mapName).collect(Collectors.toCollection(TreeSet::new));
     }
 
     /**

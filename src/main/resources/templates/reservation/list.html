@@ -3,24 +3,17 @@
 <title>Gestión de reservas</title>
 <main layout:fragment="content">
   <h2>Llista de reservas</h2>
-  <p th:if="${#lists.isEmpty(list)}">No hay ninguna reserva</p>
-  <table th:unless="${#lists.isEmpty(list)}" class="table table-striped">
+  <p th:if="${#lists.isEmpty(rows)}">No hay ninguna reserva</p>
+  <table th:unless="${#lists.isEmpty(rows)}" class="table table-striped">
     <thead>
       <tr>
-        <th>Codigo</th>
-        <th>Dia</th>
-        <th>Horario</th>
-        <th>Personas</th>
+        <th th:each="column: ${columns}" th:text="*{column}"></th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-    <tr th:each="reservation: ${list}">
-      <td th:text="${reservation.code}"></td>
-      <td th:text="${reservation.date}"></td>
-      <td th:text="${period[reservationStat.index].periodStart} + ' - ' + ${period[reservationStat.index].periodEnd}"></td>
-      <td th:text="${reservation.occupied}"></td>
-      <td><a th:if="${reservation.active}" th:href="@{/reservation/delete/{id}(id=${reservation.id})}" class="btn btn-danger" role="button">Cancelar</a></td>
+    <tr th:each="row: ${rows}">
+      <td th:each="value: ${row}" th:text="*{value}"></td>
     </tr>
     </tbody>
   </table>

@@ -1,5 +1,7 @@
 package app;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,10 @@ public class ApplicationConfiguration {
     @Bean
     public Logger logger() {
         return Logger.getLogger(Application.class.getName());
+    }
+
+    @Bean
+    public PasswordEncryptor encryptor() {
+        return new BasicPasswordEncryptor();
     }
 }

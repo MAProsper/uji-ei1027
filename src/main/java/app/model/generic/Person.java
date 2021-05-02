@@ -38,6 +38,10 @@ public abstract class Person extends Signable {
         this.password = password;
     }
 
+    public String toIdentificationString() {
+        return String.format("%s (%s)", name, identification);
+    }
+
     @Override
     public String toString() {
         return "Person{" +

@@ -1,7 +1,10 @@
 package app.model.generic;
 
+import app.util.StringUtil;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.Temporal;
 
 public abstract class Scheduleable extends Model {
     public LocalDate scheduleStart;
@@ -43,6 +46,14 @@ public abstract class Scheduleable extends Model {
 
     public boolean overlapsWith(Scheduleable other) {
         return getPeriodStart().isBefore(other.getPeriodEnd()) && getPeriodEnd().isBefore(other.getPeriodStart());
+    }
+
+    public String toPeriodString() {
+        return StringUtil.toIntervalString(getPeriodStart(), getPeriodEnd());
+    }
+
+    public String toScheduleString() {
+        return StringUtil.toIntervalString(getScheduleStart(), getScheduleEnd());
     }
 
     @Override

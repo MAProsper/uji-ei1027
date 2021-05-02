@@ -1,9 +1,11 @@
 package app.model;
 
 import app.model.generic.Model;
+import app.util.StringUtil;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Reservation extends Model {
     public int code;
@@ -68,6 +70,10 @@ public class Reservation extends Model {
 
     public void setExit(LocalTime exit) {
         this.exit = exit;
+    }
+
+    public String toPeriodString() {
+        return StringUtil.toIntervalString(enter, exit);
     }
 
     public boolean isActive() {
