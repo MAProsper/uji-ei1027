@@ -5,37 +5,38 @@
 <main layout:fragment="content">
 
     <form action="#" th:action="@{/reservation/add}"
-          th:object="${reservation}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <td><label>Area</label></td>
-                <td><input type="text" th:field="*{code}"></td>
+                <td><input type="number" th:field="*{code}"></td>
             </tr>
             <tr>
                 <td><label>Periodo</label></td>
-                <td><input type="text" th:field="*{areaPeriod}"></td>
+                <td><input type="number" th:field="*{areaPeriod}"></td>
             </tr>
             <tr>
                 <td><label>Fecha</label></td>
-                <td><input type="text" th:field="*{date}"></td>
+                <td><input type="date" th:field="*{date}"></td>
             </tr>
             <tr>
                 <td><label>Citizen</label></td>
-                <td><input type="text" th:field="*{citizen}"></td>
+                <td><input type="number" th:field="*{citizen}"></td>
             </tr>
             <tr>
                 <td><label>Numero de acompañantes</label></td>
-                <td><input type="text" th:field="*{occupied}"></td>
+                <td><input type="number" th:field="*{occupied}"></td>
             </tr>
             <tr>
                 <td><label>Enterada</label></td>
-                <td><input type="text" th:field="*{enter}"></td>
+                <td><input type="time" th:field="*{enter}"></td>
             </tr>
             <tr>
                 <td><label>Salida</label></td>
-                <td><input type="text" th:field="*{exit}"></td>
+                <td><input type="time" th:field="*{exit}"></td>
             </tr>
         </table>
+        <input type="submit" value="Añadir reserva" /></td>
     </form>
-    <input type="submit" value="Añadir reserva" /></td>
+
 </main>

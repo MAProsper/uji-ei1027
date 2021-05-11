@@ -2,6 +2,7 @@ package app.model;
 
 import app.model.generic.Model;
 import app.util.StringUtil;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,10 +11,13 @@ import java.util.List;
 public class Reservation extends Model {
     public int code;
     public int areaPeriod;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
     public LocalDate date;
     public int citizen;
     public int occupied;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
     public LocalTime enter;
+    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
     public LocalTime exit;
 
     public int getCode() {
