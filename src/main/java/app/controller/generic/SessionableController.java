@@ -16,7 +16,7 @@ public abstract class SessionableController<M extends Model> extends Controller<
     }
 
     @Override
-    public String list(org.springframework.ui.Model model, HttpSession session) {
-        return this.autentificate((Person) session.getAttribute("user")) ? super.list(model, session) : "redirect:/session/add";
+    public String list(HttpSession session, org.springframework.ui.Model model) {
+        return this.autentificate((Person) session.getAttribute("user")) ? super.list(session, model) : "redirect:/session/add";
     }
 }
