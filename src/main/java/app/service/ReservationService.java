@@ -22,7 +22,7 @@ public class ReservationService extends Service<Reservation> {
     @Autowired protected ZoneDao zoneDao;
 
     public Citizen getCitizen(Reservation r) {
-        return citizenDao.getById(r.getId());
+        return citizenDao.getById(r.getCitizen());
     }
 
     public AreaPeriod getAreaPeriod(Reservation r) {
@@ -50,6 +50,6 @@ public class ReservationService extends Service<Reservation> {
         String area = getArea(r).getName();
         String zones = getZones(r).stream().map(Zone::getName).collect(Collectors.joining(", "));
         String areaPeriod = getAreaPeriod(r).toPeriodString();
-        return Map.of("citizen", citizen, "area", area, "zone", zones, "areaPeriod", areaPeriod);
+        return Map.of("citizen", citizen, "area", area, "zones", zones, "areaPeriod", areaPeriod);
     }
 }

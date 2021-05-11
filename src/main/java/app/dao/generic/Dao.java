@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public abstract class Dao<T extends Model> extends Parametrized<T> {
@@ -27,7 +28,10 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     public void add(T object) {
         object.setId(getNextId());
-        executeUpdate("INSERT INTO %s VALUES(%s)", "?", object);
+        Set<String> columns = mapper.getColumnNames();
+        String keys = SqlUtil.format("%s", columns);
+        String values = SqlUtil.format("?", columns);
+        executeUpdate(String.format("INSERT INTO %s (%s) VALUES (%s)", "%s", keys, values), mapper.toRow(object));
     }
 
     /**
@@ -76,20 +80,6 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     protected List<T> getByField(String field, Object value) {
         return executeQuery(String.format("WHERE %s = ?", mapper.mapName(field)), value);
-    }
-
-    /**
-     * Ejecutar metodo basico por nombre
-     *
-     * @param action nombre de metodo
-     * @param object objeto referencia
-     */
-    public void executeByName(String action, T object) {
-        try {
-            getClass().getMethod(action, getParametrizedType()).invoke(this, object);
-        } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException e) {
-            throw new ApplicationException(e.getMessage(), e);
-        }
     }
 
     /**

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public class Reservation extends Model {
+public class Reservation extends Model implements Comparable<Reservation> {
     public int code;
     public int areaPeriod;
     @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
@@ -84,6 +84,8 @@ public class Reservation extends Model {
         return enter != exit;
     }
 
+
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -95,5 +97,10 @@ public class Reservation extends Model {
                 ", enter=" + enter +
                 ", exit=" + exit +
                 "} " + super.toString();
+    }
+
+    @Override
+    public int compareTo(Reservation r) {
+        return date.compareTo(r.date);
     }
 }

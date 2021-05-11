@@ -7,6 +7,6 @@ import app.model.generic.Person;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @org.springframework.stereotype.Controller
-@RequestMapping("reservation")
+@RequestMapping("/reservation")
 public class ReservationController extends SessionableController<Reservation> {
 }
