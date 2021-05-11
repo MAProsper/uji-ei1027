@@ -22,9 +22,8 @@ public abstract class Controller<M extends Model> {
     @RequestMapping("/list")
     public String list(org.springframework.ui.Model model, HttpSession session) {
         List<M> objects = service.getAll(session);
-        model.addAttribute("columns", service.getColumnNames());
-        model.addAttribute("rows", objects.stream().map(service::mapRow).collect(Collectors.toList()));
         model.addAttribute("objects", objects);
+        model.addAttribute("data", objects.stream().map(service::otherData).collect(Collectors.toList()));
         return getView("list");
     }
 

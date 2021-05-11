@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service
@@ -44,12 +45,11 @@ public class ReservationService extends Service<Reservation> {
     }
 
     @Override
-    public List<Object> mapRow(Reservation r) {
+    public Map<String,String> otherData(Reservation r) {
         String citizen = getCitizen(r).toIdentificationString();
         String area = getArea(r).getName();
         String zones = getZones(r).stream().map(Zone::getName).collect(Collectors.joining(", "));
         String areaPeriod = getAreaPeriod(r).toPeriodString();
-        String period = r.toPeriodString();
-        return List.of(r.getCode(), citizen, r.getOccupied(), area, zones, r.getDate(), areaPeriod, period);
+        return Map.of("citizen", citizen, "area", area, "zone", zones, "areaPeriod", areaPeriod);
     }
 }
