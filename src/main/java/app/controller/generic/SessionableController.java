@@ -10,13 +10,8 @@ import javax.servlet.http.HttpSession;
  *
  */
 public abstract class SessionableController<M extends Model> extends Controller<M>{
-
-    public boolean autentificate(Person person){
-        return person != null;
-    }
-
     @Override
     public String list(HttpSession session, org.springframework.ui.Model model) {
-        return this.autentificate((Person) session.getAttribute("user")) ? super.list(session, model) : "redirect:/session/add";
+        return validator.validate(session) ? super.list(session, model) : "redirect:/session/add";
     }
 }

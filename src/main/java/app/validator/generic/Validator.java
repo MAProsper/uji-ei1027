@@ -5,6 +5,8 @@ import app.util.Parametrized;
 import org.springframework.lang.NonNull;
 import org.springframework.validation.Errors;
 
+import javax.servlet.http.HttpSession;
+
 public abstract class Validator<T extends Model> extends Parametrized<T> implements org.springframework.validation.Validator {
     @Override
     public boolean supports(@NonNull Class<?> cls) {
@@ -17,5 +19,9 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
     }
 
     public void validate(T object, Errors errors) {
+    }
+
+    public boolean validate(HttpSession session) {
+        return true;
     }
 }
