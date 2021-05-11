@@ -8,32 +8,28 @@
           th:object="${object}" method="post">
         <table>
             <tr>
-                <td><label>Codigo</label></td>
-                <td><input type="number" th:field="*{code}"></td>
+                <th><label for="code">Codigo</label></th>
+                <td><input type="number" id="code" th:field="*{code}"></td>
             </tr>
             <tr>
-                <td><label>Periodo</label></td>
-                <td><input type="number" th:field="*{areaPeriod}"></td>
+                <th><label for="areaPeriod">Periodo</label></th>
+                <td><input type="number" id="areaPeriod" th:field="*{areaPeriod}"></td>
             </tr>
             <tr>
-                <td><label>Fecha</label></td>
-                <td><input type="date" th:field="*{date}"></td>
+                <th><label for="date">Fecha</label></th>
+                <td><input type="date" id="date" th:field="*{date}"></td>
             </tr>
             <tr>
-                <td><label>Citizen</label></td>
-                <td><input type="number" th:field="*{citizen}"></td>
+                <th><label for="citizen">Ciudadano</label></th>
+                <td><input type="number" id="citizen" th:field="*{citizen}"></td>
             </tr>
             <tr>
-                <td><label>Numero de acompañantes</label></td>
-                <td><input type="number" th:field="*{occupied}"></td>
+                <th><label for="occupied">Numero de personas</label></th>
+                <td><input type="number" id="occupied" th:field="*{occupied}"></td>
             </tr>
             <tr>
-                <td><label>Enterada</label></td>
-                <td><input type="time" th:field="*{enter}"></td>
-            </tr>
-            <tr>
-                <td><label>Salida</label></td>
-                <td><input type="time" th:field="*{exit}"></td>
+                <th><label for="enter">Entrada</label> y <label for="exit">Salida</label></th>
+                <td><input type="time" id="enter" th:field="*{enter}"><input type="time" id="exit" th:field="*{exit}"></td>
             </tr>
         </table>
         <input type="submit" value="Añadir reserva" /></td>
