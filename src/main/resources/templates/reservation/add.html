@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<span layout:fragment="title">Nueva reserva</span>
+<main layout:fragment="content">
+
+    <form action="#" th:action="@{/reservation/add}"
+          th:object="${reservation}" method="post">
+        <table>
+            <tr>
+                <td><label>Area</label></td>
+                <td><input type="text" th:field="*{code}"></td>
+            </tr>
+            <tr>
+                <td><label>Periodo</label></td>
+                <td><input type="text" th:field="*{areaPeriod}"></td>
+            </tr>
+            <tr>
+                <td><label>Fecha</label></td>
+                <td><input type="text" th:field="*{date}"></td>
+            </tr>
+            <tr>
+                <td><label>Citizen</label></td>
+                <td><input type="text" th:field="*{citizen}"></td>
+            </tr>
+            <tr>
+                <td><label>Numero de acompañantes</label></td>
+                <td><input type="text" th:field="*{occupied}"></td>
+            </tr>
+            <tr>
+                <td><label>Enterada</label></td>
+                <td><input type="text" th:field="*{enter}"></td>
+            </tr>
+            <tr>
+                <td><label>Salida</label></td>
+                <td><input type="text" th:field="*{exit}"></td>
+            </tr>
+        </table>
+    </form>
+    <a href="add" class="btn btn-success" role="button">Crear reserva</a>
+</main>
