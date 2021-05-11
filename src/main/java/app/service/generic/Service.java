@@ -16,7 +16,5 @@ public abstract class Service<M extends Model> {
 
     public abstract List<M> getAll(HttpSession session);
 
-    public abstract List<String> getColumnNames();
-
     public abstract List<Object> mapRow(M object);
 }

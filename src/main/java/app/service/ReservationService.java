@@ -7,6 +7,7 @@ import app.service.generic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,15 +37,10 @@ public class ReservationService extends Service<Reservation> {
     }
 
     @Override
-    public List<String> getColumnNames() {
-        return List.of("Codigo", "Reservado por", "Numero de personas", "Area", "Zonas", "Dia", "Horario", "Entrada y salida");
-    }
-
-    @Override
     public List<Reservation> getAll(HttpSession session) {
         Person person = (Person) session.getAttribute("user");
         if (person instanceof Citizen) return reservationDao.getByCitizen(person.getId());
-        return reservationDao.getAll();
+        return Collections.emptyList();
     }
 
     @Override
