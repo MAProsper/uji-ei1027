@@ -19,7 +19,7 @@ public abstract class Controller<M extends Model> {
     @Autowired protected Service<M> service;
     @Autowired protected Validator<M> validator;
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public String list(HttpSession session, org.springframework.ui.Model model) {
         List<M> objects = service.getAll(session);
         model.addAttribute("objects", objects);
@@ -27,29 +27,29 @@ public abstract class Controller<M extends Model> {
         return getView("list");
     }
 
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(HttpSession session, org.springframework.ui.Model model) {
         model.addAttribute("object", getDao().getReflect().newInstance());
         return getView("add");
     }
 
-    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    @RequestMapping(path = "add", method = RequestMethod.POST)
     public String add(HttpSession session, @ModelAttribute M object, BindingResult binding) {
         return executePost("add", object, binding);
     }
 
-    @RequestMapping("/update/{id}")
+    @RequestMapping("update/{id}")
     public String update(HttpSession session, org.springframework.ui.Model model, @PathVariable int id) {
         model.addAttribute("object", getDao().getById(id));
         return getView("update");
     }
 
-    @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
+    @RequestMapping(path = "update/{id}", method = RequestMethod.POST)
     public String update(HttpSession session, @ModelAttribute M object, BindingResult binding) {
         return executePost("update", object, binding);
     }
 
-    @RequestMapping("/delete/{id}")
+    @RequestMapping("delete/{id}")
     public String delete(HttpSession session, org.springframework.ui.Model model, @PathVariable int id) {
         getDao().delete(id);
         return "redirect:../list";
