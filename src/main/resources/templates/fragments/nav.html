@@ -4,7 +4,7 @@
         <li class="nav-item" ><a class="nav-link" href="/" th:href="@{/reservation/list}">Gestión de reservas</a></li>
     </ul>
     <ul class="navbar-nav" th:object="${session}">
-        <a class="nav-item" th:if="*{user == null}" class="nav-link" href="/session/add" th:href="@{/session/add}">Iniciar session</a>
-        <a class="nav-item" th:object="${session}" th:unless="*{user == null}" class="nav-link" href="/session/delete" th:href="@{/session/delete}">Cerrar session</a>
+        <li class="nav-item"><a class="nav-link" th:if="*{user == null}" href="/session/add" th:href="@{/session/add}">Iniciar session</a></li>
+        <li class="nav-item"><a class="nav-link" th:object="${session}" th:unless="*{user == null}" href="/session/delete" th:href="@{/session/delete}">Cerrar session</a></li>
     </ul>
 </nav>
