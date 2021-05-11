@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<title>Inicio de sesion</title>
+<span layout:fragment="title">Inicio de sesion</span>
 <main layout:fragment="content">
-  <h2>Inicio de sesion</h2>
   <form th:object="${object}" method="post">
-    <input type="text" th:field="*{identification}" />
-    <input type="password" th:field="*{password}" />
-    <span th:each="err : ${#fields.errors('password')}" th:text="${err}"></span>
-    <input type="submit" />
+    <table>
+      <tr>
+        <th><label for="identification">Identificación:</label></th>
+        <td><input type="text" id="identification" th:field="*{identification}" /></td>
+      </tr>
+      <tr>
+        <th><label for="password">Contraseña:</label></th>
+        <td><input type="password" id="password" th:field="*{password}" /></td>
+      </tr>
+      <tr>
+        <th><label for="type">Tipo de usuario:</label></th>
+        <td>
+          <select id="type" th:field="*{type}">
+            <option value="Citizen" selected>Ciudadano</option>
+            <option value="ControlStaff">Personal de control</option>
+            <option value="MunicipalManager">Gestor municipal</option>
+            <option value="EnviromentalManager">Gestor de medio ambiente</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+    <input class="btn btn-success" type="submit" />
   </form>
 </main>

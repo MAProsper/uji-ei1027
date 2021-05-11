@@ -1,8 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="navbar-collapse collapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item" ><a class="nav-link" href="/" th:href="@{/}">Inicio</a></li>
-            <li class="nav-item" ><a class="nav-link" href="/" th:href="@{/reservation/list}">Gestión de reservas</a></li>
-        </ul>
-    </div>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item" ><a class="nav-link" href="/" th:href="@{/}">Inicio</a></li>
+        <li class="nav-item" ><a class="nav-link" href="/" th:href="@{/reservation/list}">Gestión de reservas</a></li>
+    </ul>
+    <ul class="navbar-nav" th:object="${session}">
+        <a class="nav-item" th:if="*{user == null}" class="nav-link" href="/session/add" th:href="@{/session/add}">Iniciar session</a>
+        <a class="nav-item" th:object="${session}" th:unless="*{user == null}" class="nav-link" href="/session/delete" th:href="@{/session/delete}">Cerrar session</a>
+    </ul>
 </nav>
