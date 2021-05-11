@@ -28,29 +28,29 @@ public abstract class Controller<M extends Model> {
     }
 
     @RequestMapping("/add")
-    public String add(org.springframework.ui.Model model) {
+    public String add(org.springframework.ui.Model model, HttpSession session) {
         model.addAttribute("object", getDao().getReflect().newInstance());
         return getView("add");
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public String add(@ModelAttribute M object, BindingResult binding) {
+    public String add(@ModelAttribute M object, BindingResult binding, HttpSession session) {
         return executePost("add", object, binding);
     }
 
     @RequestMapping("/update/{id}")
-    public String update(org.springframework.ui.Model model, @PathVariable int id) {
+    public String update(org.springframework.ui.Model model, @PathVariable int id, HttpSession session) {
         model.addAttribute("object", getDao().getById(id));
         return getView("update");
     }
 
     @RequestMapping(path = "/update/{id}", method = RequestMethod.POST)
-    public String update(@ModelAttribute M object, BindingResult binding) {
+    public String update(@ModelAttribute M object, BindingResult binding, HttpSession session) {
         return executePost("update", object, binding);
     }
 
     @RequestMapping("/delete/{id}")
-    public String delete(@PathVariable int id) {
+    public String delete(org.springframework.ui.Model model, @PathVariable int id, HttpSession session) {
         getDao().delete(id);
         return "redirect:../list";
     }
