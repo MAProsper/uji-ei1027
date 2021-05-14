@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Añadir ciudadano</span>
+<span layout:fragment="title">Añadir ciudadano/Ciudadana</span>
 <main layout:fragment="content">
     <form action="#" th:action="@{/citizen/add}"
           th:object="${object}" method="post">
@@ -35,6 +35,6 @@
                 <td><input type="text" id="address" th:field="*{address}"></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir ciudadano" /></td>
+        <input type="submit" value="Añadir ciudadano/ciudadana" /></td>
     </form>
 </main>
