@@ -14,6 +14,7 @@ public class ApplicationTest implements Runnable {
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired ZoneDao zoneDao;
     @Autowired MunicipalManagerDao municipalManagerDao;
+    @Autowired EnviromentalManagerDao enviromentalManagerDao;
     @Autowired ControlStaffDao controlStaffDao;
     @Autowired CitizenDao citizenDao;
     @Autowired ServiceTypeDao serviceTypeDao;
@@ -30,6 +31,7 @@ public class ApplicationTest implements Runnable {
         areaPeriodDao.test();
         zoneDao.test();
         municipalManagerDao.test();
+        enviromentalManagerDao.test();
         controlStaffDao.test();
         citizenDao.test();
         serviceTypeDao.test();

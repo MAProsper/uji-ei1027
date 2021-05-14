@@ -84,6 +84,20 @@ CREATE TABLE ControlStaff(
   CONSTRAINT control_staff_c2 CHECK (sign_down IS NULL OR sign_up < sign_down)
 );
 
+CREATE TABLE EnviromentalManager(
+  id INTEGER PRIMARY KEY,
+  sign_up TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NOT NULL,
+  identification TEXT NOT NULL,
+  name TEXT NOT NULL,
+  mail TEXT NOT NULL,
+  password TEXT NOT NULL,
+  CONSTRAINT enviromental_manager_ca1 UNIQUE (identification, sign_up),
+  CONSTRAINT enviromental_manager_ca2 UNIQUE (identification, sign_down),
+  CONSTRAINT enviromental_manager_c1 CHECK (mail LIKE '%@%'),
+  CONSTRAINT enviromental_manager_c3 CHECK (sign_down IS NULL OR sign_up < sign_down)
+);
+
 CREATE TABLE MunicipalManager(
   id INTEGER PRIMARY KEY,
   sign_up TIMESTAMP NOT NULL,
