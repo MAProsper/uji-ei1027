@@ -2,6 +2,7 @@ package app.dao.generic;
 
 import app.model.generic.Model;
 import app.util.Reflect;
+import app.util.StringUtil;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.NonNull;
 
@@ -42,7 +43,7 @@ public class Mapper<T extends Model> implements RowMapper<T> {
      * @return nombre de columna
      */
     public String mapName(String name) {
-        return name.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+        return StringUtil.toDataBaseCase(name);
     }
 
     /**
