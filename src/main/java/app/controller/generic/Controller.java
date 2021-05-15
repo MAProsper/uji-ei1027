@@ -26,11 +26,6 @@ public abstract class Controller<M extends Model> {
         return valid ? Optional.empty() : Optional.of("redirect:/session/add");
     }
 
-    private Optional<String> requestProcess(M object, BindingResult binding, String view) {
-        validator.validate(object, binding);
-        return binding.hasErrors() ? Optional.of(getView(view)) : Optional.empty();
-    }
-
     protected String requestModel(org.springframework.ui.Model model, M object, Map<String, String> data, String view) {
         model.addAttribute("object", object).addAttribute("requestData", data);
         return getView(view);
@@ -39,6 +34,11 @@ public abstract class Controller<M extends Model> {
     protected String requestModel(org.springframework.ui.Model model, List<M> objects, Map<String,String> data) {
         model.addAttribute("objects", objects).addAttribute("requestData", data).addAttribute("objectsData", objects.stream().map(service::listObjectData).collect(Collectors.toList()));
         return getView("list");
+    }
+
+    private Optional<String> requestProcess(M object, BindingResult binding, String view) {
+        validator.validate(object, binding);
+        return binding.hasErrors() ? Optional.of(getView(view)) : Optional.empty();
     }
 
     @RequestMapping("/list")
