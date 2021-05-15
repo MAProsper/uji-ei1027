@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -20,54 +21,58 @@ public abstract class Controller<M extends Model> {
     @Autowired protected Service<M> service;
     @Autowired protected Validator<M> validator;
 
-    private String listProcess(org.springframework.ui.Model model, List<M> objects) {
-        model.addAttribute("objects", objects);
+    private Optional<String> requestSetup(HttpSession session, String referrer, boolean valid) {
+        setReferrer(session, referrer);
+        return valid ? Optional.empty() : Optional.of("redirect:/session/add");
+    }
+
+    protected String listModel(org.springframework.ui.Model model, List<M> objects, Map<String,String> data) {
         model.addAttribute("objectsData", objects.stream().map(service::listObjectData).collect(Collectors.toList()));
+        model.addAttribute("requestData", data);
+        model.addAttribute("objects", objects);
         return getView("list");
     }
 
     @RequestMapping("/list")
     public String list(HttpSession session, org.springframework.ui.Model model) {
-        if (!validator.list(session)) return getSession(session, getReferrer("list"));
-        model.addAttribute("requestData", service.listRequestData(session));
-        return listProcess(model, service.listObjects(session));
+        Optional<String> error = requestSetup(session, getReferrer("list"), validator.list(session));
+        return error.orElseGet(() -> listModel(model, service.listObjects(session), service.listRequestData(session)));
     }
 
     @RequestMapping("/list/{arg}")
     public String list(HttpSession session, org.springframework.ui.Model model, @PathVariable int arg) {
-        if (!validator.list(session, arg)) return getSession(session, getReferrer("list", arg));
-        model.addAttribute("requestData", service.listRequestData(session, arg));
-        return listProcess(model, service.listObjects(session, arg));
+        Optional<String> error = requestSetup(session, getReferrer("list", arg), validator.list(session, arg));
+        return error.orElseGet(() -> listModel(model, service.listObjects(session, arg), service.listRequestData(session, arg)));
     }
 
-    private String add(org.springframework.ui.Model model, M object) {
+    private String addModel(org.springframework.ui.Model model, M object, Map<String, String> data) {
         model.addAttribute("object", object);
+        model.addAttribute("requestData", data);
         return getView("add");
     }
 
     @RequestMapping("/add")
     public String add(HttpSession session, org.springframework.ui.Model model) {
-        if (!validator.add(session)) return getSession(session, getReferrer("add"));
-        model.addAttribute("requestData", service.addRequestData(session));
-        return add(model, service.addObject(session));
+        Optional<String> error = requestSetup(session, getReferrer("add"), validator.add(session));
+        return error.orElseGet(() -> addModel(model, service.addObject(session), service.addRequestData(session)));
     }
 
     @RequestMapping("/add/{arg}")
     public String add(HttpSession session, org.springframework.ui.Model model, @PathVariable int arg) {
-        if (!validator.add(session, arg)) return getSession(session, getReferrer("add", arg));
-        model.addAttribute("requestData", service.addRequestData(session, arg));
-        return add(model, service.addObject(session, arg));
+        Optional<String> error = requestSetup(session, getReferrer("add", arg), validator.add(session, arg));
+        return error.orElseGet(() -> addModel(model, service.addObject(session, arg), service.addRequestData(session, arg)));
     }
 
-    private Optional<String> addProcess(M object, BindingResult binding) {
+    protected Optional<String> addProcess(M object, BindingResult binding) {
         validator.validate(object, binding);
         return binding.hasErrors() ? Optional.of(getView("add")) : Optional.empty();
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String addProcess(HttpSession session, @ModelAttribute M object, BindingResult binding) {
-        if (!validator.add(session)) return getSession(session, getReferrer("add"));
-        Optional<String> error = addProcess(object, binding);
+        Optional<String> error = requestSetup(session, getReferrer("add"), validator.add(session));
+        if (error.isPresent()) return error.get();
+        error = addProcess(object, binding);
         if (error.isPresent()) return error.get();
         service.addProcess(object, session);
         return getRedirect(service.addRedirect(session));
@@ -75,41 +80,42 @@ public abstract class Controller<M extends Model> {
 
     @RequestMapping(path = "/add/{arg}", method = RequestMethod.POST)
     public String addProcess(HttpSession session, @ModelAttribute M object, @PathVariable int arg, BindingResult binding) {
-        if (!validator.add(session, arg)) return getSession(session, getReferrer("add", arg));
-        Optional<String> error = addProcess(object, binding);
+        Optional<String> error = requestSetup(session, getReferrer("add", arg), validator.add(session, arg));
+        if (error.isPresent()) return error.get();
+        error = addProcess(object, binding);
         if (error.isPresent()) return error.get();
         service.addProcess(object, session, arg);
         return getRedirect(service.addRedirect(session, arg));
     }
 
-    protected String update(org.springframework.ui.Model model, M object) {
+    protected String updateModel(org.springframework.ui.Model model, M object, Map<String, String> data) {
         model.addAttribute("object", object);
+        model.addAttribute("requestData", data);
         return getView("update");
     }
 
     @RequestMapping("/update")
     public String update(HttpSession session, org.springframework.ui.Model model) {
-        if (!validator.add(session)) return getSession(session, getReferrer("update"));
-        model.addAttribute("requestData", service.updateRequestData(session));
-        return update(model, service.updateObject(session));
+        Optional<String> error = requestSetup(session, getReferrer("update"), validator.update(session));
+        return error.orElseGet(() -> updateModel(model, service.updateObject(session), service.updateRequestData(session)));
     }
 
     @RequestMapping("/update/{arg}")
     public String update(HttpSession session, org.springframework.ui.Model model, @PathVariable int arg) {
-        if (!validator.add(session, arg)) return getSession(session, getReferrer("update", arg));
-        model.addAttribute("requestData", service.updateRequestData(session, arg));
-        return update(model, service.updateObject(session, arg));
+        Optional<String> error = requestSetup(session, getReferrer("update", arg), validator.update(session, arg));
+        return error.orElseGet(() -> updateModel(model, service.updateObject(session, arg), service.updateRequestData(session, arg)));
     }
 
-    private Optional<String> updateProcess(M object, BindingResult binding) {
+    protected Optional<String> updateProcess(M object, BindingResult binding) {
         validator.validate(object, binding);
         return binding.hasErrors() ? Optional.of(getView("update")) : Optional.empty();
     }
 
     @RequestMapping(path = "/update", method = RequestMethod.POST)
     public String updateProcess(HttpSession session, @ModelAttribute M object, BindingResult binding) {
-        if (!validator.update(session)) return getSession(session, getReferrer("update"));
-        Optional<String> error = updateProcess(object, binding);
+        Optional<String> error = requestSetup(session, getReferrer("update"), validator.update(session));
+        if (error.isPresent()) return error.get();
+        error = updateProcess(object, binding);
         if (error.isPresent()) return error.get();
         service.updateProcess(object, session);
         return getRedirect(service.updateRedirect(session));
@@ -117,8 +123,9 @@ public abstract class Controller<M extends Model> {
 
     @RequestMapping(path = "/update/{arg}", method = RequestMethod.POST)
     public String updateProcess(HttpSession session, @ModelAttribute M object, @PathVariable int arg, BindingResult binding) {
-        if (!validator.update(session, arg)) return getSession(session, getReferrer("update", arg));
-        Optional<String> error = updateProcess(object, binding);
+        Optional<String> error = requestSetup(session, getReferrer("update", arg), validator.update(session, arg));
+        if (error.isPresent()) return error.get();
+        error = updateProcess(object, binding);
         if (error.isPresent()) return error.get();
         service.updateProcess(object, session, arg);
         return getRedirect(service.updateRedirect(session, arg));
@@ -126,14 +133,16 @@ public abstract class Controller<M extends Model> {
 
     @RequestMapping("/delete")
     public String delete(HttpSession session, org.springframework.ui.Model model) {
-        if (!validator.delete(session)) return getSession(session, getReferrer("delete"));
+        Optional<String> error = requestSetup(session, getReferrer("delete"), validator.delete(session));
+        if (error.isPresent()) return error.get();
         service.deleteProcess(session);
         return getRedirect(service.deleteRedirect(session));
     }
 
     @RequestMapping("/delete/{arg}")
     public String delete(HttpSession session, org.springframework.ui.Model model, @PathVariable int arg) {
-        if (!validator.delete(session, arg)) return getSession(session, getReferrer("delete", arg));
+        Optional<String> error = requestSetup(session, getReferrer("delete", arg), validator.delete(session, arg));
+        if (error.isPresent()) return error.get();
         service.deleteProcess(session, arg);
         return getRedirect(service.deleteRedirect(session, arg));
     }
@@ -154,8 +163,7 @@ public abstract class Controller<M extends Model> {
         return String.format("%s/%d", getReferrer(view), arg);
     }
 
-    protected String getSession(HttpSession session, String referrer) {
+    protected void setReferrer(HttpSession session, String referrer) {
         session.setAttribute("referrer", referrer);
-        return "redirect:/session/add";
     }
 }
