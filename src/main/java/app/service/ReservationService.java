@@ -69,7 +69,8 @@ public class ReservationService extends Service<Reservation> {
     }
 
     @Override
-    public String addRedirect(HttpSession session, int arg) {
+    public String addProcess(Reservation object, HttpSession session, int arg) {
+        super.addProcess(object, session, arg);
         return "../list";
     }
 }

@@ -50,20 +50,14 @@ public abstract class Service<M extends Model> {
         return addRequestData(session);
     }
 
-    public void addProcess(M object, HttpSession session) {
+    public String addProcess(M object, HttpSession session) {
         dao.add(object);
+        return "list";
     }
 
-    public void addProcess(M object, HttpSession session, int arg) {
+    public String addProcess(M object, HttpSession session, int arg) {
         addProcess(object, session);
-    }
-
-    public String addRedirect(HttpSession session) {
-        return updateRedirect(session);
-    }
-
-    public String addRedirect(HttpSession session, int arg) {
-        return updateRedirect(session, arg);
+        return String.format("../list/%d", arg);
     }
 
     public M updateObject(HttpSession session) {
@@ -82,36 +76,23 @@ public abstract class Service<M extends Model> {
         return updateRequestData(session);
     }
 
-    public void updateProcess(M object, HttpSession session) {
+    public String updateProcess(M object, HttpSession session) {
         dao.update(object);
-    }
-
-    public void updateProcess(M object, HttpSession session, int arg) {
-        updateProcess(object, session);
-    }
-
-    public String updateRedirect(HttpSession session) {
         return "list";
     }
 
-    public String updateRedirect(HttpSession session, int arg) {
+    public String updateProcess(M object, HttpSession session, int arg) {
+        updateProcess(object, session);
         return String.format("../list/%d", arg);
     }
 
-    public void deleteProcess(HttpSession session) {
+    public String deleteProcess(HttpSession session) {
         throw new ApplicationException("No existe la operacion que esta realizando");
     }
 
-    public void deleteProcess(HttpSession session, int arg) {
+    public String deleteProcess(HttpSession session, int arg) {
         dao.delete(arg);
-    }
-
-    public String deleteRedirect(HttpSession session) {
-        return updateRedirect(session);
-    }
-
-    public String deleteRedirect(HttpSession session, int arg) {
-        return updateRedirect(session, arg);
+        return String.format("../list/%d", arg);
     }
 
     protected Person getUser(HttpSession session) {
