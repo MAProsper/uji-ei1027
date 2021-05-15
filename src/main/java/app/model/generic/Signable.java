@@ -5,9 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 
 public abstract class Signable extends Model {
-    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalDateTime signUp;
-    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalDateTime signDown; // Importante: admite *null* (si no se ha dado de baja)
 
     public void setId(int id) {

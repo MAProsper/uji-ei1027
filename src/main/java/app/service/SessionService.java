@@ -5,21 +5,18 @@ import app.dao.ControlStaffDao;
 import app.dao.EnviromentalManagerDao;
 import app.dao.MunicipalManagerDao;
 import app.dao.generic.PersonDao;
-import app.model.EnviromentalManager;
 import app.model.Session;
 import app.model.generic.Person;
-import app.service.generic.ServiceV2;
+import app.service.generic.Service;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Objects;
 
-@Service
-public class SessionService extends ServiceV2<Session> {
+@org.springframework.stereotype.Service
+public class SessionService extends Service<Session> {
     @Autowired protected PasswordEncryptor encryptor;
     @Autowired protected EnviromentalManagerDao enviromentalManagerDao;
     @Autowired protected MunicipalManagerDao municipalManagerDao;
@@ -28,7 +25,7 @@ public class SessionService extends ServiceV2<Session> {
 
     public Person getUser(Session session) {
         Person person = getByIdentification(session.getIdentification());
-        return person!= null && encryptor.checkPassword(session.getPassword(), person.getPassword()) ? person : null;
+        return person != null && encryptor.checkPassword(session.getPassword(), person.getPassword()) ? person : null;
     }
 
     protected Person getByIdentification(String identification) {

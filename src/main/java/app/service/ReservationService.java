@@ -2,19 +2,16 @@ package app.service;
 
 import app.dao.*;
 import app.model.*;
-import app.model.generic.Person;
 import app.service.generic.Service;
-import app.service.generic.ServiceV2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service
-public class ReservationService extends ServiceV2<Reservation> {
+public class ReservationService extends Service<Reservation> {
     @Autowired protected ReservationZoneDao reservationZoneDao;
     @Autowired protected ReservationDao reservationDao;
     @Autowired protected AreaPeriodDao areaPeriodDao;
@@ -41,8 +38,7 @@ public class ReservationService extends ServiceV2<Reservation> {
 
     @Override
     public List<Reservation> listObjects(HttpSession session) {
-        Citizen citizen = (Citizen) session.getAttribute("user");
-        return reservationDao.getByCitizen(citizen.getId());
+        return reservationDao.getByCitizen(getUser(session).getId());
     }
 
     @Override

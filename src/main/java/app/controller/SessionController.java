@@ -1,17 +1,10 @@
 package app.controller;
 
-import app.controller.generic.ControllerV2;
+import app.controller.generic.Controller;
 import app.model.Session;
-import app.service.SessionService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
-import java.util.Optional;
-
-@Controller
+@org.springframework.stereotype.Controller
 @RequestMapping("/session")
-public class SessionController extends ControllerV2<Session> {
+public class SessionController extends Controller<Session> {
 }

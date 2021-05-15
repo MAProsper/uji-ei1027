@@ -5,16 +5,15 @@ import app.dao.AreaPeriodDao;
 import app.dao.MunicipalityDao;
 import app.model.Area;
 import app.model.AreaPeriod;
-import app.service.generic.ServiceV2;
+import app.service.generic.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-@Service
-public class AreaPeriodService extends ServiceV2<AreaPeriod> {
+@org.springframework.stereotype.Service
+public class AreaPeriodService extends Service<AreaPeriod> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired AreaDao areaDao;

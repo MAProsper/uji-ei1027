@@ -2,14 +2,14 @@ package app.validator;
 
 import app.dao.MunicipalityDao;
 import app.model.Area;
-import app.validator.generic.ValidatorV2;
+import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
 @Service
-public class AreaValidator extends ValidatorV2<Area> {
+public class AreaValidator extends Validator<Area> {
     @Autowired MunicipalityDao municipalityDao;
 
     @Override

@@ -5,16 +5,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.Temporal;
 
 public abstract class Scheduleable extends Model {
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public LocalDate scheduleStart;
-    @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public LocalDate scheduleEnd;
-    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime periodStart;
-    @DateTimeFormat(iso=DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime periodEnd; // Importante: **NO **admite *null*
 
     public LocalDate getScheduleStart() {

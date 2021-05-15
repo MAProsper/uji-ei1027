@@ -2,14 +2,14 @@ package app.validator;
 
 import app.dao.AreaDao;
 import app.model.AreaPeriod;
-import app.validator.generic.ValidatorV2;
+import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
 @Service
-public class AreaPeriodValidator extends ValidatorV2<AreaPeriod> {
+public class AreaPeriodValidator extends Validator<AreaPeriod> {
     @Autowired AreaDao areaDao;
 
     @Override

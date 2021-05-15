@@ -4,15 +4,14 @@ import app.dao.AreaPeriodDao;
 import app.dao.ReservationDao;
 import app.model.Citizen;
 import app.model.Reservation;
-import app.validator.generic.FieldError;
-import app.validator.generic.ValidatorV2;
+import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
 @Service
-public class ReservationValidator extends ValidatorV2<Reservation> {
+public class ReservationValidator extends Validator<Reservation> {
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired ReservationDao reservationDao;
 

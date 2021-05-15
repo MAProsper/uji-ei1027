@@ -1,12 +1,10 @@
 package app.controller;
 
-import app.controller.generic.ControllerV2;
-import app.model.Area;
+import app.controller.generic.Controller;
 import app.model.AreaPeriod;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
+@org.springframework.stereotype.Controller
 @RequestMapping("/area-period")
-public class AreaPeriodController extends ControllerV2<AreaPeriod> {
+public class AreaPeriodController extends Controller<AreaPeriod> {
 }
