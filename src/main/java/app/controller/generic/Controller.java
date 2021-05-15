@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Controller<M extends Model> {
+public abstract class Controller<M extends Model> {
     @Autowired protected Service<M> service;
     @Autowired protected Validator<M> validator;
 

@@ -5,7 +5,7 @@ import app.dao.MunicipalityDao;
 import app.dao.ZoneDao;
 import app.model.Area;
 import app.model.Zone;
-import app.service.generic.Service;
+import app.service.generic.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @org.springframework.stereotype.Service
-public class ZoneService extends Service<Zone> {
+public class ZoneService extends PlaceService<Zone> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired ZoneDao zoneDao;
     @Autowired AreaDao areaDao;
