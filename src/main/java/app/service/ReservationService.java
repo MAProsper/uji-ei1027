@@ -4,6 +4,7 @@ import app.dao.*;
 import app.model.*;
 import app.model.generic.Person;
 import app.service.generic.Service;
+import app.service.generic.ServiceV2;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @org.springframework.stereotype.Service
-public class ReservationService extends Service<Reservation> {
+public class ReservationService extends ServiceV2<Reservation> {
     @Autowired protected ReservationZoneDao reservationZoneDao;
     @Autowired protected ReservationDao reservationDao;
     @Autowired protected AreaPeriodDao areaPeriodDao;
@@ -38,18 +39,22 @@ public class ReservationService extends Service<Reservation> {
     }
 
     @Override
-    public List<Reservation> getAll(HttpSession session) {
-        Person person = (Person) session.getAttribute("user");
-        if (person instanceof Citizen) return reservationDao.getByCitizen(person.getId());
-        return Collections.emptyList();
+    public List<Reservation> listObjects(HttpSession session) {
+        Citizen citizen = (Citizen) session.getAttribute("user");
+        return reservationDao.getByCitizen(citizen.getId());
     }
 
     @Override
-    public Map<String,String> otherData(Reservation r) {
+    public Map<String, String> listObjectData(Reservation r) {
         String citizen = getCitizen(r).toIdentificationString();
         String area = getArea(r).getName();
         String zones = getZones(r).stream().map(Zone::getName).collect(Collectors.joining(", "));
         String areaPeriod = getAreaPeriod(r).toPeriodString();
         return Map.of("citizen", citizen, "area", area, "zones", zones, "areaPeriod", areaPeriod);
+    }
+
+    @Override
+    public String addRedirect(HttpSession session, int arg) {
+        return "../list";
     }
 }

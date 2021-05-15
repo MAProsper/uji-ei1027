@@ -1,35 +1,56 @@
 package app.service;
 
+import app.dao.CitizenDao;
+import app.dao.ControlStaffDao;
+import app.dao.EnviromentalManagerDao;
+import app.dao.MunicipalManagerDao;
 import app.dao.generic.PersonDao;
+import app.model.EnviromentalManager;
 import app.model.Session;
 import app.model.generic.Person;
+import app.service.generic.ServiceV2;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class SessionService {
+public class SessionService extends ServiceV2<Session> {
     @Autowired protected PasswordEncryptor encryptor;
-    @Autowired protected Map<String,PersonDao<?>> personDaos;
+    @Autowired protected EnviromentalManagerDao enviromentalManagerDao;
+    @Autowired protected MunicipalManagerDao municipalManagerDao;
+    @Autowired protected ControlStaffDao controlStaffDao;
+    @Autowired protected CitizenDao citizenDao;
 
-    @Autowired
-    protected void setPersonDaos(List<PersonDao<?>> personDaos) {
-        this.personDaos = personDaos.stream().collect(Collectors.toMap(dao -> dao.getMapper().getTableName(), Function.identity()));
+    public Person getUser(Session session) {
+        Person person = getByIdentification(session.getIdentification());
+        return person!= null && encryptor.checkPassword(session.getPassword(), person.getPassword()) ? person : null;
     }
 
-    public Person getPerson(Session session) {
-            PersonDao<?> dao = personDaos.get(session.getType());
-            Person person = dao.getByIdentification(session.getIdentification());
-            return person != null  && encryptor.checkPassword(session.getPassword(), person.getPassword()) ? person : null;
+    protected Person getByIdentification(String identification) {
+        return getPriority().stream().map(dao -> dao.getByIdentification(identification)).filter(Objects::nonNull).findAny().orElse(null);
     }
 
-    public Set<String> getTypes() {
-        return personDaos.keySet();
+    protected List<PersonDao<?>> getPriority() {
+        return List.of(enviromentalManagerDao, municipalManagerDao, controlStaffDao, citizenDao);
+    }
+
+    @Override
+    public void addProcess(Session object, HttpSession session) {
+        session.setAttribute("user", getUser(object));
+    }
+
+    @Override
+    public String addRedirect(HttpSession session) {
+        return "/";
+    }
+
+    @Override
+    public void deleteProcess(HttpSession session) {
+        session.invalidate();
     }
 }

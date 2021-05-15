@@ -1,6 +1,6 @@
 package app.model.generic;
 
-public abstract class Model {
+public abstract class Model implements Comparable<Model> {
     public int id;
 
     public int getId() {
@@ -16,5 +16,10 @@ public abstract class Model {
         return "Model{" +
                 "id=" + id +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Model model) {
+        return -Integer.compare(id, model.id);
     }
 }

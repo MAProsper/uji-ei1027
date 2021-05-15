@@ -49,6 +49,22 @@ public abstract class ServiceV2<M extends Model> {
         return addRequestData(session);
     }
 
+    public void addProcess(M object, HttpSession session) {
+        dao.add(object);
+    }
+
+    public void addProcess(M object, HttpSession session, int arg) {
+        addProcess(object, session);
+    }
+
+    public String addRedirect(HttpSession session) {
+        return "list";
+    }
+
+    public String addRedirect(HttpSession session, int arg) {
+        return String.format("../list/%d", arg);
+    }
+
     public M updateObject(HttpSession session) {
         throw new ApplicationException("No existe la operacion que esta realizando");
     }
@@ -65,16 +81,36 @@ public abstract class ServiceV2<M extends Model> {
         return updateRequestData(session);
     }
 
-    public void deleteObject(HttpSession session) {
+    public void updateProcess(M object, HttpSession session) {
+        dao.update(object);
+    }
+
+    public void updateProcess(M object, HttpSession session, int arg) {
+        updateProcess(object, session);
+    }
+
+    public String updateRedirect(HttpSession session) {
+        return addRedirect(session);
+    }
+
+    public String updateRedirect(HttpSession session, int arg) {
+        return addRedirect(session, arg);
+    }
+
+    public void deleteProcess(HttpSession session) {
         throw new ApplicationException("No existe la operacion que esta realizando");
     }
 
-    public void deleteObject(HttpSession session, int arg) {
+    public void deleteProcess(HttpSession session, int arg) {
         dao.delete(arg);
     }
 
-    public Dao<M> getDao() {
-        return dao;
+    public String deleteRedirect(HttpSession session) {
+        return addRedirect(session);
+    }
+
+    public String deleteRedirect(HttpSession session, int arg) {
+        return addRedirect(session, arg);
     }
 
     public String getName() {

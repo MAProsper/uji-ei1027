@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<span layout:fragment="title">Lista de municipios</span>
+<main layout:fragment="content">
+    <p th:if="${#lists.isEmpty(objects)}">No hay ningun municipio registrado</p>
+    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha de alta</th>
+            <th>Fecha de baja</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="object: ${#lists.sort(objects)}">
+            <td th:text="*{object.name}"></td>
+            <td th:text="*{object.signUp}"></td>
+            <td th:text="*{object.signDown}"></td>
+            <td><a th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a></td>
+            <td><a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a></td>
+            <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="add" class="btn btn-success" role="button">Añadir municipio</a>
+</main>

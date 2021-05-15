@@ -3,8 +3,7 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Nueva reserva</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/reservation/add}"
-          th:object="${object}" method="post">
+    <form th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="code">Codigo</label></th>
