@@ -20,19 +20,19 @@ public class ReservationService extends Service<Reservation> {
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
 
-    public Citizen getCitizen(Reservation r) {
+    protected Citizen getCitizen(Reservation r) {
         return citizenDao.getById(r.getCitizen());
     }
 
-    public AreaPeriod getAreaPeriod(Reservation r) {
+    protected AreaPeriod getAreaPeriod(Reservation r) {
         return areaPeriodDao.getById(r.getAreaPeriod());
     }
 
-    public Area getArea(Reservation r) {
+    protected Area getArea(Reservation r) {
         return areaDao.getById(getAreaPeriod(r).getArea());
     }
 
-    public List<Zone> getZones(Reservation r) {
+    protected List<Zone> getZones(Reservation r) {
         return reservationZoneDao.getByReservation(r.getId()).stream().map(rz -> zoneDao.getById(rz.getZone())).collect(Collectors.toList());
     }
 
