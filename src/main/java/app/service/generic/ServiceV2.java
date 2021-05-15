@@ -58,11 +58,11 @@ public abstract class ServiceV2<M extends Model> {
     }
 
     public String addRedirect(HttpSession session) {
-        return "list";
+        return updateRedirect(session);
     }
 
     public String addRedirect(HttpSession session, int arg) {
-        return String.format("../list/%d", arg);
+        return updateRedirect(session, arg);
     }
 
     public M updateObject(HttpSession session) {
@@ -90,11 +90,11 @@ public abstract class ServiceV2<M extends Model> {
     }
 
     public String updateRedirect(HttpSession session) {
-        return addRedirect(session);
+        return "list";
     }
 
     public String updateRedirect(HttpSession session, int arg) {
-        return addRedirect(session, arg);
+        return String.format("../list/%d", arg);
     }
 
     public void deleteProcess(HttpSession session) {
@@ -106,11 +106,11 @@ public abstract class ServiceV2<M extends Model> {
     }
 
     public String deleteRedirect(HttpSession session) {
-        return addRedirect(session);
+        return updateRedirect(session);
     }
 
     public String deleteRedirect(HttpSession session, int arg) {
-        return addRedirect(session, arg);
+        return updateRedirect(session, arg);
     }
 
     public String getName() {

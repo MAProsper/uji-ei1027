@@ -46,11 +46,17 @@ public class SessionService extends ServiceV2<Session> {
 
     @Override
     public String addRedirect(HttpSession session) {
-        return "/";
+        String referrer = (String) session.getAttribute("referrer");
+        return referrer != null ? referrer : deleteRedirect(session);
     }
 
     @Override
     public void deleteProcess(HttpSession session) {
         session.invalidate();
+    }
+
+    @Override
+    public String deleteRedirect(HttpSession session) {
+        return "/";
     }
 }
