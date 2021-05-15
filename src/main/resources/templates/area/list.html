@@ -5,35 +5,33 @@
     <p th:if="${#lists.isEmpty(objects)}">No hay ninguna area registrada</p>
     <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
         <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Fecha de alta</th>
-            <th>Fecha de baja</th>
-            <th>Tipo</th>
-            <th>Descripcion</th>
-            <th>Localizacion</th>
-            <th>Imagen</th>
-            <th>Horarios</th>
-            <th>Zonas</th>
-            <th></th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de alta</th>
+                <th>Fecha de baja</th>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Localizacion</th>
+                <th>Imagen</th>
+                <th><a href="add" class="btn btn-success" role="button">Añadir area</a></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="object: ${#lists.sort(objects)}">
-            <td th:text="*{object.name}"></td>
-            <td th:text="*{object.signUp}"></td>
-            <td th:text="*{object.signDown}"></td>
-            <td th:text="*{object.type.name}"></td>
-            <td th:text="*{object.description}"></td>
-            <td th:text="*{object.location}"></td>
-            <td th:text="*{object.image}"></td>
-            <td><a th:href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver Horarios</a></td>
-            <td><a th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a></td>
-            <td><a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a></td>
-            <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a></td>
-        </tr>
+            <tr th:each="object: ${#lists.sort(objects)}">
+                <td th:text="*{object.name}"></td>
+                <td th:text="*{object.signUp}"></td>
+                <td th:text="*{object.signDown}"></td>
+                <td th:text="*{object.type.name}"></td>
+                <td th:text="*{object.description}"></td>
+                <td th:text="*{object.location}"></td>
+                <td th:text="*{object.image}"></td>
+                <td>
+                    <a th:href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver Horarios</a>
+                    <a th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
+                    <a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
+                    <a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a></td>
+            </tr>
         </tbody>
     </table>
-    <a href="add" class="btn btn-success" role="button">Añadir area</a>
+
 </main>

@@ -20,6 +20,41 @@ main {
   flex: 1 0 auto;
 }
 
+main > table tr > :last-child {
+    text-align: center;
+}
+
+.btn {
+    margin: 0.5em;
+}
+
+form {
+    margin: 0 auto;
+    text-align: center;
+    display: table;
+}
+
+form table {
+    text-align: initial;
+}
+
+form td {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1.5em;
+}
+
+form td > * {
+    flex-grow: 1;
+    margin: 0.1em;
+    align-self: center;
+    text-align: initial;
+}
+
+main {}
+
 footer {
   flex-shrink: 0;
+  margin: 1em;
+  text-align: center;
 }

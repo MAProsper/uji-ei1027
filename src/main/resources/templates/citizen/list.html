@@ -5,33 +5,33 @@
     <p th:if="${#lists.isEmpty(objects)}">No hay ningún ciudadano registrado</p>
     <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
         <thead>
-        <tr>
-            <th>Id</th>
-            <th>Identificación</th>
-            <th>Nombre</th>
-            <th>Correo electrónico</th>
-            <th>Contraseña</th>
-            <th>País</th>
-            <th>Ciudad</th>
-            <th>Dirección</th>
-            <th>Fecha de alta</th>
-            <th>Fecha de baja</th>
-            <th></th>
-        </tr>
+            <tr>
+                <th>Id</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
+                <th>Correo electrónico</th>
+                <th>Contraseña</th>
+                <th>País</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
+                <th>Fecha de alta</th>
+                <th>Fecha de baja</th>
+                <th><a href="add" class="btn btn-success" role="button">Añadir ciudadano/ciudadana</a></th>
+            </tr>
         </thead>
         <tbody>
-        <tr th:each="object: ${#lists.sort(objects)}">
-            <td th:text="*{object.id}"></td>
-            <td th:text="*{object.identification}"></td>
-            <td th:text="*{object.name}"></td>
-            <td th:text="*{object.password}"></td>
-            <td th:text="*{object.country}"></td>
-            <td th:text="*{object.address}"></td>
-            <td th:text="*{object.signUp}"></td>
-            <td th:text="*{object.signDown}"></td>
-            <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
-        </tr>
+            <tr th:each="object: ${#lists.sort(objects)}">
+                <td th:text="*{object.id}"></td>
+                <td th:text="*{object.identification}"></td>
+                <td th:text="*{object.name}"></td>
+                <td th:text="*{object.password}"></td>
+                <td th:text="*{object.country}"></td>
+                <td th:text="*{object.address}"></td>
+                <td th:text="*{object.signUp}"></td>
+                <td th:text="*{object.signDown}"></td>
+                <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+            </tr>
         </tbody>
     </table>
-    <a href="add" class="btn btn-success" role="button">Añadir ciudadano/ciudadana </a>
+
 </main>

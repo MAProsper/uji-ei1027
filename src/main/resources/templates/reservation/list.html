@@ -16,15 +16,15 @@
       </tr>
     </thead>
     <tbody>
-    <tr th:each="object: ${#lists.sort(objects)}">
-      <td th:text="*{object.code}"></td>
-      <td th:text="*{object.occupied}"></td>
-      <td th:text="*{objectsData[objectStat.index]['area']}"></td>
-      <td th:text="*{objectsData[objectStat.index]['zones']}"></td>
-      <td th:text="*{object.date}"></td>
-      <td th:text="*{objectsData[objectStat.index]['areaPeriod']}"></td>
-      <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
-    </tr>
+      <tr th:each="object: ${#lists.sort(objects)}">
+        <td th:text="*{object.code}"></td>
+        <td th:text="*{object.occupied}"></td>
+        <td th:text="*{objectsData[objectStat.index]['area']}"></td>
+        <td th:text="*{objectsData[objectStat.index]['zones']}"></td>
+        <td th:text="*{object.date}"></td>
+        <td th:text="*{objectsData[objectStat.index]['areaPeriod']}"></td>
+        <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+      </tr>
     </tbody>
   </table>
 </main>
