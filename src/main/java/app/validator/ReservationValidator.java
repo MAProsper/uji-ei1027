@@ -4,6 +4,7 @@ import app.dao.AreaPeriodDao;
 import app.dao.ReservationDao;
 import app.model.Citizen;
 import app.model.Reservation;
+import app.validator.generic.FieldError;
 import app.validator.generic.ValidatorV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class ReservationValidator extends ValidatorV2<Reservation> {
     @Override
     public boolean update(HttpSession session, int arg) {
         if (reservationDao.getById(arg) == null) return forbidden();
-        return list(session);
+        return ifPerson(session);
     }
 
     @Override

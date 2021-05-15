@@ -19,7 +19,7 @@
         <tr th:each="object: ${#lists.sort(objects)}">
             <td th:text="*{object.id}"></td>
             <td th:text="*{object.name}"></td>
-            <td th:text="*{datas[objectStat.index]['area']"></td>
+            <td th:text="*{objectsData[objectStat.index]['area']}"></td>
             <td th:text="*{object.capacity}"></td>
             <td th:text="*{object.signUp}"></td>
             <td th:text="*{object.signDown}"></td>

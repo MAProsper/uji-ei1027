@@ -18,6 +18,7 @@ public class ReservationService extends ServiceV2<Reservation> {
     @Autowired protected ReservationZoneDao reservationZoneDao;
     @Autowired protected ReservationDao reservationDao;
     @Autowired protected AreaPeriodDao areaPeriodDao;
+    @Autowired MunicipalityDao municipalityDao;
     @Autowired protected CitizenDao citizenDao;
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
@@ -51,6 +52,24 @@ public class ReservationService extends ServiceV2<Reservation> {
         String zones = getZones(r).stream().map(Zone::getName).collect(Collectors.joining(", "));
         String areaPeriod = getAreaPeriod(r).toPeriodString();
         return Map.of("citizen", citizen, "area", area, "zones", zones, "areaPeriod", areaPeriod);
+    }
+
+    @Override
+    public Reservation addObject(HttpSession session, int arg) {
+        Reservation r = super.addObject(session, arg);
+        r.setAreaPeriod(arg);
+        return r;
+    }
+
+    @Override
+    public Map<String, String> addRequestData(HttpSession session, int arg) {
+        Area area = areaDao.getById(arg);
+        return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
+    }
+
+    @Override
+    public Map<String, String> updateRequestData(HttpSession session, int arg) {
+        return addRequestData(session, arg);
     }
 
     @Override
