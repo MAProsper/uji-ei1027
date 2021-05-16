@@ -14,8 +14,7 @@
                 <th>País</th>
                 <th>Ciudad</th>
                 <th>Dirección</th>
-                <th>Fecha de alta</th>
-                <th>Fecha de baja</th>
+                <th>Validez</th>
                 <th><a href="add" class="btn btn-success" role="button">Añadir ciudadano/ciudadana</a></th>
             </tr>
         </thead>
@@ -27,8 +26,7 @@
                 <td th:text="*{object.password}"></td>
                 <td th:text="*{object.country}"></td>
                 <td th:text="*{object.address}"></td>
-                <td th:text="*{object.signUp}"></td>
-                <td th:text="*{object.signDown}"></td>
+                <td th:text="*{object.toSignString}"></td>
                 <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
             </tr>
         </tbody>

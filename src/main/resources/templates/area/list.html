@@ -7,8 +7,7 @@
         <thead>
             <tr>
                 <th>Nombre</th>
-                <th>Fecha de alta</th>
-                <th>Fecha de baja</th>
+                <th>Validez</th>
                 <th>Tipo</th>
                 <th>Descripcion</th>
                 <th>Localizacion</th>
@@ -19,8 +18,7 @@
         <tbody>
             <tr th:each="object: ${objects}">
                 <td th:text="*{object.name}"></td>
-                <td th:text="*{object.signUp}"></td>
-                <td th:text="*{object.signDown}"></td>
+                <td th:text="*{object.toSignString}"></td>
                 <td th:text="*{object.type.name}"></td>
                 <td th:text="*{object.description}"></td>
                 <td th:text="*{object.location}"></td>

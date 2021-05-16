@@ -10,8 +10,7 @@
                 <th>Nombre</th>
                 <th>Area</th>
                 <th>Capacidad</th>
-                <th>Fecha de alta</th>
-                <th>Fecha de baja</th>
+                <th>Validez</th>
                 <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
             </tr>
         </thead>
@@ -21,8 +20,7 @@
                 <td th:text="*{object.name}"></td>
                 <td th:text="*{objectsData[objectStat.index]['area']}"></td>
                 <td th:text="*{object.capacity}"></td>
-                <td th:text="*{object.signUp}"></td>
-                <td th:text="*{object.signDown}"></td>
+                <td th:text="*{object.toSignString}"></td>
                 <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
             </tr>
         </tbody>
