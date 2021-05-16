@@ -20,12 +20,16 @@ main {
   flex: 1 0 auto;
 }
 
-main > table tr > :last-child {
-    text-align: center;
-}
-
 .btn {
     margin: 0.5em;
+}
+
+.table td {
+    vertical-align: initial;
+}
+
+main > table tr > :last-child {
+    text-align: center;
 }
 
 form {
@@ -40,8 +44,8 @@ form table {
 
 form td {
     display: flex;
-    justify-content: space-between;
     margin-left: 1.5em;
+    justify-content: space-between;
 }
 
 form td > * {
@@ -51,10 +55,8 @@ form td > * {
     text-align: initial;
 }
 
-main {}
-
 footer {
+  margin: 1em 0;
   flex-shrink: 0;
-  margin: 1em;
   text-align: center;
 }

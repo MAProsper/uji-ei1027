@@ -1,5 +1,5 @@
 INSERT INTO Municipality VALUES(1, '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'Benicassim');
-INSERT INTO Area VALUES(1, '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'area1', 1, 1, 'A very nice description', 'location', 'http://example.com/');
+INSERT INTO Area VALUES(1, '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'area1', 1, 1, 'A very nice description', 'location', 'https://via.placeholder.com/480x360');
 INSERT INTO AreaPeriod VALUES(1, '2021-01-01', '2021-01-02', '00:00:00', '12:00:00', 1);
 INSERT INTO Citizen VALUES(1, '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'identification01', 'Carlos', 'CarlosEmail@gmial.com', 'password', 12, 'Benicassim', 'addres');
 INSERT INTO ControlStaff VALUES(1, '2021-01-01 00:00:00', '2021-01-01 12:00:00', 'identification02', 'Alberto', 'AlbertoEmail@gmail.com', 'querty', 1);
