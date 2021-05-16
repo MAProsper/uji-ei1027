@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="object: ${#lists.sort(objects)}">
+        <tr th:each="object: ${objects}">
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toPeriodString}"></td>
             <td>

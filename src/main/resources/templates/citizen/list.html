@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="object: ${#lists.sort(objects)}">
+            <tr th:each="object: ${objects}">
                 <td th:text="*{object.id}"></td>
                 <td th:text="*{object.identification}"></td>
                 <td th:text="*{object.name}"></td>

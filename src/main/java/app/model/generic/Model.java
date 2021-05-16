@@ -2,7 +2,7 @@ package app.model.generic;
 
 import java.util.Set;
 
-public abstract class Model implements Comparable<Model> {
+public abstract class Model {
     public int id;
 
     public int getId() {
@@ -22,10 +22,5 @@ public abstract class Model implements Comparable<Model> {
 
     public Set<String> getFinal() {
         return Set.of("id");
-    }
-
-    @Override
-    public int compareTo(Model model) {
-        return -Integer.compare(id, model.id);
     }
 }

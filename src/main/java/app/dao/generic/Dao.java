@@ -106,7 +106,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @return objetos encontrados
      */
     protected List<T> executeQuery(String query, Object... values) {
-        query = String.format("SELECT * FROM %s AS T %s", mapper.getTableName(), query);
+        query = String.format("SELECT * FROM %s AS T %s ORDER BY -id", mapper.getTableName(), query);
         try {
             return jdbc.query(query, mapper, values);
         } catch (EmptyResultDataAccessException e) {
