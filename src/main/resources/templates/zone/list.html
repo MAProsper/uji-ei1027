@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Lista de zonas</span>
+<span layout:fragment="title" th:text="'Lista de zonas de ' + ${requestData['area']} + ' de ' + ${requestData['municipality']}"></span>
 <main layout:fragment="content">
     <p th:if="${#lists.isEmpty(objects)}">No hay ninguna zona registrada</p>
     <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nombre</th>
-                <th>Area</th>
                 <th>Capacidad</th>
                 <th>Validez</th>
                 <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
@@ -16,9 +14,7 @@
         </thead>
         <tbody>
             <tr th:each="object: ${objects}">
-                <td th:text="*{object.id}"></td>
                 <td th:text="*{object.name}"></td>
-                <td th:text="*{objectsData[objectStat.index]['area']}"></td>
                 <td th:text="*{object.capacity}"></td>
                 <td th:text="*{object.toSignString}"></td>
                 <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
