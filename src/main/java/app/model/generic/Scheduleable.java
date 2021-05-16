@@ -4,6 +4,7 @@ import app.util.StringUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public abstract class Scheduleable extends Model {
@@ -58,6 +59,11 @@ public abstract class Scheduleable extends Model {
 
     public String toScheduleString() {
         return StringUtil.toIntervalString(getScheduleStart(), getScheduleEnd());
+    }
+
+    public boolean isActive() {
+        LocalDate now = LocalDate.now();
+        return scheduleStart.isBefore(now) && (scheduleEnd == null || scheduleEnd.isAfter(now));
     }
 
     @Override
