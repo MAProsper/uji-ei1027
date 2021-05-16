@@ -4,7 +4,7 @@ import app.ApplicationException;
 import app.model.generic.Model;
 import app.util.Parametrized;
 import app.util.Reflect;
-import app.util.SqlUtil;
+import app.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,9 +28,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     public void add(T object) {
         object.setId(getNextId());
         Set<String> columns = mapper.getColumnNames();
-        String keys = SqlUtil.format("%s", columns);
-        String values = SqlUtil.format("?", columns);
-        executeUpdate(String.format("INSERT INTO %s (%s) VALUES (%s)", "%s", keys, values), mapper.toRow(object));
+        String keys = StringUtil.formatJoin("%s", columns);
+        String values = StringUtil.formatJoin("?", columns);
+        executeUpdate(String.format("INSERT INTO %%s (%s) VALUES (%s)", keys, values), mapper.toRow(object));
     }
 
     /**
@@ -39,7 +39,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        executeUpdate("UPDATE %s SET %s", "%s = ?", object);
+        ensureFinal(object);
+        String args = StringUtil.formatJoin("%s = ?", mapper.getColumnNames());
+        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(object));
     }
 
     /**
@@ -85,18 +87,6 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
      *
      * @param query  formato sentencia SQL
-     * @param format formato aplicado a cada atributo
-     * @param object objeto referencia
-     */
-    protected void executeUpdate(String query, String format, T object) {
-        String args = SqlUtil.format(format, mapper.getColumnNames());
-        executeUpdate(String.format(query, "%s", args), mapper.toRow(object));
-    }
-
-    /**
-     * Ejecutar sentencia de actualizado SQL a partir de los datos de un objeto
-     *
-     * @param query  formato sentencia SQL
      * @param values valores incrustados
      */
     protected void executeUpdate(String query, Object... values) {
@@ -133,6 +123,20 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         String query = String.format("SELECT MAX(id) FROM %s", mapper.getTableName());
         Integer id = jdbc.queryForObject(query, Integer.class);
         return id == null ? 0 : ++id;
+    }
+
+    /**
+     * Mantiene los atributos marcados como final
+     *
+     * @param object objeto referencia
+     */
+    protected void ensureFinal(T object) {
+        T prev = getById(object.getId());
+        Reflect<T> reflect = getReflect();
+        for (String field : prev.getFinal()) {
+            Object value = reflect.get(prev, field);
+            if (value != null) reflect.set(object, field, value);
+        }
     }
 
     /**

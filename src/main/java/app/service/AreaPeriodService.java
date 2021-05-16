@@ -19,12 +19,12 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     @Autowired AreaDao areaDao;
 
     @Override
-    public List<AreaPeriod> listObjects(HttpSession session, int arg) {
+    public List<AreaPeriod> listObjects(HttpSession session, Integer arg) {
         return areaPeriodDao.getByArea(arg);
     }
 
     @Override
-    public Map<String, String> listRequestData(HttpSession session, int arg) {
+    public Map<String, Object> listRequestData(HttpSession session, Integer arg) {
         Area area = areaDao.getById(arg);
         return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
     }

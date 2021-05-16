@@ -16,12 +16,12 @@ public class AreaService extends PlaceService<Area> {
     @Autowired AreaDao areaDao;
 
     @Override
-    public List<Area> listObjects(HttpSession session, int arg) {
+    public List<Area> listObjects(HttpSession session, Integer arg) {
         return areaDao.getByMunicipality(arg);
     }
 
     @Override
-    public Map<String, String> listRequestData(HttpSession session, int arg) {
+    public Map<String, Object> listRequestData(HttpSession session, Integer arg) {
         return Map.of("municipality", municipalityDao.getById(arg).getName());
     }
 }

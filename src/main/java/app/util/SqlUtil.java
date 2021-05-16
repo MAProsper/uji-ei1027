@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class SqlUtil {
@@ -32,17 +33,5 @@ public class SqlUtil {
 
         Resource resource = new ClassPathResource(String.format("sql/%s.sql", name));
         ScriptUtils.executeSqlScript(connection, resource);
-    }
-
-    /**
-     * Prepara una cadena SQL dando un formato determinado a cada columna
-     *
-     * @param format  formato aplicado a cada atributo
-     * @param columns columnas a ultilizar
-     * @return cadena SQL
-     */
-    public static String format(String format, Set<String> columns) {
-        String query = columns.stream().map(column -> String.format(format, column)).collect(Collectors.joining(", "));
-        return query.isBlank() ? "TRUE" : query;
     }
 }

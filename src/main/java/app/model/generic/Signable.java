@@ -1,8 +1,10 @@
 package app.model.generic;
 
+import app.util.StringUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public abstract class Signable extends Model {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -33,6 +35,15 @@ public abstract class Signable extends Model {
     public boolean isActive() {
         LocalDateTime now = LocalDateTime.now();
         return signUp.isBefore(now) && (signDown == null || signDown.isAfter(now));
+    }
+
+    public String toSignString() {
+        return StringUtil.toIntervalString(signUp, signDown);
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "signUp", "signDown");
     }
 
     @Override

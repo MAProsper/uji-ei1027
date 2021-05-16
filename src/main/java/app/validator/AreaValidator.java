@@ -13,8 +13,7 @@ public class AreaValidator extends PlaceValidator<Area> {
     @Autowired MunicipalityDao municipalityDao;
 
     @Override
-    public boolean list(HttpSession session, int arg) {
-        if (municipalityDao.getById(arg) == null) return forbidden();
-        return true;
+    public boolean list(HttpSession session, Integer arg) {
+        return arg != null && municipalityDao.getById(arg) != null || forbidden();
     }
 }

@@ -14,13 +14,13 @@ public class SessionValidator extends Validator<Session> {
     @Autowired protected SessionService service;
 
     @Override
-    public boolean add(HttpSession session) {
-        return !ifPerson(session);
+    public boolean add(HttpSession session, Integer arg) {
+        return arg != null ? forbidden() : !ifPerson(session);
     }
 
     @Override
-    public boolean delete(HttpSession session) {
-        return ifPerson(session);
+    public boolean delete(HttpSession session, Integer arg) {
+        return arg != null ? forbidden() : ifPerson(session);
     }
 
     @Override

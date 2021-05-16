@@ -157,14 +157,12 @@ CREATE TABLE Service(
 
 CREATE TABLE Reservation(
   id INTEGER PRIMARY KEY,
-  code INTEGER NOT NULL,
   area_period INTEGER NOT NULL,
   date DATE NOT NULL,
   citizen INTEGER NOT NULL,
   occupied INTEGER NOT NULL,
   enter TIME NULL,
   exit TIME NULL,
-  CONSTRAINT reservation_ca1 UNIQUE (code),
   CONSTRAINT reservation_c2 CHECK (enter < exit),
   CONSTRAINT reservation_c3 CHECK (occupied > 0),
   CONSTRAINT reservation_caCitizen FOREIGN KEY (citizen) REFERENCES Citizen(id) ON DELETE RESTRICT ON UPDATE CASCADE,

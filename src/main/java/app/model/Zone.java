@@ -1,6 +1,9 @@
 package app.model;
 
 import app.model.generic.Place;
+import app.util.StringUtil;
+
+import java.util.Set;
 
 public class Zone extends Place {
     public int area; // id del área asociada
@@ -20,6 +23,11 @@ public class Zone extends Place {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "area");
     }
 
     @Override

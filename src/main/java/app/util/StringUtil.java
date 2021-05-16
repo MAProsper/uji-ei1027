@@ -1,10 +1,14 @@
 package app.util;
 
 import java.time.temporal.Temporal;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StringUtil {
     public static String toString(Object object) {
-        return object != null ? object.toString() : "Sin definir";
+        String text = object != null ? object.toString() : "";
+        return text.isBlank() ? "Sin definir" : text;
     }
 
     public static String toIntervalString(Temporal start, Temporal end) {
@@ -21,5 +25,13 @@ public class StringUtil {
 
     public static String toDataBaseCase(String text) {
         return text.replaceAll("([a-z])([A-Z])", "$1_$2").toLowerCase();
+    }
+
+    public static String formatJoin(String format, Set<String> values) {
+        return values.stream().map(column -> String.format(format, column)).collect(Collectors.joining(", "));
+    }
+
+    public static Set<String> setJoin(Set<String> base, String... other) {
+        return Stream.of(base, Set.of(other)).flatMap(Set::stream).collect(Collectors.toSet());
     }
 }

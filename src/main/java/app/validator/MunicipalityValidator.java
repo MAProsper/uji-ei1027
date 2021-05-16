@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 @Service
 public class MunicipalityValidator extends PlaceValidator<Municipality> {
     @Override
-    public boolean list(HttpSession session) {
-        return true;
+    public boolean list(HttpSession session, Integer arg) {
+        return arg == null || forbidden();
     }
 }

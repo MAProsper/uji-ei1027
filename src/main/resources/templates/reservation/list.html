@@ -17,7 +17,7 @@
     </thead>
     <tbody>
       <tr th:each="object: ${#lists.sort(objects)}">
-        <td th:text="*{object.code}"></td>
+        <td th:text="*{object.id}"></td>
         <td th:text="*{object.occupied}"></td>
         <td th:text="*{objectsData[objectStat.index]['area']}"></td>
         <td th:text="*{objectsData[objectStat.index]['zones']}"></td>

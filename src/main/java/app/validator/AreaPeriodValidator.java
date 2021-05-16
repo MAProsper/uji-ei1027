@@ -13,8 +13,7 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Autowired AreaDao areaDao;
 
     @Override
-    public boolean list(HttpSession session, int arg) {
-        if (areaDao.getById(arg) == null) return forbidden();
-        return true;
+    public boolean list(HttpSession session, Integer arg) {
+        return arg != null && areaDao.getById(arg) != null || forbidden();
     }
 }

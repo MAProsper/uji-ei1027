@@ -37,18 +37,19 @@ public class SessionService extends Service<Session> {
     }
 
     @Override
-    public String addProcess(Session object, HttpSession session) {
+    public String addProcess(Session object, HttpSession session, Integer arg) {
         session.setAttribute("user", getUser(object));
-        return getRedirect(session);
+        return getRedirect(session, arg);
     }
 
     @Override
-    public String deleteProcess(HttpSession session) {
+    public String deleteProcess(HttpSession session, Integer arg) {
         session.removeAttribute("user");
-        return getRedirect(session);
+        return getRedirect(session, arg);
     }
 
-    protected String getRedirect(HttpSession session) {
+    @Override
+    public String getRedirect(HttpSession session, Integer arg) {
         String referrer = (String) session.getAttribute("referrer");
         return referrer != null ? referrer : "/";
     }

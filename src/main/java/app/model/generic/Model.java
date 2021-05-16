@@ -1,5 +1,7 @@
 package app.model.generic;
 
+import java.util.Set;
+
 public abstract class Model implements Comparable<Model> {
     public int id;
 
@@ -16,6 +18,10 @@ public abstract class Model implements Comparable<Model> {
         return "Model{" +
                 "id=" + id +
                 '}';
+    }
+
+    public Set<String> getFinal() {
+        return Set.of("id");
     }
 
     @Override

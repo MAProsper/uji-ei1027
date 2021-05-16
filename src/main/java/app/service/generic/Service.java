@@ -14,85 +14,55 @@ import java.util.Map;
 public abstract class Service<M extends Model> {
     @Autowired protected Dao<M> dao;
 
-    public List<M> listObjects(HttpSession session) {
+    public List<M> listObjects(HttpSession session, Integer arg) {
         return dao.getAll();
     }
 
-    public List<M> listObjects(HttpSession session, int arg) {
-        return dao.getAll();
-    }
-
-    public Map<String, String> listRequestData(HttpSession session) {
+    public Map<String, Object> listRequestData(HttpSession session, Integer arg) {
         return Collections.emptyMap();
     }
 
-    public Map<String, String> listRequestData(HttpSession session, int arg) {
-        return listRequestData(session);
-    }
-
-    public Map<String, String> listObjectData(M object) {
+    public Map<String, Object> listObjectData(M object) {
         return Collections.emptyMap();
     }
 
-    public M addObject(HttpSession session) {
+    public M addObject(HttpSession session, Integer arg) {
         return dao.getReflect().newInstance();
     }
 
-    public M addObject(HttpSession session, int arg) {
-        return addObject(session);
+    public Map<String, Object> addRequestData(HttpSession session, Integer arg) {
+        return listRequestData(session, arg);
     }
 
-    public Map<String, String> addRequestData(HttpSession session) {
-        return listRequestData(session);
-    }
-
-    public Map<String, String> addRequestData(HttpSession session, int arg) {
-        return addRequestData(session);
-    }
-
-    public String addProcess(M object, HttpSession session) {
+    public String addProcess(M object, HttpSession session, Integer arg) {
         dao.add(object);
-        return "list";
+        return getRedirect(session, arg);
     }
 
-    public String addProcess(M object, HttpSession session, int arg) {
-        addProcess(object, session);
-        return String.format("../list/%d", arg);
-    }
-
-    public M updateObject(HttpSession session) {
-        throw new ApplicationException("No existe la operacion que esta realizando");
-    }
-
-    public M updateObject(HttpSession session, int arg) {
+    public M updateObject(HttpSession session, Integer arg) {
+        if (arg == null)
+            throw new ApplicationException("No existe operacion por defecto");
         return dao.getById(arg);
     }
 
-    public Map<String, String> updateRequestData(HttpSession session) {
-        return addRequestData(session);
+    public Map<String, Object> updateRequestData(HttpSession session, Integer arg) {
+        return addRequestData(session, arg);
     }
 
-    public Map<String, String> updateRequestData(HttpSession session, int arg) {
-        return updateRequestData(session);
-    }
-
-    public String updateProcess(M object, HttpSession session) {
+    public String updateProcess(M object, HttpSession session, Integer arg) {
         dao.update(object);
-        return "list";
+        return getRedirect(session, arg);
     }
 
-    public String updateProcess(M object, HttpSession session, int arg) {
-        updateProcess(object, session);
-        return String.format("../list/%d", arg);
-    }
-
-    public String deleteProcess(HttpSession session) {
-        throw new ApplicationException("No existe la operacion que esta realizando");
-    }
-
-    public String deleteProcess(HttpSession session, int arg) {
+    public String deleteProcess(HttpSession session, Integer arg) {
+        if (arg == null)
+            throw new ApplicationException("No existe operacion por defecto");
         dao.delete(arg);
-        return String.format("../list/%d", arg);
+        return getRedirect(session, arg);
+    }
+
+    public String getRedirect(HttpSession session, Integer arg) {
+        return arg == null ? "list" : String.format("../list/%d", arg);
     }
 
     protected Person getUser(HttpSession session) {

@@ -1,6 +1,9 @@
 package app.model;
 
 import app.model.generic.Model;
+import app.util.StringUtil;
+
+import java.util.Set;
 
 public class ReservationZone extends Model {
     public int reservation;
@@ -20,6 +23,11 @@ public class ReservationZone extends Model {
 
     public void setZone(int zone) {
         this.zone = zone;
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "reservation", "zone");
     }
 
     @Override

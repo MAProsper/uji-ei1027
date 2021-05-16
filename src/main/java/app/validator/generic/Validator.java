@@ -21,35 +21,19 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
         object(getParametrizedType().cast(object), (field, reason) -> errors.rejectValue(field, "validator", reason));
     }
 
-    public boolean list(HttpSession session) {
+    public boolean list(HttpSession session, Integer arg) {
         return forbidden();
     }
 
-    public boolean list(HttpSession session, int arg) {
+    public boolean add(HttpSession session, Integer arg) {
         return forbidden();
     }
 
-    public boolean add(HttpSession session) {
+    public boolean update(HttpSession session, Integer arg) {
         return forbidden();
     }
 
-    public boolean add(HttpSession session, int arg) {
-        return forbidden();
-    }
-
-    public boolean update(HttpSession session) {
-        return forbidden();
-    }
-
-    public boolean update(HttpSession session, int arg) {
-        return forbidden();
-    }
-
-    public boolean delete(HttpSession session) {
-        return forbidden();
-    }
-
-    public boolean delete(HttpSession session, int arg) {
+    public boolean delete(HttpSession session, Integer arg) {
         return forbidden();
     }
 
@@ -64,7 +48,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
     protected final boolean ifPerson(HttpSession session, Class<? extends Person>... persons) {
         Person person = (Person) session.getAttribute("user");
         if (person == null) return false;
-        else if (Arrays.stream(persons).anyMatch(ref -> ref.isInstance(person))) return true;
+        else if (Arrays.stream(persons).anyMatch(cls -> cls.isInstance(person))) return true;
         else return forbidden();
     }
 

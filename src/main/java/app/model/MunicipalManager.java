@@ -1,6 +1,9 @@
 package app.model;
 
 import app.model.generic.Person;
+import app.util.StringUtil;
+
+import java.util.Set;
 
 public class MunicipalManager extends Person {
     public int municipality;
@@ -20,6 +23,11 @@ public class MunicipalManager extends Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "municipality");
     }
 
     @Override

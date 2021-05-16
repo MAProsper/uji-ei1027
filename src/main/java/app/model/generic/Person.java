@@ -1,5 +1,9 @@
 package app.model.generic;
 
+import app.util.StringUtil;
+
+import java.util.Set;
+
 public abstract class Person extends Signable {
     public String identification;
     public String name;
@@ -40,6 +44,11 @@ public abstract class Person extends Signable {
 
     public String toIdentificationString() {
         return String.format("%s (%s)", name, identification);
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "identification");
     }
 
     @Override

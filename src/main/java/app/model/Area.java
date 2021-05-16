@@ -2,6 +2,9 @@ package app.model;
 
 import app.model.enums.AreaType;
 import app.model.generic.Place;
+import app.util.StringUtil;
+
+import java.util.Set;
 
 public class Area extends Place {
     public int municipality; // id del municipio
@@ -48,6 +51,11 @@ public class Area extends Place {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "municipality");
     }
 
     @Override

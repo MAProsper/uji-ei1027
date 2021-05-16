@@ -6,9 +6,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 public class Reservation extends Model {
-    public int code;
     public int areaPeriod;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public LocalDate date;
@@ -18,14 +18,6 @@ public class Reservation extends Model {
     public LocalTime enter;
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime exit;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
 
     public int getAreaPeriod() {
         return areaPeriod;
@@ -83,14 +75,17 @@ public class Reservation extends Model {
         return enter != exit;
     }
 
+    @Override
+    public Set<String> getFinal() {
+        return StringUtil.setJoin(super.getFinal(), "code", "areaPeriod", "citizen");
+    }
 
     @Override
     public String toString() {
         return "Reservation{" +
-                "citizen=" + citizen +
-                ", areaPeriod=" + areaPeriod +
-                ", code=" + code +
+                "areaPeriod=" + areaPeriod +
                 ", date=" + date +
+                ", citizen=" + citizen +
                 ", occupied=" + occupied +
                 ", enter=" + enter +
                 ", exit=" + exit +
