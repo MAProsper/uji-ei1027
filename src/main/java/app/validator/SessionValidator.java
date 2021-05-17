@@ -15,17 +15,19 @@ public class SessionValidator extends Validator<Session> {
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        return arg != null ? forbidden() : !ifPerson(session);
+        if (arg != null) return forbidden();
+        return !ifPerson(session);
     }
 
     @Override
     public boolean delete(HttpSession session, Integer arg) {
-        return arg != null ? forbidden() : ifPerson(session);
+        if (arg != null) return forbidden();
+        return ifPerson(session);
     }
 
     @Override
-    public void object(Session session, FieldError error) {
+    public void object(Session session, FieldError errors) {
         if (service.getUser(session) == null)
-            error.accept("password", "Contraseña incorrecta");
+            errors.accept("password", "Contraseña incorrecta");
     }
 }

@@ -2,9 +2,9 @@ package app.service;
 
 import app.dao.*;
 import app.model.*;
-import org.springframework.stereotype.Service;
 import app.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -55,12 +55,6 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     public void requestProcess(HttpSession session, Integer arg, Reservation r) {
         super.requestProcess(session, arg, r);
         r.setAreaPeriod(arg);
-    }
-
-    @Override
-    public Map<String, Object> processData(HttpSession session, Integer arg) {
-        Area area = areaDao.getById(arg);
-        return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
     }
 
     @Override

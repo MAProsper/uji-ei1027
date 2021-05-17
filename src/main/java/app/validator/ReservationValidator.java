@@ -17,21 +17,25 @@ public class ReservationValidator extends Validator<Reservation> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        return arg != null ? forbidden() : ifPerson(session, Citizen.class); // Importante: reservas de una parte
+        if (arg != null) return forbidden();  // Importante: reservas de una parte
+        return ifPerson(session, Citizen.class);
     }
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        return arg == null || areaPeriodDao.getById(arg) == null ? forbidden() : ifPerson(session, Citizen.class);
+        if (arg == null || areaPeriodDao.getById(arg) == null) return forbidden();
+        return ifPerson(session, Citizen.class);
     }
 
     @Override
     public boolean update(HttpSession session, Integer arg) {
-        return arg == null || reservationDao.getById(arg) == null ? forbidden() : ifPerson(session);
+        if (arg == null || reservationDao.getById(arg) == null) return forbidden();
+        return ifPerson(session);
     }
 
     @Override
     public boolean delete(HttpSession session, Integer arg) {
-        return arg == null ? forbidden() : update(session, arg);
+        if (arg == null) return forbidden();
+        return update(session, arg);
     }
 }

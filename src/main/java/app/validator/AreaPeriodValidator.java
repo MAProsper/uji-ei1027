@@ -14,6 +14,7 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        return arg != null && areaDao.getById(arg) != null || forbidden();
+        if (arg == null || areaDao.getById(arg) == null) return forbidden();
+        return true;
     }
 }

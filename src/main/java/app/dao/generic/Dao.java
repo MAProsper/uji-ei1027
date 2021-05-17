@@ -94,7 +94,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         try {
             jdbc.update(query, values);
         } catch (DataIntegrityViolationException e) {
-            throw new ApplicationException("error de integridad", e);
+            throw new ApplicationException("Error de integridad", e);
         }
     }
 

@@ -4,9 +4,6 @@ import app.model.generic.Signable;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public abstract class SignableDao<T extends Signable> extends Dao<T> {
     public List<T> getActive() {

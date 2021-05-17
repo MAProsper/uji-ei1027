@@ -7,9 +7,9 @@ import app.dao.MunicipalManagerDao;
 import app.dao.generic.PersonDao;
 import app.model.Session;
 import app.model.generic.Person;
-import org.springframework.stereotype.Service;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,7 +37,7 @@ public class SessionService extends app.service.generic.Service<Session> {
     }
 
     @Override
-    public void addProcess(Session object, HttpSession session, Integer arg) {
+    public void addProcess(HttpSession session, Integer arg, Session object) {
         session.setAttribute("user", getUser(object));
     }
 

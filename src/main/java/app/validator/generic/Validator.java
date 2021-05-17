@@ -21,29 +21,75 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
         object(getParametrizedType().cast(object), (field, reason) -> errors.rejectValue(field, "validator", reason));
     }
 
+    /**
+     * Verificar si el usuario tiene permisos
+     *
+     * @param session sesion
+     * @param arg     argumento opcional
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     */
     public boolean list(HttpSession session, Integer arg) {
         return forbidden();
     }
 
+    /**
+     * Verificar si el usuario tiene permisos
+     *
+     * @param session sesion
+     * @param arg     argumento opcional
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     */
     public boolean add(HttpSession session, Integer arg) {
         return forbidden();
     }
 
+    /**
+     * Verificar si el usuario tiene permisos
+     *
+     * @param session sesion
+     * @param arg     argumento opcional
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     */
     public boolean update(HttpSession session, Integer arg) {
         return forbidden();
     }
 
+    /**
+     * Verificar si el usuario tiene permisos
+     *
+     * @param session sesion
+     * @param arg     argumento opcional
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     */
     public boolean delete(HttpSession session, Integer arg) {
         return forbidden();
     }
 
-    public void object(T object, FieldError error) {
+    /**
+     * Verificar si el objeto es valido
+     *
+     * @param object objecto referencia
+     * @param errors errors.accept(field, error)
+     */
+    public void object(T object, FieldError errors) {
     }
 
+    /**
+     * La peticion es invalida y iniciar sesion no lo solucionara
+     *
+     * @return peticion invalida
+     */
     protected boolean forbidden() {
         throw new ApplicationException("La operacion que ha intentado realizar no esta permitida");
     }
 
+    /**
+     * Verificar si un tipo de usuario ha inciado sesion
+     *
+     * @param session sesion
+     * @param persons tipos de persona
+     * @return verificacion
+     */
     @SafeVarargs
     protected final boolean ifPerson(HttpSession session, Class<? extends Person>... persons) {
         Person person = (Person) session.getAttribute("user");
@@ -52,6 +98,12 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
         else return forbidden();
     }
 
+    /**
+     * Verificar si un algun usuario ha inciado sesion
+     *
+     * @param session sesion
+     * @return verificacion
+     */
     protected final boolean ifPerson(HttpSession session) {
         return ifPerson(session, Person.class);
     }

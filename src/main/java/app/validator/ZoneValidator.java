@@ -15,6 +15,7 @@ public class ZoneValidator extends PlaceValidator<Zone> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        return arg == null || areaDao.getById(arg) == null ? forbidden() : ifPerson(session, MunicipalManager.class);
+        if (arg == null || areaDao.getById(arg) == null) return forbidden();
+        return ifPerson(session, MunicipalManager.class);
     }
 }

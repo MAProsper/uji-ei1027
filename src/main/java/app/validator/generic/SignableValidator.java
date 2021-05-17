@@ -4,10 +4,10 @@ import app.model.generic.Signable;
 
 public abstract class SignableValidator<T extends Signable> extends Validator<T> {
     @Override
-    public void object(T object, FieldError error) {
-        super.object(object, error);
+    public void object(T object, FieldError errors) {
+        super.object(object, errors);
 
         if (object.getSingDown() != null && object.getSingUp().compareTo(object.getSingDown()) > 0)
-            error.accept("signDown", "La fecha de baja deber ser posterior a la de alta");
+            errors.accept("signDown", "La fecha de baja deber ser posterior a la de alta");
     }
 }

@@ -25,7 +25,7 @@ public class ZoneService extends PlaceService<Zone> {
     }
 
     @Override
-    public Map<String, Object> listRequestData(HttpSession session, Integer arg) {
+    public Map<String, Object> requestData(HttpSession session, Integer arg) {
         Area area = areaDao.getById(arg);
         return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
     }

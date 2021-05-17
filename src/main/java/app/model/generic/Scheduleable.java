@@ -4,7 +4,6 @@ import app.util.StringUtil;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public abstract class Scheduleable extends Model {

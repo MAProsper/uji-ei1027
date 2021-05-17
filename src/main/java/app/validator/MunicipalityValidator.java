@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 public class MunicipalityValidator extends PlaceValidator<Municipality> {
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        return arg == null || forbidden();
+        if (arg != null) return forbidden();
+        return true;
     }
 }
