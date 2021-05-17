@@ -7,12 +7,13 @@ import app.model.Area;
 import app.model.AreaPeriod;
 import app.service.generic.ScheduableService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
-@org.springframework.stereotype.Service
+@Service
 public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaPeriodDao areaPeriodDao;

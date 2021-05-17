@@ -16,7 +16,7 @@ public class StringUtil {
     }
 
     public static String toPackageCase(String text) {
-        return Character.toLowerCase(text.charAt(0)) + text.substring(1);
+        return text.isEmpty() ? text : text.substring(0, 1).toLowerCase() + text.substring(1);
     }
 
     public static String toUrlCase(String text) {

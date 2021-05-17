@@ -30,13 +30,12 @@ public abstract class Service<M extends Model> {
         return dao.getReflect().newInstance();
     }
 
-    public Map<String, Object> addRequestData(HttpSession session, Integer arg) {
+    public Map<String, Object> processData(HttpSession session, Integer arg) {
         return listRequestData(session, arg);
     }
 
-    public String addProcess(M object, HttpSession session, Integer arg) {
+    public void addProcess(M object, HttpSession session, Integer arg) {
         dao.add(object);
-        return getRedirect(session, arg);
     }
 
     public M updateObject(HttpSession session, Integer arg) {
@@ -45,31 +44,27 @@ public abstract class Service<M extends Model> {
         return dao.getById(arg);
     }
 
-    public Map<String, Object> updateRequestData(HttpSession session, Integer arg) {
-        return addRequestData(session, arg);
-    }
-
-    public String updateProcess(M object, HttpSession session, Integer arg) {
+    public void updateProcess(M object, HttpSession session, Integer arg) {
         dao.update(object);
-        return getRedirect(session, arg);
     }
 
-    public String deleteProcess(HttpSession session, Integer arg) {
+    public void deleteProcess(HttpSession session, Integer arg) {
         if (arg == null)
             throw new ApplicationException("No existe operacion por defecto");
         dao.delete(arg);
-        return getRedirect(session, arg);
     }
+
+    public void requestProcess(HttpSession session, Integer arg, M object) {}
 
     public String getRedirect(HttpSession session, Integer arg) {
         return arg == null ? "list" : String.format("../list/%d", arg);
     }
 
-    protected Person getUser(HttpSession session) {
-        return (Person) session.getAttribute("user");
-    }
-
     public String getName() {
         return dao.getMapper().getTableName();
+    }
+
+    protected Person getUser(HttpSession session) {
+        return (Person) session.getAttribute("user");
     }
 }

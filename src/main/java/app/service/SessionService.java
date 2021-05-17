@@ -7,7 +7,7 @@ import app.dao.MunicipalManagerDao;
 import app.dao.generic.PersonDao;
 import app.model.Session;
 import app.model.generic.Person;
-import app.service.generic.Service;
+import org.springframework.stereotype.Service;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Objects;
 
-@org.springframework.stereotype.Service
-public class SessionService extends Service<Session> {
+@Service
+public class SessionService extends app.service.generic.Service<Session> {
     @Autowired protected PasswordEncryptor encryptor;
     @Autowired protected EnviromentalManagerDao enviromentalManagerDao;
     @Autowired protected MunicipalManagerDao municipalManagerDao;
@@ -37,20 +37,23 @@ public class SessionService extends Service<Session> {
     }
 
     @Override
-    public String addProcess(Session object, HttpSession session, Integer arg) {
+    public void addProcess(Session object, HttpSession session, Integer arg) {
         session.setAttribute("user", getUser(object));
-        return getRedirect(session, arg);
     }
 
     @Override
-    public String deleteProcess(HttpSession session, Integer arg) {
+    public void deleteProcess(HttpSession session, Integer arg) {
         session.removeAttribute("user");
-        return getRedirect(session, arg);
     }
 
     @Override
     public String getRedirect(HttpSession session, Integer arg) {
         String referrer = (String) session.getAttribute("referrer");
         return referrer != null ? referrer : "/";
+    }
+
+    @Override
+    public String getName() {
+        return "";
     }
 }

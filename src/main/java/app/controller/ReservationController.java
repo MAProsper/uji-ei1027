@@ -1,10 +1,10 @@
 package app.controller;
 
-import app.controller.generic.Controller;
 import app.model.Reservation;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@org.springframework.stereotype.Controller
+@Controller
 @RequestMapping("/reservation")
-public class ReservationController extends Controller<Reservation> {
+public class ReservationController extends app.controller.generic.Controller<Reservation> {
 }

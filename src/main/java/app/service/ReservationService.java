@@ -2,7 +2,7 @@ package app.service;
 
 import app.dao.*;
 import app.model.*;
-import app.service.generic.Service;
+import org.springframework.stereotype.Service;
 import app.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@org.springframework.stereotype.Service
-public class ReservationService extends Service<Reservation> {
+@Service
+public class ReservationService extends app.service.generic.Service<Reservation> {
     @Autowired protected ReservationZoneDao reservationZoneDao;
     @Autowired protected ReservationDao reservationDao;
     @Autowired protected AreaPeriodDao areaPeriodDao;
-    @Autowired MunicipalityDao municipalityDao;
+    @Autowired protected MunicipalityDao municipalityDao;
     @Autowired protected CitizenDao citizenDao;
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
@@ -52,26 +52,19 @@ public class ReservationService extends Service<Reservation> {
     }
 
     @Override
-    public Reservation addObject(HttpSession session, Integer arg) {
-        Reservation r = super.addObject(session, arg);
+    public void requestProcess(HttpSession session, Integer arg, Reservation r) {
+        super.requestProcess(session, arg, r);
         r.setAreaPeriod(arg);
-        return r;
     }
 
     @Override
-    public Map<String, Object> addRequestData(HttpSession session, Integer arg) {
+    public Map<String, Object> processData(HttpSession session, Integer arg) {
         Area area = areaDao.getById(arg);
         return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
     }
 
     @Override
-    public Map<String, Object> updateRequestData(HttpSession session, Integer arg) {
-        return addRequestData(session, arg);
-    }
-
-    @Override
-    public String addProcess(Reservation object, HttpSession session, Integer arg) {
-        super.addProcess(object, session, arg);
+    public String getRedirect(HttpSession session, Integer arg) {
         return "../list";
     }
 }
