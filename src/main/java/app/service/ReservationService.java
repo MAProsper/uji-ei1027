@@ -16,7 +16,6 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     @Autowired protected ReservationZoneDao reservationZoneDao;
     @Autowired protected ReservationDao reservationDao;
     @Autowired protected AreaPeriodDao areaPeriodDao;
-    @Autowired protected MunicipalityDao municipalityDao;
     @Autowired protected CitizenDao citizenDao;
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
