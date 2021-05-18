@@ -51,7 +51,6 @@ public abstract class Controller<M extends app.model.generic.Model> {
     protected <T> String requestObject(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data) {
         return requestSetup(session, arg, validator, view).orElseGet(() -> {
             T object = factory.apply(session, arg);
-            model.addAttribute("requestData", service.requestData(session, arg));
             model.addAttribute("object", object).addAttribute("objectData", data.apply(object));
             return getView(view);
         });

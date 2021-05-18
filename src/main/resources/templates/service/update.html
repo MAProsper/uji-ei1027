@@ -10,7 +10,7 @@
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
                 <td><select type="number" id="serviceType" th:field="*{serviceType}">
-                    <option th:each="type : ${objectData['type']}" th:value="*{type.key}" th:text="*{type.value}" ></option>
+                    <option th:each="type : ${objectData['types']}" th:value="*{type.key}" th:text="*{type.value}" ></option>
                 </select>
                 </td>
             </tr>
