@@ -26,12 +26,15 @@ public abstract class Service<M extends Model> {
     }
 
     /**
-     * Datos adicionales a añadir a la peticion (por objeto individual)
+     * Datos adicionales a añadir a la peticion (por objeto particula)
      *
      * @param object objeto referencia
      * @return datos adicionales
      */
     public Map<String, Object> listObjectData(M object) {
+        return Collections.emptyMap();
+    }
+    public Map<String, Object> modObjectData(M object) {
         return Collections.emptyMap();
     }
 
@@ -68,16 +71,6 @@ public abstract class Service<M extends Model> {
         if (arg == null)
             throw new ApplicationException("No existe operacion por defecto");
         return dao.getById(arg);
-    }
-
-    /**
-     * Establecer valores obligatoros en los objetos (registro y actualizacion)
-     *
-     * @param session sesion
-     * @param arg     argumento opcional
-     * @param object  objeto referencia
-     */
-    public void requestProcess(HttpSession session, Integer arg, M object) {
     }
 
     /**

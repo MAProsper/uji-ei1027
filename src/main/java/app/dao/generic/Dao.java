@@ -39,9 +39,8 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
-        ensureFinal(object);
         String args = StringUtil.formatJoin("%s = ?", mapper.getColumnNames());
-        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(object));
+        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(ensureFields(object)));
     }
 
     /**
@@ -130,13 +129,14 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      *
      * @param object objeto referencia
      */
-    protected void ensureFinal(T object) {
+    protected T ensureFields(T object) {
         T prev = getById(object.getId());
         Reflect<T> reflect = getReflect();
         for (String field : prev.getFinal()) {
             Object value = reflect.get(prev, field);
             if (value != null) reflect.set(object, field, value);
         }
+        return object;
     }
 
     /**

@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS Reservation CASCADE;
 DROP TABLE IF EXISTS ReservationZone CASCADE;
 -- End dropping tables --
 
+
 -- Start creating tables --
 CREATE TABLE Municipality(
   id INTEGER PRIMARY KEY,
