@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<span layout:fragment="title">Lista de gestores y gestoras municipales</span>
+<main layout:fragment="content">
+    <p th:if="${#lists.isEmpty(objects)}">No hay ningún gestor municipal registrado</p>
+    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identificación</th>
+                <th>Nombre</th>
+                <th>Correo electrónico</th>
+                <th>Contraseña</th>
+                <th>Municipio</th>
+                <th>Teléfono</th>
+                <th>Validez</th>
+                <th><a href="add" class="btn btn-success" role="button">Añadir gestor/a municipal</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="object: ${objects}">
+                <td th:text="*{object.id}"></td>
+                <td th:text="*{object.identification}"></td>
+                <td th:text="*{object.name}"></td>
+                <td th:text="*{object.password}"></td>
+                <td th:text="*{object.municipality}"></td>
+                <td th:text="*{object.phone}"></td>
+                <td th:text="*{object.toSignString}"></td>
+                <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>

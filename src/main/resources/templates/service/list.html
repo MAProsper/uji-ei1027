@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<span layout:fragment="title" th:text="'Lista de servicios de ' + ${requestData['area']} + ' de ' + ${requestData['municipality']}"></span>
+<main layout:fragment="content">
+    <p th:if="${#lists.isEmpty(objects)}">No hay ningún servicio registrado</p>
+    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Fechas de inicio</th>
+            <th>Fechas de fin</th>
+            <th>Hora de inicio</th>
+            <th>Hora de fin</th>
+            <th><a href="add" class="btn btn-success" role="button">Añadir area</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="object: ${objects}">
+            <td th:text="*{object.toScheduleString}"></td>
+            <td th:text="*{object.toScheduleString}"></td>
+            <td th:text="*{object.toPeriodString}"></td>
+            <td th:text="*{object.toPeriodString}"></td>
+            <td>
+                <a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
+                <a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</main>
