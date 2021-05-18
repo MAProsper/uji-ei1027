@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<span layout:fragment="title">Actualizar servicio</span>
+<main layout:fragment="content">
+    <form action="#" th:action="@{/municipalManager/add}"
+          th:object="${object}" method="post">
+        <table>
+            <tr>
+                <th><label for="area">Área</label></th>
+                <td><input type="number" id="area" th:field="*{area}"></td>
+            </tr>
+            <tr>
+                <th><label for="serviceType">Tipo de servicio</label></th>
+                <td><input type="text" id="serviceType" th:field="*{serviceType}"></td>
+            </tr>
+            <tr>
+                <th><label for="scheduleStart">Fecha de inicio</label></th>
+                <td><input type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+            </tr>
+            <tr>
+                <th><label for="scheduleEnd">Fecha de fin</label></th>
+                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}"></td>
+            </tr>
+            <tr>
+                <th><label for="periodStart">Hora de inicio</label></th>
+                <td><input type="time" id="periodStart" th:field="*{periodStart}"></td>
+            </tr>
+            <tr>
+                <th><label for="periodEnd">Hora de fin</label></th>
+                <td><input type="time" id="periodEnd" th:field="*{periodEnd}"></td>
+            </tr>
+        </table>
+        <input type="submit" value="Actualizar servicio" class="btn btn-success" /></td>
+    </form>
+</main>
