@@ -1,0 +1,11 @@
+DELETE FROM ControlStaff;
+DELETE FROM Reservation;
+DELETE FROM AreaPeriod;
+DELETE FROM Zone;
+DELETE FROM MunicipalManager;
+DELETE FROM Citizen;
+DELETE FROM Service;
+DELETE FROM Area;
+DELETE FROM Municipality;
+DELETE FROM ServiceType; 
+DELETE FROM EnviromentalManager;
