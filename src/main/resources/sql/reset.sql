@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS Service CASCADE;
 DROP TABLE IF EXISTS ServiceType CASCADE;
 DROP TABLE IF EXISTS AreaPeriod CASCADE;
 DROP TABLE IF EXISTS Reservation CASCADE;
-DROP TABLE IF EXISTS ReservationZone CASCADE;
 -- End dropping tables --
 
 -- Start creating tables --
@@ -157,24 +156,19 @@ CREATE TABLE Service(
 
 CREATE TABLE Reservation(
   id INTEGER PRIMARY KEY,
+  code INTEGER NOT NULL,
   area_period INTEGER NOT NULL,
   date DATE NOT NULL,
   citizen INTEGER NOT NULL,
   occupied INTEGER NOT NULL,
   enter TIME NULL,
   exit TIME NULL,
-  CONSTRAINT reservation_check_io CHECK (enter < exit),
-  CONSTRAINT reservation_check_occupied CHECK (occupied > 0),
-  CONSTRAINT reservation_references_citizen FOREIGN KEY (citizen) REFERENCES Citizen(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT reservation_references_period FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
-CREATE TABLE ReservationZone(
-  id INTEGER PRIMARY KEY,
-  reservation INTEGER NOT NULL,
   zone INTEGER NOT NULL,
-  CONSTRAINT reservationZone_unique_reservation_zone UNIQUE (reservation, zone),
-  CONSTRAINT reservationZone_references_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT reservationZone_references_zone FOREIGN KEY (zone) REFERENCES Zone(id) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT reservation_ca1 UNIQUE (code),
+  CONSTRAINT reservation_c2 CHECK (enter < exit),
+  CONSTRAINT reservation_c3 CHECK (occupied > 0),
+  CONSTRAINT reservation_caCitizen FOREIGN KEY (citizen) REFERENCES Citizen(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT reservation_caZone FOREIGN KEY (zone) REFERENCES Zone(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT reservation_caArea_period FOREIGN KEY (area_period) REFERENCES AreaPeriod(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 -- End creating tables --
