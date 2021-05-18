@@ -77,7 +77,7 @@ public class Reservation extends Model {
 
     @Override
     public Set<String> getFinal() {
-        return StringUtil.setJoin(super.getFinal(), "code", "areaPeriod", "citizen");
+        return StringUtil.setJoin(super.getFinal(), "areaPeriod", "citizen");
     }
 
     @Override

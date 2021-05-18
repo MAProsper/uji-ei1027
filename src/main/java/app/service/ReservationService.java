@@ -51,9 +51,10 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     }
 
     @Override
-    public void requestProcess(HttpSession session, Integer arg, Reservation r) {
-        super.requestProcess(session, arg, r);
+    public Reservation addObject(HttpSession session, Integer arg) {
+        Reservation r = super.addObject(session, arg);
         r.setAreaPeriod(arg);
+        return r;
     }
 
     @Override
