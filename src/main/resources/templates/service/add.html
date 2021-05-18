@@ -3,16 +3,16 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Añadir servicio</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/municipalManager/add}"
+    <form action="#" th:action="@{/service/add}"
           th:object="${object}" method="post">
+        <td><input type="hidden" id="area" th:field="*{area}"></td>
         <table>
             <tr>
-                <th><label for="area">Área</label></th>
-                <td><input type="number" id="area" th:field="*{area}"></td>
-            </tr>
-            <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
-                <td><input type="text" id="serviceType" th:field="*{serviceType}"></td>
+                <td><select type="number" id="serviceType" th:field="*{serviceType}">
+                    <option th:each="type : ${objectData['type']}" th:value="*{type.key}" th:text="*{type.value}" ></option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
