@@ -4,7 +4,7 @@
 <span layout:fragment="title"
       th:text="'Actualizar reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <form th:object="${object}" method="post">
+    <form th:object="${object}" method="post" onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
             <tr>
@@ -46,7 +46,6 @@
             </tr>
         </table>
         <input
-                onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
                 type="submit" value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

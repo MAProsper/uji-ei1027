@@ -4,7 +4,7 @@
 <span layout:fragment="title"
       th:text="'Actualizar zona de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <form
+    <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
@@ -26,7 +26,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
+        <input type="submit"
                value="Actualizar" class="btn btn-warning"/>Actualizar zona</td>
     </form>
 </main>

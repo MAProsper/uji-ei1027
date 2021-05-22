@@ -3,7 +3,7 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Actualizar personal de control</span>
 <main layout:fragment="content">
-    <form
+    <form onsubmit="return confirm('¿Seguro que quiere actualizar los datos y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
@@ -43,7 +43,7 @@
                 </td>
             </tr>
         </table>
-        <input onclick="return confirm('¿Seguro que quiere actualizar los datos y los datos son correctos?')"
+        <input
                type="submit" value="Actualizar" class="btn btn-success"
         /></td>
     </form>

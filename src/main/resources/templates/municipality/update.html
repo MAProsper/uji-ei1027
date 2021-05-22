@@ -3,7 +3,7 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Actualizar un municipio</span>
 <main layout:fragment="content">
-    <form
+    <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
@@ -17,8 +17,7 @@
             </tr>
         </table>
         <input type="submit" value="Actualizar"
-               class="btn btn-warning"
-               onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/>Actualizar
+               class="btn btn-warning"/>Actualizar
         municipio</td>
     </form>
 </main>
