@@ -10,29 +10,67 @@
                 <th><label for="identification">Identificación</label></th>
                 <td><input type="text" id="identification" th:field="*{identification}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('identification')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="name">Nombre</label></th>
                 <td><input type="text" id="name" th:field="*{name}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('name')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
             <tr>
                 <th><label for="mail">Correo Electrónico</label></th>
                 <td><input type="text" id="mail" th:field="*{mail}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('mail')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="password">Contraseña</label></th>
                 <td><input type="text" id="password" th:field="*{password}"></td>
             </tr>
-            <tr>
-                <th><label for="country">País</label></th>
-                <td><input type="text" id="country" th:field="*{country}"></td>
+            <tr th:each="err : ${#fields.errors('password')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
+            <th><label for="country">País</label></th>
+            <td>
+                <select type="number" id="country" th:field="*{country}">
+                    <option th:each="type : ${T(app.model.enums.Country.values()}" th:value="${country}"
+                            th:text="${country.name}"></option>
+                </select>
+            </td>
+            <tr th:each="err : ${#fields.errors('country')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
             <tr>
                 <th><label for="city">Ciudad</label></th>
                 <td><input type="text" id="city" th:field="*{city}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('city')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="address">Dirección</label></th>
                 <td><input type="text" id="address" th:field="*{address}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('address')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
         </table>
         <input onclick="return confirm('¿Seguro que quiere darse de alta y los datos son correctos?')"
