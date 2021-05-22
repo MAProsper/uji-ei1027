@@ -21,7 +21,11 @@
             <td th:text="*{object.name}"></td>
             <td th:text="*{object.capacity}"></td>
             <td th:text="*{object.toSignString}"></td>
-            <td><a th:href="@{delete/{id}(id=${object.id})}"
+            <td>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
+                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
+                   th:href="@{/zone/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
                    class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
         </tr>
