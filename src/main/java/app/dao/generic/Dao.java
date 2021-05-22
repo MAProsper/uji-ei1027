@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +41,11 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      */
     public void update(T object) {
         getReflect().merge(getById(object.getId()), object);
+        Object[] values = mapper.toRow(object);
+        values = Arrays.copyOf(values, values.length + 1);
+        values[values.length - 1] = object.getId();
         String args = StringUtil.formatJoin("%s = ?", mapper.getColumnNames());
-        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(object));
+        executeUpdate(String.format("UPDATE %%s SET %s WHERE id = ?", args), values);
     }
 
     /**

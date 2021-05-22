@@ -20,6 +20,6 @@ public abstract class SignableDao<T extends Signable> extends Dao<T> {
     public void delete(int id) {
         T object = getById(id);
         object.setSingDown(LocalDateTime.now());
-        super.update(object);
+        update(object);
     }
 }

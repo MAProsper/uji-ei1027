@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -73,30 +72,26 @@ public class ReservationValidator extends Validator<Reservation> {
                     errors.accept("occupied", "Demasiadas personas para la capacidad de las zonas selecionadas");
                 }
             }
+
             // Comprobar que, para toda reserva que estás haciendo, no existra otra en:
             // - en el área que estás reservando,
             // - en el día que estás reservando
             // - y en el horario que estás reservando
-            Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
-            Set<Reservation> delete = new HashSet<>();
-            Set<Integer> idReservedZones = new HashSet<>();
-
-            for (Reservation reservation : reservations) {
-                if (!reservation.getDate().equals(r.getDate())) delete.add(reservation);
-                else
-                    for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
-                        idReservedZones.add(reservationZone.getZone());
-            }
-            reservations.removeAll(delete);
-
-            Set<Integer> setIdZones = new HashSet<>(r.getZones());
+            // Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
+            // Set<Integer> idReservedZones = new HashSet<>();
+            // for (Reservation reservation : reservations) {
+            //     if (reservation.getDate().equals(r.getDate()))
+            //         for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
+            //             idReservedZones.add(reservationZone.getZone());
+            // }
             // idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r
-            idReservedZones.retainAll(setIdZones);
-            if (!idReservedZones.isEmpty()) {
-                String stringError = idReservedZones.stream().map(zoneDao::getById).map(Zone::getName).collect(Collectors.joining(", "));
-                errors.accept("zones", "Las siguientes zonas están reservadas: " + stringError);
-            }
 
+            Set<Integer> zoneUsed = reservationDao.getByAreaPeriod(r.getAreaPeriod()).stream().filter(o -> o.getDate().equals(r.getDate()) && !o.isEnded()).flatMap(o -> reservationZoneDao.getChildsOf(o).stream()).map(ReservationZone::getZone).collect(Collectors.toSet());
+            zoneUsed.retainAll(r.getZones());
+            if (!zoneUsed.isEmpty()) {
+                String zoneJoin = zoneUsed.stream().map(zoneDao::getById).map(Zone::getName).collect(Collectors.joining(", "));
+                errors.accept("zones", String.format("Las zonas %s esta opcupadas el %s", zoneJoin, date));
+            }
         } else {
             errors.accept("zone", "Alguna zona selecionada no esta dentro del area reservada");
         }

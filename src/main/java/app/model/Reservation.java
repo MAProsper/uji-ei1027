@@ -85,6 +85,14 @@ public class Reservation extends Model {
         return enter == exit;
     }
 
+    public boolean isEnded() {
+        return exit != null;
+    }
+
+    public boolean isCancelled() {
+        return enter == null && isEnded();
+    }
+
     @Override
     public Set<String> getFinal() {
         return StringUtil.setJoin(super.getFinal(), "areaPeriod", "citizen");

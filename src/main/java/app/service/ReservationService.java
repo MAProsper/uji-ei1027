@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,33 +26,42 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public List<Reservation> listObjects(HttpSession session, Integer arg) {
-        return reservationDao.getByCitizen(getUser(session).getId());
+        return reservationDao.getByCitizen(getUser(session).getId()).stream().filter(r -> !r.isCancelled()).collect(Collectors.toList());
     }
 
     @Override
     public Map<String, Object> data(Reservation r) {
-        if (r.getAreaPeriod() == 0) return Collections.emptyMap();
-        LocalDate today = LocalDate.now();
-        Citizen citizen = citizenDao.getParentOf(r);
-        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
-        Area area = areaDao.getParentOf(areaPeriod);
-        Municipality municipality = municipalityDao.getParentOf(area);
-        List<Zone> areaZone = zoneDao.getChildsOf(area);
+        Map<String, Object> map = new HashMap<>();
+
         String reservationZone = reservationZoneDao.getChildsOf(r).stream().map(zoneDao::getParentOf).map(Zone::getName).collect(Collectors.joining(", "));
-        Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", Collections.min(List.of(today.plusDays(2), areaPeriod.scheduleEnd)));
-        int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
-        return Map.of("citizen", citizen, "area", area, "municipality", municipality, "zone", reservationZone, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity);
+        map.put("zone", reservationZone);
+
+        if (r.getCitizen() != 0) {
+            Citizen citizen = citizenDao.getParentOf(r);
+            map.put("citizen", citizen);
+        }
+
+        if (r.getAreaPeriod() != 0) {
+            LocalDate today = LocalDate.now();
+            AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+            Area area = areaDao.getParentOf(areaPeriod);
+            List<Zone> areaZone = zoneDao.getChildsOf(area);
+            Municipality municipality = municipalityDao.getParentOf(area);
+            int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
+            Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", Collections.min(List.of(today.plusDays(2), areaPeriod.scheduleEnd)));
+            map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity));
+        }
+
+        return map;
     }
 
     @Override
     public Reservation addObject(HttpSession session, Integer arg) {
         Reservation r = super.addObject(session, arg);
         Person user = getUser(session);
-
-        if (user != null) r.setCitizen(user.getId());
+        if (user instanceof Citizen) r.setCitizen(user.getId());
         if (arg != null) r.setAreaPeriod(arg);
         r.setOccupied(1);
-
         return r;
     }
 

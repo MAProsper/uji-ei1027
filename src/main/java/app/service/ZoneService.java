@@ -25,6 +25,13 @@ public class ZoneService extends PlaceService<Zone> {
     }
 
     @Override
+    public Zone addObject(HttpSession session, Integer arg) {
+        Zone zone = super.addObject(session, arg);
+        zone.setArea(arg);
+        return zone;
+    }
+
+    @Override
     public Map<String, Object> data(Zone zone) {
         Area area = areaDao.getParentOf(zone);
         return Map.of("municipality", municipalityDao.getParentOf(area), "area", area);
