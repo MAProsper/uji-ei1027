@@ -9,10 +9,19 @@
                 <th><label for="identification">Identificación:</label></th>
                 <td><input type="text" id="identification" th:field="*{identification}"/></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('identification')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="password">Contraseña:</label></th>
                 <td><input type="password" id="password" th:field="*{password}"/></td>
-                <td th:each="err : ${#fields.errors('password')}" th:text="${err}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('password')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
         </table>
         <input class="btn btn-success" type="submit"/>

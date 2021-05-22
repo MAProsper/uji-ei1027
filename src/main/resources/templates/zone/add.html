@@ -10,13 +10,19 @@
                 <th><label for="name">Nombre</label></th>
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
-            <tr>
-                <th><label for="area">Área</label></th>
-                <td><input type="text" id="area" th:field="*{area}"></td>
+            <tr th:each="err : ${#fields.errors('name')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
             <tr>
                 <th><label for="capacity">Capacidad</label></th>
                 <td><input type="text" id="capacity" th:field="*{capacity}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('capacity')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
         </table>
         <input type="submit" onclick="return confirm('¿Seguro que desea añadir la zona y los datos son correctos?')"
