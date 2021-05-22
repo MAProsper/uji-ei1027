@@ -9,6 +9,10 @@
             th:object="${object}" method="post">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
+            <tr  th:unless="${session.user instanceOf T(app.model.Citizen)">
+                <th>Ciudadano</th>
+                <td th:text="${data.citizen.toDisplayName}"></td>
+            </tr>
             <tr>
                 <th><label for="date">Fecha</label></th>
                 <td><input type="date" id="date" th:field="*{date}"
@@ -24,6 +28,14 @@
                 <td th:text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
             <tr>
+                <th><label for="zones">Zonas</label></th>
+                <td>
+                    <select type="number" id="zones" th:field="*{zones}" multiple="multiple">
+                        <option th:each="zone: ${data.areaZone}" th:value="${zone.id}"
+                                th:text="${zone.toDisplayName}"></option>
+                    </select>
+                </td>
+            </tr>
                 <th><label for="zones">Zonas</label></th>
                 <td>
                     <select type="number" id="zones" th:field="*{zones}" multiple="multiple">

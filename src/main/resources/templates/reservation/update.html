@@ -7,6 +7,10 @@
     <form th:object="${object}" method="post" onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
+            <tr  th:unless="${session.user instanceOf T(app.model.Citizen)">
+                <th>Ciudadano</th>
+                <td th:text="${data.citizen.toDisplayName}"></td>
+            </tr>
             <tr>
                 <th><label for="date">Fecha</label></th>
                 <td><input type="date" id="date" th:field="*{date}"
