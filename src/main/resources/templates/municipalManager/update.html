@@ -43,15 +43,6 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="municipality">Municipio</label></th>
-                <td><input type="number" id="municipality" th:field="*{municipality}"></td>
-            </tr>
-            <tr th:each="err : ${#fields.errors('municipality')}">
-                <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
-                </td>
-            </tr>
-            <tr>
                 <th><label for="phone">Teléfono</label></th>
                 <td><input type="text" id="phone" th:field="*{phone}"></td>
             </tr>
