@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Dar de alta un municipio</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/municipality/add}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>

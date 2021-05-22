@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Actualizar gestor/a municipal</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/municipal-manager/update}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="identification">Identificación</label></th>
@@ -52,6 +52,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Actualizar gestor/a municipal" class="btn btn-warning" onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/></td>
+        <input type="submit" value="Actualizar gestor/a municipal" class="btn btn-warning"
+               onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/></td>
     </form>
 </main>

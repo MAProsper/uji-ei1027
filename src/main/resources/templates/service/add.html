@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Añadir servicio</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/service/add}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <td><input type="hidden" id="area" th:field="*{area}"></td>
         <table>
             <tr>

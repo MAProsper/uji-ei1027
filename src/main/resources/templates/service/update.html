@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Actualizar servicio</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/service/update}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <td><input type="hidden" id="area" th:field="*{area}"></td>
         <table>
             <tr>
@@ -56,7 +56,8 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
+        <input type="submit"
+               onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
                value="Actualizar servicio" class="btn btn-success"/>Actualizar servicio</td>
     </form>
 </main>

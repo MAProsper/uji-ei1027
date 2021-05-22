@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Añadir Área</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/area/add}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>

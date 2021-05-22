@@ -17,21 +17,21 @@
         </tr>
         </thead>
         <tbody>
-            <tr th:if="${#lists.isEmpty(object)}">
-                <td colspan="8">No hay ningún ciudadano registrado
-                <td>
-            </tr>
-            <tr th:each="object: ${objects}">
-                <td th:text="*{object.id}"></td>
-                <td th:text="*{object.identification}"></td>
-                <td th:text="*{object.name}"></td>
-                <td th:text="*{object.password}"></td>
-                <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-                <td th:text="*{object.toSignString}"></td>
-                <td><a th:href="@{delete/{id}(id=${object.id})}"
-                       onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
-                       class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
-            </tr>
+        <tr th:if="${#lists.isEmpty(object)}">
+            <td colspan="8">No hay ningún ciudadano registrado
+            <td>
+        </tr>
+        <tr th:each="object: ${objects}">
+            <td th:text="*{object.id}"></td>
+            <td th:text="*{object.identification}"></td>
+            <td th:text="*{object.name}"></td>
+            <td th:text="*{object.password}"></td>
+            <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td th:text="*{object.toSignString}"></td>
+            <td><a th:href="@{delete/{id}(id=${object.id})}"
+                   onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
+                   class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+        </tr>
         </tbody>
     </table>
 </main>

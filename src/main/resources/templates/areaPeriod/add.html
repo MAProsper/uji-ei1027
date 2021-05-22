@@ -3,8 +3,8 @@
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Añadir horario</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/areaPeriod/add}"
-          th:object="${object}" method="post">
+    <form
+            th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
