@@ -10,7 +10,11 @@
             <th>Nombre</th>
             <th>Capacidad</th>
             <th>Fecha de alta / Fecha de baja</th>
-            <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
+            <th>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
+                   th:href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                   role="button">Añadir</a>
+            </th>
         </tr>
         </thead>
         <tbody>

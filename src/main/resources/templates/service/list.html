@@ -11,7 +11,11 @@
             <th>Fechas de fin</th>
             <th>Hora de inicio</th>
             <th>Hora de fin</th>
-            <th><a href="add" class="btn btn-success" role="button">Añadir area</a></th>
+            <th>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
+                   th:href="@{/service/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                   role="button">Añadir</a>
+            </th>
         </tr>
         </thead>
         <tbody>

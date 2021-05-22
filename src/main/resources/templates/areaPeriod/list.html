@@ -10,8 +10,8 @@
             <th>Fechas</th>
             <th>Horario</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" href="add" class="btn btn-success"
-                   role="button">Añadir horario</a>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" th:href="@{/area-period/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                   role="button">Añadir</a>
             </th>
         </tr>
         </thead>

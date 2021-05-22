@@ -14,7 +14,11 @@
             <th>Municipio</th>
             <th>Teléfono</th>
             <th>Validez</th>
-            <th><a href="add" class="btn btn-success" role="button">Dar de alta gestor/a municipal</a></th>
+            <th>
+                <a th:if="${session.user instanceof T(app.model.EnviromentalManager}"
+                   th:href="@{/municipal-manager/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                   role="button">Añadir</a>
+            </th>
         </tr>
         </thead>
         <tbody>

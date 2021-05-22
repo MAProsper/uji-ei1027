@@ -13,8 +13,8 @@
             <th>Localización</th>
             <th th:if="${session.user instanceof T(app.model.MunicipalManager)}">Imagen</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" href="add" class="btn btn-success"
-                   role="button">Añadir área</a>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" th:href="@{/area/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                   role="button">Añadir</a>
             </th>
         </tr>
         </thead>
