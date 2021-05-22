@@ -22,7 +22,7 @@
         <tr th:if="${#lists.isEmpty(object)}">
             <td colspan="5">No hay ningún servicio registrado </td>
         </tr>
-        <tr th:each="object: ${objects}">
+        <tr th:each="object: ${object}">
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toPeriodString}"></td>

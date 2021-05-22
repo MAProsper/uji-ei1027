@@ -23,7 +23,7 @@
         <tr th:if="${#lists.isEmpty(object)}">
             <td colspan="8">No hay ningún ciudadano registrado</td>
         </tr>
-        <tr th:each="object: ${objects}">
+        <tr th:each="object: ${object}">
             <td th:text="*{object.id}"></td>
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>
@@ -34,7 +34,7 @@
                 <a th:if="${ object.active}"
                    th:href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${ object.active}"
+                <a th:if="${ session.user instanceof T(app.model.MunicipalManager) and object.active}"
                    th:href="@{/control-staff/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
                    class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>

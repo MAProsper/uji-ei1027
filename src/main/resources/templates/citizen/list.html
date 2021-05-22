@@ -22,7 +22,7 @@
         <tr th:if="${#lists.isEmpty(object)}">
             <td colspan="10">No hay ningún ciudadano registrado</td>
         </tr>
-        <tr th:each="object: ${objects}">
+        <tr th:each="object: ${object}">
             <td th:text="*{object.id}"></td>
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>

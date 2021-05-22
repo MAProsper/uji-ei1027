@@ -21,7 +21,7 @@
         <tr th:if="${#lists.isEmpty(object)}">
             <td colspan="4">No hay ninguna zona registrada </td>
         </tr>
-        <tr th:each="object: ${objects}">
+        <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
             <td th:text="*{object.capacity}"></td>
             <td th:text="*{object.toSignString}"></td>
