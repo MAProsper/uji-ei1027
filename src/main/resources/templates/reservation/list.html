@@ -21,8 +21,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="7">No hay ninguna reserva
-            <td>
+            <td colspan="7">No hay ninguna reserva</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.id}"></td>

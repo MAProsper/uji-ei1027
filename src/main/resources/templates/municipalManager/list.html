@@ -19,8 +19,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="9">Lista de gestores y gestoras municipales
-            <td>
+            <td colspan="9">Lista de gestores y gestoras municipales</td>
         </tr>
         <tr th:each="object: ${objects}">
             <td th:text="*{object.id}"></td>

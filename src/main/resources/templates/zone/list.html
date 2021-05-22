@@ -15,8 +15,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="4">No hay ninguna zona registrada
-            <td>
+            <td colspan="4">No hay ninguna zona registrada </td>
         </tr>
         <tr th:each="object: ${objects}">
             <td th:text="*{object.name}"></td>
