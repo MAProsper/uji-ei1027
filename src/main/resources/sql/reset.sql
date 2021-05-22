@@ -126,7 +126,7 @@ CREATE TABLE Citizen(
   mail TEXT NOT NULL,
   password TEXT NOT NULL,
   country INTEGER NOT NULL,
-  town TEXT NOT NULL,
+  city TEXT NOT NULL,
   address TEXT NOT NULL,
   CONSTRAINT citizen_unique_identification_signup UNIQUE (identification, sign_up),
   CONSTRAINT citizen_unique_identification_signdown UNIQUE (identification, sign_down),

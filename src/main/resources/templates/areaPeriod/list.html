@@ -30,10 +30,10 @@
                    th:href="@{/control-staff/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     personal
                 </a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and (object.active) and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/area-period/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and (object.active) and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/area-period/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el horario?')" class="btn btn-danger"
                    role="button">Eliminar

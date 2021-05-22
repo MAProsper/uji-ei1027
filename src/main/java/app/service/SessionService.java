@@ -30,7 +30,7 @@ public class SessionService extends app.service.generic.Service<Session> {
     }
 
     protected Person getByIdentification(String identification) {
-        return getPriority().stream().map(dao -> dao.getByIdentification(identification)).filter(Objects::nonNull).filter(Signable::isActive).findAny().orElse(null);
+        return getPriority().stream().map(dao -> dao.getByIdentification(identification)).filter(Objects::nonNull).filter(Person::isActive).findAny().orElse(null);
     }
 
     protected List<PersonDao<?>> getPriority() {
@@ -44,7 +44,7 @@ public class SessionService extends app.service.generic.Service<Session> {
 
     @Override
     public void deleteProcess(HttpSession session, Integer arg) {
-        session.removeAttribute("user");
+        deleteSession(session);
     }
 
     @Override

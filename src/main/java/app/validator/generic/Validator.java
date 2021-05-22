@@ -92,7 +92,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      */
     @SafeVarargs
     protected final boolean ifPerson(HttpSession session, Class<? extends Person>... persons) {
-        Person person = (Person) session.getAttribute("user");
+        Person person = getUser(session);
         if (person == null) return false;
         else if (Arrays.stream(persons).anyMatch(cls -> cls.isInstance(person))) return true;
         else return forbidden();
@@ -106,5 +106,15 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      */
     protected final boolean ifPerson(HttpSession session) {
         return ifPerson(session, Person.class);
+    }
+
+    /**
+     * Obtener el usuario de la sesion
+     *
+     * @param session sesion
+     * @return usuario
+     */
+    protected Person getUser(HttpSession session) {
+        return (Person) session.getAttribute("user");
     }
 }

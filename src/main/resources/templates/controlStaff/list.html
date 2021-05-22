@@ -6,13 +6,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Identificación</th>
             <th>Nombre</th>
             <th>Correo electrónico</th>
-            <th>Contraseña</th>
             <th>Horario</th>
-            <th>Validez</th>
             <th>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" th:href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id})}" class="btn btn-success"
                    role="button">Añadir</a>
@@ -21,23 +18,20 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="8">No hay ningún ciudadano registrado</td>
+            <td colspan="5">No hay ningún ciudadano registrado</td>
         </tr>
         <tr th:each="object: ${object}">
-            <td th:text="*{object.id}"></td>
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>
-            <td th:text="*{object.password}"></td>
             <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-            <td th:text="*{object.toSignString}"></td>
             <td>
-                <a th:if="${ object.active}"
+                <a th:if="${object.active}"
                    th:href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${ session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                <a th:if="${object.active}"
                    th:href="@{/control-staff/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
-                   class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+                   class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>
         </tbody>
     </table>

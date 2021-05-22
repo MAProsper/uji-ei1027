@@ -35,10 +35,10 @@
                     Horarios</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and (object.active) and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/area/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and (object.active) and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/area/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el área?')" class="btn btn-danger" role="button">Eliminar
                 </a>

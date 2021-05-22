@@ -116,4 +116,13 @@ public abstract class Service<M extends Model> {
     protected Person getUser(HttpSession session) {
         return (Person) session.getAttribute("user");
     }
+
+    /**
+     * Cierra la sesion actual
+     *
+     * @param session sesion
+     */
+    protected void deleteSession(HttpSession session) {
+        session.removeAttribute("user");
+    }
 }

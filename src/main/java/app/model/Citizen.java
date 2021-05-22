@@ -5,7 +5,7 @@ import app.model.generic.Person;
 
 public class Citizen extends Person {
     public int country;
-    public String town;
+    public String city;
     public String address;
 
     public Country getCountry() {
@@ -16,12 +16,12 @@ public class Citizen extends Person {
         this.country = country.ordinal();
     }
 
-    public String getTown() {
-        return town;
+    public String getCity() {
+        return city;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getAddress() {
@@ -36,7 +36,7 @@ public class Citizen extends Person {
     public String toString() {
         return "Citizen{" +
                 "country=" + getCountry() +
-                ", town='" + town + '\'' +
+                ", town='" + city + '\'' +
                 ", address='" + address + '\'' +
                 "} " + super.toString();
     }

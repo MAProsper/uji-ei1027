@@ -6,38 +6,32 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Identificación</th>
             <th>Nombre</th>
             <th>Correo electrónico</th>
-            <th>Contraseña</th>
             <th>País</th>
             <th>Ciudad</th>
             <th>Dirección</th>
-            <th>Validez</th>
             <th><a href="add" class="btn btn-success" role="button">Dar de alta</a></th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="10">No hay ningún ciudadano registrado</td>
+            <td colspan="7">No hay ningún ciudadano registrado</td>
         </tr>
         <tr th:each="object: ${object}">
-            <td th:text="*{object.id}"></td>
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>
-            <td th:text="*{object.password}"></td>
-            <td th:text="*{object.country}"></td>
+            <td th:text="*{object.mail}"></td>
+            <td th:text="*{object.country.name}"></td>
+            <td th:text="*{object.city}"></td>
             <td th:text="*{object.address}"></td>
-            <td th:text="*{object.toSignString}"></td>
             <td>
-                <a th:if="${ object.active}"
-                   th:href="@{/citizen/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                <a th:href="@{/citizen/update}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${ object.active}"
-                   th:href="@{/citizen/delete/{id}(id=${object.id})}"
-                   onclick="return confirm('¿Seguro que desea dar de baja al ciudadano o ciudadana?')"
-                   class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+                <a th:href="@{/citizen/delete}"
+                   onclick="return confirm('¿Seguro que desea darse de baja?')"
+                   class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>
         </tbody>
     </table>

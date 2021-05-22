@@ -33,8 +33,7 @@ public abstract class Signable extends Model {
     }
 
     public boolean isActive() {
-        LocalDateTime now = LocalDateTime.now();
-        return signUp.isBefore(now) && (signDown == null || signDown.isAfter(now));
+        return signDown == null;
     }
 
     public String toSignString() {
