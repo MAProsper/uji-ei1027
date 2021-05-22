@@ -4,7 +4,7 @@ import app.model.generic.Scheduleable;
 
 public abstract class ScheduleableValidator<T extends Scheduleable> extends Validator<T> {
     @Override
-    public void object(T object, FieldError errors) {
+    public void object(T object, FieldErrors errors) {
         super.object(object, errors);
 
         if (object.getScheduleStart().compareTo(object.getScheduleEnd()) > 0)

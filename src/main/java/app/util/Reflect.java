@@ -83,6 +83,12 @@ public class Reflect<T extends Model> {
         }
     }
 
+    /**
+     * Rellenar el objeto destino con los datos del original (fijando finals)
+     *
+     * @param src objeto referencia
+     * @param dst objeto destino
+     */
     public void merge(T src, T dst) {
         Set<String> fixed = dst.getFinal().stream().filter(field -> get(src, field) != null).collect(Collectors.toSet());
         Set<String> miss = getFields().stream().filter(field -> get(dst, field) == null).collect(Collectors.toSet());

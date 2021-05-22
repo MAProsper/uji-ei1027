@@ -5,8 +5,7 @@ import app.dao.AreaPeriodDao;
 import app.dao.ReservationDao;
 import app.dao.ZoneDao;
 import app.model.*;
-import app.service.ReservationService;
-import app.validator.generic.FieldError;
+import app.validator.generic.FieldErrors;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,7 +47,7 @@ public class ReservationValidator extends Validator<Reservation> {
     }
 
     @Override
-    public void object(Reservation r, FieldError errors) {
+    public void object(Reservation r, FieldErrors errors) {
         List<Zone> zones = r.getZones().stream().map(zoneDao::getById).collect(Collectors.toList());
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
         Area area = areaDao.getParentOf(areaPeriod);

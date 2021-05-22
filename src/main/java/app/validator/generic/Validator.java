@@ -71,7 +71,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      * @param object objecto referencia
      * @param errors errors.accept(field, error)
      */
-    public void object(T object, FieldError errors) {
+    public void object(T object, FieldErrors errors) {
     }
 
     /**
