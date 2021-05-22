@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Inicio de sesion</span>
 <main layout:fragment="content">
-  <form th:object="${object}" method="post">
-    <table>
-      <tr>
-        <th><label for="identification">Identificación:</label></th>
-        <td><input type="text" id="identification" th:field="*{identification}" /></td>
-      </tr>
-      <tr>
-        <th><label for="password">Contraseña:</label></th>
-        <td><input type="password" id="password" th:field="*{password}" /></td>
-        <td th:each="err : ${#fields.errors('password')}" th:text="${err}" ></td>
-      </tr>
-    </table>
-    <input class="btn btn-success" type="submit" />
-  </form>
+    <form th:object="${object}" method="post">
+        <table>
+            <tr>
+                <th><label for="identification">Identificación:</label></th>
+                <td><input type="text" id="identification" th:field="*{identification}"/></td>
+            </tr>
+            <tr>
+                <th><label for="password">Contraseña:</label></th>
+                <td><input type="password" id="password" th:field="*{password}"/></td>
+                <td th:each="err : ${#fields.errors('password')}" th:text="${err}"></td>
+            </tr>
+        </table>
+        <input class="btn btn-success" type="submit"/>
+    </form>
 </main>

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Servicios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<span layout:fragment="title"
+      th:text="'Servicios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <p th:if="${#lists.isEmpty(objects)}">No hay ningún servicio registrado</p>
-    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>Fechas de inicio</th>
@@ -14,6 +15,10 @@
         </tr>
         </thead>
         <tbody>
+        <tr th:if="${#lists.isEmpty(object)}">
+            <td colspan="5">No hay ningún servicio registrado
+            <td>
+        </tr>
         <tr th:each="object: ${objects}">
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toScheduleString}"></td>
@@ -28,5 +33,4 @@
         </tr>
         </tbody>
     </table>
-
 </main>

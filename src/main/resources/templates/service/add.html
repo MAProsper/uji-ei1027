@@ -10,8 +10,8 @@
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
                 <td><select type="number" id="serviceType" th:field="*{serviceType}">
-                    <option th:each="type : ${data.types}" th:value="*{type.key}" th:text="*{type.value}" ></option>
-                    </select>
+                    <option th:each="type : ${data.types}" th:value="*{type.key}" th:text="*{type.value}"></option>
+                </select>
                 </td>
             </tr>
             <tr>
@@ -32,6 +32,6 @@
             </tr>
         </table>
         <input type="submit" onclick="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
-               value="Añadir servicio" class="btn btn-success" />Añadir servicio</td>
+               value="Añadir servicio" class="btn btn-success"/>Añadir servicio</td>
     </form>
 </main>

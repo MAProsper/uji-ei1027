@@ -1,34 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Reservas</span>
 <main layout:fragment="content">
-  <p th:if="${#lists.isEmpty(object)}">No hay ninguna reserva</p>
-  <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Código</th>
-        <th>Número de personas</th>
-        <th>Área</th>
-        <th>Zonas</th>
-        <th>Día</th>
-        <th>Horario</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr th:each="object: ${object}">
-        <td th:text="*{object.id}"></td>
-        <td th:text="*{object.occupied}"></td>
-        <td th:text="*{data[objectStat.index].area.name}"></td>
-        <td th:text="*{data[objectStat.index].zone}"></td>
-        <td th:text="*{object.date}"></td>
-        <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-        <td>
-          <a th:href="@{delete/{id}(id=${object.id})}"
-             onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
-             class="btn btn-danger" role="button" th:if="*{object.active and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager))}">Cancelar la reserva</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Código</th>
+            <th>Número de personas</th>
+            <th>Área</th>
+            <th>Zonas</th>
+            <th>Día</th>
+            <th>Horario</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(object)}">
+            <td colspan="7">No hay ninguna reserva
+            <td>
+        </tr>
+        <tr th:each="object: ${object}">
+            <td th:text="*{object.id}"></td>
+            <td th:text="*{object.occupied}"></td>
+            <td th:text="*{data[objectStat.index].area.name}"></td>
+            <td th:text="*{data[objectStat.index].zone}"></td>
+            <td th:text="*{object.date}"></td>
+            <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td>
+                <a th:href="@{delete/{id}(id=${object.id})}"
+                   onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
+                   class="btn btn-danger" role="button"
+                   th:if="*{object.active and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager))}">Cancelar
+                    la reserva</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </main>

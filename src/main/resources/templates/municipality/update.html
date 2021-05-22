@@ -10,8 +10,15 @@
                 <th><label for="name">Nombre</label></th>
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('name')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
         </table>
         <input type="submit" value="Actualizar municipio"
-               class="btn btn-warning" onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/>Actualizar municipio</td>
+               class="btn btn-warning"
+               onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/>Actualizar
+        municipio</td>
     </form>
 </main>

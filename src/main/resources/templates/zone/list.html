@@ -1,27 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Lista de zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<span layout:fragment="title"
+      th:text="'Lista de zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <p th:if="${#lists.isEmpty(objects)}">No hay ninguna zona registrada</p>
-    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+    <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Capacidad</th>
-                <th>Fecha de alta / Fecha de baja</th>
-                <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
-            </tr>
+        <tr>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Fecha de alta / Fecha de baja</th>
+            <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="object: ${objects}">
-                <td th:text="*{object.name}"></td>
-                <td th:text="*{object.capacity}"></td>
-                <td th:text="*{object.toSignString}"></td>
-                <td><a th:href="@{delete/{id}(id=${object.id})}"
-                       onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
-                       class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
-            </tr>
+        <tr th:if="${#lists.isEmpty(object)}">
+            <td colspan="4">No hay ninguna zona registrada
+            <td>
+        </tr>
+        <tr th:each="object: ${objects}">
+            <td th:text="*{object.name}"></td>
+            <td th:text="*{object.capacity}"></td>
+            <td th:text="*{object.toSignString}"></td>
+            <td><a th:href="@{delete/{id}(id=${object.id})}"
+                   onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
+                   class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+        </tr>
         </tbody>
     </table>
-
 </main>

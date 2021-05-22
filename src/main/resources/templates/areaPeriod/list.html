@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Horarios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<span layout:fragment="title"
+      th:text="'Horarios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <table class="table table-striped">
         <thead>
@@ -8,28 +10,34 @@
             <th>Fechas</th>
             <th>Horario</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" href="add" class="btn btn-success" role="button">Añadir horario</a>
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" href="add" class="btn btn-success"
+                   role="button">Añadir horario</a>
             </th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="3">No hay ningun horario registrado<td>
+            <td colspan="3">No hay ningun horario registrado
+            <td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toPeriodString}"></td>
             <td>
-                <a th:if="${session.user == null or session.user instanceof T(app.model.Citizen)}" th:href="@{/reservation/add/{id}(id=${object.id})}" class="btn btn-success" role="button">Reservar
+                <a th:if="${session.user == null or session.user instanceof T(app.model.Citizen)}"
+                   th:href="@{/reservation/add/{id}(id=${object.id})}" class="btn btn-success" role="button">Reservar
                 </a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                    th:href="@{/control-staff/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver personal
+                   th:href="@{/control-staff/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
+                    personal
                 </a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                    th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                   th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                    th:href="@{delete/{id}(id=${object.id})}" onclick="return confirm('¿Seguro que desea eliminar el horario?')" class="btn btn-danger" role="button">Eliminar
+                   th:href="@{delete/{id}(id=${object.id})}"
+                   onclick="return confirm('¿Seguro que desea eliminar el horario?')" class="btn btn-danger"
+                   role="button">Eliminar
                 </a>
             </td>
         </tr>

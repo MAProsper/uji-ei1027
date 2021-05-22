@@ -10,28 +10,54 @@
                 <th><label for="name">Nombre</label></th>
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('name')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="type">Tipo</label></th>
                 <td>
                     <select type="number" id="type" th:field="*{type}">
-                        <option th:each="type : ${T(app.model.enums.AreaType).values()}" th:value="${type}" th:text="${type.name}"></option>
+                        <option th:each="type : ${T(app.model.enums.AreaType).values()}" th:value="${type}"
+                                th:text="${type.name}"></option>
                     </select>
+                </td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('type')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="description">Descripción</label></th>
                 <td><input type="number" id="description" th:field="*{description}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('description')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="location">Coordenadas</label></th>
                 <td><input type="text" pattern="" id="location" th:field="*{location}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('location')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
             </tr>
             <tr>
                 <th><label for="image">URL de la imágen</label></th>
                 <td><input type="url" id="image" th:field="*{image}"></td>
             </tr>
+            <tr th:each="err : ${#fields.errors('image')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
         </table>
         <input type="submit" onclick="return confirm('¿Seguro que desea añadir el area y los datos son correctos?')"
-               value="Añadir Zona" class="btn btn-success" />Añadir Área</td>
+               value="Añadir Zona" class="btn btn-success"/>Añadir Área</td>
     </form>
 </main>
