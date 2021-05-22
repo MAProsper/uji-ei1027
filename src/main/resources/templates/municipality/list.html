@@ -16,7 +16,8 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="3">No hay ningun municipio registrado</td>
+            <td colspan="3" th:if="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun municipio registrado</td>
+            <td colspan="2" th:unless="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun municipio registrado</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
