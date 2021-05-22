@@ -7,7 +7,7 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Validez</th>
+            <th th:if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
             <th>
                 <a th:if="${session.user instanceof T(app.model.EnviromentalManager)}" href="add"
                    class="btn btn-success" role="button">Añadir municipio</a>
@@ -20,7 +20,7 @@
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
-            <td th:text="*{object.toSignString}"></td>
+            <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
             <td>
                 <a th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == object.id}"

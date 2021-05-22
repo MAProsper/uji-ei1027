@@ -7,7 +7,7 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Validez</th>
+            <th th:if="${session.user instanceof T(app.model.MunicipalManager)}">Validez</th>
             <th>Tipo</th>
             <th>Descripción</th>
             <th>Localización</th>
@@ -24,7 +24,7 @@
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
-            <td th:text="*{object.toSignString}"></td>
+            <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td th:text="*{object.type.name}"></td>
             <td th:text="*{object.description}"></td>
             <td th:text="*{object.location}"></td>
@@ -35,10 +35,10 @@
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
                    th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                   th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                   th:href="@{/area/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                   th:href="@{delete/{id}(id=${object.id})}"
+                   th:href="@{/area/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el área?')" class="btn btn-danger" role="button">Eliminar
                 </a>
             </td>
