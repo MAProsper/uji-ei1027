@@ -39,7 +39,8 @@ public class ReservationService extends app.service.generic.Service<Reservation>
         List<Zone> areaZone = zoneDao.getChildsOf(area);
         String reservationZone = reservationZoneDao.getChildsOf(r).stream().map(zoneDao::getParentOf).map(Zone::getName).collect(Collectors.joining(", "));
         Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", Collections.min(List.of(today.plusDays(2), areaPeriod.scheduleEnd)));
-        return Map.of("citizen", citizen, "area", area, "municipality", municipality, "zone", reservationZone, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date);
+        int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
+        return Map.of("citizen", citizen, "area", area, "municipality", municipality, "zone", reservationZone, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity);
     }
 
     @Override

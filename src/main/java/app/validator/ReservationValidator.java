@@ -70,21 +70,26 @@ public class ReservationValidator extends Validator<Reservation> {
                 errors.accept("occupied", "Mínimo ha de haber 1 persona");
             } else {
                 int capacity = zones.stream().mapToInt(Zone::getCapacity).sum();
-                if (r.getOccupied() > capacity)
+                if (r.getOccupied() > capacity) {
                     errors.accept("occupied", "Demasiadas personas para la capacidad de las zonas selecionadas");
+                }
             }
             // Comprobar que, para toda reserva que estás haciendo, no existra otra en:
             // - en el área que estás reservando,
             // - en el día que estás reservando
             // - y en el horario que estás reservando
             Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
+            Set<Reservation> delete = new HashSet<>();
             Set<Integer> idReservedZones = new HashSet<>();
+
             for (Reservation reservation : reservations) {
-                if (!reservation.getDate().equals(r.getDate())) reservations.remove(reservation);
+                if (!reservation.getDate().equals(r.getDate())) delete.add(reservation);
                 else
                     for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
                         idReservedZones.add(reservationZone.getZone());
             }
+            reservations.removeAll(delete);
+
             Set<Integer> setIdZones = new HashSet<>(r.getZones());
             // idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r
             idReservedZones.retainAll(setIdZones);

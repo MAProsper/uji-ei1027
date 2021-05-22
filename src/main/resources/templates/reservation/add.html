@@ -37,7 +37,7 @@
             </tr>
             <tr>
                 <th><label for="occupied">Número de personas</label></th>
-                <td><input type="number" id="occupied" th:field="*{occupied}" min="1"></td>
+                <td><input type="number" id="occupied" th:field="*{occupied}" min="1" max="${data.capacity}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">
