@@ -1,4 +1,5 @@
 INSERT INTO Municipality VALUES(1, '2021-01-01 00:00:00', '2022-01-01 12:00:00', 'Benicassim');
+INSERT INTO Municipality VALUES(2, '2021-01-01 00:00:00', '2022-01-01 12:00:00', 'Castellon');
 INSERT INTO Area VALUES(1, '2021-01-01 00:00:00', '2022-01-01 12:00:00', 'area1', 1, 1, 'A very nice description', 'location', 'https://via.placeholder.com/480x360');
 INSERT INTO Area VALUES(2, '2021-01-01 00:00:00', '2022-01-01 12:00:00', 'area2', 1, 2, 'A very nice description 2', 'location 2', 'https://via.placeholder.com/480x360');
 INSERT INTO AreaPeriod VALUES(1, '2021-01-01', '2022-01-02', '00:00:00', '12:00:00', 1);
