@@ -5,6 +5,7 @@
       th:text="'Añadir horario para ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form
+            onsubmit="return confirm('¿Seguro que desea añadir el horario y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
@@ -44,7 +45,6 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" onclick="return confirm('¿Seguro que desea añadir el horario y los datos son correctos?')"
-               value="Añadir" class="btn btn-success"/>Añadir horario</td>
+        <input type="submit" value="Añadir" class="btn btn-success"/>Añadir horario</td>
     </form>
 </main>

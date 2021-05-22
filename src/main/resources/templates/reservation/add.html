@@ -4,7 +4,9 @@
 <span layout:fragment="title"
       th:text="'Añadir reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <form th:object="${object}" method="post">
+    <form
+            onsubmit="return confirm('¿Seguro que desea realizar la reserva y los datos son correctos?')"
+            th:object="${object}" method="post">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
             <tr>
@@ -37,7 +39,7 @@
             </tr>
             <tr>
                 <th><label for="occupied">Número de personas</label></th>
-                <td><input type="number" id="occupied" th:field="*{occupied}" min="1" max="${data.capacity}"></td>
+                <td><input type="number" id="occupied" th:field="*{occupied}" min="1" th:attr="max=${data.capacity}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">
@@ -45,8 +47,6 @@
                 </td>
             </tr>
         </table>
-        <input
-                onclick="return confirm('¿Seguro que desea realizar la reserva y los datos son correctos?')"
-                type="submit" value="Reservar" class="btn btn-success"/>
+        <input type="submit" value="Reservar" class="btn btn-success"/>
     </form>
 </main>

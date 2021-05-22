@@ -5,6 +5,7 @@
       th:text="'Añadir servicios a ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form
+            onsubmit="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
             th:object="${object}" method="post">
         <td><input type="hidden" id="area" th:field="*{area}"></td>
         <table>
@@ -57,7 +58,6 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" onclick="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
-               value="Añadir" class="btn btn-success"/>Añadir servicio</td>
+        <input type="submit" value="Añadir" class="btn btn-success"/>Añadir servicio</td>
     </form>
 </main>

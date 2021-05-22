@@ -4,6 +4,7 @@
 <span layout:fragment="title">Añadir un municipio</span>
 <main layout:fragment="content">
     <form
+            onsubmit="return confirm('¿Seguro que desea dar de alta el municipio y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
@@ -16,9 +17,6 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Añadir"
-               class="btn btn-success"
-               onclick="return confirm('¿Seguro que desea dar de alta el municipio y los datos son correctos?')"/>Dar de
-        alta un municipio</td>
+        <input type="submit" value="Añadir" class="btn btn-success"/>Dar de alta un municipio</td>
     </form>
 </main>
