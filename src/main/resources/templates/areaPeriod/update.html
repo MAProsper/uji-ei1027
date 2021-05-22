@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar horario</span>
+<span layout:fragment="title"
+      th:text="'Actualizar horario para ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -45,6 +46,6 @@
         </table>
         <input type="submit"
                onclick="return confirm('¿Seguro que desea actualizar el horario y los datos son correctos?')"
-               value="Añadir horario" class="btn btn-warning"/>Actualizar horario</td>
+               value="Actualizar" class="btn btn-warning"/>Actualizar horario</td>
     </form>
 </main>

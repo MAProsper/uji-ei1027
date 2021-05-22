@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title"
-      th:text="'Lista de zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      th:text="'Zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <table class="table table-striped">
         <thead>

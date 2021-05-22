@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title"
-      th:text="'Reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
+      th:text="'Actualizar reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form th:object="${object}" method="post">
         <img class="img-fluid" th:src="${data.area.image}">
@@ -47,6 +47,6 @@
         </table>
         <input
                 onclick="return confirm('¿Seguro que desea realizar la reserva y los datos son correctos?')"
-                type="submit" value="Reservar" class="btn btn-warning"/>
+                type="submit" value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

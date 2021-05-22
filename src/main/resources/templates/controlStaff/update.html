@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar datos del ciudadano o de la ciudadana</span>
+<span layout:fragment="title">Actualizar personal de control</span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -43,8 +43,8 @@
                 </td>
             </tr>
         </table>
-        <input onclick="return confirm('¿Seguro que quiere actualizar los datosy los datos son correctos?')"
-               type="submit" value="Actualizar datos" class="btn btn-success"
+        <input onclick="return confirm('¿Seguro que quiere actualizar los datos y los datos son correctos?')"
+               type="submit" value="Actualizar" class="btn btn-success"
         /></td>
     </form>
 </main>

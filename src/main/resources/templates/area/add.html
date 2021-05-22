@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Añadir Área</span>
+<span layout:fragment="title" th:text="'Añadir area a ' + ${data[0].municipality.name}"></span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -58,6 +58,6 @@
             </tr>
         </table>
         <input type="submit" onclick="return confirm('¿Seguro que desea añadir el area y los datos son correctos?')"
-               value="Añadir Zona" class="btn btn-success"/>Añadir Área</td>
+               value="Añadir" class="btn btn-success"/>Añadir Área</td>
     </form>
 </main>

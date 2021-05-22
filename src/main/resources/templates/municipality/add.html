@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Dar de alta un municipio</span>
+<span layout:fragment="title">Añadir un municipio</span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -16,7 +16,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Añadir municipio"
+        <input type="submit" value="Añadir"
                class="btn btn-success"
                onclick="return confirm('¿Seguro que desea dar de alta el municipio y los datos son correctos?')"/>Dar de
         alta un municipio</td>

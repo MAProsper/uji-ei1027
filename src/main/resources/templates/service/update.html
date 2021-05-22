@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar servicio</span>
+<span layout:fragment="title"
+      th:text="'Actualizar servicios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -58,6 +59,6 @@
         </table>
         <input type="submit"
                onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
-               value="Actualizar servicio" class="btn btn-success"/>Actualizar servicio</td>
+               value="Actualizar" class="btn btn-success"/>Actualizar servicio</td>
     </form>
 </main>

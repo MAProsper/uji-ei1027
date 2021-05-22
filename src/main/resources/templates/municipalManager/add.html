@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Dar de alta gestor/a municipal</span>
+<span layout:fragment="title">Añadir un gestor municipal</span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -52,7 +52,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Añadir gestor/a municipal"
+        <input type="submit" value="Dar de alta"
                onclick="return confirm('¿Seguro que desea dar de alta al gestor municipal y los datos son correctos?')"
                class="btn btn-success"/> Dar de alta gestor municipal</td>
     </form>

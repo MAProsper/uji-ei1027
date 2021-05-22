@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar municipio</span>
+<span layout:fragment="title">Actualizar un municipio</span>
 <main layout:fragment="content">
     <form
             th:object="${object}" method="post">
@@ -16,7 +16,7 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Actualizar municipio"
+        <input type="submit" value="Actualizar"
                class="btn btn-warning"
                onclick="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"/>Actualizar
         municipio</td>
