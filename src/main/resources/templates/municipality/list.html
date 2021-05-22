@@ -23,10 +23,10 @@
             <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
             <td>
                 <a th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == object.id}"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == object.id and object.active}"
                    th:href="@{/municipality/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:if="${session.user instanceof T(app.model.EnviromentalManager)}"
+                <a th:if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
                    th:href="@{/municipality/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja el municipio?')"
                    class="btn btn-danger" role="button">Dar de baja municipio
