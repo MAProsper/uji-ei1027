@@ -30,7 +30,10 @@
             <td th:text="*{object.country}"></td>
             <td th:text="*{object.address}"></td>
             <td th:text="*{object.toSignString}"></td>
-            <td><a th:href="@{delete/{id}(id=${object.id})}"
+            <td>
+                <a th:href="@{/citizen/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                </a>
+                <a th:href="@{/citizen/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al ciudadano o ciudadana?')"
                    class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
         </tr>
