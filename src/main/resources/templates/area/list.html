@@ -12,8 +12,8 @@
                 <th>Descripción</th>
                 <th>Localización</th>
                 <th>Imagen</th>
-                <th th:if="session.user instanceof T(app.model.MunicipalManager)">
-                    <a href="add" class="btn btn-success" role="button">Añadir área</a>
+                <th>
+                    <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" href="add" class="btn btn-success" role="button">Añadir área</a>
                 </th>
             </tr>
         </thead>
@@ -27,11 +27,10 @@
                 <td><a th:href="*{object.image}" th:text="*{object.image}" target="_blank"></a></td>
                 <td>
                     <a th:href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver Horarios</a>
-                    <a th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
-                    <a th:if="session.user instanceof T(app.model.MunicipalManager)"
-                            th:if th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                    <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
+                    <a th:if="${session.user instanceof T(app.model.MunicipalManager)}" th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                     </a>
-                    <a  th:if="session.user instanceof T(app.model.MunicipalManager)"
+                    <a  th:if="${session.user instanceof T(app.model.MunicipalManager)}"
                         th:href="@{delete/{id}(id=${object.id})}" onclick="return confirm('¿Seguro que desea eliminar el área?')" class="btn btn-danger" role="button">Eliminar
                     </a>
                 </td>

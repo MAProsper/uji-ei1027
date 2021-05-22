@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Lista de gestores y gestoras municipales</span>
 <main layout:fragment="content">
-    <p th:if="${#lists.isEmpty(objects)} or not session.user instanceof T(app.model.EnviromentalManager)">No hay ningún gestor municipal registrado</p>
+    <p th:if="${#lists.isEmpty(objects)} or not (session.user instanceof T(app.model.EnviromentalManager))">No hay ningún gestor municipal registrado</p>
     <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
         <thead>
             <tr>
