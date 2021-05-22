@@ -23,7 +23,7 @@
                 <td th:text="*{object.identification}"></td>
                 <td th:text="*{object.name}"></td>
                 <td th:text="*{object.password}"></td>
-                <td th:text="*{object.municipality}"></td>
+                <td th:text="*{object.municipality.name}"></td>
                 <td th:text="*{object.phone}"></td>
                 <td th:text="*{object.toSignString}"></td>
                 <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>

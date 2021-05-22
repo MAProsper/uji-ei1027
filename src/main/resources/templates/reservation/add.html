@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Reserva para ' + ${data.area.name} + ' de ' + ${data.municipality.name}"></span>
+<span layout:fragment="title" th:text="'Reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form th:object="${object}" method="post">
         <img class="img-fluid" th:src="${data.area.image}">

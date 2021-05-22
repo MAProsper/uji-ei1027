@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Lista de reservas</span>
+<span layout:fragment="title">Reservas</span>
 <main layout:fragment="content">
   <p th:if="${#lists.isEmpty(object)}">No hay ninguna reserva</p>
   <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">

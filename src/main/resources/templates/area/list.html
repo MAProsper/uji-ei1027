@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Lista de areas de ' + ${data[0].municipality}"></span>
+<span layout:fragment="title" th:text="'Areas de ' + ${data[0].municipality.name}"></span>
 <main layout:fragment="content">
     <p th:if="${#lists.isEmpty(object)}">No hay ninguna area registrada</p>
     <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
