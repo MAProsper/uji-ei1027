@@ -18,8 +18,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="8">No hay ningún ciudadano registrado
-            <td>
+            <td colspan="8">No hay ningún ciudadano registrado</td>
         </tr>
         <tr th:each="object: ${objects}">
             <td th:text="*{object.id}"></td>
