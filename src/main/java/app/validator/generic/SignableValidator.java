@@ -4,7 +4,7 @@ import app.model.generic.Signable;
 
 public abstract class SignableValidator<T extends Signable> extends Validator<T> {
     @Override
-    public void object(T object, FieldError errors) {
+    public void object(T object, FieldErrors errors) {
         super.object(object, errors);
 
         if (object.getSingDown() != null && object.getSingUp().compareTo(object.getSingDown()) > 0)

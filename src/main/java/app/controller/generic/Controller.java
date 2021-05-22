@@ -42,6 +42,31 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
     }
 
     /**
+     * Obtener un modelo y vista
+     *
+     * @param model  modelo de la vista
+     * @param object objeto referencia
+     * @param data   obtener datos del objeto
+     * @param view   vista actual
+     * @return vista
+     */
+    protected <T> String model(Model model, T object, Function<T, Object> data, String view) {
+        model.addAttribute("object", object).addAttribute("data", data.apply(object));
+        return getView(view);
+    }
+
+    /**
+     * Obtener datos de los objetos de un listado
+     *
+     * @param objects objetos referencia
+     * @param empty   objeto vacio
+     * @return datos del objeto
+     */
+    protected List<Map<String, Object>> data(List<M> objects, M empty) {
+        return objects.isEmpty() ? List.of(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
+    }
+
+    /**
      * Peticion de presentacion de objectos
      *
      * @param session   sesion
@@ -50,18 +75,11 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @param view      vista actual
      * @param model     modelo de la vista
      * @param factory   obtener objeto para formulario
+     * @param data      obtener datos del objeto
      * @return vista o error
      */
     protected <T> String object(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data) {
-        return setup(session, arg, validator, view).orElseGet(() -> {
-            T object = factory.apply(session, arg);
-            model.addAttribute("object", object).addAttribute("data", data.apply(object));
-            return getView(view);
-        });
-    }
-
-    protected List<Map<String, Object>> data(List<M> objects, M empty) {
-        return objects.isEmpty() ? List.of(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
+        return setup(session, arg, validator, view).orElseGet(() -> model(model, factory.apply(session, arg), data, view));
     }
 
     /**
@@ -71,18 +89,17 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @param arg       argumento opcional
      * @param validator validador de peticion
      * @param view      vista actual
-     * @param object    objeto referencia
+     * @param model     modelo de la vista
+     * @param object    objeto del formulario
      * @param binding   error en el objeto
      * @param process   procesado del objeto
-     * @param model
      * @return vista o error
      */
-    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process, BiFunction<HttpSession, Integer, M> factory, Model model) {
+    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process, BiFunction<HttpSession, Integer, M> factory) {
         return setup(session, arg, validator, view).orElseGet(() -> {
             reflect.merge(factory.apply(session, arg), object);
             this.validator.validate(object, binding);
-            model.addAttribute("object", object).addAttribute("data", service.data(object));
-            if (binding.hasErrors()) return getView(view);
+            if (binding.hasErrors()) return model(model, object, service::data, view);
             process.accept(session, arg, object);
             return getRedirect(session, arg);
         });
@@ -100,7 +117,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/add", "/add/{arg}"}, method = RequestMethod.POST)
     public String addProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::add, "add", object, binding, service::addProcess, service::addObject, model);
+        return process(session, arg, validator::add, "add", model, object, binding, service::addProcess, service::addObject);
     }
 
     @RequestMapping({"/update", "/update/{arg}"})
@@ -110,7 +127,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/update", "/update/{arg}"}, method = RequestMethod.POST)
     public String updateProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::update, "update", object, binding, service::updateProcess, service::updateObject, model);
+        return process(session, arg, validator::update, "update", model, object, binding, service::updateProcess, service::updateObject);
     }
 
     @RequestMapping({"/delete", "/delete/{arg}"})

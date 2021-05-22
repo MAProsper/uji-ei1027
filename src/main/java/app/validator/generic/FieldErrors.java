@@ -2,5 +2,5 @@ package app.validator.generic;
 
 import java.util.function.BiConsumer;
 
-public interface FieldError extends BiConsumer<String, String> {
+public interface FieldErrors extends BiConsumer<String, String> {
 }

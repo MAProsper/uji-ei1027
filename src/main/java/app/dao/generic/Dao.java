@@ -71,12 +71,25 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         return executeQuery("");
     }
 
+    /**
+     * Obtener el objeto que contiene a otro
+     * Municipality = getParentOf(Area)
+     *
+     * @param other objeto contenido
+     * @return objeto contenedor
+     */
     @SuppressWarnings("unchecked")
     public T getParentOf(Model other) {
         Mapper<Model> mapper = new Mapper<>((Class<Model>) other.getClass());
         return getById((Integer) mapper.getReflect().get(other, StringUtil.toPackageCase(this.mapper.getTableName())));
     }
 
+    /**
+     * Objeto los objetos contenidos por otro
+     *
+     * @param other objeto contenedor
+     * @return objetos contenidos
+     */
     public List<T> getChildsOf(Model other) {
         Mapper<?> mapper = new Mapper<>(other.getClass());
         return getByField(mapper.getTableName(), other.getId());
