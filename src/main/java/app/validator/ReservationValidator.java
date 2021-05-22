@@ -2,7 +2,6 @@ package app.validator;
 
 import app.dao.*;
 import app.model.*;
-import app.model.generic.Place;
 import app.validator.generic.FieldErrors;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +92,7 @@ public class ReservationValidator extends Validator<Reservation> {
             Set<Integer> setIdZones = new HashSet<>(r.getZones());
             // idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r
             idReservedZones.retainAll(setIdZones);
-            if (! idReservedZones.isEmpty()){
+            if (!idReservedZones.isEmpty()) {
                 String stringError = idReservedZones.stream().map(zoneDao::getById).map(Zone::getName).collect(Collectors.joining(", "));
                 errors.accept("zones", "Las siguientes zonas están reservadas: " + stringError);
             }

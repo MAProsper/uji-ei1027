@@ -7,6 +7,7 @@ import app.model.generic.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public abstract class Service<M extends Model> {
     @Autowired protected Dao<M> dao;
 
     public Map<String, Object> data(M object) {
-        return Map.of();
+        return Collections.emptyMap();
     }
 
     /**

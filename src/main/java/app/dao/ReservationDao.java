@@ -1,7 +1,6 @@
 package app.dao;
 
 import app.dao.generic.Dao;
-import app.model.AreaPeriod;
 import app.model.Reservation;
 import org.springframework.stereotype.Repository;
 

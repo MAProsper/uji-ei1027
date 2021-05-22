@@ -30,7 +30,7 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public Map<String, Object> data(Reservation r) {
-        if (r.getAreaPeriod() == 0) return Map.of();
+        if (r.getAreaPeriod() == 0) return Collections.emptyMap();
         LocalDate today = LocalDate.now();
         Citizen citizen = citizenDao.getParentOf(r);
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);

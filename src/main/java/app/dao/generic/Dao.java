@@ -10,6 +10,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -133,7 +134,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         try {
             return jdbc.query(query, mapper, values);
         } catch (EmptyResultDataAccessException e) {
-            return List.of();
+            return Collections.emptyList();
         }
     }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @return datos del objeto
      */
     protected List<Map<String, Object>> data(List<M> objects, M empty) {
-        return objects.isEmpty() ? List.of(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
+        return objects.isEmpty() ? Collections.singletonList(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
     }
 
     /**
