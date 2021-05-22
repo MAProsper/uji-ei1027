@@ -18,7 +18,7 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired AreaDao areaDao;
-    
+
     @Override
     public List<AreaPeriod> listObjects(HttpSession session, Integer arg) {
         return areaPeriodDao.getByArea(arg);

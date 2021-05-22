@@ -145,7 +145,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
     protected int getNextId() {
         String query = String.format("SELECT MAX(id) FROM %s", mapper.getTableName());
         Integer id = jdbc.queryForObject(query, Integer.class);
-        return id == null ? 0 : ++id;
+        return id == null ? 1 : ++id;
     }
 
     /**

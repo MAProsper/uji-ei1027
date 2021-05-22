@@ -72,7 +72,7 @@ CREATE TABLE Zone(
 CREATE TABLE ControlStaff(
   id INTEGER PRIMARY KEY,
   sign_up TIMESTAMP NOT NULL,
-  sign_down TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   mail TEXT NOT NULL,
@@ -88,7 +88,7 @@ CREATE TABLE ControlStaff(
 CREATE TABLE EnviromentalManager(
   id INTEGER PRIMARY KEY,
   sign_up TIMESTAMP NOT NULL,
-  sign_down TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   mail TEXT NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE EnviromentalManager(
 CREATE TABLE MunicipalManager(
   id INTEGER PRIMARY KEY,
   sign_up TIMESTAMP NOT NULL,
-  sign_down TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   mail TEXT NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE MunicipalManager(
 CREATE TABLE Citizen(
   id INTEGER PRIMARY KEY,
   sign_up TIMESTAMP NOT NULL,
-  sign_down TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NULL,
   identification TEXT NOT NULL,
   name TEXT NOT NULL,
   mail TEXT NOT NULL,
