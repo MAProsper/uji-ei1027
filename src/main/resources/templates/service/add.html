@@ -31,6 +31,7 @@
                 <td><input type="time" id="periodEnd" th:field="*{periodEnd}"></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir servicio" class="btn btn-success" /></td>
+        <input type="submit" onclick="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
+               value="Añadir servicio" class="btn btn-success" />Añadir servicio</td>
     </form>
 </main>

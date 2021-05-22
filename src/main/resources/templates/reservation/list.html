@@ -7,7 +7,7 @@
     <thead>
       <tr>
         <th>Código</th>
-        <th>Nº de personas</th>
+        <th>Número de personas</th>
         <th>Área</th>
         <th>Zonas</th>
         <th>Día</th>
@@ -23,7 +23,11 @@
         <td th:text="*{data[objectStat.index].zone}"></td>
         <td th:text="*{object.date}"></td>
         <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-        <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+      <td th:if="sessioun.user != null and not session.user instanceof T(app.model.EnviromentalManager)">
+          <a th:href="@{delete/{id}(id=${object.id})}"
+             onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
+             class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar la reserva</a>
+        </td>
       </tr>
     </tbody>
   </table>

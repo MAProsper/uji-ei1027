@@ -11,7 +11,7 @@
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr>
-                <th><label for="area">Area</label></th>
+                <th><label for="area">Área</label></th>
                 <td><input type="text" id="area" th:field="*{area}"></td>
             </tr>
             <tr>
@@ -19,6 +19,7 @@
                 <td><input type="text" id="capacity" th:field="*{capacity}"></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir Zona" class="btn btn-success" /></td>
+        <input type="submit" onclick="return confirm('¿Seguro que desea añadir la zona y los datos son correctos?')"
+               value="Añadir Zona" class="btn btn-success" />Añadir zona</td>
     </form>
 </main>

@@ -2,17 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
 <span layout:fragment="title" th:text="'Areas de ' + ${data[0].municipality.name}"></span>
 <main layout:fragment="content">
-    <p th:if="${#lists.isEmpty(object)}">No hay ninguna area registrada</p>
+    <p th:if="${#lists.isEmpty(object)}">No hay ninguna área registrada</p>
     <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Validez</th>
                 <th>Tipo</th>
-                <th>Descripcion</th>
-                <th>Localizacion</th>
+                <th>Descripción</th>
+                <th>Localización</th>
                 <th>Imagen</th>
-                <th><a href="add" class="btn btn-success" role="button">Añadir area</a></th>
+                <th th:if="session.user instanceof T(app.model.MunicipalManager)">
+                    <a href="add" class="btn btn-success" role="button">Añadir área</a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -26,8 +28,13 @@
                 <td>
                     <a th:href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver Horarios</a>
                     <a th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
-                    <a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
-                    <a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a></td>
+                    <a th:if="session.user instanceof T(app.model.MunicipalManager)"
+                            th:if th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                    </a>
+                    <a  th:if="session.user instanceof T(app.model.MunicipalManager)"
+                        th:href="@{delete/{id}(id=${object.id})}" onclick="return confirm('¿Seguro que desea eliminar el área?')" class="btn btn-danger" role="button">Eliminar
+                    </a>
+                </td>
             </tr>
         </tbody>
     </table>

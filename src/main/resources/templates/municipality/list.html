@@ -8,7 +8,9 @@
             <tr>
                 <th>Nombre</th>
                 <th>Validez</th>
-                <th><a href="add" class="btn btn-success" role="button">Añadir municipio</a></th>
+                <th th:if="session.user instanceof T(app.model.EnviromentalManager)">
+                    <a href="add" class="btn btn-success" role="button">Añadir municipio</a>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +19,15 @@
                 <td th:text="*{object.toSignString}"></td>
                 <td>
                     <a th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a>
-                    <a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
-                    <a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a>
+                    <a th:if="session.user instanceof T(app.model.MunicipalManager)"
+                       th:if="session.user.municipality == object.id"
+                        th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                    </a>
+                    <a th:if="session.user instanceof T(app.model.EnviromentalManager)"
+                        th:href="@{delete/{id}(id=${object.id})}"
+                       onclick="return confirm('¿Seguro que desea dar de baja el municipio?')"
+                       class="btn btn-danger" role="button">Dar de baja municipio
+                    </a>
                 </td>
             </tr>
         </tbody>

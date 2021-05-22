@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Añadir Zona</span>
+<span layout:fragment="title">Añadir Área</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/zone/add}"
+    <form action="#" th:action="@{/area/add}"
           th:object="${object}" method="post">
         <table>
             <tr>
@@ -11,14 +11,27 @@
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr>
-                <th><label for="area">Area</label></th>
-                <td><input type="text" id="area" th:field="*{area}"></td>
+                <th><label for="type">Tipo</label></th>
+                <td>
+                    <select type="number" id="type" th:field="*{type}">
+                        <option th:each="type : ${T(app.model.enums.AreaType).values()}" th:value="${type}" th:text="${type.name}"></option>
+                    </select>
+                </td>
             </tr>
             <tr>
-                <th><label for="capacity">Capacidad</label></th>
-                <td><input type="number" id="capacity" th:field="*{capacity}"></td>
+                <th><label for="description">Descripción</label></th>
+                <td><input type="number" id="description" th:field="*{description}"></td>
+            </tr>
+            <tr>
+                <th><label for="location">Coordenadas</label></th>
+                <td><input type="text" pattern="" id="location" th:field="*{location}"></td>
+            </tr>
+            <tr>
+                <th><label for="image">URL de la imágen</label></th>
+                <td><input type="url" id="image" th:field="*{image}"></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir Zona" class="btn btn-success" /></td>
+        <input type="submit" onclick="return confirm('¿Seguro que desea añadir el area y los datos son correctos?')"
+               value="Añadir Zona" class="btn btn-success" />Añadir Área</td>
     </form>
 </main>

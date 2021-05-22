@@ -15,7 +15,7 @@
                 <th>Ciudad</th>
                 <th>Dirección</th>
                 <th>Validez</th>
-                <th><a href="add" class="btn btn-success" role="button">Añadir ciudadano/ciudadana</a></th>
+                <th><a href="add" class="btn btn-success" role="button">Dar de alta</a></th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 <td th:text="*{object.country}"></td>
                 <td th:text="*{object.address}"></td>
                 <td th:text="*{object.toSignString}"></td>
-                <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+                <td><a th:href="@{delete/{id}(id=${object.id})}" onclick="return confirm('¿Seguro que desea dar de baja al ciudadano o ciudadana?')" class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
             </tr>
         </tbody>
     </table>

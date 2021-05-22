@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar datos de una Zona</span>
+<span layout:fragment="title">Actualizar Zona</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/zone/update}"
+    <form action="#" th:action="@{/zone/add}"
           th:object="${object}" method="post">
         <table>
             <tr>
@@ -11,7 +11,7 @@
                 <td><input type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr>
-                <th><label for="area">Area</label></th>
+                <th><label for="area">Área</label></th>
                 <td><input type="text" id="area" th:field="*{area}"></td>
             </tr>
             <tr>
@@ -19,6 +19,7 @@
                 <td><input type="text" id="capacity" th:field="*{capacity}"></td>
             </tr>
         </table>
-        <input type="submit" value="Actualizar datos de la Zona" /></td>
+        <input type="submit" onclick="return confirm('¿Seguro que desea actualizar la zona y los datos son correctos?')"
+               value="Actualizar Zona" class="btn btn-success" />Actualizar zona</td>
     </form>
 </main>

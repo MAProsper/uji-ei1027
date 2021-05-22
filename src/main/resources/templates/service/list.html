@@ -19,9 +19,11 @@
             <td th:text="*{object.toScheduleString}"></td>
             <td th:text="*{object.toPeriodString}"></td>
             <td th:text="*{object.toPeriodString}"></td>
-            <td>
+            <td th:if="session.user instanceof T(app.model.MunicipalManager">
                 <a th:href="@{update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
-                <a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button">Eliminar</a>
+                <a th:href="@{delete/{id}(id=${object.id})}"
+                   onclick="return confirm('¿Seguro que desea eliminar el servicio?')"
+                   class="btn btn-danger" role="button">Eliminar servicio</a>
             </td>
         </tr>
         </tbody>

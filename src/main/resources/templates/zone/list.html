@@ -8,7 +8,7 @@
             <tr>
                 <th>Nombre</th>
                 <th>Capacidad</th>
-                <th>Validez</th>
+                <th>Fecha de alta / Fecha de baja</th>
                 <th><a href="add" class="btn btn-success" role="button">Añadir zona</a></th>
             </tr>
         </thead>
@@ -17,7 +17,9 @@
                 <td th:text="*{object.name}"></td>
                 <td th:text="*{object.capacity}"></td>
                 <td th:text="*{object.toSignString}"></td>
-                <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
+                <td><a th:href="@{delete/{id}(id=${object.id})}"
+                       onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
+                       class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
             </tr>
         </tbody>
     </table>

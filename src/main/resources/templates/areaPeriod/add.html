@@ -1,24 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Añadir Zona</span>
+<span layout:fragment="title">Añadir horario</span>
 <main layout:fragment="content">
-    <form action="#" th:action="@{/zone/add}"
+    <form action="#" th:action="@{/areaPeriod/add}"
           th:object="${object}" method="post">
         <table>
             <tr>
-                <th><label for="name">Nombre</label></th>
-                <td><input type="text" id="name" th:field="*{name}"></td>
+                <th><label for="scheduleStart">Fecha de inicio</label></th>
+                <td><input type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
             </tr>
             <tr>
-                <th><label for="area">Area</label></th>
-                <td><input type="text" id="area" th:field="*{area}"></td>
+                <th><label for="scheduleEnd">Fecha de fin</label></th>
+                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}"></td>
             </tr>
             <tr>
-                <th><label for="capacity">Capacidad</label></th>
-                <td><input type="text" id="capacity" th:field="*{capacity}"></td>
+                <th><label for="periodStart">Hora de inicio</label></th>
+                <td><input type="time" id="periodStart" th:field="*{periodStart}"></td>
+            </tr>
+            <tr>
+                <th><label for="periodEnd">Hora de fin</label></th>
+                <td><input type="time" id="periodEnd" th:field="*{periodEnd}"></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir Zona" class="btn btn-success" /></td>
+        <input type="submit" onclick="return confirm('¿Seguro que desea añadir el horario y los datos son correctos?')"
+               value="Añadir horario" class="btn btn-success" />Añadir horario</td>
     </form>
 </main>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
+<span layout:fragment="title">Lista de ciudadanos y ciudadanas</span>
+<main layout:fragment="content">
+    <p th:if="${#lists.isEmpty(objects)}">No hay ningún ciudadano registrado</p>
+    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Identificación</th>
+            <th>Nombre</th>
+            <th>Correo electrónico</th>
+            <th>Contraseña</th>
+            <th>Horario</th>
+            <th>Validez</th>
+            <th><a href="add" class="btn btn-success" role="button">Dar de alta</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="object: ${objects}">
+            <td th:text="*{object.id}"></td>
+            <td th:text="*{object.identification}"></td>
+            <td th:text="*{object.name}"></td>
+            <td th:text="*{object.password}"></td>
+            <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td th:text="*{object.toSignString}"></td>
+            <td><a th:href="@{delete/{id}(id=${object.id})}" onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')" class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+</main>
