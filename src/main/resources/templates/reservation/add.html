@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Nueva reserva</span>
+<span layout:fragment="title" th:text="'Reserva para ' + ${data.area.name} + ' de ' + ${data.municipality.name}"></span>
 <main layout:fragment="content">
     <form th:object="${object}" method="post">
+        <img class="img-fluid" th:src="${data.area.image}">
         <table>
             <tr>
-                <th><label for="areaPeriod">Periodo</label></th>
-                <td><input type="number" id="areaPeriod" th:field="*{areaPeriod}"></td>
-            </tr>
-            <tr>
                 <th><label for="date">Fecha</label></th>
-                <td><input type="date" id="date" th:field="*{date}"></td>
+                <td><input type="date" id="date" th:field="*{date}" th:attr="min=${data.date.start},max=${data.date.end}"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('date')}">
+                <td colspan="2"><div class="alert alert-danger" role="alert" th:text="${err}"></div></td>
             </tr>
             <tr>
-                <th><label for="citizen">Ciudadano</label></th>
-                <td><input type="number" id="citizen" th:field="*{citizen}"></td>
+                <th>Horario</th>
+                <td th:text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
             <tr>
-                <th><label for="occupied">Numero de personas</label></th>
-                <td><input type="number" id="occupied" th:field="*{occupied}"></td>
+                <th><label for="zones">Zonas</label></th>
+                <td>
+                    <select type="number" id="zones" th:field="*{zones}" multiple="multiple">
+                        <option th:each="zone: ${data.areaZone}" th:value="${zone.id}" th:text="${zone.toDisplayName}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('zones')}">
+                <td colspan="2"><div class="alert alert-danger" role="alert" th:text="${err}"></div></td>
             </tr>
             <tr>
-                <th><label for="enter">Entrada</label> y <label for="exit">Salida</label></th>
-                <td><input type="time" id="enter" th:field="*{enter}"><input type="time" id="exit" th:field="*{exit}"></td>
+                <th><label for="occupied">Número de personas</label></th>
+                <td><input type="number" id="occupied" th:field="*{occupied}" min="1"></td>
+            </tr>
+            <tr th:each="err : ${#fields.errors('occupied')}">
+                <td colspan="2"><div class="alert alert-danger" role="alert" th:text="${err}"></div></td>
             </tr>
         </table>
-        <input type="submit" value="Añadir reserva" class="btn btn-success" />
+        <input type="submit" value="Reservar" class="btn btn-success" />
     </form>
 </main>

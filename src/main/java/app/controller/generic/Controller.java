@@ -1,8 +1,9 @@
 package app.controller.generic;
 
 import app.service.generic.Service;
+import app.util.Parametrized;
+import app.util.Reflect;
 import app.util.StringUtil;
-import app.util.TriFunction;
 import app.validator.generic.Validator;
 import org.apache.logging.log4j.util.TriConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class Controller<M extends app.model.generic.Model> {
+public abstract class Controller<M extends app.model.generic.Model> extends Parametrized<M> {
     @Autowired protected Service<M> service;
     @Autowired protected Validator<M> validator;
+    protected Reflect<M> reflect = new Reflect<>(getParametrizedType());
 
     /**
      * Verificar si la peticion es valida
@@ -32,7 +36,7 @@ public abstract class Controller<M extends app.model.generic.Model> {
      * @param view      vista actual
      * @return posible error
      */
-    protected Optional<String> requestSetup(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view) {
+    protected Optional<String> setup(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view) {
         setReferrer(session, getReferrer(view, arg));
         return validator.apply(session, arg) ? Optional.empty() : Optional.of("redirect:/add");
     }
@@ -48,12 +52,16 @@ public abstract class Controller<M extends app.model.generic.Model> {
      * @param factory   obtener objeto para formulario
      * @return vista o error
      */
-    protected <T> String requestObject(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data) {
-        return requestSetup(session, arg, validator, view).orElseGet(() -> {
+    protected <T> String object(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data) {
+        return setup(session, arg, validator, view).orElseGet(() -> {
             T object = factory.apply(session, arg);
-            model.addAttribute("object", object).addAttribute("objectData", data.apply(object));
+            model.addAttribute("object", object).addAttribute("data", data.apply(object));
             return getView(view);
         });
+    }
+
+    protected List<Map<String, Object>> data(List<M> objects, M empty) {
+        return objects.isEmpty() ? List.of(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
     }
 
     /**
@@ -66,11 +74,14 @@ public abstract class Controller<M extends app.model.generic.Model> {
      * @param object    objeto referencia
      * @param binding   error en el objeto
      * @param process   procesado del objeto
+     * @param model
      * @return vista o error
      */
-    protected String requestProcess(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process) {
-        return requestSetup(session, arg, validator, view).orElseGet(() -> {
+    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process, BiFunction<HttpSession, Integer, M> factory, Model model) {
+        return setup(session, arg, validator, view).orElseGet(() -> {
+            reflect.merge(factory.apply(session, arg), object);
             this.validator.validate(object, binding);
+            model.addAttribute("object", object).addAttribute("data", service.data(object));
             if (binding.hasErrors()) return getView(view);
             process.accept(session, arg, object);
             return getRedirect(session, arg);
@@ -79,32 +90,32 @@ public abstract class Controller<M extends app.model.generic.Model> {
 
     @RequestMapping({"/list", "/list/{arg}"})
     public String list(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return requestObject(session, arg, validator::list, "list", model, service::listObjects, os -> os.stream().map(o -> service.listObjectData(o)).collect(Collectors.toList()));
+        return object(session, arg, validator::list, "list", model, service::listObjects, l -> data(l, service.addObject(session, arg)));
     }
 
     @RequestMapping({"/add", "/add/{arg}"})
     public String add(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return requestObject(session, arg, validator::add, "add", model, service::addObject, service::modObjectData);
+        return object(session, arg, validator::add, "add", model, service::addObject, service::data);
     }
 
     @RequestMapping(path = {"/add", "/add/{arg}"}, method = RequestMethod.POST)
-    public String addProcess(HttpSession session, @PathVariable(required = false) Integer arg, @ModelAttribute M object, BindingResult binding) {
-        return requestProcess(session, arg, validator::add, "add", object, binding, service::addProcess);
+    public String addProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
+        return process(session, arg, validator::add, "add", object, binding, service::addProcess, service::addObject, model);
     }
 
     @RequestMapping({"/update", "/update/{arg}"})
     public String update(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return requestObject(session, arg, validator::update, "update", model, service::updateObject, service::modObjectData);
+        return object(session, arg, validator::update, "update", model, service::updateObject, service::data);
     }
 
     @RequestMapping(path = {"/update", "/update/{arg}"}, method = RequestMethod.POST)
-    public String updateProcess(HttpSession session, @PathVariable(required = false) Integer arg, @ModelAttribute M object, BindingResult binding) {
-        return requestProcess(session, arg, validator::update, "update", object, binding, service::updateProcess);
+    public String updateProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
+        return process(session, arg, validator::update, "update", object, binding, service::updateProcess, service::updateObject, model);
     }
 
     @RequestMapping({"/delete", "/delete/{arg}"})
     public String delete(HttpSession session, @PathVariable(required = false) Integer arg) {
-        return requestSetup(session, arg, validator::delete, "delete").orElseGet(() -> {
+        return setup(session, arg, validator::delete, "delete").orElseGet(() -> {
             service.deleteProcess(session, arg);
             return getRedirect(session, arg);
         });

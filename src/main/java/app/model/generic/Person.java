@@ -42,7 +42,7 @@ public abstract class Person extends Signable {
         this.password = password;
     }
 
-    public String toIdentificationString() {
+    public String toDisplayName() {
         return String.format("%s (%s)", name, identification);
     }
 

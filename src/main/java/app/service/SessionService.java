@@ -7,6 +7,7 @@ import app.dao.MunicipalManagerDao;
 import app.dao.generic.PersonDao;
 import app.model.Session;
 import app.model.generic.Person;
+import app.model.generic.Signable;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class SessionService extends app.service.generic.Service<Session> {
     }
 
     protected Person getByIdentification(String identification) {
-        return getPriority().stream().map(dao -> dao.getByIdentification(identification)).filter(Objects::nonNull).findAny().orElse(null);
+        return getPriority().stream().map(dao -> dao.getByIdentification(identification)).filter(Objects::nonNull).filter(Signable::isActive).findAny().orElse(null);
     }
 
     protected List<PersonDao<?>> getPriority() {

@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Lista de reservas</span>
 <main layout:fragment="content">
-  <p th:if="${#lists.isEmpty(objects)}">No hay ninguna reserva</p>
-  <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+  <p th:if="${#lists.isEmpty(object)}">No hay ninguna reserva</p>
+  <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
     <thead>
       <tr>
         <th>Código</th>
@@ -12,20 +12,19 @@
         <th>Zonas</th>
         <th>Día</th>
         <th>Horario</th>
-        <th><a href="add" class="btn btn-success" role="button">Crear reserva</a></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr th:each="object: ${objects}">
+      <tr th:each="object: ${object}">
         <td th:text="*{object.id}"></td>
         <td th:text="*{object.occupied}"></td>
-        <td th:text="*{objectsData[objectStat.index]['area']}"></td>
-        <td th:text="*{objectsData[objectStat.index]['zones']}"></td>
+        <td th:text="*{data[objectStat.index].area.name}"></td>
+        <td th:text="*{data[objectStat.index].zone}"></td>
         <td th:text="*{object.date}"></td>
-        <td th:text="*{objectsData[objectStat.index]['areaPeriod']}"></td>
+        <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
         <td><a th:href="@{delete/{id}(id=${object.id})}" class="btn btn-danger" role="button" th:if="*{object.active}">Cancelar</a></td>
       </tr>
     </tbody>
   </table>
-
 </main>

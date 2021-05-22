@@ -10,7 +10,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -39,8 +38,9 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
      * @param object objeto referencia
      */
     public void update(T object) {
+        getReflect().merge(getById(object.getId()), object);
         String args = StringUtil.formatJoin("%s = ?", mapper.getColumnNames());
-        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(ensureFields(object)));
+        executeUpdate(String.format("UPDATE %%s SET %s", args), mapper.toRow(object));
     }
 
     /**
@@ -109,7 +109,7 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         try {
             return jdbc.query(query, mapper, values);
         } catch (EmptyResultDataAccessException e) {
-            return Collections.emptyList();
+            return List.of();
         }
     }
 
@@ -122,21 +122,6 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         String query = String.format("SELECT MAX(id) FROM %s", mapper.getTableName());
         Integer id = jdbc.queryForObject(query, Integer.class);
         return id == null ? 0 : ++id;
-    }
-
-    /**
-     * Mantiene los atributos marcados como final
-     *
-     * @param object objeto referencia
-     */
-    protected T ensureFields(T object) {
-        T prev = getById(object.getId());
-        Reflect<T> reflect = getReflect();
-        for (String field : prev.getFinal()) {
-            Object value = reflect.get(prev, field);
-            if (value != null) reflect.set(object, field, value);
-        }
-        return object;
     }
 
     /**

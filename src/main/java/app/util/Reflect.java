@@ -1,14 +1,17 @@
 package app.util;
 
 import app.ApplicationException;
+import app.model.generic.Model;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-public class Reflect<T> {
+public class Reflect<T extends Model> {
     protected Class<T> cls;
     protected Map<String, Field> fields;
 
@@ -78,5 +81,11 @@ public class Reflect<T> {
         } catch (IllegalAccessException e) {
             throw new ApplicationException(e.getMessage(), e);
         }
+    }
+
+    public void merge(T src, T dst) {
+        Set<String> fixed = dst.getFinal().stream().filter(field -> get(src, field) != null).collect(Collectors.toSet());
+        Set<String> miss = getFields().stream().filter(field -> get(dst, field) == null).collect(Collectors.toSet());
+        Stream.of(fixed, miss).flatMap(Set::stream).forEach(field -> set(dst, field, get(src, field)));
     }
 }

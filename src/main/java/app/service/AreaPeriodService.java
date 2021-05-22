@@ -25,8 +25,15 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     }
 
     @Override
-    public Map<String, Object> requestData(HttpSession session, Integer arg) {
-        Area area = areaDao.getById(arg);
+    public Map<String, Object> data(AreaPeriod areaPeriod) {
+        Area area = areaDao.getById(areaPeriod.getArea());
         return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName(), "area", area.getName());
+    }
+
+    @Override
+    public AreaPeriod addObject(HttpSession session, Integer arg) {
+        AreaPeriod ap = super.addObject(session, arg);
+        ap.setArea(arg);
+        return ap;
     }
 }

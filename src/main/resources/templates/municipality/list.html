@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
 <span layout:fragment="title">Lista de municipios</span>
 <main layout:fragment="content">
-    <p th:if="${#lists.isEmpty(objects)}">No hay ningun municipio registrado</p>
-    <table th:unless="${#lists.isEmpty(objects)}" class="table table-striped">
+    <p th:if="${#lists.isEmpty(object)}">No hay ningun municipio registrado</p>
+    <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="object: ${objects}">
+            <tr th:each="object: ${object}">
                 <td th:text="*{object.name}"></td>
                 <td th:text="*{object.toSignString}"></td>
                 <td>

@@ -174,7 +174,7 @@ CREATE TABLE ReservationZone(
   reservation INTEGER NOT NULL,
   zone INTEGER NOT NULL,
   CONSTRAINT reservationZone_unique_reservation_zone UNIQUE (reservation, zone),
-  CONSTRAINT reservationZone_references_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT reservationZone_references_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT reservationZone_references_zone FOREIGN KEY (zone) REFERENCES Zone(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 -- End creating tables --

@@ -22,7 +22,7 @@ public class AreaService extends PlaceService<Area> {
     }
 
     @Override
-    public Map<String, Object> requestData(HttpSession session, Integer arg) {
-        return Map.of("municipality", municipalityDao.getById(arg).getName());
+    public Map<String, Object> data(Area area) {
+        return Map.of("municipality", municipalityDao.getById(area.getMunicipality()).getName());
     }
 }

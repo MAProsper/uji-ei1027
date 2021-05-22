@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Set;
 
 public class Reservation extends Model {
@@ -18,6 +19,15 @@ public class Reservation extends Model {
     public LocalTime enter;
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalTime exit;
+    protected List<Integer> zones;
+
+    public List<Integer> getZones() {
+        return zones;
+    }
+
+    public void setZones(List<Integer> zones) {
+        this.zones = zones;
+    }
 
     public int getAreaPeriod() {
         return areaPeriod;
@@ -72,7 +82,7 @@ public class Reservation extends Model {
     }
 
     public boolean isActive() {
-        return enter != exit;
+        return enter == exit;
     }
 
     @Override

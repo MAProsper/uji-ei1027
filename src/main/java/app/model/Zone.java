@@ -25,6 +25,10 @@ public class Zone extends Place {
         this.capacity = capacity;
     }
 
+    public String toDisplayName() {
+        return String.format("%s (max. %d)", name, capacity);
+    }
+
     @Override
     public Set<String> getFinal() {
         return StringUtil.setJoin(super.getFinal(), "area");

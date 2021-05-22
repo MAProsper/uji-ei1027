@@ -7,35 +7,14 @@ import app.model.generic.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 public abstract class Service<M extends Model> {
     @Autowired protected Dao<M> dao;
 
-    /**
-     * Datos adicionales a añadir a la peticion
-     *
-     * @param session sesion
-     * @param arg     argumento opcional
-     * @return datos adicionales
-     */
-    public Map<String, Object> requestData(HttpSession session, Integer arg) {
-        return Collections.emptyMap();
-    }
-
-    /**
-     * Datos adicionales a añadir a la peticion (por objeto particula)
-     *
-     * @param object objeto referencia
-     * @return datos adicionales
-     */
-    public Map<String, Object> listObjectData(M object) {
-        return Collections.emptyMap();
-    }
-    public Map<String, Object> modObjectData(M object) {
-        return Collections.emptyMap();
+    public Map<String, Object> data(M object) {
+        return Map.of();
     }
 
     /**
