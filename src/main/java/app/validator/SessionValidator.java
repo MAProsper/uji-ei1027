@@ -16,7 +16,7 @@ public class SessionValidator extends Validator<Session> {
     @Override
     public boolean add(HttpSession session, Integer arg) {
         if (arg != null) return forbidden();
-        return !ifPerson(session);
+        return true;
     }
 
     @Override
