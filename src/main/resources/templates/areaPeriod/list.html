@@ -17,8 +17,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="3">No hay ningun horario registrado
-            <td>
+            <td colspan="3">No hay ningun horario registrado</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.toScheduleString}"></td>
