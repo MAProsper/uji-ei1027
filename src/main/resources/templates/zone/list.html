@@ -31,7 +31,7 @@
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
                    th:href="@{/zone/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
-                   class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
+                   class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>
         </tbody>
     </table>
