@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:text="'Lista de horarios de ' + ${data[0]['area']} + ' de ' + ${data[0]['municipality']}"></span>
+<span layout:fragment="title" th:text="'Lista de horarios de ' + ${data[0].area} + ' de ' + ${data[0].municipality}"></span>
 <main layout:fragment="content">
     <p th:if="${#lists.isEmpty(object)}">No hay ningun horario registrado</p>
     <table th:unless="${#lists.isEmpty(object)}" class="table table-striped">
