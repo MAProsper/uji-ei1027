@@ -24,30 +24,6 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
 
-    public Citizen getCitizen(Reservation r) {
-        return citizenDao.getById(r.getCitizen());
-    }
-
-    public AreaPeriod getAreaPeriod(Reservation r) {
-        return areaPeriodDao.getById(r.getAreaPeriod());
-    }
-
-    public Area getArea(Reservation r) {
-        return areaDao.getById(getAreaPeriod(r).getArea());
-    }
-
-    public Municipality getMunicipality(Reservation r) {
-        return municipalityDao.getById(getArea(r).getMunicipality());
-    }
-
-    public List<Zone> getZones(Reservation r) {
-        return reservationZoneDao.getByReservation(r.getId()).stream().map(rz -> zoneDao.getById(rz.getZone())).collect(Collectors.toList());
-    }
-
-    public List<Zone> getAreaZone(Reservation r) {
-        return zoneDao.getByArea(getArea(r).getId());
-    }
-
     @Override
     public List<Reservation> listObjects(HttpSession session, Integer arg) {
         return reservationDao.getByCitizen(getUser(session).getId());
@@ -56,11 +32,15 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     @Override
     public Map<String, Object> data(Reservation r) {
         if (r.getAreaPeriod() == 0) return Map.of();
-        AreaPeriod areaPeriod = getAreaPeriod(r);
         LocalDate today = LocalDate.now();
-        String zones = StringUtil.toString(getZones(r).stream().map(Zone::getName).collect(Collectors.joining(", ")));
+        Citizen citizen = citizenDao.getParentOf(r);
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+        Area area = areaDao.getParentOf(areaPeriod);
+        Municipality municipality = municipalityDao.getParentOf(area);
+        List<Zone> areaZone = zoneDao.getChildsOf(area);
+        String reservationZone = reservationZoneDao.getChildsOf(r).stream().map(zoneDao::getParentOf).map(Zone::getName).collect(Collectors.joining(", "));
         Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", Collections.min(List.of(today.plusDays(2), areaPeriod.scheduleEnd)));
-        return Map.of("citizen", getCitizen(r), "area", getArea(r), "municipality", getMunicipality(r), "zone", zones, "areaPeriod", areaPeriod, "areaZone", getAreaZone(r), "date", date);
+        return Map.of("citizen", citizen, "area", area, "municipality", municipality, "zone", reservationZone, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date);
     }
 
     @Override

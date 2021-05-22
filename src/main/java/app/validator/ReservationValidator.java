@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReservationValidator extends Validator<Reservation> {
-    @Autowired ReservationService reservationService;
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired ReservationDao reservationDao;
     @Autowired AreaDao areaDao;
@@ -51,8 +50,8 @@ public class ReservationValidator extends Validator<Reservation> {
     @Override
     public void object(Reservation r, FieldError errors) {
         List<Zone> zones = r.getZones().stream().map(zoneDao::getById).collect(Collectors.toList());
-        AreaPeriod areaPeriod = reservationService.getAreaPeriod(r);
-        Area area = reservationService.getArea(r);
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+        Area area = areaDao.getParentOf(areaPeriod);
         LocalDate today = LocalDate.now();
         LocalDate date = r.getDate();
 

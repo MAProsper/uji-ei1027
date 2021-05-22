@@ -26,7 +26,7 @@ public class ZoneService extends PlaceService<Zone> {
 
     @Override
     public Map<String, Object> data(Zone zone) {
-        Area area = areaDao.getById(zone.getArea());
-        return Map.of("municipality", municipalityDao.getById(area.getMunicipality()), "area", area);
+        Area area = areaDao.getParentOf(zone);
+        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area);
     }
 }

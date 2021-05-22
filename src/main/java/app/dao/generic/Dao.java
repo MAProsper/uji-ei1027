@@ -71,6 +71,17 @@ public abstract class Dao<T extends Model> extends Parametrized<T> {
         return executeQuery("");
     }
 
+    @SuppressWarnings("unchecked")
+    public T getParentOf(Model other) {
+        Mapper<Model> mapper = new Mapper<>((Class<Model>) other.getClass());
+        return getById((Integer) mapper.getReflect().get(other, StringUtil.toPackageCase(this.mapper.getTableName())));
+    }
+
+    public List<T> getChildsOf(Model other) {
+        Mapper<?> mapper = new Mapper<>(other.getClass());
+        return getByField(mapper.getTableName(), other.getId());
+    }
+
     /**
      * Obtiene todos los objetos que tengan un campo concreto
      *

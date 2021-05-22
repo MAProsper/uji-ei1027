@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 @Service
 public class SessionValidator extends Validator<Session> {
-    @Autowired protected SessionService service;
+    @Autowired protected SessionService sessionService;
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
@@ -27,7 +27,7 @@ public class SessionValidator extends Validator<Session> {
 
     @Override
     public void object(Session session, FieldError errors) {
-        if (service.getUser(session) == null)
+        if (sessionService.getUser(session) == null)
             errors.accept("password", "Contraseña incorrecta");
     }
 }
