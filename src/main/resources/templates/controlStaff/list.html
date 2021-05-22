@@ -31,9 +31,11 @@
             <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
             <td th:text="*{object.toSignString}"></td>
             <td>
-                <a th:href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                <a th:if="${ object.active}"
+                   th:href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:href="@{/control-staff/delete/{id}(id=${object.id})}"
+                <a th:if="${ object.active}"
+                   th:href="@{/control-staff/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
                    class="btn btn-danger" role="button" th:if="*{object.active}">Dar de baja</a></td>
         </tr>
