@@ -10,7 +10,7 @@ public abstract class ScheduleableValidator<T extends Scheduleable> extends Vali
         if (object.getScheduleStart().isBefore(object.getScheduleEnd()))
             errors.accept("scheduleEnd", "La fecha de fin deber ser posterior a la de incio");
 
-        if (object.getPeriodStart().isBefore(object.getPeriodEnd()))
+        if (object.getPeriodStart().compareTo(object.getPeriodEnd()) >= 0)
             errors.accept("periodEnd", "La hora de fin deber ser posterior a la de incio");
     }
 }
