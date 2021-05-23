@@ -24,15 +24,14 @@ public class AreaService extends PlaceService<Area> {
     @Override
     public List<Area> listObjects(HttpSession session, Integer arg) {
         Person user = getUser(session);
-        List<Area> area = areaDao.getByMunicipality(arg);
-        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == arg) return area;
-        return area.stream().filter(Area::isActive).collect(Collectors.toList());
+        if (user instanceof MunicipalManager) return areaDao.getByMunicipality(((MunicipalManager) user).getMunicipality());
+        return areaDao.getByMunicipality(arg).stream().filter(Area::isActive).collect(Collectors.toList());
     }
 
     @Override
     public Area addObject(HttpSession session, Integer arg) {
         Area area = super.addObject(session, arg);
-        area.setMunicipality(arg);
+        area.setMunicipality(arg == null ? ((MunicipalManager) getUser(session)).getMunicipality() : arg);
         return area;
     }
 

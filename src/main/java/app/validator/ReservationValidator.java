@@ -26,14 +26,14 @@ public class ReservationValidator extends Validator<Reservation> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg == null) return ifPerson(session, Citizen.class);
+        if (arg == null) return ifPerson(session, Citizen.class, ControlStaff.class);
         AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
         if (!Activeable.isActive(areaPeriod)) return forbidden();
         Area area = areaDao.getById(arg);
         if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
-        return ifPerson(session, ControlStaff.class, MunicipalManager.class);
+        return ifPerson(session, MunicipalManager.class);
     }
 
     @Override

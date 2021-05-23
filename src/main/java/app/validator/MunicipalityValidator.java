@@ -1,5 +1,8 @@
 package app.validator;
 
+import app.model.Citizen;
+import app.model.EnviromentalManager;
+import app.model.MunicipalManager;
 import app.model.Municipality;
 import app.validator.generic.PlaceValidator;
 import org.springframework.stereotype.Service;
@@ -11,6 +14,6 @@ public class MunicipalityValidator extends PlaceValidator<Municipality> {
     @Override
     public boolean list(HttpSession session, Integer arg) {
         if (arg != null) return forbidden();
-        return true;
+        return getUser(session) == null || ifPerson(session, Citizen.class, MunicipalManager.class, EnviromentalManager.class);
     }
 }
