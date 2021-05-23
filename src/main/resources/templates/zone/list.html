@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="4">No hay ninguna zona registrada </td>
+            <td colspan="4">No hay ninguna zona registrada</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
@@ -27,7 +27,8 @@
             <td th:text="*{object.toSignString}"></td>
             <td>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
-                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
+                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
+                   role="button">Actualizar</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
                    th:href="@{/zone/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja la zona?')"

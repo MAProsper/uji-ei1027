@@ -4,7 +4,6 @@ import app.dao.*;
 import app.model.Area;
 import app.model.EnviromentalManager;
 import app.model.ServiceType;
-import app.model.Zone;
 import app.service.generic.ScheduableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

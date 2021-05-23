@@ -4,7 +4,7 @@
 <span layout:fragment="title" th:text="'Actualizar area de ' + ${data.municipality.name}"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar el area y los datos son correctos?')"
-            th:object="${object}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>

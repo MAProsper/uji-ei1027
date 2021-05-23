@@ -6,7 +6,6 @@ import app.dao.MunicipalityDao;
 import app.model.Area;
 import app.model.AreaPeriod;
 import app.model.MunicipalManager;
-import app.model.Zone;
 import app.model.generic.Person;
 import app.service.generic.ScheduableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,8 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
         Person user = getUser(session);
         Area area = areaDao.getById(arg);
         List<AreaPeriod> areaPeriod = areaPeriodDao.getChildsOf(area);
-        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == area.getMunicipality()) return areaPeriod;
+        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == area.getMunicipality())
+            return areaPeriod;
         return areaPeriod.stream().filter(AreaPeriod::isActive).collect(Collectors.toList());
     }
 

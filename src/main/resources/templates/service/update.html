@@ -5,7 +5,7 @@
       th:text="'Actualizar servicios de ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
-            th:object="${object}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
@@ -21,7 +21,8 @@
             </tr>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}" th:attr="min=${data.today}" th:disabled="${object.scheduleStart.isBefore(data.today)}"></td>
+                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"
+                           th:attr="min=${data.today}" th:disabled="${object.scheduleStart.isBefore(data.today)}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">

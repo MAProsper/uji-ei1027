@@ -27,7 +27,8 @@ public class ZoneService extends PlaceService<Zone> {
         Person user = getUser(session);
         Area area = areaDao.getById(arg);
         List<Zone> zone = zoneDao.getChildsOf(area);
-        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == area.getMunicipality()) return zone;
+        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == area.getMunicipality())
+            return zone;
         return zone.stream().filter(Zone::isActive).collect(Collectors.toList());
     }
 

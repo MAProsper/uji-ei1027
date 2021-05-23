@@ -78,8 +78,10 @@ public abstract class Scheduleable extends Model implements Activeable {
         return StringUtil.setJoin(super.getNullable(), "scheduleEnd");
     }
 
-    /** Se puede actualizar si no ha finalizado
-     *  @return si es actualizable
+    /**
+     * Se puede actualizar si no ha finalizado
+     *
+     * @return si es actualizable
      */
     public boolean isUpdateable() {
         LocalDate now = LocalDate.now();

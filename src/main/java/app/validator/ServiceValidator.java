@@ -37,7 +37,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
     public void object(app.model.Service object, FieldErrors errors) {
         super.object(object, errors);
 
-        if(this.serviceTypeDao.getById(object.getServiceType()) == null)
+        if (this.serviceTypeDao.getById(object.getServiceType()) == null)
             errors.accept("serviceType", "El tipo de servicio no existe");
     }
 
@@ -49,7 +49,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         app.model.Service service = this.serviceDao.getById(arg);
-        if ( service == null || ! service.isUpdateable() ) return forbidden();
+        if (service == null || !service.isUpdateable()) return forbidden();
         Area area = this.areaDao.getParentOf(service);
         if (!Activeable.isActive(area)) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);

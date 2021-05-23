@@ -1,23 +1,36 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:object="${session}">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio</a></li>
-        <li class="nav-item" th:if="*{(user == null) or (user instanceof T(app.model.Citizen))}"><a class="nav-link" th:href="@{/municipality/list}">Ver municipios</a></li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link" th:href="@{/municipality/list}">Gestión municipio</a></li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.Citizen)}"><a class="nav-link" th:href="@{/reservation/list}">Gestión
+        <li class="nav-item" th:if="*{(user == null) or (user instanceof T(app.model.Citizen))}"><a class="nav-link"
+                                                                                                    th:href="@{/municipality/list}">Ver
+            municipios</a></li>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link"
+                                                                                         th:href="@{/municipality/list}">Gestión
+            municipio</a></li>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.Citizen)}"><a class="nav-link"
+                                                                                th:href="@{/reservation/list}">Gestión
             de reservas</a></li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.ControlStaff)}"><a class="nav-link" th:href="@{/reservation/list}">Gestión
+        <li class="nav-item" th:if="*{user instanceof T(app.model.ControlStaff)}"><a class="nav-link"
+                                                                                     th:href="@{/reservation/list}">Gestión
             de reservas</a></li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link" th:href="@{/area/list}">Gestión
+        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link"
+                                                                                         th:href="@{/area/list}">Gestión
             de areas</a></li>
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item" th:if="*{user == null}"><a class="nav-link" th:href="@{/add}">Iniciar sesión</a></li>
         <li class="nav-item" th:if="*{user == null}"><a class="nav-link" th:href="@{/citizen/add}">Registrarse</a></li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.Citizen)}"><a class="nav-link" th:href="@{/citizen/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.Citizen)}"><a class="nav-link"
+                                                                                th:href="@{/citizen/list}">Gestión del
+            usuario</a>
         </li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.ControlStaff)}"><a class="nav-link" th:href="@{/control-staff/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.ControlStaff)}"><a class="nav-link"
+                                                                                     th:href="@{/control-staff/list}">Gestión
+            del usuario</a>
         </li>
-        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link" th:href="@{/municipal-manager/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link"
+                                                                                         th:href="@{/municipal-manager/list}">Gestión
+            del usuario</a>
         </li>
         <li class="nav-item" th:if="*{user != null}"><a class="nav-link" th:href="@{/delete}">Cerrar sesión</a></li>
     </ul>

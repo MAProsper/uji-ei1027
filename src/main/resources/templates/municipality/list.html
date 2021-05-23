@@ -16,14 +16,20 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="3" th:if="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun municipio registrado</td>
-            <td colspan="2" th:unless="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun municipio registrado</td>
+            <td colspan="3" th:if="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun municipio
+                registrado
+            </td>
+            <td colspan="2" th:unless="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun
+                municipio registrado
+            </td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
-            <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
+            <td th:text="*{object.toSignString}"
+                th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
             <td>
-                <a th:if="${session.user instanceof T(app.model.Citizen) or session.user == null}" th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a>
+                <a th:if="${session.user instanceof T(app.model.Citizen) or session.user == null}"
+                   th:href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver areas</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
                    th:href="@{/municipality/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>

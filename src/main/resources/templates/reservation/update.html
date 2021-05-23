@@ -4,10 +4,11 @@
 <span layout:fragment="title"
       th:text="'Actualizar reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
-    <form th:object="${object}" method="post" onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')">
+    <form th:object="${object}" method="post"
+          onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
-            <tr  th:unless="${session.user instanceOf T(app.model.Citizen)}">
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th>Ciudadano</th>
                 <td th:text="${data.citizen.toDisplayName}"></td>
             </tr>

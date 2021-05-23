@@ -11,7 +11,7 @@
         <thead>
         <tr>
             <th>Código</th>
-            <th th:unless="${session.user instanceOf T(app.model.Citizen)}" >Ciudadano</th>
+            <th th:unless="${session.user instanceOf T(app.model.Citizen)}">Ciudadano</th>
             <th>Número de personas</th>
             <th>Área</th>
             <th>Zonas</th>
@@ -27,7 +27,8 @@
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.id}"></td>
-            <td th:unless="${session.user instanceOf T(app.model.Citizen)}"  th:text="*{data[objectStat.index].citizen.toDisplayName}"></td>
+            <td th:unless="${session.user instanceOf T(app.model.Citizen)}"
+                th:text="*{data[objectStat.index].citizen.toDisplayName}"></td>
             <td th:text="*{object.occupied}"></td>
             <td th:text="*{data[objectStat.index].area.name}"></td>
             <td th:text="*{data[objectStat.index].zone}"></td>

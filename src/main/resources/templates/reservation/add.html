@@ -9,7 +9,7 @@
             th:object="${object}" method="post">
         <img class="img-fluid" th:src="${data.area.image}">
         <table>
-            <tr  th:unless="${session.user instanceOf T(app.model.Citizen)}">
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th>Ciudadano</th>
                 <td th:text="${data.citizen.toDisplayName}"></td>
             </tr>
@@ -43,7 +43,8 @@
             </tr>
             <tr>
                 <th><label for="occupied">Número de personas</label></th>
-                <td><input required="required" type="number" id="occupied" th:field="*{occupied}" min="1" th:attr="max=${data.capacity}"></td>
+                <td><input required="required" type="number" id="occupied" th:field="*{occupied}" min="1"
+                           th:attr="max=${data.capacity}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">

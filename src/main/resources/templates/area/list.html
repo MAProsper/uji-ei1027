@@ -13,15 +13,20 @@
             <th>Localización</th>
             <th th:if="${session.user instanceof T(app.model.MunicipalManager)}">Imagen</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id}" th:href="@{/area/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id}"
+                   th:href="@{/area/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="7" th:if="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna área registrada</td>
-            <td colspan="5" th:unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna área registrada</td>
+            <td colspan="7" th:if="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna área
+                registrada
+            </td>
+            <td colspan="5" th:unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna área
+                registrada
+            </td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.name}"></td>
@@ -29,14 +34,17 @@
             <td th:text="*{object.type.name}"></td>
             <td th:text="*{object.description}"></td>
             <td th:text="*{object.location}"></td>
-            <td th:if="${session.user instanceof T(app.model.MunicipalManager)}"><a th:href="*{object.image}" th:text="*{object.image}" target="_blank"></a></td>
+            <td th:if="${session.user instanceof T(app.model.MunicipalManager)}"><a th:href="*{object.image}"
+                                                                                    th:text="*{object.image}"
+                                                                                    target="_blank"></a></td>
             <td>
                 <a th:href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     Horarios</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
-                   th:href="@{/service/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver servicios</a>
+                   th:href="@{/service/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
+                    servicios</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/area/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>

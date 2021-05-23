@@ -1,7 +1,9 @@
 package app.validator;
 
 import app.dao.MunicipalityDao;
-import app.model.*;
+import app.model.Area;
+import app.model.Citizen;
+import app.model.MunicipalManager;
 import app.model.generic.Activeable;
 import app.model.generic.Person;
 import app.validator.generic.PlaceValidator;

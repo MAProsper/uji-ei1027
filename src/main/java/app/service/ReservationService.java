@@ -27,8 +27,10 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     @Override
     public List<Reservation> listObjects(HttpSession session, Integer arg) {
         Person user = getUser(session);
-        if (user instanceof Citizen) return reservationDao.getChildsOf(user).stream().filter(r -> !r.isCancelled()).collect(Collectors.toList());
-        if (user instanceof ControlStaff) return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(Reservation::isActive).collect(Collectors.toList());
+        if (user instanceof Citizen)
+            return reservationDao.getChildsOf(user).stream().filter(r -> !r.isCancelled()).collect(Collectors.toList());
+        if (user instanceof ControlStaff)
+            return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(Reservation::isActive).collect(Collectors.toList());
         return reservationDao.getByAreaPeriod(arg).stream().filter(Reservation::isActive).collect(Collectors.toList());
     }
 

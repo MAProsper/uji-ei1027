@@ -5,7 +5,7 @@
       th:text="'Actualizar horario para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar el horario y los datos son correctos?')"
-            th:object="${object}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>

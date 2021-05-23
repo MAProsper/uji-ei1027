@@ -5,7 +5,7 @@
       th:text="'Actualizar zona de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
-            th:object="${object}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>

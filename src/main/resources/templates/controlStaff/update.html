@@ -4,7 +4,7 @@
 <span layout:fragment="title">Actualizar personal de control</span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que quiere actualizar los datos y los datos son correctos?')"
-            th:object="${object}" method="post">
+          th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="identification">Identificación</label></th>
@@ -44,7 +44,7 @@
             </tr>
         </table>
         <input
-               type="submit" value="Actualizar" class="btn btn-warning"
+                type="submit" value="Actualizar" class="btn btn-warning"
         /></td>
     </form>
 </main>

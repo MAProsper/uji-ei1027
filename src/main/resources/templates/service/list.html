@@ -19,7 +19,7 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="5">No hay ningún servicio registrado </td>
+            <td colspan="5">No hay ningún servicio registrado</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{data[objectStat.index].serviceType.name}"></td>
@@ -27,7 +27,8 @@
             <td th:text="*{object.toPeriodString}"></td>
             <td>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.updateable}"
-                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar</a>
+                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
+                   role="button">Actualizar</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.updateable}"
                    th:href="@{/service/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el servicio?')"

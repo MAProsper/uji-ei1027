@@ -17,7 +17,8 @@ public class MunicipalityService extends PlaceService<Municipality> {
     @Override
     public List<Municipality> listObjects(HttpSession session, Integer arg) {
         Person user = getUser(session);
-        if (user instanceof MunicipalManager) return Collections.singletonList(dao.getById(((MunicipalManager) user).getMunicipality()));
+        if (user instanceof MunicipalManager)
+            return Collections.singletonList(dao.getById(((MunicipalManager) user).getMunicipality()));
         List<Municipality> municipality = super.listObjects(session, arg);
         if (user instanceof EnviromentalManager) return municipality;
         return municipality.stream().filter(Municipality::isActive).collect(Collectors.toList());
