@@ -2,6 +2,7 @@ package app.validator;
 
 import app.dao.AreaDao;
 import app.model.AreaPeriod;
+import app.model.generic.Activeable;
 import app.validator.generic.ScheduleableValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg == null || areaDao.getById(arg) == null) return forbidden();
+        if (arg == null || !Activeable.isActive(areaDao.getById(arg))) return forbidden();
         return true;
     }
 }

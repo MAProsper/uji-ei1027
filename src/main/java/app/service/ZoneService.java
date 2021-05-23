@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ZoneService extends PlaceService<Zone> {
@@ -21,7 +22,7 @@ public class ZoneService extends PlaceService<Zone> {
 
     @Override
     public List<Zone> listObjects(HttpSession session, Integer arg) {
-        return zoneDao.getByArea(arg);
+        return zoneDao.getByArea(arg).stream().filter(Zone::isActive).collect(Collectors.toList());
     }
 
     @Override

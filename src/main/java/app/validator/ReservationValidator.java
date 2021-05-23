@@ -2,6 +2,7 @@ package app.validator;
 
 import app.dao.*;
 import app.model.*;
+import app.model.generic.Activeable;
 import app.validator.generic.FieldErrors;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,13 @@ public class ReservationValidator extends Validator<Reservation> {
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        if (arg == null || areaPeriodDao.getById(arg) == null) return forbidden();
+        if (arg == null || !Activeable.isActive(areaPeriodDao.getById(arg))) return forbidden();
         return ifPerson(session, Citizen.class);
     }
 
     @Override
     public boolean update(HttpSession session, Integer arg) {
-        if (arg == null || reservationDao.getById(arg) == null) return forbidden();
+        if (arg == null || !Activeable.isActive(reservationDao.getById(arg))) return forbidden();
         return ifPerson(session);
     }
 
@@ -73,19 +74,6 @@ public class ReservationValidator extends Validator<Reservation> {
                 }
             }
 
-            // Comprobar que, para toda reserva que estás haciendo, no existra otra en:
-            // - en el área que estás reservando,
-            // - en el día que estás reservando
-            // - y en el horario que estás reservando
-            // Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
-            // Set<Integer> idReservedZones = new HashSet<>();
-            // for (Reservation reservation : reservations) {
-            //     if (reservation.getDate().equals(r.getDate()))
-            //         for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
-            //             idReservedZones.add(reservationZone.getZone());
-            // }
-            // idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r
-
             Set<Integer> zoneUsed = reservationDao.getByAreaPeriod(r.getAreaPeriod()).stream().filter(o -> !o.equals(r) && o.getDate().equals(r.getDate()) && !o.isEnded()).flatMap(o -> reservationZoneDao.getChildsOf(o).stream()).map(ReservationZone::getZone).collect(Collectors.toSet());
             zoneUsed.retainAll(r.getZones());
             if (!zoneUsed.isEmpty()) {
@@ -97,3 +85,16 @@ public class ReservationValidator extends Validator<Reservation> {
         }
     }
 }
+
+// Comprobar que, para toda reserva que estás haciendo, no existra otra en:
+// - en el área que estás reservando,
+// - en el día que estás reservando
+// - y en el horario que estás reservando
+// Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
+// Set<Integer> idReservedZones = new HashSet<>();
+// for (Reservation reservation : reservations) {
+//     if (reservation.getDate().equals(r.getDate()))
+//         for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
+//             idReservedZones.add(reservationZone.getZone());
+// }
+// idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r

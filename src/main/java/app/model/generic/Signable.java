@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-public abstract class Signable extends Model {
+public abstract class Signable extends Model implements Activeable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     public LocalDateTime signUp;
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)

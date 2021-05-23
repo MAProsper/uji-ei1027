@@ -1,5 +1,6 @@
 package app.model;
 
+import app.model.generic.Activeable;
 import app.model.generic.Model;
 import app.util.StringUtil;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -9,7 +10,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 
-public class Reservation extends Model {
+public class Reservation extends Model implements Activeable {
     public int areaPeriod;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     public LocalDate date;

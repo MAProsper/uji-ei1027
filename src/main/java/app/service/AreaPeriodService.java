@@ -21,7 +21,7 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
 
     @Override
     public List<AreaPeriod> listObjects(HttpSession session, Integer arg) {
-        return areaPeriodDao.getByArea(arg);
+        return areaPeriodDao.getByArea(arg);  // Citizen solo activas, otros todas incluso inactivas?
     }
 
     @Override
