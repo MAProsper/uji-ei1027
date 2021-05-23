@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title"
-      th:text="'Actualizar servicios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      th:text="'Actualizar servicios de ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
             th:object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
-                <td><select required="required" type="number" id="serviceType" th:field="*{serviceType}">
-                    <option th:each="type : ${data.types}" th:value="*{type.key}" th:text="*{type.value}"></option>
+                <td><select required="required" id="serviceType" th:field="*{serviceType}">
+                    <option th:each="type : ${data.typeSelect}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
                 </td>
             </tr>
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}" th:attr="min=${data.today}" th:disabled="${object.scheduleStart.isBefore(data.today)}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
@@ -30,7 +30,7 @@
             </tr>
             <tr>
                 <th><label for="scheduleEnd">Fecha de fin</label></th>
-                <td><input required="required" type="date" id="scheduleEnd" th:field="*{scheduleEnd}"></td>
+                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}" th:attr="min=${data.today}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleEnd')}">
                 <td colspan="2">
@@ -57,6 +57,6 @@
             </tr>
         </table>
         <input type="submit"
-               value="Actualizar" class="btn btn-success"/>
+               value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

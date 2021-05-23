@@ -37,4 +37,8 @@ public abstract class Model {
     public Set<String> getFinal() {
         return Set.of("id");
     }
+
+    public Set<String> getNullable() {
+        return Set.of();
+    }
 }

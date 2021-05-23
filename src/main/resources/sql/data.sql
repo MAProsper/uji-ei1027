@@ -12,5 +12,5 @@ INSERT INTO Zone VALUES(1, '2021-01-01 00:00:00', NULL, 'zoneA1', 1, 12);
 INSERT INTO Zone VALUES(2, '2021-01-01 00:00:00', NULL, 'zoneA2', 1, 12);
 INSERT INTO Zone VALUES(3, '2021-01-01 00:00:00', NULL, 'zoneB1', 2, 12);
 INSERT INTO ReservationZone VALUES(1, 1, 1);
-INSERT INTO ServiceType VALUES(1, 'servicetypename');
+INSERT INTO ServiceType VALUES(1, '2021-01-01 00:00:00', NULL, 'servicetypename');
 INSERT INTO Service VALUES(1, '2021-01-01', '2022-01-02', '00:00:00', '12:00:00', 1, 1);
