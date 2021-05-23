@@ -65,6 +65,14 @@ public abstract class Scheduleable extends Model implements Activeable {
         return scheduleStart.isBefore(now) && (scheduleEnd == null || scheduleEnd.isAfter(now));
     }
 
+    /** Se puede actualizar si no ha finalizado
+     *  @return si es actualizable
+     */
+    public boolean isUpdateable() {
+        LocalDate now = LocalDate.now();
+        return scheduleEnd == null || scheduleEnd.isAfter(now);
+    }
+
     @Override
     public String toString() {
         return "Scheduleable{" +
