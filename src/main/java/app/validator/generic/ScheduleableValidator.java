@@ -9,7 +9,7 @@ public abstract class ScheduleableValidator<T extends Scheduleable> extends Vali
 
         if (object.getScheduleStart() == null)
             errors.accept("scheduleStart", "Formato de fecha de inicio inválida");
-        else if (object.getScheduleEnd() != null && object.getScheduleStart().isBefore(object.getScheduleEnd()))
+        else if (object.getScheduleEnd() != null && object.getScheduleStart().isAfter(object.getScheduleEnd()))
             errors.accept("scheduleEnd", "La fecha de fin deber ser posterior o igual a la de inicio");
 
         if (object.getPeriodStart() == null)
