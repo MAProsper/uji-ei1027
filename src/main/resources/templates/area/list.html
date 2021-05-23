@@ -42,7 +42,7 @@
                     Horarios</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver zonas</a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a th:if="${(session.user == null) or (session.user instanceof T(app.model.Citizen)) or (session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id)}"
                    th:href="@{/service/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     servicios</a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"

@@ -63,7 +63,7 @@ public abstract class Scheduleable extends Model implements Activeable {
 
     public boolean isActive() {
         LocalDate now = LocalDate.now();
-        return scheduleStart.compareTo(now) >= 0 && (scheduleEnd == null || scheduleEnd.compareTo(now) <= 0);
+        return scheduleStart.compareTo(now) <= 0 && (scheduleEnd == null || scheduleEnd.compareTo(now) >= 0);
     }
 
     @Override
@@ -78,12 +78,7 @@ public abstract class Scheduleable extends Model implements Activeable {
         return StringUtil.setJoin(super.getNullable(), "scheduleEnd");
     }
 
-    /**
-     * Se puede actualizar si no ha finalizado
-     *
-     * @return si es actualizable
-     */
-    public boolean isUpdateable() {
+    public boolean isEnded() {
         LocalDate now = LocalDate.now();
         return scheduleEnd == null || scheduleEnd.compareTo(now) >= 0;
     }

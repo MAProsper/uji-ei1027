@@ -29,7 +29,7 @@ public class ReservationValidator extends Validator<Reservation> {
         if (arg == null) return ifPerson(session, Citizen.class, ControlStaff.class);
         AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
         if (!Activeable.isActive(areaPeriod)) return forbidden();
-        Area area = areaDao.getById(arg);
+        Area area = areaDao.getParentOf(areaPeriod);
         if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
@@ -40,7 +40,7 @@ public class ReservationValidator extends Validator<Reservation> {
     public boolean add(HttpSession session, Integer arg) {
         AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
         if (!Activeable.isActive(areaPeriod)) return forbidden();
-        Area area = areaDao.getById(arg);
+        Area area = areaDao.getParentOf(areaPeriod);
         if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
@@ -50,7 +50,7 @@ public class ReservationValidator extends Validator<Reservation> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
-        if (!Activeable.isActive(r)) return forbidden();
+        if (r == null || r.isEnded()) return forbidden();
         return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
@@ -76,6 +76,12 @@ public class ReservationValidator extends Validator<Reservation> {
             errors.accept("date", "Fecha selecionada fuera del horario reservado");
         } else if (date.isBefore(today) || date.isAfter(today.plusDays(2))) {
             errors.accept("date", "Solo se puede reservar como maximo con dos dias de antelacion");
+        }
+
+        if (r.getEnter() == null && r.getExit() != null) {
+            errors.accept("exit", "No se puede definir si no ha entrado antes");
+        } else if (r.getEnter() != null && r.getExit() != null && r.getExit().isBefore(r.getEnter())) {
+            errors.accept("exit", "La salida debe ser posterior a la entrada");
         }
 
         boolean zonesExist = zones.stream().allMatch(z -> z != null && z.getArea() == area.getId());

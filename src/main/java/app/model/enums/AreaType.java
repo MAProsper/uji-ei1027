@@ -2,7 +2,7 @@ package app.model.enums;
 
 public enum AreaType {
     PLAYA("Playa"),
-    RIO("Rio"),
+    RIO("Río"),
     ESTANQUE("Estanque"),
     LAGO("Lago"),
     BOSQUE("Bosque"),

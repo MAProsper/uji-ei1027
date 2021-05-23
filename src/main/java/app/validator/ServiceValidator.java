@@ -5,6 +5,7 @@ import app.dao.MunicipalityDao;
 import app.dao.ServiceDao;
 import app.dao.ServiceTypeDao;
 import app.model.Area;
+import app.model.Citizen;
 import app.model.MunicipalManager;
 import app.model.Municipality;
 import app.model.generic.Activeable;
@@ -30,7 +31,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
         Person user = getUser(session);
-        return ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        return user == null || ifPerson(session, Citizen.class) || ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         app.model.Service service = this.serviceDao.getById(arg);
-        if (service == null || !service.isUpdateable()) return forbidden();
+        if (service == null || !service.isEnded()) return forbidden();
         Area area = this.areaDao.getParentOf(service);
         if (!Activeable.isActive(area)) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);

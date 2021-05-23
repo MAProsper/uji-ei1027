@@ -96,7 +96,7 @@ public class Reservation extends Model implements Activeable {
 
     @Override
     public Set<String> getFinal() {
-        return StringUtil.setJoin(super.getFinal(), "areaPeriod", "citizen");
+        return StringUtil.setJoin(super.getFinal(), "areaPeriod", "citizen", "enter", "exit");
     }
 
     @Override

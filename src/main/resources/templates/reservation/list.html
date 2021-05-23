@@ -17,13 +17,14 @@
             <th>Zonas</th>
             <th>Día</th>
             <th>Horario</th>
+            <th th:unless="${session.user instanceOf T(app.model.Citizen)}">Entrada y salida</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
             <td colspan="7" th:if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
-            <td colspan="8" th:unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
+            <td colspan="9" th:unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.id}"></td>
@@ -34,8 +35,9 @@
             <td th:text="*{data[objectStat.index].zone}"></td>
             <td th:text="*{object.date}"></td>
             <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td th:unless="${session.user instanceOf T(app.model.Citizen)}" th:text="*{object.toPeriodString}"></td>
             <td>
-                <a th:if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and object.active}"
+                <a th:if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and not object.ended}"
                    th:href="@{/reservation/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a th:href="@{/reservation/delete/{id}(id=${object.id})}"

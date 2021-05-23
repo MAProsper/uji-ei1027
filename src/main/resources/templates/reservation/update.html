@@ -26,6 +26,28 @@
                 <th>Horario</th>
                 <td th:text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
+                <th><label for="enter">Entrada</label></th>
+                <td><input type="time" id="enter" th:field="*{enter}"
+                           th:attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
+                           th:disabled="${data.origin.enter != null}"></td>
+            </tr>
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}" th:each="err : ${#fields.errors('enter')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
+                <th><label for="exit">Salida</label></th>
+                <td><input type="time" id="exit" th:field="*{exit}"
+                           th:attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
+                           th:disabled="${data.origin.exit != null}"></td>
+            </tr>
+            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}" th:each="err : ${#fields.errors('exit')}">
+                <td colspan="2">
+                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                </td>
+            </tr>
             <tr>
                 <th><label for="zones">Zonas</label></th>
                 <td>

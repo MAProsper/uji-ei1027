@@ -30,8 +30,8 @@ public class ReservationService extends app.service.generic.Service<Reservation>
         if (user instanceof Citizen)
             return reservationDao.getChildsOf(user).stream().filter(r -> !r.isCancelled()).collect(Collectors.toList());
         if (user instanceof ControlStaff)
-            return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(Reservation::isActive).collect(Collectors.toList());
-        return reservationDao.getByAreaPeriod(arg).stream().filter(Reservation::isActive).collect(Collectors.toList());
+            return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(r -> !r.isEnded()).collect(Collectors.toList());
+        return reservationDao.getByAreaPeriod(arg).stream().filter(r -> !r.isEnded()).collect(Collectors.toList());
     }
 
     @Override
@@ -40,6 +40,10 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
         String reservationZone = reservationZoneDao.getChildsOf(r).stream().map(zoneDao::getParentOf).map(Zone::getName).collect(Collectors.joining(", "));
         map.put("zone", reservationZone);
+
+        if (r.getId() != 0) {
+            map.put("origin", reservationDao.getById(r.getId()));
+        }
 
         if (r.getCitizen() != 0) {
             Citizen citizen = citizenDao.getParentOf(r);
@@ -72,6 +76,25 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     }
 
     @Override
+    public Reservation updateObject(HttpSession session, Integer arg) {
+        Reservation r = super.updateObject(session, arg);
+        r.setZones(reservationZoneDao.getChildsOf(r).stream().map(ReservationZone::getZone).collect(Collectors.toList()));
+        return r;
+    }
+
+    @Override
+    public void updateProcess(HttpSession session, Integer arg, Reservation object) {
+        super.updateProcess(session, arg, object);
+        reservationZoneDao.getChildsOf(object).forEach(z -> reservationZoneDao.delete(z.getId()));
+        for (int zone : object.getZones()) {
+            ReservationZone reservationZone = new ReservationZone();
+            reservationZone.setReservation(object.getId());
+            reservationZone.setZone(zone);
+            reservationZoneDao.add(reservationZone);
+        }
+    }
+
+    @Override
     public void addProcess(HttpSession session, Integer arg, Reservation object) {
         super.addProcess(session, arg, object);
         for (int zone : object.getZones()) {
@@ -80,6 +103,11 @@ public class ReservationService extends app.service.generic.Service<Reservation>
             reservationZone.setZone(zone);
             reservationZoneDao.add(reservationZone);
         }
+    }
+
+    @Override
+    public String addRedirect(HttpSession session, Integer arg) {
+        return "../list";
     }
 
     @Override
