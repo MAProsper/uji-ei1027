@@ -16,7 +16,7 @@ public class AreaValidator extends PlaceValidator<Area> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg == null || !Activeable.isActive(municipalityDao.getById(arg))) return forbidden();
+        if (!Activeable.isActive(municipalityDao.getById(arg))) return forbidden();
         return true;
     }
 }

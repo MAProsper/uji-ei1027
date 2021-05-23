@@ -1,5 +1,6 @@
 package app.service;
 
+import app.model.EnviromentalManager;
 import app.model.Municipality;
 import app.service.generic.PlaceService;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import java.util.stream.Collectors;
 public class MunicipalityService extends PlaceService<Municipality> {
     @Override
     public List<Municipality> listObjects(HttpSession session, Integer arg) {
-        return super.listObjects(session, arg).stream().filter(Municipality::isActive).collect(Collectors.toList());
+        List<Municipality> municipality = super.listObjects(session, arg);
+        if (getUser(session) instanceof EnviromentalManager) return municipality;
+        return municipality.stream().filter(Municipality::isActive).collect(Collectors.toList());
     }
 }

@@ -3,6 +3,7 @@ package app.validator;
 import app.dao.*;
 import app.model.*;
 import app.model.generic.Activeable;
+import app.model.generic.Person;
 import app.validator.generic.FieldErrors;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReservationValidator extends Validator<Reservation> {
+    @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaPeriodDao areaPeriodDao;
     @Autowired ReservationDao reservationDao;
     @Autowired AreaDao areaDao;
@@ -24,26 +26,40 @@ public class ReservationValidator extends Validator<Reservation> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg != null) return forbidden();  // Importante: reservas de una parte
-        return ifPerson(session, Citizen.class);
+        if (arg == null) return ifPerson(session, Citizen.class);
+        AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
+        if (!Activeable.isActive(areaPeriod)) return forbidden();
+        Area area = areaDao.getById(arg);
+        if (!area.isActive()) return forbidden();
+        Municipality municipality = municipalityDao.getParentOf(area);
+        if (!municipality.isActive()) return forbidden();
+        return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        if (arg == null || !Activeable.isActive(areaPeriodDao.getById(arg))) return forbidden();
+        AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
+        if (!Activeable.isActive(areaPeriod)) return forbidden();
+        Area area = areaDao.getById(arg);
+        if (!area.isActive()) return forbidden();
+        Municipality municipality = municipalityDao.getParentOf(area);
+        if (!municipality.isActive()) return forbidden();
         return ifPerson(session, Citizen.class);
     }
 
     @Override
     public boolean update(HttpSession session, Integer arg) {
-        if (arg == null || !Activeable.isActive(reservationDao.getById(arg))) return forbidden();
-        return ifPerson(session);
+        Reservation r = reservationDao.getById(arg);
+        if (!Activeable.isActive(r)) return forbidden();
+        return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
     @Override
     public boolean delete(HttpSession session, Integer arg) {
-        if (arg == null) return forbidden();
-        return update(session, arg);
+        Reservation r = reservationDao.getById(arg);
+        if (!Activeable.isActive(r)) return forbidden();
+        Person user = getUser(session);
+        return ifPerson(session, ControlStaff.class, MunicipalManager.class) || (user instanceof Citizen && r.getCitizen() == user.getId());
     }
 
     @Override

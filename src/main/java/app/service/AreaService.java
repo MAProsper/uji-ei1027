@@ -3,6 +3,10 @@ package app.service;
 import app.dao.AreaDao;
 import app.dao.MunicipalityDao;
 import app.model.Area;
+import app.model.EnviromentalManager;
+import app.model.MunicipalManager;
+import app.model.Municipality;
+import app.model.generic.Person;
 import app.service.generic.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +23,10 @@ public class AreaService extends PlaceService<Area> {
 
     @Override
     public List<Area> listObjects(HttpSession session, Integer arg) {
-        return areaDao.getByMunicipality(arg).stream().filter(Area::isActive).collect(Collectors.toList());
+        Person user = getUser(session);
+        List<Area> area = areaDao.getByMunicipality(arg);
+        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == arg) return area;
+        return area.stream().filter(Area::isActive).collect(Collectors.toList());
     }
 
     @Override

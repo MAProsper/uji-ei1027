@@ -4,7 +4,9 @@ import app.dao.AreaDao;
 import app.dao.MunicipalityDao;
 import app.dao.ZoneDao;
 import app.model.Area;
+import app.model.MunicipalManager;
 import app.model.Zone;
+import app.model.generic.Person;
 import app.service.generic.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,11 @@ public class ZoneService extends PlaceService<Zone> {
 
     @Override
     public List<Zone> listObjects(HttpSession session, Integer arg) {
-        return zoneDao.getByArea(arg).stream().filter(Zone::isActive).collect(Collectors.toList());
+        Person user = getUser(session);
+        Area area = areaDao.getById(arg);
+        List<Zone> zone = zoneDao.getChildsOf(area);
+        if (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == area.getMunicipality()) return zone;
+        return zone.stream().filter(Zone::isActive).collect(Collectors.toList());
     }
 
     @Override

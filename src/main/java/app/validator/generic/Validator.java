@@ -94,8 +94,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
     protected final boolean ifPerson(HttpSession session, Class<? extends Person>... persons) {
         Person person = getUser(session);
         if (person == null) return false;
-        else if (Arrays.stream(persons).anyMatch(cls -> cls.isInstance(person))) return true;
-        else return forbidden();
+        return Arrays.stream(persons).anyMatch(cls -> cls.isInstance(person));
     }
 
     /**

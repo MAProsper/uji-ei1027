@@ -2,18 +2,22 @@
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link" th:href="@{/}">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" th:href="@{/municipality/list}">Ver municipios</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/reservation/list}" th:if="*{session.user instanceof T(app.model.Citizen)}">Gestión
+        <li class="nav-item" th:if="*{session.user instanceof T(app.model.Citizen)}"><a class="nav-link" th:href="@{/reservation/list}">Gestión
             de reservas</a></li>
+        <li class="nav-item" th:if="*{session.user instanceof T(app.model.ControlStaff)}"><a class="nav-link" th:href="@{/reservation/list/{id}(id=${session.user.areaPeriod})}">Gestión
+            de reservas</a></li>
+        <li class="nav-item" th:if="*{session.user instanceof T(app.model.MunicipalManager)}"><a class="nav-link" th:href="@{/area/list/{id}(id=${session.user.municipality})}">Gestión
+            de areas</a></li>
     </ul>
     <ul class="navbar-nav" th:object="${session}">
-        <li class="nav-item"><a class="nav-link" th:if="*{user == null}" th:href="@{/add}">Iniciar sesión</a></li>
-        <li class="nav-item"><a class="nav-link" th:if="*{user == null}" th:href="@{/citizen/add}">Registrarse</a></li>
-        <li class="nav-item"><a class="nav-link" th:if="*{user instanceof T(app.model.Citizen)}" th:href="@{/citizen/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user == null}"><a class="nav-link" th:href="@{/add}">Iniciar sesión</a></li>
+        <li class="nav-item" th:if="*{user == null}"><a class="nav-link" th:href="@{/citizen/add}">Registrarse</a></li>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.Citizen)}"><a class="nav-link" th:href="@{/citizen/list}">Gestión del usuario</a>
         </li>
-        <li class="nav-item"><a class="nav-link" th:if="*{user instanceof T(app.model.ControlStaff)}" th:href="@{/control-staff/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.ControlStaff)}"><a class="nav-link" th:href="@{/control-staff/list}">Gestión del usuario</a>
         </li>
-        <li class="nav-item"><a class="nav-link" th:if="*{user instanceof T(app.model.MunicipalManager)}" th:href="@{/municipal-manager/list}">Gestión del usuario</a>
+        <li class="nav-item" th:if="*{user instanceof T(app.model.MunicipalManager)}"><a class="nav-link" th:href="@{/municipal-manager/list}">Gestión del usuario</a>
         </li>
-        <li class="nav-item"><a class="nav-link" th:if="*{user != null}" th:href="@{/delete}">Cerrar sesión</a></li>
+        <li class="nav-item" th:if="*{user != null}"><a class="nav-link" th:href="@{/delete}">Cerrar sesión</a></li>
     </ul>
 </nav>

@@ -26,6 +26,10 @@
                 <a th:if="${session.user == null or session.user instanceof T(app.model.Citizen)}"
                    th:href="@{/reservation/add/{id}(id=${object.id})}" class="btn btn-success" role="button">Reservar
                 </a>
+                <a th:if="${(session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id) or (session.user instanceof T(app.model.ControlStaff) and session.user.areaPeriod == object.id)}"
+                   th:href="@{/reservation/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
+                    reservas
+                </a>
                 <a th:if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
                    th:href="@{/control-staff/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     personal
