@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Lista de gestores y gestoras municipales</span>
+<span layout:fragment="title">
+    <span th:if="*{session.user instanceof T(app.model.MunicipalManager)}">Tus datos</span>
+    <span th:if="*{session.user instanceof T(app.model.EnviromentalManager)}"
+          th:text="'Gestores municipales de ' + ${data[0].municipality.name}"></span>
+</span>
 <main layout:fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Identificación</th>
             <th>Nombre</th>
+            <th th:if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
             <th>Correo electrónico</th>
             <th>Municipio</th>
             <th>Teléfono</th>
@@ -20,11 +25,13 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="6">Lista de gestores y gestoras municipales</td>
+            <td colspan="7" th:if="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y gestoras municipales</td>
+            <td colspan="6" th:unless="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y gestoras municipales</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>
+            <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
             <td th:text="*{object.municipality.name}"></td>
             <td th:text="*{object.phone}"></td>
             <td>
