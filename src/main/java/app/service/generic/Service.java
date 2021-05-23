@@ -88,6 +88,17 @@ public abstract class Service<M extends Model> {
     }
 
     /**
+     * Obtener URL a redirecion despues de añadido
+     *
+     * @param session sesion
+     * @param arg     argumento opcional
+     * @return URL a redirecionar
+     */
+    public String addRedirect(HttpSession session, Integer arg) {
+        return arg == null ? "list" : String.format("../list/%d", arg);
+    }
+
+    /**
      * Obtener URL a redirecion despues de modificaciones
      *
      * @param session sesion
@@ -95,7 +106,9 @@ public abstract class Service<M extends Model> {
      * @return URL a redirecionar
      */
     public String getRedirect(HttpSession session, Integer arg) {
-        return arg == null ? "list" : String.format("../list/%d", arg);
+        if (arg != null)
+            throw new ApplicationException("No existe operacion por defecto");
+        return addRedirect(session, arg);
     }
 
     /**

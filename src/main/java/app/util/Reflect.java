@@ -90,9 +90,9 @@ public class Reflect<T extends Model> {
      * @param dst objeto destino
      */
     public void merge(T src, T dst) {
-        Set<String> fixed = dst.getFinal().stream().filter(field -> get(src, field) != null).collect(Collectors.toSet());
+        Set<String> fixed = src.getFinal().stream().filter(field -> get(src, field) != null).collect(Collectors.toSet());
         Set<String> miss = getFields().stream().filter(field -> get(dst, field) == null).collect(Collectors.toSet());
-        miss.removeAll(dst.getNullable());
+        miss.removeAll(src.getNullable());
         Stream.of(fixed, miss).flatMap(Set::stream).forEach(field -> set(dst, field, get(src, field)));
     }
 }

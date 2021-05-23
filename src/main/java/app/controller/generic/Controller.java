@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public abstract class Controller<M extends app.model.generic.Model> extends Parametrized<M> {
@@ -90,20 +91,36 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @param arg       argumento opcional
      * @param validator validador de peticion
      * @param view      vista actual
+     * @param process   procesado del objeto
+     * @param redirect  redirecion de resultado
+     * @return vista o error
+     */
+    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Supplier<Optional<String>> process, BiFunction<HttpSession, Integer, String> redirect) {
+        return setup(session, arg, validator, view).orElseGet(() -> process.get().orElse(getRedirect(redirect.apply(session, arg))));
+    }
+
+    /**
+     * Peticion de procesado de objectos
+     *
+     * @param session   sesion
+     * @param arg       argumento opcional
+     * @param validator validador de peticion
+     * @param view      vista actual
      * @param model     modelo de la vista
      * @param object    objeto del formulario
      * @param binding   error en el objeto
      * @param process   procesado del objeto
+     * @param redirect  redirecion de resultado
      * @return vista o error
      */
-    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process, BiFunction<HttpSession, Integer, M> factory) {
-        return setup(session, arg, validator, view).orElseGet(() -> {
+    protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, M object, BindingResult binding, TriConsumer<HttpSession, Integer, M> process, BiFunction<HttpSession, Integer, M> factory, BiFunction<HttpSession, Integer, String> redirect) {
+        return process(session, arg, validator, view, () -> {
             reflect.merge(factory.apply(session, arg), object);
             this.validator.validate(object, binding);
-            if (binding.hasErrors()) return model(model, object, service::data, view);
+            if (binding.hasErrors()) return Optional.of(model(model, object, service::data, view));
             process.accept(session, arg, object);
-            return getRedirect(session, arg);
-        });
+            return Optional.empty();
+        }, redirect);
     }
 
     @RequestMapping({"/list", "/list/{arg}"})
@@ -118,7 +135,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/add", "/add/{arg}"}, method = RequestMethod.POST)
     public String addProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::add, "add", model, object, binding, service::addProcess, service::addObject);
+        return process(session, arg, validator::add, "add", model, object, binding, service::addProcess, service::addObject, service::addRedirect);
     }
 
     @RequestMapping({"/update", "/update/{arg}"})
@@ -128,15 +145,15 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/update", "/update/{arg}"}, method = RequestMethod.POST)
     public String updateProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::update, "update", model, object, binding, service::updateProcess, service::updateObject);
+        return process(session, arg, validator::update, "update", model, object, binding, service::updateProcess, service::updateObject, service::getRedirect);
     }
 
     @RequestMapping({"/delete", "/delete/{arg}"})
     public String delete(HttpSession session, @PathVariable(required = false) Integer arg) {
-        return setup(session, arg, validator::delete, "delete").orElseGet(() -> {
+        return process(session, arg, validator::delete, "delete", () -> {
             service.deleteProcess(session, arg);
-            return getRedirect(session, arg);
-        });
+            return Optional.empty();
+        }, service::getRedirect);
     }
 
     /**
@@ -152,12 +169,11 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
     /**
      * Redirecionar a una URL
      *
-     * @param session sesion
-     * @param arg     argumento opcional
+     * @param view vista destino
      * @return URL destino
      */
-    protected String getRedirect(HttpSession session, Integer arg) {
-        return String.format("redirect:%s", service.getRedirect(session, arg));
+    protected String getRedirect(String view) {
+        return String.format("redirect:%s", view);
     }
 
     /**

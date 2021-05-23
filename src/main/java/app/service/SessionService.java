@@ -47,7 +47,7 @@ public class SessionService extends app.service.generic.Service<Session> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String addRedirect(HttpSession session, Integer arg) {
         String referrer = (String) session.getAttribute("referrer");
         return referrer != null ? referrer : "/";
     }

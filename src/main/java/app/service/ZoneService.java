@@ -43,4 +43,9 @@ public class ZoneService extends PlaceService<Zone> {
         Area area = areaDao.getParentOf(zone);
         return Map.of("municipality", municipalityDao.getParentOf(area), "area", area);
     }
+
+    @Override
+    public String getRedirect(HttpSession session, Integer arg) {
+        return String.format("../list/%d", zoneDao.getById(arg).getArea());
+    }
 }

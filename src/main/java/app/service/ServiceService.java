@@ -48,4 +48,9 @@ public class ServiceService extends ScheduableService<app.model.Service> {
         if (serviceType == null) serviceType = new ServiceType();
         return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "serviceType", serviceType, "typeSelect", types, "today", today);
     }
+
+    @Override
+    public String getRedirect(HttpSession session, Integer arg) {
+        return String.format("../list/%d", serviceDao.getById(arg).getArea());
+    }
 }
