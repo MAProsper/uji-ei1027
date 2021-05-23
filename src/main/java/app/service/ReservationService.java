@@ -79,6 +79,7 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public String getRedirect(HttpSession session, Integer arg) {
-        return "../list";
+        if (getUser(session) instanceof Citizen) return "../list";
+        return super.getRedirect(session, arg);
     }
 }
