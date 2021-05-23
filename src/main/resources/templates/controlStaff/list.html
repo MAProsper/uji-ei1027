@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Lista de personal de control</span>
+<span layout:fragment="title">
+    <span th:if="*{session.user instanceof T(app.model.ControlStaff)}">Tus datos</span>
+    <span th:unless="*{session.user instanceof T(app.model.ControlStaff)}"
+          th:text="'Personal de control de ' ${data[0].area.name} ' (' + ${data[0].municipality.name} + ')' "></span>
+</span>
 <main layout:fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Identificación</th>
             <th>Nombre</th>
+            <th th:if="${session.user instanceof T(app.model.MunicipalManager)}">Validez</th>
             <th>Correo electrónico</th>
             <th>Horario</th>
             <th>
@@ -18,11 +23,13 @@
         </thead>
         <tbody>
         <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="5">No hay ningún ciudadano registrado</td>
+            <td colspan="6" th:if="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal de control registrado</td>
+            <td colspan="5" th:unless="${session.user instanceof T(app.model.ControlStaff}">No hay ningún personal de control registrado</td>
         </tr>
         <tr th:each="object: ${object}">
             <td th:text="*{object.identification}"></td>
             <td th:text="*{object.name}"></td>
+            <td th:text="*{object.toSignString}" th:if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td th:text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
             <td>
                 <a th:if="${object.active}"
