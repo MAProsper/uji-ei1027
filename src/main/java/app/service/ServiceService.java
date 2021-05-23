@@ -1,10 +1,8 @@
 package app.service;
 
-import app.dao.AreaDao;
-import app.dao.MunicipalityDao;
-import app.dao.ServiceDao;
-import app.dao.ServiceTypeDao;
+import app.dao.*;
 import app.model.Area;
+import app.model.EnviromentalManager;
 import app.model.ServiceType;
 import app.model.Zone;
 import app.service.generic.ScheduableService;
@@ -16,9 +14,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceService extends ScheduableService<app.model.Service> {
+    @Autowired EnviromentalManagerDao enviromentalManagerDao;
     @Autowired MunicipalityDao municipalityDao;
     @Autowired ServiceTypeDao serviceTypeDao;
     @Autowired ServiceDao serviceDao;
@@ -46,7 +46,9 @@ public class ServiceService extends ScheduableService<app.model.Service> {
         List<ServiceType> types = serviceTypeDao.getAll();
         ServiceType serviceType = serviceTypeDao.getParentOf(service);
         if (serviceType == null) serviceType = new ServiceType();
-        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "serviceType", serviceType, "typeSelect", types, "today", today);
+        String manager = enviromentalManagerDao.getAll().stream().map(EnviromentalManager::getMail).collect(Collectors.joining(","));
+        String mail = String.format("mailto:%s?subject=%s", manager, "Solicitud%20de%20nuevo%20tipo%20de%20servicio");
+        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "serviceType", serviceType, "typeSelect", types, "today", today, "mail", mail);
     }
 
     @Override
