@@ -86,7 +86,7 @@ public class ReservationValidator extends Validator<Reservation> {
             // }
             // idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r
 
-            Set<Integer> zoneUsed = reservationDao.getByAreaPeriod(r.getAreaPeriod()).stream().filter(o -> o.getDate().equals(r.getDate()) && !o.isEnded()).flatMap(o -> reservationZoneDao.getChildsOf(o).stream()).map(ReservationZone::getZone).collect(Collectors.toSet());
+            Set<Integer> zoneUsed = reservationDao.getByAreaPeriod(r.getAreaPeriod()).stream().filter(o -> !o.equals(r) && o.getDate().equals(r.getDate()) && !o.isEnded()).flatMap(o -> reservationZoneDao.getChildsOf(o).stream()).map(ReservationZone::getZone).collect(Collectors.toSet());
             zoneUsed.retainAll(r.getZones());
             if (!zoneUsed.isEmpty()) {
                 String zoneJoin = zoneUsed.stream().map(zoneDao::getById).map(Zone::getName).collect(Collectors.joining(", "));

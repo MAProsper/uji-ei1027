@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
-<span layout:fragment="title" th:if="*{session.user instanceof T(app.model.Citizen)}" >Tus reservas</span>
-<span layout:fragment="title"
-      th:unless="*{session.user instanceof T(app.model.Citizen)}"
-      th:text="'Reservas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'">
+<span layout:fragment="title">
+    <span th:if="*{session.user instanceof T(app.model.Citizen)}">Tus reservas</span>
+    <span th:unless="*{session.user instanceof T(app.model.Citizen)}"
+          th:text="'Reservas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 </span>
 <main layout:fragment="content">
     <table class="table table-striped">

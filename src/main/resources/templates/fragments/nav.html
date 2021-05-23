@@ -7,6 +7,7 @@
     </ul>
     <ul class="navbar-nav" th:object="${session}">
         <li class="nav-item"><a class="nav-link" th:if="*{user == null}" th:href="@{/add}">Iniciar sesión</a></li>
+        <li class="nav-item"><a class="nav-link" th:if="*{user == null}" th:href="@{/citizen/add}">Registrarse</a></li>
         <li class="nav-item"><a class="nav-link" th:if="*{user instanceof T(app.model.Citizen)}" th:href="@{/citizen/list}">Gestión del usuario</a>
         </li>
         <li class="nav-item"><a class="nav-link" th:if="*{user instanceof T(app.model.ControlStaff)}" th:href="@{/control-staff/list}">Gestión del usuario</a>

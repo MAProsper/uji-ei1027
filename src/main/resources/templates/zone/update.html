@@ -9,7 +9,7 @@
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>
-                <td><input type="text" id="name" th:field="*{name}"></td>
+                <td><input required="required" type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('name')}">
                 <td colspan="2">
@@ -18,7 +18,7 @@
             </tr>
             <tr>
                 <th><label for="capacity">Capacidad</label></th>
-                <td><input type="text" id="capacity" th:field="*{capacity}"></td>
+                <td><input required="required" type="text" id="capacity" th:field="*{capacity}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('capacity')}">
                 <td colspan="2">
@@ -27,6 +27,6 @@
             </tr>
         </table>
         <input type="submit"
-               value="Actualizar" class="btn btn-warning"/>Actualizar zona</td>
+               value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

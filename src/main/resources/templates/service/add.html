@@ -7,11 +7,10 @@
     <form
             onsubmit="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
             th:object="${object}" method="post">
-        <td><input type="hidden" id="area" th:field="*{area}"></td>
         <table>
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
-                <td><select type="number" id="serviceType" th:field="*{serviceType}">
+                <td><select required="required" type="number" id="serviceType" th:field="*{serviceType}">
                     <option th:each="type : ${data.types}" th:value="*{type.key}" th:text="*{type.value}"></option>
                 </select>
                 </td>
@@ -23,7 +22,7 @@
             </tr>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
@@ -41,7 +40,7 @@
             </tr>
             <tr>
                 <th><label for="periodStart">Hora de inicio</label></th>
-                <td><input type="time" id="periodStart" th:field="*{periodStart}"></td>
+                <td><input required="required" type="time" id="periodStart" th:field="*{periodStart}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('periodStart')}">
                 <td colspan="2">
@@ -50,7 +49,7 @@
             </tr>
             <tr>
                 <th><label for="periodEnd">Hora de fin</label></th>
-                <td><input type="time" id="periodEnd" th:field="*{periodEnd}"></td>
+                <td><input required="required" type="time" id="periodEnd" th:field="*{periodEnd}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('periodEnd')}">
                 <td colspan="2">
@@ -58,6 +57,6 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Añadir" class="btn btn-success"/>Añadir servicio</td>
+        <input type="submit" value="Añadir" class="btn btn-success"/>
     </form>
 </main>

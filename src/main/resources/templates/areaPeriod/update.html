@@ -9,7 +9,7 @@
         <table>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th><label for="periodStart">Hora de inicio</label></th>
-                <td><input type="time" id="periodStart" th:field="*{periodStart}"></td>
+                <td><input required="required" type="time" id="periodStart" th:field="*{periodStart}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('periodStart')}">
                 <td colspan="2">
@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <th><label for="periodEnd">Hora de fin</label></th>
-                <td><input type="time" id="periodEnd" th:field="*{periodEnd}"></td>
+                <td><input required="required" type="time" id="periodEnd" th:field="*{periodEnd}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('periodEnd')}">
                 <td colspan="2">
@@ -45,6 +45,6 @@
             </tr>
         </table>
         <input type="submit"
-               value="Actualizar" class="btn btn-warning"/>Actualizar horario</td>
+               value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

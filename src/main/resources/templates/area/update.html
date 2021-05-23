@@ -8,7 +8,7 @@
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>
-                <td><input type="text" id="name" th:field="*{name}"></td>
+                <td><input required="required" type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('name')}">
                 <td colspan="2">
@@ -18,7 +18,7 @@
             <tr>
                 <th><label for="type">Tipo</label></th>
                 <td>
-                    <select type="number" id="type" th:field="*{type}">
+                    <select required="required" type="number" id="type" th:field="*{type}">
                         <option th:each="type : ${T(app.model.enums.AreaType).values()}" th:value="${type}"
                                 th:text="${type.name}"></option>
                     </select>
@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <th><label for="description">Descripción</label></th>
-                <td><input type="number" id="description" th:field="*{description}"></td>
+                <td><input required="required" type="number" id="description" th:field="*{description}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('description')}">
                 <td colspan="2">
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <th><label for="location">Coordenadas</label></th>
-                <td><input type="text" pattern="" id="location" th:field="*{location}"></td>
+                <td><input required="required" type="text" pattern="" id="location" th:field="*{location}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('location')}">
                 <td colspan="2">
@@ -49,7 +49,7 @@
             </tr>
             <tr>
                 <th><label for="image">URL de la imágen</label></th>
-                <td><input type="url" id="image" th:field="*{image}"></td>
+                <td><input required="required" type="url" id="image" th:field="*{image}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('image')}">
                 <td colspan="2">
@@ -58,6 +58,6 @@
             </tr>
         </table>
         <input type="submit"
-               value="Actualizar" class="btn btn-warning"/>Actualizar Área</td>
+               value="Actualizar" class="btn btn-warning"/>
     </form>
 </main>

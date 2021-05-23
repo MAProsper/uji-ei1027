@@ -118,6 +118,15 @@ public abstract class Service<M extends Model> {
     }
 
     /**
+     * Crea la sesion actual
+     *
+     * @param session sesion
+     */
+    protected void addSession(HttpSession session, Person user) {
+        session.setAttribute("user", user);
+    }
+
+    /**
      * Cierra la sesion actual
      *
      * @param session sesion

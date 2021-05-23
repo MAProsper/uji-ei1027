@@ -16,6 +16,23 @@ public class CitizenService extends PersonService<Citizen> {
     }
 
     @Override
+    public Citizen updateObject(HttpSession session, Integer arg) {
+        return (Citizen) getUser(session);
+    }
+
+    @Override
+    public void addProcess(HttpSession session, Integer arg, Citizen object) {
+        super.addProcess(session, arg, object);
+        addSession(session, object);
+    }
+
+    @Override
+    public void updateProcess(HttpSession session, Integer arg, Citizen object) {
+        super.updateProcess(session, arg, object);
+        addSession(session, object);
+    }
+
+    @Override
     public void deleteProcess(HttpSession session, Integer arg) {
         dao.delete(getUser(session).getId());
         deleteSession(session);

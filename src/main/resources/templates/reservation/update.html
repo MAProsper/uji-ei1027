@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th><label for="date">Fecha</label></th>
-                <td><input type="date" id="date" th:field="*{date}"
+                <td><input required="required" type="date" id="date" th:field="*{date}"
                            th:attr="min=${data.date.start},max=${data.date.end}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('date')}">
@@ -28,7 +28,7 @@
             <tr>
                 <th><label for="zones">Zonas</label></th>
                 <td>
-                    <select type="number" id="zones" th:field="*{zones}" multiple="multiple">
+                    <select required="required" type="number" id="zones" th:field="*{zones}" multiple="multiple">
                         <option th:each="zone: ${data.areaZone}" th:value="${zone.id}"
                                 th:text="${zone.toDisplayName}"></option>
                     </select>
@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <th><label for="occupied">Número de personas</label></th>
-                <td><input type="number" id="occupied" th:field="*{occupied}" min="1"></td>
+                <td><input required="required" type="number" id="occupied" th:field="*{occupied}" min="1"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">

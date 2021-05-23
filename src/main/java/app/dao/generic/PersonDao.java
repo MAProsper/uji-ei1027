@@ -12,11 +12,20 @@ public abstract class PersonDao<T extends Person> extends SignableDao<T> {
     }
 
     @Override
+    public void add(T object) {
+        object.setPassword(encryptor.encryptPassword(object.getPassword()));
+        super.add(object);
+    }
+
+    @Override
+    public void update(T object) {
+        object.setPassword(object.getPassword().isBlank() ? getById(object.getId()).getPassword() : encryptor.encryptPassword(object.getPassword()));
+        super.update(object);
+    }
+
+    @Override
     public void test() {
         super.test();
-        for (T person : getAll()) {
-            person.setPassword(encryptor.encryptPassword(person.getPassword()));
-            update(person);
-        }
+        getAll().forEach(this::update);
     }
 }

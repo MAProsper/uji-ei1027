@@ -8,7 +8,7 @@
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>
-                <td><input type="text" id="name" th:field="*{name}"></td>
+                <td><input required="required" type="text" id="name" th:field="*{name}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('name')}">
                 <td colspan="2">
@@ -17,7 +17,6 @@
             </tr>
         </table>
         <input type="submit" value="Actualizar"
-               class="btn btn-warning"/>Actualizar
-        municipio</td>
+               class="btn btn-warning"/>
     </form>
 </main>
