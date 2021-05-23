@@ -1,8 +1,8 @@
 package app.model;
 
-import app.model.generic.Model;
+import app.model.generic.Signable;
 
-public class ServiceType extends Model {
+public class ServiceType extends Signable {
     public String name;
 
     public String getName() {

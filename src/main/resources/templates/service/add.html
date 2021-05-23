@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title"
-      th:text="'Añadir servicios a ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      th:text="'Añadir servicios a ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form
             onsubmit="return confirm('¿Seguro que desea añadir el servicio y los datos son correctos?')"
@@ -10,8 +10,8 @@
         <table>
             <tr>
                 <th><label for="serviceType">Tipo de servicio</label></th>
-                <td><select required="required" type="number" id="serviceType" th:field="*{serviceType}">
-                    <option th:each="type : ${data.types}" th:value="*{type.key}" th:text="*{type.value}"></option>
+                <td><select required="required" id="serviceType" th:field="*{serviceType}">
+                    <option th:each="type : ${data.typeSelect}" th:value="${type.id}" th:text="${type.name}"></option>
                 </select>
                 </td>
             </tr>

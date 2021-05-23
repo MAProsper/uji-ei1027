@@ -30,7 +30,7 @@
             <tr>
                 <th><label for="zones">Zonas</label></th>
                 <td>
-                    <select required="required" type="number" id="zones" th:field="*{zones}" multiple="multiple">
+                    <select required="required" id="zones" th:field="*{zones}" multiple="multiple">
                         <option th:each="zone: ${data.areaZone}" th:value="${zone.id}"
                                 th:text="${zone.toDisplayName}"></option>
                     </select>

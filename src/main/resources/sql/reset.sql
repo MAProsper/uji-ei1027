@@ -50,7 +50,7 @@ CREATE TABLE AreaPeriod(
   area INTEGER NOT NULL,
   CONSTRAINT area_period_unique_area_schedule_periodstart UNIQUE (area, schedule_start, schedule_end, period_start),
   CONSTRAINT area_period_unique_area_schedule_periodend UNIQUE (area, schedule_start, schedule_end, period_end),
-  CONSTRAINT area_period_check_scheduable CHECK (schedule_start < schedule_end),
+  CONSTRAINT area_period_check_scheduable CHECK (schedule_start <= schedule_end),
   CONSTRAINT area_period_check_periodable CHECK (period_start < period_end),
   CONSTRAINT area_period_references_area FOREIGN KEY (area) REFERENCES Area(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -137,19 +137,23 @@ CREATE TABLE Citizen(
 
 CREATE TABLE ServiceType(
   id INTEGER PRIMARY KEY,
+  sign_up TIMESTAMP NOT NULL,
+  sign_down TIMESTAMP NULL,
   name TEXT NOT NULL,
-  CONSTRAINT service_type_unique_name UNIQUE (name)
+  CONSTRAINT service_type_check_signable CHECK (sign_down IS NULL OR sign_up < sign_down),
+  CONSTRAINT service_type_unique_name_signup UNIQUE (name, sign_up),
+  CONSTRAINT service_type_unique_name_signdown UNIQUE (name, sign_down)
 );
 
 CREATE TABLE Service(
   id INTEGER PRIMARY KEY,
   schedule_start DATE NOT NULL,
-  schedule_end DATE NOT NULL,
+  schedule_end DATE NULL,
   period_start TIME NOT NULL,
   period_end TIME NOT NULL,
   area INTEGER NOT NULL,
   service_type INTEGER NOT NULL,
-  CONSTRAINT service_check_scheduable CHECK (schedule_start < schedule_end),
+  CONSTRAINT service_check_scheduable CHECK (schedule_start <= schedule_end),
   CONSTRAINT service_check_periodable CHECK (period_start < period_end),
   CONSTRAINT service_references_type FOREIGN KEY (service_type) REFERENCES ServiceType(id) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT service_references_area FOREIGN KEY (area) REFERENCES Area(id) ON DELETE RESTRICT ON UPDATE CASCADE

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <span layout:fragment="title"
-      th:text="'Actualizar horario para ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      th:text="'Actualizar horario para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main layout:fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar el horario y los datos son correctos?')"
             th:object="${object}" method="post">

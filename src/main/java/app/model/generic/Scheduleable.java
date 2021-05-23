@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 public abstract class Scheduleable extends Model implements Activeable {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -62,7 +63,19 @@ public abstract class Scheduleable extends Model implements Activeable {
 
     public boolean isActive() {
         LocalDate now = LocalDate.now();
-        return scheduleStart.isBefore(now) && (scheduleEnd == null || scheduleEnd.isAfter(now));
+        return scheduleStart.compareTo(now) >= 0 && (scheduleEnd == null || scheduleEnd.compareTo(now) <= 0);
+    }
+
+    @Override
+    public Set<String> getFinal() {
+        LocalDate now = LocalDate.now();
+        Set<String> fixed = super.getFinal();
+        return scheduleStart != null && scheduleStart.isBefore(now) ? StringUtil.setJoin(fixed, "scheduleStart") : fixed;
+    }
+
+    @Override
+    public Set<String> getNullable() {
+        return StringUtil.setJoin(super.getNullable(), "scheduleEnd");
     }
 
     /** Se puede actualizar si no ha finalizado
@@ -70,7 +83,7 @@ public abstract class Scheduleable extends Model implements Activeable {
      */
     public boolean isUpdateable() {
         LocalDate now = LocalDate.now();
-        return scheduleEnd == null || scheduleEnd.isAfter(now);
+        return scheduleEnd == null || scheduleEnd.compareTo(now) >= 0;
     }
 
     @Override
