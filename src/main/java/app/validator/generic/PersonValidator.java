@@ -13,7 +13,7 @@ public abstract class PersonValidator<T extends Person> extends SignableValidato
     public void object(T object, FieldErrors errors) {
         super.object(object, errors);
 
-        boolean duplicate = personDaos.stream().map(dao -> dao.getByIdentification(object.getIdentification())).anyMatch(p -> p != null && !p.equals(object));
+        boolean duplicate = personDaos.stream().map(dao -> dao.getByIdentification(object.getIdentification())).anyMatch(p -> p != null && p.isActive() && !p.equals(object));
         if (duplicate) errors.accept("identification", "El identificador ya esta en uso");
 
         if (!object.getMail().matches(".+@.+"))
