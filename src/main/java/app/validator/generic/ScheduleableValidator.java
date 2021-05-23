@@ -2,6 +2,8 @@ package app.validator.generic;
 
 import app.model.generic.Scheduleable;
 
+import java.time.LocalDate;
+
 public abstract class ScheduleableValidator<T extends Scheduleable> extends Validator<T> {
     @Override
     public void object(T object, FieldErrors errors) {
@@ -9,8 +11,11 @@ public abstract class ScheduleableValidator<T extends Scheduleable> extends Vali
 
         if (object.getScheduleStart() == null)
             errors.accept("scheduleStart", "Formato de fecha de inicio inválida");
+        else if (object.getScheduleStart().isAfter(LocalDate.now()))
+            errors.accept("scheduleStart", "La fecha de inicio deber ser posterior o igual a hoy");
         else if (object.getScheduleEnd() != null && object.getScheduleStart().isAfter(object.getScheduleEnd()))
             errors.accept("scheduleEnd", "La fecha de fin deber ser posterior o igual a la de inicio");
+
 
         if (object.getPeriodStart() == null)
             errors.accept("periodStart", "Formato de hora de inicio inválida");
