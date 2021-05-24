@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}" th:attr="min=${data.today}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
@@ -31,7 +31,7 @@
             </tr>
             <tr>
                 <th><label for="scheduleEnd">Fecha de fin</label></th>
-                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}"></td>
+                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}" th:attr="min=${data.today}"></td>
             </tr>
             <tr th:each="err : ${#fields.errors('scheduleEnd')}">
                 <td colspan="2">

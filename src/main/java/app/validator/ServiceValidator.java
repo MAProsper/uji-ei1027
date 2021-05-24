@@ -44,7 +44,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        return this.list(session, arg);
+        return this.update(session, arg);
     }
 
     @Override

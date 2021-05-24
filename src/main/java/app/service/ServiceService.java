@@ -33,7 +33,6 @@ public class ServiceService extends ScheduableService<app.model.Service> {
         app.model.Service service = super.addObject(session, arg);
         Optional<ServiceType> serviceType = serviceTypeDao.getAll().stream().filter(ServiceType::isActive).findAny();
         serviceType.ifPresent(type -> service.setServiceType(type.getId()));
-        service.setScheduleStart(LocalDate.now());
         service.setArea(arg);
         return service;
     }
