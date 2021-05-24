@@ -100,7 +100,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
     }
 
     /**
-     * Peticion de procesado de objectos
+     * Peticion de procesado de objectos (formulario)
      *
      * @param session   sesion
      * @param arg       argumento opcional
