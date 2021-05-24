@@ -44,7 +44,12 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
 
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        return this.update(session, arg);
+        Area area = areaDao.getById(arg);
+        if (!Activeable.isActive(area)) return forbidden();
+        Municipality municipality = municipalityDao.getParentOf(area);
+        if (!municipality.isActive()) return forbidden();
+        Person user = getUser(session);
+        return ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
     }
 
     @Override
@@ -52,7 +57,7 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
         app.model.Service service = this.serviceDao.getById(arg);
         if (service == null || !service.isEnded()) return forbidden();
         Area area = this.areaDao.getParentOf(service);
-        if (!Activeable.isActive(area)) return forbidden();
+        if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
         Person user = getUser(session);
