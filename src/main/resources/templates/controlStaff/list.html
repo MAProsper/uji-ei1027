@@ -16,8 +16,8 @@
             <th>Correo electrónico</th>
             <th>Horario</th>
             <th>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"
-                   data-th-href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id})}" class="btn btn-success"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active and data[0].areaPeriod.active}"
+                   data-th-href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id}) and data[0].municipality.active and data[0].area.active}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>
@@ -39,14 +39,14 @@
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
             <td>
-                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) }"
+                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a data-th-if="${object.active and (session.user instanceof T(app.model.ControlStaff)) }"
                    data-th-href="@{/control-staff/update}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) }"
-                   data-th-href="@{/control-staff/delete/{id}(id=${object.id})}"
+                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}"
+                   data-th-href="@{/control-staff/delete/{id}(id=${object.id}) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
                    class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>
