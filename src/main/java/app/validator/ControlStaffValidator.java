@@ -22,7 +22,7 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     @Autowired AreaDao areaDao;
     @Autowired ControlStaffDao controlStaffDao;
 
-    // a partir de la sessión y el id del "areaPeriod" comprueba que sea válido
+    // A partir de la sessión y el id del "areaPeriod" comprueba que sea válido
     private boolean comprobacion(HttpSession session, Integer areaPeriodId){
         AreaPeriod areaPeriod = areaPeriodDao.getById(areaPeriodId);
         if (!Activeable.isActive(areaPeriod)) return forbidden();

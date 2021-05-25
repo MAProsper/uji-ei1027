@@ -8,7 +8,9 @@ import java.util.List;
 
 @Repository
 public class ControlStaffDao extends PersonDao<ControlStaff> {
-    public List<ControlStaff> getByArea(int id) {
-        return getByField("area", id);
+    public List<ControlStaff> getByAreaPeriod(int id) {
+        return getByField("areaPeriod", id);
     }
+
+
 }
