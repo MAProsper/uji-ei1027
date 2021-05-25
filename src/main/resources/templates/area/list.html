@@ -14,7 +14,7 @@
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Imagen</th>
             <th>
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id}"
-                   data-th-href="@{/area/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                   data-th-href="@{/area/add}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>

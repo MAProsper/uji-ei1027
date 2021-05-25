@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th><label for="description">Descripción</label></th>
-                <td><input required="required" type="number" id="description" data-th-field="*{description}"></td>
+                <td><input required="required" type="text" id="description" data-th-field="*{description}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('description')}">
                 <td colspan="2">
@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <th><label for="location">Coordenadas</label></th>
-                <td><input required="required" type="text" pattern="" id="location" data-th-field="*{location}"></td>
+                <td><input required="required" type="text" placeholder="-24.844638, 18.783207" pattern="-?(90|[1-8]?[0-9])\.[0-9]+, -?(180|1?[1-9]?[0-9])\.[0-9]+" id="location" data-th-field="*{location}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('location')}">
                 <td colspan="2">
