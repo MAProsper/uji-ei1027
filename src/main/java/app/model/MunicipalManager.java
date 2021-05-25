@@ -32,7 +32,7 @@ public class MunicipalManager extends Person {
 
     @Override
     public String toString() {
-        return "MunicipalManager{" +
+        return "MunicipalManagerController{" +
                 "phone='" + phone + '\'' +
                 ", municipality=" + municipality +
                 "} " + super.toString();

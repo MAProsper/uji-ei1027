@@ -14,10 +14,9 @@
             <th>Nombre</th>
             <th data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
             <th>Correo electrónico</th>
-            <th>Municipio</th>
             <th>Teléfono</th>
             <th>
-                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager}"
+                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"
                    data-th-href="@{/municipal-manager/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
@@ -38,14 +37,18 @@
             <td data-th-text="*{object.name}"></td>
             <td data-th-text="*{object.toSignString}"
                 data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
-            <td data-th-text="*{object.municipality.name}"></td>
+            <td data-th-text="*{object.mail}"></td>
             <td data-th-text="*{object.phone}"></td>
             <td>
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                   data-th-href="@{/municipal-manager/update}" class="btn btn-warning"
+                   role="button">Actualizar
+                </a>
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
                    data-th-href="@{/municipal-manager/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar
                 </a>
-                <a data-th-if="${object.active}"
+                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
                    data-th-href="@{/municipal-manager/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al gestor municipal?')"
                    class="btn btn-danger" role="button">Dar de baja</a>

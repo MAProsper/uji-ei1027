@@ -12,6 +12,7 @@
             <th>Descripción</th>
             <th>Localización</th>
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Imagen</th>
+            <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Ocupación</th>
             <th>
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id}"
                    data-th-href="@{/area/add}" class="btn btn-success"
@@ -39,6 +40,7 @@
             <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"><a data-th-href="*{object.image}"
                                                                                          data-th-text="*{object.image}"
                                                                                          target="_blank"></a></td>
+            <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}" data-th-text="${data[objectStat.index].occupied}"></td>
             <td>
                 <a data-th-href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     Horarios</a>
