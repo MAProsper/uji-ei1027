@@ -82,12 +82,12 @@ public class Reservation extends Model implements Activeable {
         return StringUtil.toIntervalString(enter, exit);
     }
 
-    public boolean hasEnter() {
-        return enter == exit;
+    public boolean isCancelable() {
+        return enter == null && !this.isEnded();
     }
 
     public boolean isActive(){
-        return this.enter != null && ! this.isEnded()  ;
+        return enter != null && !this.isEnded();
     }
 
     public boolean isEnded() {
