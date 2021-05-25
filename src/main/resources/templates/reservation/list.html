@@ -40,13 +40,13 @@
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{object.toPeriodString}"></td>
             <td>
-                <a data-th-if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and not object.ended}"
+                <a data-th-if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and not object.ended and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}"
                    data-th-href="@{/reservation/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a data-th-href="@{/reservation/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
                    class="btn btn-danger" role="button"
-                   data-th-if="*{object.active and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager))}">Cancelar
+                   data-th-if="*{object.active and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}">Cancelar
                     la reserva</a>
             </td>
         </tr>

@@ -10,7 +10,7 @@
             <th>Fechas</th>
             <th>Horario</th>
             <th>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}"
                    data-th-href="@{/area-period/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
@@ -36,9 +36,9 @@
                     personal
                 </a>
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
-                   data-th-href="@{/area-period/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                   data-th-href="@{/area-period/update/{id}(id=${object.id}) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/area-period/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el horario?')" class="btn btn-danger"
                    role="button">Eliminar
