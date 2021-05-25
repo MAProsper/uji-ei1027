@@ -87,11 +87,11 @@ public class Reservation extends Model implements Activeable {
     }
 
     public boolean isActive(){
-        return (this.enter != null) && (this.exit == null) ;
+        return this.enter != null && ! this.isEnded()  ;
     }
 
     public boolean isEnded() {
-        return exit != null;
+        return exit != null || this.date.isBefore(LocalDate.now()) ;
     }
 
     public boolean isCancelled() {
