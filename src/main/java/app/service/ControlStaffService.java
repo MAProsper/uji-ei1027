@@ -24,6 +24,12 @@ public class ControlStaffService extends PersonService<ControlStaff> {
     @Autowired AreaDao areaDao;
     @Autowired AreaPeriodDao areaPeriodDao;
 
+    @Override
+    public void updateProcess(HttpSession session, Integer arg, ControlStaff object) {
+        super.updateProcess(session, arg, object);
+        if (super.getUser(session) instanceof ControlStaff)
+            super.addSession(session, object);
+    }
 
     @Override
     public List<ControlStaff> listObjects(HttpSession session, Integer arg) {
