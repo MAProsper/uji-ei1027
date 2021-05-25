@@ -47,7 +47,8 @@
                 <th><label for="country">País</label></th>
                 <td>
                     <select required="required" id="country" data-th-field="*{country}">
-                        <option data-th-each="country : ${T(app.model.enums.Country).values()}" data-th-value="${country}"
+                        <option data-th-each="country : ${T(app.model.enums.Country).values()}"
+                                data-th-value="${country}"
                                 data-th-text="${country.name}"></option>
                     </select>
                 </td>
