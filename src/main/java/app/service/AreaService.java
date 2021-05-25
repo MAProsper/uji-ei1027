@@ -30,12 +30,17 @@ public class AreaService extends PlaceService<Area> {
     @Override
     public Area addObject(HttpSession session, Integer arg) {
         Area area = super.addObject(session, arg);
-        area.setMunicipality(arg == null ? ((MunicipalManager) getUser(session)).getMunicipality() : arg);
+        area.setMunicipality(((MunicipalManager) getUser(session)).getMunicipality());
         return area;
     }
 
     @Override
     public Map<String, Object> data(Area area) {
         return Map.of("municipality", municipalityDao.getParentOf(area));
+    }
+
+    @Override
+    public String getRedirect(HttpSession session, Integer arg) {
+        return "../list";
     }
 }
