@@ -16,4 +16,9 @@ public class MunicipalityValidator extends PlaceValidator<Municipality> {
         if (arg != null) return forbidden();
         return getUser(session) == null || ifPerson(session, Citizen.class, MunicipalManager.class, EnviromentalManager.class);
     }
+
+    @Override
+    public boolean update(HttpSession session, Integer arg) {
+        return super.ifPerson(session, MunicipalManager.class);
+    }
 }
