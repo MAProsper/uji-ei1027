@@ -26,10 +26,10 @@
             <td data-th-text="*{object.capacity}"></td>
             <td data-th-text="*{object.toSignString}"></td>
             <td>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/zone/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
                    class="btn btn-danger" role="button">Dar de baja</a></td>

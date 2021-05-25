@@ -26,13 +26,15 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
+        if (arg == null) return forbidden();
         Person user = getUser(session);
         if (user == null || user instanceof Citizen) {
             Area area = areaDao.getById(arg);
-            if (!Activeable.isActive(area)) return area == null && forbidden();
+            if (area == null) return forbidden();
+            if (!area.isActive()) return false;
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (!Activeable.isActive(municipality)) return municipality == null && forbidden();
-            return true;
+            if (municipality == null) return forbidden();
+            return municipality.isActive();
         } else if (user instanceof MunicipalManager) {
             Area area = areaDao.getById(arg);
             if (area == null) return forbidden();

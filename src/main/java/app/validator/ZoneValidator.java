@@ -21,6 +21,7 @@ public class ZoneValidator extends PlaceValidator<Zone> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
+        if (arg == null) return forbidden();
         Person user = getUser(session);
         if (user instanceof MunicipalManager) {
             Area area = areaDao.getById(arg);
