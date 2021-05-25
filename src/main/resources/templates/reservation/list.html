@@ -46,7 +46,7 @@
                 <a data-th-href="@{/reservation/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
                    class="btn btn-danger" role="button"
-                   data-th-if="*{object.active and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}">Cancelar
+                   data-th-if="*{object.cancelable and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}">Cancelar
                     la reserva</a>
             </td>
         </tr>
