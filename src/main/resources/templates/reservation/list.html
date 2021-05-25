@@ -13,6 +13,7 @@
             <th>Código</th>
             <th data-th-unless="${session.user instanceOf T(app.model.Citizen)}">Ciudadano</th>
             <th>Número de personas</th>
+            <th data-th-if="${session.user instanceOf T(app.model.Citizen)}">Municipio</th>
             <th>Área</th>
             <th>Zonas</th>
             <th>Día</th>
@@ -31,6 +32,7 @@
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{data[objectStat.index].citizen.toDisplayName}"></td>
             <td data-th-text="*{object.occupied}"></td>
+            <td data-th-if="${session.user instanceOf T(app.model.Citizen)}" data-th-text="*{data[objectStat.index].municipality.name}"></td>
             <td data-th-text="*{data[objectStat.index].area.name}"></td>
             <td data-th-text="*{data[objectStat.index].zone}"></td>
             <td data-th-text="*{object.date}"></td>
