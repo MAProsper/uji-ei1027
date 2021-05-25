@@ -45,7 +45,7 @@ public class AreaService extends PlaceService<Area> {
         long active = areaPeriodDao.getChildsOf(area).stream().filter(AreaPeriod::isActive).flatMap(ap -> reservationDao.getChildsOf(ap).stream()).filter(Reservation::isActive).count();
         int capacity = zoneDao.getChildsOf(area).stream().filter(Zone::isActive).mapToInt(Zone::getCapacity).sum();
         if (capacity == 0) capacity = 1;
-        String occupied = String.format("%d%%", active / capacity);
+        String occupied = String.format("%d%%", (active * 100) / capacity);
         return Map.of("municipality", municipalityDao.getParentOf(area), "occupied", occupied);
     }
 
