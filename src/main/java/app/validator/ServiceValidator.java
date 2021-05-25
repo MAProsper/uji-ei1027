@@ -26,12 +26,21 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        Area area = areaDao.getById(arg);
-        if (!Activeable.isActive(area)) return forbidden();
-        Municipality municipality = municipalityDao.getParentOf(area);
-        if (!municipality.isActive()) return forbidden();
         Person user = getUser(session);
-        return user == null || ifPerson(session, Citizen.class) || ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        if (user == null || user instanceof Citizen) {
+            Area area = areaDao.getById(arg);
+            if (!Activeable.isActive(area)) return area == null && forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (!Activeable.isActive(municipality)) return municipality == null && forbidden();
+            return true;
+        } else if (user instanceof MunicipalManager) {
+            Area area = areaDao.getById(arg);
+            if (area == null) return forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        }
+        return false;
     }
 
     @Override

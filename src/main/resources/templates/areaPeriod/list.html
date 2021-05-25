@@ -35,8 +35,8 @@
                    data-th-href="@{/control-staff/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
                     personal
                 </a>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id}"
-                   data-th-href="@{/area-period/update/{id}(id=${object.id}) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}" class="btn btn-warning" role="button">Actualizar
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
+                   data-th-href="@{/area-period/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/area-period/delete/{id}(id=${object.id})}"

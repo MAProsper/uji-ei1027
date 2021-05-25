@@ -94,8 +94,8 @@ public class Reservation extends Model implements Activeable {
         return exit != null || this.date.isBefore(LocalDate.now()) ;
     }
 
-    public boolean isCancelled() {
-        return enter == null && isEnded();
+    public boolean isNotCancelled() {
+        return enter != null || exit == null;
     }
 
     @Override

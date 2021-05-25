@@ -11,7 +11,7 @@
             <th>Capacidad</th>
             <th>Fecha de alta / Fecha de baja</th>
             <th>
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}"
                    data-th-href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>

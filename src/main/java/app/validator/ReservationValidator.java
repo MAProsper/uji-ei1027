@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,13 +52,17 @@ public class ReservationValidator extends Validator<Reservation> {
     public boolean update(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
         if (r == null || r.isEnded()) return forbidden();
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+        if (areaPeriod.getPeriodEnd().isBefore(LocalTime.now())) return forbidden();
         return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
     @Override
     public boolean delete(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
-        if (!Activeable.isActive(r)) return forbidden();
+        if (r == null || !r.isEnded() || r.isNotCancelled()) return forbidden();
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+        if (areaPeriod.getPeriodEnd().isBefore(LocalTime.now())) return forbidden();
         Person user = getUser(session);
         return ifPerson(session, ControlStaff.class, MunicipalManager.class) || (user instanceof Citizen && r.getCitizen() == user.getId());
     }

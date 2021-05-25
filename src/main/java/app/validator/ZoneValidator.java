@@ -21,11 +21,14 @@ public class ZoneValidator extends PlaceValidator<Zone> {
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        Area area = areaDao.getById(arg);
-        if (!Activeable.isActive(area)) return forbidden();
-        Municipality municipality = municipalityDao.getParentOf(area);
-        if (!municipality.isActive()) return forbidden();
         Person user = getUser(session);
-        return ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        if (user instanceof MunicipalManager) {
+            Area area = areaDao.getById(arg);
+            if (area == null) return forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        }
+        return false;
     }
 }

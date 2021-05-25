@@ -19,10 +19,19 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Override
     public boolean list(HttpSession session, Integer arg) {
         Person user = getUser(session);
-        Area area = areaDao.getById(arg);
-        if (!Activeable.isActive(area)) return forbidden();
-        Municipality municipality = municipalityDao.getParentOf(area);
-        if (!municipality.isActive()) return forbidden();
-        return user == null || user instanceof Citizen || (user instanceof MunicipalManager && ((MunicipalManager) user).getMunicipality() == municipality.getId());
+        if (user == null || user instanceof Citizen) {
+            Area area = areaDao.getById(arg);
+            if (!Activeable.isActive(area)) return area == null && forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (!Activeable.isActive(municipality)) return municipality == null && forbidden();
+            return true;
+        } else if (user instanceof MunicipalManager) {
+            Area area = areaDao.getById(arg);
+            if (area == null) return forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        }
+        return false;
     }
 }
