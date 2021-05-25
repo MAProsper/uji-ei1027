@@ -8,6 +8,7 @@ import app.model.*;
 import app.model.generic.Activeable;
 import app.model.generic.Person;
 import app.validator.generic.PersonValidator;
+import groovyjarjarantlr.preprocessor.PreprocessorTokenTypes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,20 +39,21 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     //arg id del areaPeriod
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg == null) return forbidden();
-        return comprobacion(session, arg);
+        if (arg == null) return ifPerson(session, ControlStaff.class);
+        return this.comprobacion(session, arg);
     }
 
     //arg id del areaPeriod
     @Override
     public boolean add(HttpSession session, Integer arg) {
-        return list(session, arg);
+        if (arg == null) return forbidden();
+        return this.comprobacion(session, arg);
     }
 
     //Argumento: el id del control staff
     @Override
     public boolean update(HttpSession session, Integer arg) {
-        if (arg == null) return forbidden();
+        if (arg == null) return ifPerson(session, ControlStaff.class);
         ControlStaff controlStaff = this.controlStaffDao.getById(arg);
         if ( controlStaff == null || ! controlStaff.isActive()) return forbidden();
         return this.comprobacion(session, controlStaff.getAreaPeriod());
@@ -60,7 +62,10 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     //Argumento el id del control staff
     @Override
     public boolean delete(HttpSession session, Integer arg) {
-        return update(session, arg);
+        if (arg == null) return forbidden();
+        ControlStaff controlStaff = this.controlStaffDao.getById(arg);
+        if ( controlStaff == null || ! controlStaff.isActive()) return forbidden();
+        return this.comprobacion(session, arg);
     }
 
 
