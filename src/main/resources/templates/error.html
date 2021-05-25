@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Error durante la operación</span>
-<main layout:fragment="content" th:text="${message}"></main>
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">Error durante la operación</span>
+<main data-layout-fragment="content" data-th-text="${message}"></main>

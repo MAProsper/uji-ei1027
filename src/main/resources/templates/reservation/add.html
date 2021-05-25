@@ -1,74 +1,76 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title"
-      th:text="'Añadir reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title"
+      data-th-text="'Añadir reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
+<main data-layout-fragment="content">
     <form
             onsubmit="return confirm('¿Seguro que desea realizar la reserva y los datos son correctos?')"
-            th:object="${object}" method="post">
-        <img class="img-fluid" th:src="${data.area.image}">
+            data-th-object="${object}" method="post">
+        <img class="img-fluid" src="" data-th-src="${data.area.image}">
         <table>
-            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
+            <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th>Ciudadano</th>
-                <td th:text="${data.citizen.toDisplayName}"></td>
+                <td data-th-text="${data.citizen.toDisplayName}"></td>
             </tr>
             <tr>
                 <th><label for="date">Fecha</label></th>
-                <td><input required="required" type="date" id="date" th:field="*{date}"
-                           th:attr="min=${data.date.start},max=${data.date.end}"></td>
+                <td><input required="required" type="date" id="date" data-th-field="*{date}"
+                           data-th-attr="min=${data.date.start},max=${data.date.end}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('date')}">
+            <tr data-th-each="err : ${#fields.errors('date')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th>Horario</th>
-                <td th:text="${data.areaPeriod.toPeriodString}"></td>
+                <td data-th-text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
-            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
+            <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th><label for="enter">Entrada</label></th>
-                <td><input type="time" id="enter" th:field="*{enter}"
-                           th:attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
+                <td><input type="time" id="enter" data-th-field="*{enter}"
+                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
             </tr>
-            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}" th:each="err : ${#fields.errors('enter')}">
+            <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
+                data-th-each="err : ${#fields.errors('enter')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
-            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}">
+            <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th><label for="exit">Salida</label></th>
-                <td><input type="time" id="exit" th:field="*{exit}"
-                           th:attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
+                <td><input type="time" id="exit" data-th-field="*{exit}"
+                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
             </tr>
-            <tr th:unless="${session.user instanceOf T(app.model.Citizen)}" th:each="err : ${#fields.errors('enter')}">
+            <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
+                data-th-each="err : ${#fields.errors('enter')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="zones">Zonas</label></th>
                 <td>
-                    <select required="required" id="zones" th:field="*{zones}" multiple="multiple">
-                        <option th:each="zone: ${data.areaZone}" th:value="${zone.id}"
-                                th:text="${zone.toDisplayName}"></option>
+                    <select required="required" id="zones" data-th-field="*{zones}" multiple="multiple">
+                        <option data-th-each="zone: ${data.areaZone}" data-th-value="${zone.id}"
+                                data-th-text="${zone.toDisplayName}"></option>
                     </select>
                 </td>
             </tr>
-            <tr th:each="err : ${#fields.errors('zones')}">
+            <tr data-th-each="err : ${#fields.errors('zones')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="occupied">Número de personas</label></th>
-                <td><input required="required" type="number" id="occupied" th:field="*{occupied}" min="1"
-                           th:attr="max=${data.capacity}"></td>
+                <td><input required="required" type="number" id="occupied" data-th-field="*{occupied}" min="1"
+                           data-th-attr="max=${data.capacity}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('occupied')}">
+            <tr data-th-each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
         </table>

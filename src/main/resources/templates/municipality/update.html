@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Actualizar un municipio</span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">Actualizar un municipio</span>
+<main data-layout-fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')"
-          th:object="${object}" method="post">
+          data-th-object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="name">Nombre</label></th>
-                <td><input required="required" type="text" id="name" th:field="*{name}"></td>
+                <td><input required="required" type="text" id="name" data-th-field="*{name}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('name')}">
+            <tr data-th-each="err : ${#fields.errors('name')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
         </table>

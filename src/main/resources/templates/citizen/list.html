@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Tus datos</span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">Tus datos</span>
+<main data-layout-fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -16,20 +16,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${#lists.isEmpty(object)}">
+        <tr data-th-if="${#lists.isEmpty(object)}">
             <td colspan="7">No hay ningún ciudadano registrado</td>
         </tr>
-        <tr th:each="object: ${object}">
-            <td th:text="*{object.identification}"></td>
-            <td th:text="*{object.name}"></td>
-            <td th:text="*{object.mail}"></td>
-            <td th:text="*{object.country.name}"></td>
-            <td th:text="*{object.city}"></td>
-            <td th:text="*{object.address}"></td>
+        <tr data-th-each="object: ${object}">
+            <td data-th-text="*{object.identification}"></td>
+            <td data-th-text="*{object.name}"></td>
+            <td data-th-text="*{object.mail}"></td>
+            <td data-th-text="*{object.country.name}"></td>
+            <td data-th-text="*{object.city}"></td>
+            <td data-th-text="*{object.address}"></td>
             <td>
-                <a th:href="@{/citizen/update}" class="btn btn-warning" role="button">Actualizar
+                <a data-th-href="@{/citizen/update}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a th:href="@{/citizen/delete}"
+                <a data-th-href="@{/citizen/delete}"
                    onclick="return confirm('¿Seguro que desea darse de baja?')"
                    class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>

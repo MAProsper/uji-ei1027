@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Inicio de sesión</span>
-<main layout:fragment="content">
-    <form th:object="${object}" method="post">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">Inicio de sesión</span>
+<main data-layout-fragment="content">
+    <form data-th-object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="identification">Identificación:</label></th>
-                <td><input required="required" type="text" id="identification" th:field="*{identification}"/></td>
+                <td><input required="required" type="text" id="identification" data-th-field="*{identification}"/></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('identification')}">
+            <tr data-th-each="err : ${#fields.errors('identification')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="password">Contraseña:</label></th>
-                <td><input required="required" type="password" id="password" th:field="*{password}"/></td>
+                <td><input required="required" type="password" id="password" data-th-field="*{password}"/></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('password')}">
+            <tr data-th-each="err : ${#fields.errors('password')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
         </table>

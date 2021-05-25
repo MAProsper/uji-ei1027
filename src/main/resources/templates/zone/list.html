@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title"
-      th:text="'Zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title"
+      data-th-text="'Zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+<main data-layout-fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
@@ -11,26 +11,26 @@
             <th>Capacidad</th>
             <th>Fecha de alta / Fecha de baja</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager)}"
-                   th:href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"
+                   data-th-href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${#lists.isEmpty(object)}">
+        <tr data-th-if="${#lists.isEmpty(object)}">
             <td colspan="4">No hay ninguna zona registrada</td>
         </tr>
-        <tr th:each="object: ${object}">
-            <td th:text="*{object.name}"></td>
-            <td th:text="*{object.capacity}"></td>
-            <td th:text="*{object.toSignString}"></td>
+        <tr data-th-each="object: ${object}">
+            <td data-th-text="*{object.name}"></td>
+            <td data-th-text="*{object.capacity}"></td>
+            <td data-th-text="*{object.toSignString}"></td>
             <td>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
-                   th:href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                   data-th-href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>
-                <a th:if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
-                   th:href="@{/zone/delete/{id}(id=${object.id})}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active}"
+                   data-th-href="@{/zone/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja la zona?')"
                    class="btn btn-danger" role="button">Dar de baja</a></td>
         </tr>

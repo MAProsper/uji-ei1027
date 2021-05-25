@@ -1,76 +1,78 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">Dar de alta ciudadano/ciudadana</span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">Dar de alta ciudadano/ciudadana</span>
+<main data-layout-fragment="content">
     <form
             onsubmit="return confirm('¿Seguro que quiere darse de alta y los datos son correctos?')"
-            th:object="${object}" method="post">
+            data-th-object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="identification">Identificación</label></th>
-                <td><input required="required" type="text" id="identification" th:field="*{identification}"></td>
+                <td><input required="required" type="text" id="identification" data-th-field="*{identification}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('identification')}">
+            <tr data-th-each="err : ${#fields.errors('identification')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="name">Nombre</label></th>
-                <td><input required="required" type="text" id="name" th:field="*{name}"></td>
+                <td><input required="required" type="text" id="name" data-th-field="*{name}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('name')}">
+            <tr data-th-each="err : ${#fields.errors('name')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="mail">Correo Electrónico</label></th>
-                <td><input required="required" type="email" id="mail" th:field="*{mail}"></td>
+                <td><input required="required" type="email" id="mail" data-th-field="*{mail}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('mail')}">
+            <tr data-th-each="err : ${#fields.errors('mail')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="password">Contraseña</label></th>
-                <td><input required="required" type="password" id="password" th:field="*{password}"></td>
+                <td><input required="required" type="password" id="password" data-th-field="*{password}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('password')}">
+            <tr data-th-each="err : ${#fields.errors('password')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
-            <th><label for="country">País</label></th>
-            <td>
-                <select required="required" id="country" th:field="*{country}">
-                    <option th:each="country : ${T(app.model.enums.Country).values()}" th:value="${country}"
-                            th:text="${country.name}"></option>
-                </select>
-            </td>
-            <tr th:each="err : ${#fields.errors('country')}">
+            <tr>
+                <th><label for="country">País</label></th>
+                <td>
+                    <select required="required" id="country" data-th-field="*{country}">
+                        <option data-th-each="country : ${T(app.model.enums.Country).values()}" data-th-value="${country}"
+                                data-th-text="${country.name}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr data-th-each="err : ${#fields.errors('country')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="city">Ciudad</label></th>
-                <td><input required="required" type="text" id="city" th:field="*{city}"></td>
+                <td><input required="required" type="text" id="city" data-th-field="*{city}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('city')}">
+            <tr data-th-each="err : ${#fields.errors('city')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="address">Dirección</label></th>
-                <td><input required="required" type="text" id="address" th:field="*{address}"></td>
+                <td><input required="required" type="text" id="address" data-th-field="*{address}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('address')}">
+            <tr data-th-each="err : ${#fields.errors('address')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
         </table>

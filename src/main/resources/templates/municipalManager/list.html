@@ -1,50 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title">
-    <span th:if="*{session.user instanceof T(app.model.MunicipalManager)}">Tus datos</span>
-    <span th:if="*{session.user instanceof T(app.model.EnviromentalManager)}"
-          th:text="'Gestores municipales de ' + ${data[0].municipality.name}"></span>
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title">
+    <span data-th-if="*{session.user instanceof T(app.model.MunicipalManager)}">Tus datos</span>
+    <span data-th-if="*{session.user instanceof T(app.model.EnviromentalManager)}"
+          data-th-text="'Gestores municipales de ' + ${data[0].municipality.name}"></span>
 </span>
-<main layout:fragment="content">
+<main data-layout-fragment="content">
     <table class="table table-striped">
         <thead>
         <tr>
             <th>Identificación</th>
             <th>Nombre</th>
-            <th th:if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
+            <th data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
             <th>Correo electrónico</th>
             <th>Municipio</th>
             <th>Teléfono</th>
             <th>
-                <a th:if="${session.user instanceof T(app.model.EnviromentalManager}"
-                   th:href="@{/municipal-manager/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager}"
+                   data-th-href="@{/municipal-manager/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${#lists.isEmpty(object)}">
-            <td colspan="7" th:if="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y
+        <tr data-th-if="${#lists.isEmpty(object)}">
+            <td colspan="7" data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y
                 gestoras municipales
             </td>
-            <td colspan="6" th:unless="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y
+            <td colspan="6" data-th-unless="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de
+                gestores y
                 gestoras municipales
             </td>
         </tr>
-        <tr th:each="object: ${object}">
-            <td th:text="*{object.identification}"></td>
-            <td th:text="*{object.name}"></td>
-            <td th:text="*{object.toSignString}"
-                th:if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
-            <td th:text="*{object.municipality.name}"></td>
-            <td th:text="*{object.phone}"></td>
+        <tr data-th-each="object: ${object}">
+            <td data-th-text="*{object.identification}"></td>
+            <td data-th-text="*{object.name}"></td>
+            <td data-th-text="*{object.toSignString}"
+                data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
+            <td data-th-text="*{object.municipality.name}"></td>
+            <td data-th-text="*{object.phone}"></td>
             <td>
-                <a th:if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
-                   th:href="@{/municipal-manager/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
+                   data-th-href="@{/municipal-manager/update/{id}(id=${object.id})}" class="btn btn-warning"
+                   role="button">Actualizar
                 </a>
-                <a th:if="${object.active}"
-                   th:href="@{/municipal-manager/delete/{id}(id=${object.id})}"
+                <a data-th-if="${object.active}"
+                   data-th-href="@{/municipal-manager/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al gestor municipal?')"
                    class="btn btn-danger" role="button">Dar de baja</a>
             </td>

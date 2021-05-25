@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
-<span layout:fragment="title"
-      th:text="'Añadir horario para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
-<main layout:fragment="content">
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title"
+      data-th-text="'Añadir horario para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
+<main data-layout-fragment="content">
     <form
             onsubmit="return confirm('¿Seguro que desea añadir el horario y los datos son correctos?')"
-            th:object="${object}" method="post">
+            data-th-object="${object}" method="post">
         <table>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input required="required" type="date" id="scheduleStart" th:field="*{scheduleStart}"></td>
+                <td><input required="required" type="date" id="scheduleStart" data-th-field="*{scheduleStart}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('scheduleStart')}">
+            <tr data-th-each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="scheduleEnd">Fecha de fin</label></th>
-                <td><input type="date" id="scheduleEnd" th:field="*{scheduleEnd}"></td>
+                <td><input type="date" id="scheduleEnd" data-th-field="*{scheduleEnd}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('scheduleEnd')}">
+            <tr data-th-each="err : ${#fields.errors('scheduleEnd')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="periodStart">Hora de inicio</label></th>
-                <td><input required="required" type="time" id="periodStart" th:field="*{periodStart}"></td>
+                <td><input required="required" type="time" id="periodStart" data-th-field="*{periodStart}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('periodStart')}">
+            <tr data-th-each="err : ${#fields.errors('periodStart')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
             <tr>
                 <th><label for="periodEnd">Hora de fin</label></th>
-                <td><input required="required" type="time" id="periodEnd" th:field="*{periodEnd}"></td>
+                <td><input required="required" type="time" id="periodEnd" data-th-field="*{periodEnd}"></td>
             </tr>
-            <tr th:each="err : ${#fields.errors('periodEnd')}">
+            <tr data-th-each="err : ${#fields.errors('periodEnd')}">
                 <td colspan="2">
-                    <div class="alert alert-danger" role="alert" th:text="${err}"></div>
+                    <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
         </table>
