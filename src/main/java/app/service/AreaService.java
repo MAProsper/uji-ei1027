@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,7 +41,7 @@ public class AreaService extends PlaceService<Area> {
 
     @Override
     public Map<String, Object> data(Area area) {
-        long active = areaPeriodDao.getChildsOf(area).stream().filter(AreaPeriod::isActive).flatMap(ap -> reservationDao.getChildsOf(ap).stream()).filter(Reservation::isActive).count();
+        long active = areaPeriodDao.getChildsOf(area).stream().filter(AreaPeriod::isActive).flatMap(ap -> reservationDao.getChildsOf(ap).stream()).filter(Reservation::isActive).mapToInt(Reservation::getOccupied).sum();
         int capacity = zoneDao.getChildsOf(area).stream().filter(Zone::isActive).mapToInt(Zone::getCapacity).sum();
         if (capacity == 0) capacity = 1;
         String occupied = String.format("%d%%", (active * 100) / capacity);
