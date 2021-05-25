@@ -4,7 +4,7 @@
 <span data-layout-fragment="title">
     <span data-th-if="*{session.user instanceof T(app.model.ControlStaff)}">Tus datos</span>
     <span data-th-unless="*{session.user instanceof T(app.model.ControlStaff)}"
-          data-th-text="'Personal de control de ' ${data[0].area.name} ' (' + ${data[0].municipality.name} + ')' "></span>
+          data-th-text="'Personal de control de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')' "></span>
 </span>
 <main data-layout-fragment="content">
     <table class="table table-striped">
@@ -25,12 +25,10 @@
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
             <td colspan="6" data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal
-                de
-                control registrado
+                de control registrado
             </td>
-            <td colspan="5" data-th-unless="${session.user instanceof T(app.model.ControlStaff}">No hay ningún personal
-                de
-                control registrado
+            <td colspan="5" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal
+                de control registrado
             </td>
         </tr>
         <tr data-th-each="object: ${object}">
@@ -39,11 +37,15 @@
             <td data-th-text="*{object.toSignString}"
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td data-th-text="*{object.mail}"></td>
             <td>
-                <a data-th-if="${object.active}"
+                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) }"
                    data-th-href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a data-th-if="${object.active}"
+                <a data-th-if="${object.active and (session.user instanceof T(app.model.ControlStaff)) }"
+                   data-th-href="@{/control-staff/update}" class="btn btn-warning" role="button">Actualizar
+                </a>
+                <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) }"
                    data-th-href="@{/control-staff/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja al personal de control?')"
                    class="btn btn-danger" role="button">Dar de baja</a></td>
