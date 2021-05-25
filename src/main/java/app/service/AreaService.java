@@ -35,6 +35,8 @@ public class AreaService extends PlaceService<Area> {
         Person user = getUser(session);
         if (user instanceof MunicipalManager)
             area.setMunicipality(((MunicipalManager) user).getMunicipality());
+        else
+            area.setMunicipality(arg);
         return area;
     }
 
