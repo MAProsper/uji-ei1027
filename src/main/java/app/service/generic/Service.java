@@ -146,6 +146,5 @@ public abstract class Service<M extends Model> {
      */
     protected void deleteSession(HttpSession session) {
         session.removeAttribute("user");
-        session.removeAttribute("referrer");
     }
 }
