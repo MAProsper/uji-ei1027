@@ -10,7 +10,6 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Código</th>
             <th data-th-unless="${session.user instanceOf T(app.model.Citizen)}">Ciudadano</th>
             <th>Número de personas</th>
             <th data-th-if="${session.user instanceOf T(app.model.Citizen)}">Municipio</th>
@@ -18,17 +17,17 @@
             <th>Zonas</th>
             <th>Día</th>
             <th>Horario</th>
+            <th data-th-if="${session.user instanceOf T(app.model.Citizen)}">Tíquet</th>
             <th data-th-unless="${session.user instanceOf T(app.model.Citizen)}">Entrada y salida</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td colspan="7" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
+            <td colspan="8" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
             <td colspan="9" data-th-unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
         </tr>
         <tr data-th-each="object: ${object}">
-            <td data-th-text="*{object.id}"></td>
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{data[objectStat.index].citizen.toDisplayName}"></td>
             <td data-th-text="*{object.occupied}"></td>
@@ -37,6 +36,8 @@
             <td data-th-text="*{data[objectStat.index].zone}"></td>
             <td data-th-text="*{object.date}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
+            <td data-th-if="${session.user instanceof T(app.model.Citizen)}"><a class="btn btn-info" data-th-href="@{/reservation/img/{id}(id=${object.id})}"
+                                                                                         target="_blank">Abrir</a></td>
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{object.toPeriodString}"></td>
             <td>

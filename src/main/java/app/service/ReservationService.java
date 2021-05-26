@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -77,8 +78,11 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public Reservation updateObject(HttpSession session, Integer arg) {
+        LocalTime now = LocalTime.now();
         Reservation r = super.updateObject(session, arg);
         r.setZones(reservationZoneDao.getChildsOf(r).stream().map(ReservationZone::getZone).collect(Collectors.toList()));
+        if (r.getEnter() == null) r.setEnter(now);
+        else if (r.getExit() == null) r.setExit(now);
         return r;
     }
 
