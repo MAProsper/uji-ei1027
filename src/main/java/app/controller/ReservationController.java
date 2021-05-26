@@ -16,7 +16,7 @@ import java.net.InetAddress;
 @RequestMapping("/reservation")
 public class ReservationController extends app.controller.generic.Controller<Reservation> {
     @RequestMapping(path = "/image/{arg}")
-    public String list(@PathVariable Integer arg, HttpServletResponse response, @Value("${local.server.port}") int port) {
+    public String image(@PathVariable Integer arg, HttpServletResponse response, @Value("${local.server.port}") int port) {
         try {
             String host = InetAddress.getLocalHost().getHostAddress();
             String url = String.format("http://%s:%d/reservation/update/%d", host, port, arg);
