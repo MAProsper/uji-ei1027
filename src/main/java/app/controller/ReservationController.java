@@ -15,8 +15,8 @@ import java.net.InetAddress;
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController extends app.controller.generic.Controller<Reservation> {
-    @RequestMapping(path = "/image/{arg}")
-    public String image(@PathVariable int arg, HttpServletResponse response, @Value("${local.server.port}") int port) {
+    @RequestMapping(path = "/img/{arg}")
+    public void image(@PathVariable int arg, HttpServletResponse response, @Value("${local.server.port}") int port) {
         try {
             String host = InetAddress.getLocalHost().getHostAddress();
             String url = String.format("http://%s:%d/reservation/update/%d", host, port, arg);
@@ -24,6 +24,5 @@ public class ReservationController extends app.controller.generic.Controller<Res
         } catch (IOException e) {
             throw new ApplicationException("Error generando la imagen", e);
         }
-        return null;
     }
 }
