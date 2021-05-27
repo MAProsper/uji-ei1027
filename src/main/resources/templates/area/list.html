@@ -50,10 +50,12 @@
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id}"
                    data-th-href="@{/zone/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Zonas</a>
             </td>
-            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.active and session.user.municipality == data[objectStat.index].municipality.id and data[0].municipality.active}">
-                <a data-th-href="@{/area/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
+            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[objectStat.index].municipality.id and data[0].municipality.active}">
+                <a data-th-if="*{object.active}"
+                        data-th-href="@{/area/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a data-th-href="@{/area/delete/{id}(id=${object.id})}"
+                <a data-th-if="*{object.active}"
+                        data-th-href="@{/area/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el área?')" class="btn btn-danger" role="button">Dar de baja
                 </a>
             </td>
