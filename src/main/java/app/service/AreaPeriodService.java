@@ -53,9 +53,4 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
         return String.format("../list/%d", areaPeriodDao.getById(arg).getArea());
     }
 
-    protected void overlapValidator(AreaPeriod object) {
-        List<AreaPeriod> periods = areaPeriodDao.getByArea(object.getArea());
-        if (periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object)))
-            throw new ApplicationException("periodo se solapa con otro");
-    }
 }

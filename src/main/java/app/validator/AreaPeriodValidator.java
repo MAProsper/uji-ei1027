@@ -1,22 +1,38 @@
 package app.validator;
 
+import app.ApplicationException;
 import app.dao.AreaDao;
 import app.dao.AreaPeriodDao;
 import app.dao.MunicipalityDao;
 import app.model.*;
 import app.model.generic.Activeable;
 import app.model.generic.Person;
+import app.validator.generic.FieldErrors;
 import app.validator.generic.ScheduleableValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaDao areaDao;
     @Autowired AreaPeriodDao areaPeriodDao;
+
+
+    @Override
+    public void object(AreaPeriod object, FieldErrors errors) {
+        super.object(object, errors);
+        if (this.overlapValidator(object))
+            errors.accept("periodStart", "Se solapa con otro horario.");
+    }
+
+    protected boolean overlapValidator(AreaPeriod object) {
+        List<AreaPeriod> periods = areaPeriodDao.getByArea(object.getArea());
+        return periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object));
+    }
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
