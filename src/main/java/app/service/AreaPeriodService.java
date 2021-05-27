@@ -1,6 +1,5 @@
 package app.service;
 
-import app.ApplicationException;
 import app.dao.AreaDao;
 import app.dao.AreaPeriodDao;
 import app.dao.MunicipalityDao;

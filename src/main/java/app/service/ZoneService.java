@@ -4,7 +4,6 @@ import app.dao.AreaDao;
 import app.dao.MunicipalityDao;
 import app.dao.ZoneDao;
 import app.model.Area;
-import app.model.AreaPeriod;
 import app.model.MunicipalManager;
 import app.model.Zone;
 import app.model.generic.Person;

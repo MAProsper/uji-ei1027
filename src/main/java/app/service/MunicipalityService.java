@@ -31,6 +31,6 @@ public class MunicipalityService extends PlaceService<Municipality> {
 
     @Override
     public Municipality updateObject(HttpSession session, Integer arg) {
-        return this.municipalityDao.getById( ((MunicipalManager)getUser(session)).getMunicipality() );
+        return this.municipalityDao.getById(((MunicipalManager) getUser(session)).getMunicipality());
     }
 }

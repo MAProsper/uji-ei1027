@@ -1,10 +1,6 @@
 package app.service;
 
-import app.controller.MailDao;
-import app.dao.AreaDao;
-import app.dao.AreaPeriodDao;
-import app.dao.ControlStaffDao;
-import app.dao.MunicipalityDao;
+import app.dao.*;
 import app.model.*;
 import app.service.generic.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +30,7 @@ public class ControlStaffService extends PersonService<ControlStaff> {
     public List<ControlStaff> listObjects(HttpSession session, Integer arg) {
         // Caso mostrar datos del control Staff
         if (arg == null) return Collections.singletonList((ControlStaff) super.getUser(session));
-        // Caso mostrar todos los del areaPeriod (arg = areaPeriod)
+            // Caso mostrar todos los del areaPeriod (arg = areaPeriod)
         else return this.controlStaffDao.getByAreaPeriod(arg);
     }
 
@@ -44,7 +40,7 @@ public class ControlStaffService extends PersonService<ControlStaff> {
         if (arg != null) {
             controlStaff = super.addObject(session, arg);
             controlStaff.setAreaPeriod(arg);
-        }else
+        } else
             controlStaff = (ControlStaff) super.getUser(session);
 
         return controlStaff;
@@ -67,7 +63,7 @@ public class ControlStaffService extends PersonService<ControlStaff> {
     public ControlStaff updateObject(HttpSession session, Integer arg) {
         // Control Staff actualiza sus datos
         if (arg == null) return (ControlStaff) getUser(session);
-        // Municipal manager actualiza los datos del control staff cuyo id es pasado por argumento
+            // Municipal manager actualiza los datos del control staff cuyo id es pasado por argumento
         else return this.controlStaffDao.getById(arg);
     }
 
@@ -95,7 +91,7 @@ public class ControlStaffService extends PersonService<ControlStaff> {
 
     @Override
     public String getRedirect(HttpSession session, Integer arg) {
-        if (arg != null) return "../list/"+this.controlStaffDao.getById(arg).getAreaPeriod();
+        if (arg != null) return "../list/" + this.controlStaffDao.getById(arg).getAreaPeriod();
         else return "list";
     }
 }

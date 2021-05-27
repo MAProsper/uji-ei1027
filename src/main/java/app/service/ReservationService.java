@@ -1,6 +1,5 @@
 package app.service;
 
-import app.controller.MailDao;
 import app.dao.*;
 import app.model.*;
 import app.model.generic.Person;

@@ -7,7 +7,6 @@ import app.model.Citizen;
 import app.model.MunicipalManager;
 import app.model.generic.Activeable;
 import app.model.generic.Person;
-import app.validator.generic.FieldErrors;
 import app.validator.generic.PlaceValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

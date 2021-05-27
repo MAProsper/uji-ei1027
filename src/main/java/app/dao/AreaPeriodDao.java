@@ -1,6 +1,5 @@
 package app.dao;
 
-import app.ApplicationException;
 import app.dao.generic.ScheduleableDao;
 import app.model.AreaPeriod;
 import org.springframework.stereotype.Repository;
