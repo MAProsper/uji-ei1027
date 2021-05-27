@@ -24,8 +24,8 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td colspan="8" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
-            <td colspan="9" data-th-unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
+            <td class="text-center" colspan="8" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
+            <td class="text-center" colspan="9" data-th-unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
         </tr>
         <tr data-th-each="object: ${object}">
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"

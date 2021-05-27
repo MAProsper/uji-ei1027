@@ -1,5 +1,6 @@
 package app.service;
 
+import app.ApplicationException;
 import app.dao.AreaDao;
 import app.dao.AreaPeriodDao;
 import app.dao.MunicipalityDao;
@@ -48,5 +49,11 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     @Override
     public String getRedirect(HttpSession session, Integer arg) {
         return String.format("../list/%d", areaPeriodDao.getById(arg).getArea());
+    }
+
+    protected void overlapValidator(AreaPeriod object) {
+        List<AreaPeriod> periods = areaPeriodDao.getByArea(object.getArea());
+        if (periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object)))
+            throw new ApplicationException("periodo se solapa con otro");
     }
 }

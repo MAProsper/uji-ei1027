@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td colspan="7">No hay ningún ciudadano registrado</td>
+            <td class="text-center" colspan="7">No hay ningún ciudadano registrado</td>
         </tr>
         <tr data-th-each="object: ${object}">
             <td data-th-text="*{object.identification}"></td>

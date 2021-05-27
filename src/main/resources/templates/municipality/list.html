@@ -7,7 +7,8 @@
         <tr>
             <th>Nombre</th>
             <th data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
-            <th>
+            <th class="text-center" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">Otros</th>
+            <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}" href="add"
                    class="btn btn-success" role="button">Añadir</a>
             </th>
@@ -15,11 +16,11 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td colspan="3" data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun
+            <td class="text-center" colspan="3" data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun
                 municipio
                 registrado
             </td>
-            <td colspan="2" data-th-unless="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun
+            <td class="text-center" colspan="2" data-th-unless="${session.user instanceof T(app.model.EnviromentalManager)}">No hay ningun
                 municipio registrado
             </td>
         </tr>
@@ -27,10 +28,11 @@
             <td data-th-text="*{object.name}"></td>
             <td data-th-text="*{object.toSignString}"
                 data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
-            <td>
-                <a data-th-if="${session.user instanceof T(app.model.Citizen) or session.user == null}"
-                   data-th-href="@{/area/list/{id}(id=${object.id})}" class="btn btn-success" role="button">Ver
-                    areas</a>
+            <td class="text-center" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">
+                <a
+                   data-th-href="@{/area/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Areas</a>
+            </td>
+            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"
                    data-th-href="@{/municipality/update}" class="btn btn-warning" role="button">Actualizar
                 </a>
@@ -40,7 +42,7 @@
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
                    data-th-href="@{/municipality/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea dar de baja el municipio?')"
-                   class="btn btn-danger" role="button">Dar de baja municipio
+                   class="btn btn-danger" role="button">Dar de baja
                 </a>
             </td>
         </tr>

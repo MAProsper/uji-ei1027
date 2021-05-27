@@ -1,6 +1,7 @@
 package app.validator;
 
 import app.dao.AreaDao;
+import app.dao.AreaPeriodDao;
 import app.dao.MunicipalityDao;
 import app.model.*;
 import app.model.generic.Activeable;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpSession;
 public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Autowired MunicipalityDao municipalityDao;
     @Autowired AreaDao areaDao;
+    @Autowired AreaPeriodDao areaPeriodDao;
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
@@ -35,5 +37,32 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;
+    }
+
+    @Override
+    public boolean add(HttpSession session, Integer arg) {
+        Area area = areaDao.getById(arg);
+        if (!Activeable.isActive(area)) return forbidden();
+        Municipality municipality = municipalityDao.getParentOf(area);
+        if (!municipality.isActive()) return forbidden();
+        Person user = getUser(session);
+        return ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
+    }
+
+    @Override
+    public boolean update(HttpSession session, Integer arg) {
+        AreaPeriod service = this.areaPeriodDao.getById(arg);
+        if (service == null || !service.isEnded()) return forbidden();
+        Area area = this.areaDao.getParentOf(service);
+        if (!area.isActive()) return forbidden();
+        Municipality municipality = municipalityDao.getParentOf(area);
+        if (!municipality.isActive()) return forbidden();
+        Person user = getUser(session);
+        return ifPerson(session, MunicipalManager.class) && ((MunicipalManager) user).getMunicipality() == municipality.getId();
+    }
+
+    @Override
+    public boolean delete(HttpSession session, Integer arg) {
+        return this.update(session, arg);
     }
 }

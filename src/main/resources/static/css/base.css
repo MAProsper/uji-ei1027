@@ -28,8 +28,9 @@ main {
     vertical-align: middle;
 }
 
+/* añadir a columnas con botones */
 main > table tr > :last-child {
-    text-align: center; /* añadir a columnas con botones */
+    /* text-align: center; */
 }
 
 form {
