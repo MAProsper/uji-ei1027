@@ -71,7 +71,7 @@ public class ReservationValidator extends Validator<Reservation> {
     @Override
     public boolean delete(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
-        if (r == null || !r.isEnded() || r.isNotCancelled()) return forbidden();
+        if (r == null || r.isEnded()) return forbidden();
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
         if (r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now()))
             return forbidden();
