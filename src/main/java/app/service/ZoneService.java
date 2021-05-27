@@ -36,6 +36,7 @@ public class ZoneService extends PlaceService<Zone> {
     @Override
     public Zone addObject(HttpSession session, Integer arg) {
         Zone zone = super.addObject(session, arg);
+        zone.setCapacity(10);
         zone.setArea(arg);
         return zone;
     }

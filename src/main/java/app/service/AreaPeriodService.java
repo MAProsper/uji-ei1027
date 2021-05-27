@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -43,6 +44,7 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     public AreaPeriod addObject(HttpSession session, Integer arg) {
         AreaPeriod ap = super.addObject(session, arg);
         ap.setArea(arg);
+        ap.setScheduleStart(LocalDate.now());
         return ap;
     }
 
