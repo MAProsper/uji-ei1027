@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html
-        data-layout-decorate="~{fragments/base}">
+<html data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title">
     <span data-th-if="*{session.user instanceof T(app.model.MunicipalManager)}">Tus datos</span>
     <span data-th-if="*{session.user instanceof T(app.model.EnviromentalManager)}"
