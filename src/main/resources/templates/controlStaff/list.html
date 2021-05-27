@@ -34,9 +34,9 @@
         <tr data-th-each="object: ${object}">
             <td data-th-text="*{object.identification}"></td>
             <td data-th-text="*{object.name}"></td>
-            <td data-th-text="*{object.mail}"></td>
             <td data-th-text="*{object.toSignString}"
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
+            <td data-th-text="*{object.mail}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
             <td>
                 <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"

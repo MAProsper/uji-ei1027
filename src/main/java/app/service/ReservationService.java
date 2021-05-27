@@ -86,27 +86,26 @@ public class ReservationService extends app.service.generic.Service<Reservation>
         return r;
     }
 
-    @Override
-    public void updateProcess(HttpSession session, Integer arg, Reservation object) {
-        super.updateProcess(session, arg, object);
-        reservationZoneDao.getChildsOf(object).forEach(z -> reservationZoneDao.delete(z.getId()));
-        for (int zone : object.getZones()) {
+    protected void updateZones(Reservation r) {
+        reservationZoneDao.getChildsOf(r).forEach(z -> reservationZoneDao.delete(z.getId()));
+        for (int zone : r.getZones()) {
             ReservationZone reservationZone = new ReservationZone();
-            reservationZone.setReservation(object.getId());
+            reservationZone.setReservation(r.getId());
             reservationZone.setZone(zone);
             reservationZoneDao.add(reservationZone);
         }
     }
 
     @Override
+    public void updateProcess(HttpSession session, Integer arg, Reservation object) {
+        super.updateProcess(session, arg, object);
+        updateZones(object);
+    }
+
+    @Override
     public void addProcess(HttpSession session, Integer arg, Reservation object) {
         super.addProcess(session, arg, object);
-        for (int zone : object.getZones()) {
-            ReservationZone reservationZone = new ReservationZone();
-            reservationZone.setReservation(object.getId());
-            reservationZone.setZone(zone);
-            reservationZoneDao.add(reservationZone);
-        }
+        updateZones(object);
     }
 
     @Override
