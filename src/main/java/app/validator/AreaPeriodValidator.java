@@ -68,9 +68,9 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         AreaPeriod service = this.areaPeriodDao.getById(arg);
-        if (service == null || !service.isEnded()) return forbidden();
+        if (service == null || ! service.isEnded()) return forbidden();
         Area area = this.areaDao.getParentOf(service);
-        if (!area.isActive()) return forbidden();
+        if (! area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
         if (!municipality.isActive()) return forbidden();
         Person user = getUser(session);
