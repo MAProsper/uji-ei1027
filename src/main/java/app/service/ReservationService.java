@@ -110,7 +110,8 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public String addRedirect(HttpSession session, Integer arg) {
-        return "../list";
+        List<Reservation> reservations = listObjects(session, arg);
+        return String.format("../view/%d", reservations.get(0).getId());
     }
 
     @Override

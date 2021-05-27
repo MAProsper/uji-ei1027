@@ -41,6 +41,12 @@ public class ReservationValidator extends Validator<Reservation> {
         return false;
     }
 
+    public boolean view(HttpSession session, Integer arg) {
+        Reservation r = reservationDao.getById(arg);
+        if (r == null) return forbidden();
+        return ifPerson(session, Citizen.class);
+    }
+
     @Override
     public boolean add(HttpSession session, Integer arg) {
         AreaPeriod areaPeriod = areaPeriodDao.getById(arg);

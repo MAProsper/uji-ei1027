@@ -36,7 +36,7 @@
             <td data-th-text="*{data[objectStat.index].zone}"></td>
             <td data-th-text="*{object.date}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-            <td data-th-if="${session.user instanceof T(app.model.Citizen)}"><a class="btn btn-info" data-th-href="@{/reservation/img/{id}(id=${object.id})}"
+            <td data-th-if="${session.user instanceof T(app.model.Citizen)}"><a class="btn btn-info" data-th-href="@{/reservation/view/{id}(id=${object.id})}"
                                                                                          target="_blank">Abrir</a></td>
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{object.toPeriodString}"></td>
