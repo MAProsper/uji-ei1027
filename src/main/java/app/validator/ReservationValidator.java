@@ -87,7 +87,7 @@ public class ReservationValidator extends Validator<Reservation> {
 
         if (date == null) {
             errors.accept("date", "Formato de fecha invalido");
-        } else if (date.isBefore(areaPeriod.scheduleStart) || date.isAfter(areaPeriod.scheduleEnd)) {
+        } else if (date.isBefore(areaPeriod.scheduleStart) || (areaPeriod.getScheduleEnd() != null && date.isAfter(areaPeriod.scheduleEnd))) {
             errors.accept("date", "Fecha selecionada fuera del horario reservado");
         } else if (date.isBefore(today) || date.isAfter(today.plusDays(2))) {
             errors.accept("date", "Solo se puede reservar como maximo con dos dias de antelacion");
