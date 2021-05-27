@@ -13,8 +13,8 @@
             <th>Localización</th>
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Ocupación</th>
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Mapa</th>
-            <th class="text-center"><a data-th-href="@{/municipality/list}" class="btn btn-info"
-                                       role="button">Atras</a></th>
+            <th class="text-center"><a data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" data-th-href="@{/municipality/list}" class="btn btn-info"
+                                       role="button">Atras</a><span data-th-unless="${session.user == null or session.user instanceof T(app.model.Citizen)}">Información</span></th>
             <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active}">
                 <a
                    data-th-href="@{/area/add}" class="btn btn-success"
