@@ -26,11 +26,11 @@
             <td data-th-text="*{data[objectStat.index].serviceType.name}"></td>
             <td data-th-text="*{object.toScheduleString}"></td>
             <td data-th-text="*{object.toPeriodString}"></td>
-            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and object.ended and data[objectStat.index].municipality.active and data[objectStat.index].area.active}">
-                <a
+            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}">
+                <a data-th-if="*{object.ended}"
                    data-th-href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>
-                <a
+                <a data-th-if="*{object.ended}"
                    data-th-href="@{/service/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el servicio?')"
                    class="btn btn-danger" role="button">Eliminar</a>

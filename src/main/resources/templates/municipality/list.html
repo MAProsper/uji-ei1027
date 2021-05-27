@@ -7,7 +7,7 @@
         <tr>
             <th>Nombre</th>
             <th data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
-            <th class="text-center" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">Información</th>
+            <th class="text-center" data-th-if="${session.user == null and session.user instanceof T(app.model.Citizen)}">Información</th>
             <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}" href="add"
                    class="btn btn-success" role="button">Añadir</a>
@@ -33,10 +33,10 @@
                    data-th-href="@{/area/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Areas</a>
             </td>
             <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
-                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"
+                <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == object.id and object.active}"
                    data-th-href="@{/municipality/update}" class="btn btn-warning" role="button">Actualizar
                 </a>
-                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"
+                <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
                    data-th-href="@{/municipality/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager) and object.active}"
