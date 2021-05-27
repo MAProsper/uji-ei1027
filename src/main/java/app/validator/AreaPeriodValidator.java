@@ -25,13 +25,12 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Override
     public void object(AreaPeriod object, FieldErrors errors) {
         super.object(object, errors);
-        if (this.overlapValidator(object))
-            errors.accept("periodStart", "Se solapa con otro horario.");
-    }
 
-    protected boolean overlapValidator(AreaPeriod object) {
         List<AreaPeriod> periods = areaPeriodDao.getByArea(object.getArea());
-        return periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object));
+        boolean overlap = periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object));
+
+        if (overlap)
+            errors.accept("periodStart", "Se solapa con otro horario.");
     }
 
     @Override
