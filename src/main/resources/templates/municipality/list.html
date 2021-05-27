@@ -30,7 +30,7 @@
                 data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"></td>
             <td class="text-center" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">
                 <a
-                   data-th-href="@{/area/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Areas</a>
+                   data-th-href="@{/area/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Áreas</a>
             </td>
             <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
                 <a data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == object.id and object.active}"
