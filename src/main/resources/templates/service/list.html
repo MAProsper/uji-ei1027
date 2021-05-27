@@ -10,6 +10,8 @@
             <th>Tipo</th>
             <th>Fechas</th>
             <th>Horario</th>
+            <th><a data-th-href="@{/area/list/{id}(id=${data[0].municipality.id})}" class="btn btn-info"
+                    role="button">Atras</a></th>
             <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
                 <a
                    data-th-href="@{/service/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
