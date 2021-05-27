@@ -21,10 +21,11 @@ public class ApplicationTest implements Runnable {
     @Autowired ServiceDao serviceDao;
     @Autowired ReservationDao reservationDao;
     @Autowired ReservationZoneDao reservationZoneDao;
+    @Autowired MailDao mailDao;
 
     public void run() {
-        sqlUtil.executeScript("reset");
-        sqlUtil.executeScript("data");
+        //sqlUtil.executeScript("reset");
+        //sqlUtil.executeScript("data");
 
         municipalityDao.test();
         areaDao.test();
@@ -38,5 +39,15 @@ public class ApplicationTest implements Runnable {
         serviceDao.test();
         reservationDao.test();
         reservationZoneDao.test();
+        mailDao.test();
+
+        //personEncrypt();
+    }
+
+    protected void personEncrypt() {
+        enviromentalManagerDao.getAll().forEach(enviromentalManagerDao::update);
+        municipalManagerDao.getAll().forEach(municipalManagerDao::update);
+        controlStaffDao.getAll().forEach(controlStaffDao::update);
+        citizenDao.getAll().forEach(citizenDao::update);
     }
 }

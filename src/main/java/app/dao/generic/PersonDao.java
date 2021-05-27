@@ -22,10 +22,4 @@ public abstract class PersonDao<T extends Person> extends SignableDao<T> {
         object.setPassword(object.getPassword().isBlank() ? getById(object.getId()).getPassword() : encryptor.encryptPassword(object.getPassword()));
         super.update(object);
     }
-
-    @Override
-    public void test() {
-        super.test();
-        getAll().forEach(this::update);
-    }
 }
