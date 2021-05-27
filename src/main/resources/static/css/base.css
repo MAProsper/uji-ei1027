@@ -28,9 +28,9 @@ main {
     vertical-align: middle;
 }
 
-/* añadir a columnas con botones */
-main > table tr > :last-child {
-    /* text-align: center; */
+img.view {
+    height: 15em;
+    image-rendering: pixelated;
 }
 
 form {

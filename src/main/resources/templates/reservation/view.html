@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+        data-layout-decorate="~{fragments/base}">
+<span data-layout-fragment="title"
+      data-th-text="'Reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
+<main data-layout-fragment="content">
+    <form data-th-object="${object}">
+        <img class="img-fluid view" src="" data-th-src="@{/reservation/img/{id}(id=${object.id})}">
+        <table>
+            <tr>
+                <th>Ciudadano</th>
+                <td data-th-text="${data.citizen.toDisplayName}"></td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td data-th-text="*{date}"></td>
+            </tr>
+            <tr>
+                <th>Horario</th>
+                <td data-th-text="${data.areaPeriod.toPeriodString}"></td>
+            </tr>
+            <tr>
+                <th>Zonas</th>
+                <td data-th-text="${data.zone}"></td>
+            </tr>
+            <tr>
+                <th>Número de personas</th>
+                <td data-th-text="*{occupied}"></td>
+            </tr>
+        </table>
+    </form>
+</main>
