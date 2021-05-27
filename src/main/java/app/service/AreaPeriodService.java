@@ -36,8 +36,9 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
 
     @Override
     public Map<String, Object> data(AreaPeriod areaPeriod) {
+        LocalDate today = LocalDate.now();
         Area area = areaDao.getParentOf(areaPeriod);
-        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area);
+        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "today", today);
     }
 
     @Override
