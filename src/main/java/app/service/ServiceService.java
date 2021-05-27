@@ -3,6 +3,7 @@ package app.service;
 import app.dao.*;
 import app.model.Area;
 import app.model.EnviromentalManager;
+import app.model.MunicipalManager;
 import app.model.ServiceType;
 import app.service.generic.ScheduableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class ServiceService extends ScheduableService<app.model.Service> {
 
     @Override
     public List<app.model.Service> listObjects(HttpSession session, Integer arg) {
-        return serviceDao.getByArea(arg);
+        List<app.model.Service> services = serviceDao.getByArea(arg);
+        if (getUser(session) instanceof MunicipalManager) return services;
+        return services.stream().filter(app.model.Service::isActive).collect(Collectors.toList());
     }
 
     @Override
