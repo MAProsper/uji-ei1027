@@ -7,7 +7,7 @@
         <tr>
             <th>Nombre</th>
             <th data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Validez</th>
-            <th class="text-center" data-th-if="${session.user == null and session.user instanceof T(app.model.Citizen)}">Información</th>
+            <th class="text-center" data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}">Información</th>
             <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) or session.user instanceof T(app.model.EnviromentalManager)}">
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}" href="add"
                    class="btn btn-success" role="button">Añadir</a>
