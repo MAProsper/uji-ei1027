@@ -11,7 +11,7 @@
             <th>Tipo</th>
             <th>Descripción</th>
             <th>Localización</th>
-            <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Ocupación</th>
+            <th>Ocupación</th>
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Mapa</th>
             <th class="text-center"><a data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" data-th-href="@{/municipality/list}" class="btn btn-info"
                                        role="button">Atras</a><span data-th-unless="${session.user == null or session.user instanceof T(app.model.Citizen)}">Información</span></th>
@@ -30,7 +30,7 @@
             <td class="text-center" colspan="7" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and not data[0].municipality.active}">No hay ninguna área
                 registrada
             </td>
-            <td class="text-center" colspan="5" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna
+            <td class="text-center" colspan="6" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ninguna
                 área
                 registrada
             </td>
@@ -42,7 +42,7 @@
             <td data-th-text="*{object.type.name}"></td>
             <td data-th-text="*{object.description}"></td>
             <td data-th-text="*{object.location}"></td>
-            <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}" data-th-text="${data[objectStat.index].occupied}"></td>
+            <td data-th-text="${data[objectStat.index].occupied}"></td>
             <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"><a class="btn btn-info" data-th-href="*{object.image}" target="_blank">Abrir</a></td>
             <td class="text-center">
                 <a data-th-href="@{/area-period/list/{id}(id=${object.id})}" class="btn btn-info" role="button">Horarios</a>
