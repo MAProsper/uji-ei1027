@@ -14,6 +14,6 @@ public class Application implements CommandLineRunner {
     }
 
     public void run(String... strings) {
-        applicationTest.run();
+        //applicationTest.run();
     }
 }

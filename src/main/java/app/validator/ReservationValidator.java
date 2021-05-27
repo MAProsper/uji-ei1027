@@ -57,7 +57,7 @@ public class ReservationValidator extends Validator<Reservation> {
         Reservation r = reservationDao.getById(arg);
         if (r == null || r.isEnded()) return forbidden();
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
-        if (areaPeriod.getPeriodEnd().isAfter(LocalTime.now())) return forbidden();
+        if (r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now())) return forbidden();
         return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
@@ -66,7 +66,7 @@ public class ReservationValidator extends Validator<Reservation> {
         Reservation r = reservationDao.getById(arg);
         if (r == null || !r.isEnded() || r.isNotCancelled()) return forbidden();
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
-        if (areaPeriod.getPeriodEnd().isAfter(LocalTime.now())) return forbidden();
+        if (r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now())) return forbidden();
         Person user = getUser(session);
         return ifPerson(session, ControlStaff.class, MunicipalManager.class) || (user instanceof Citizen && r.getCitizen() == user.getId());
     }
