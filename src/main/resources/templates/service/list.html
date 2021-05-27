@@ -19,8 +19,8 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td class="text-center" colspan="4" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}">No hay ningún servicio registrado</td>
-            <td class="text-center" colspan="3" data-th-unless="${session.user instanceof T(app.model.MunicipalManager) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}">No hay ningún servicio registrado</td>
+            <td class="text-center" colspan="4" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">No hay ningún servicio registrado</td>
+            <td class="text-center" colspan="3" data-th-unless="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">No hay ningún servicio registrado</td>
         </tr>
         <tr data-th-each="object: ${object}">
             <td data-th-text="*{data[objectStat.index].serviceType.name}"></td>
