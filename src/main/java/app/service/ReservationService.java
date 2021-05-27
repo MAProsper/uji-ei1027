@@ -1,5 +1,6 @@
 package app.service;
 
+import app.controller.MailDao;
 import app.dao.*;
 import app.model.*;
 import app.model.generic.Person;
@@ -24,6 +25,7 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     @Autowired protected CitizenDao citizenDao;
     @Autowired protected AreaDao areaDao;
     @Autowired protected ZoneDao zoneDao;
+    @Autowired protected MailDao mailDao;
 
     @Override
     public List<Reservation> listObjects(HttpSession session, Integer arg) {
@@ -53,12 +55,14 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
         if (r.getAreaPeriod() != 0) {
             LocalDate today = LocalDate.now();
+            LocalDate maxDay = today.plusDays(2);
             AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
             Area area = areaDao.getParentOf(areaPeriod);
             List<Zone> areaZone = zoneDao.getChildsOf(area).stream().filter(Zone::isActive).collect(Collectors.toList());
             Municipality municipality = municipalityDao.getParentOf(area);
             int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
-            Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", Collections.min(List.of(today.plusDays(2), areaPeriod.scheduleEnd)));
+
+            Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", areaPeriod.scheduleEnd == null ? maxDay : Collections.min(List.of(maxDay, areaPeriod.scheduleEnd)));
             map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity));
         }
 
@@ -106,6 +110,30 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     public void addProcess(HttpSession session, Integer arg, Reservation object) {
         super.addProcess(session, arg, object);
         updateZones(object);
+        Map<String, Object> data = data(object);
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(object);
+        Citizen citizen = citizenDao.getParentOf(object);
+        Area area = areaDao.getParentOf(areaPeriod);
+        Mail mail = new Mail();
+        mail.setMail(citizen.getMail());
+        mail.setSubject(String.format("Registrado reserva de %s", area.getName()));
+        mail.setBody(String.format("Se le ha reservado las zonas %s para el dia %s de %s", data.get("zone"), object.getDate(), areaPeriod.toPeriodString()));
+        mailDao.add(mail);
+    }
+
+    @Override
+    public void deleteProcess(HttpSession session, Integer arg) {
+        super.deleteProcess(session, arg);
+        Reservation object = reservationDao.getById(arg);
+        Map<String, Object> data = data(object);
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(object);
+        Citizen citizen = citizenDao.getParentOf(object);
+        Area area = areaDao.getParentOf(areaPeriod);
+        Mail mail = new Mail();
+        mail.setMail(citizen.getMail());
+        mail.setSubject(String.format("Cancelada reserva de %s", area.getName()));
+        mail.setBody(String.format("Se le ha cancelado la reserva de las zonas %s para el dia %s de %s", data.get("zone"), object.getDate(), areaPeriod.toPeriodString()));
+        mailDao.add(mail);
     }
 
     @Override

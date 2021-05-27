@@ -19,7 +19,8 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td class="text-center" colspan="3">No hay ningun horario registrado</td>
+            <td class="text-center" colspan="3" data-th-unless="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}">No hay ningun horario registrado</td>
+            <td class="text-center" colspan="4" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}">No hay ningun horario registrado</td>
         </tr>
         <tr data-th-each="object: ${object}">
             <td data-th-text="*{object.toScheduleString}"></td>
