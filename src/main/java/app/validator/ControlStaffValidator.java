@@ -36,11 +36,31 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
         return municipality.getId() == municipalManager.getMunicipality();
     }
 
-    //arg id del areaPeriod
+    //arg = id del areaPeriod
     @Override
     public boolean list(HttpSession session, Integer arg) {
-        if (arg == null) return ifPerson(session, ControlStaff.class);
-        return this.comprobacion(session, arg);
+        if (arg == null) return forbidden();
+        Person user = getUser(session);
+        if (user == null || user instanceof Citizen) {
+            AreaPeriod areaPeriod = this.areaPeriodDao.getById(arg);
+            if (areaPeriod == null) return forbidden();
+            if (! areaPeriod.isEnded() ) return false;
+            Area area = areaDao.getParentOf(areaPeriod);
+            if (area == null) return forbidden();
+            if (!area.isActive()) return false;
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return municipality.isActive();
+        } else if (user instanceof MunicipalManager) {
+            AreaPeriod areaPeriod = this.areaPeriodDao.getById(arg);
+            if (areaPeriod == null) return forbidden();
+            Area area = areaDao.getParentOf(areaPeriod);
+            if (area == null) return forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        }
+        return false;
     }
 
     //arg id del areaPeriod

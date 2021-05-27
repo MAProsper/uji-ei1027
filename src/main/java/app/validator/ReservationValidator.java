@@ -28,13 +28,17 @@ public class ReservationValidator extends Validator<Reservation> {
     @Override
     public boolean list(HttpSession session, Integer arg) {
         if (arg == null) return ifPerson(session, Citizen.class, ControlStaff.class);
-        AreaPeriod areaPeriod = areaPeriodDao.getById(arg);
-        if (!Activeable.isActive(areaPeriod)) return forbidden();
-        Area area = areaDao.getParentOf(areaPeriod);
-        if (!area.isActive()) return forbidden();
-        Municipality municipality = municipalityDao.getParentOf(area);
-        if (!municipality.isActive()) return forbidden();
-        return ifPerson(session, MunicipalManager.class);
+        Person user = getUser(session);
+        if (user instanceof MunicipalManager) {
+            AreaPeriod areaPeriod = this.areaPeriodDao.getById(arg);
+            if (areaPeriod == null) return forbidden();
+            Area area = areaDao.getParentOf(areaPeriod);
+            if (area == null) return forbidden();
+            Municipality municipality = municipalityDao.getParentOf(area);
+            if (municipality == null) return forbidden();
+            return ((MunicipalManager) user).getMunicipality() == municipality.getId();
+        }
+        return false;
     }
 
     @Override
