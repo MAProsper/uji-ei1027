@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS ServiceType CASCADE;
 DROP TABLE IF EXISTS AreaPeriod CASCADE;
 DROP TABLE IF EXISTS Reservation CASCADE;
 DROP TABLE IF EXISTS ReservationZone CASCADE;
+DROP TABLE IF EXISTS Mail CASCADE;
 -- End dropping tables --
 
 -- Start creating tables --
@@ -180,5 +181,14 @@ CREATE TABLE ReservationZone(
   CONSTRAINT reservationZone_unique_reservation_zone UNIQUE (reservation, zone),
   CONSTRAINT reservationZone_references_reservation FOREIGN KEY (reservation) REFERENCES Reservation(id) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT reservationZone_references_zone FOREIGN KEY (zone) REFERENCES Zone(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+CREATE TABLE Mail(
+  id INTEGER PRIMARY KEY,
+  mail TEXT NOT NULL,
+  subject TEXT NOT NULL,
+  body TEXT NOT NULL,
+  CONSTRAINT mail_check_mail CHECK (mail LIKE '%@%')
 );
 -- End creating tables --
