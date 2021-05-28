@@ -4,6 +4,7 @@ import app.dao.*;
 import app.model.*;
 import app.model.generic.Activeable;
 import app.model.generic.Person;
+import app.service.ReservationService;
 import app.validator.generic.FieldErrors;
 import app.validator.generic.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class ReservationValidator extends Validator<Reservation> {
     @Autowired AreaDao areaDao;
     @Autowired ZoneDao zoneDao;
     @Autowired ReservationZoneDao reservationZoneDao;
+    @Autowired ReservationService reservationService;
 
     @Override
     public boolean list(HttpSession session, Integer arg) {
@@ -59,21 +61,15 @@ public class ReservationValidator extends Validator<Reservation> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
-        if (r == null || r.isEnded()) return forbidden();
-        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
-        if (r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now()))
-            return forbidden();
+        if (r == null || reservationService.isEnded(r)) return forbidden();
         return ifPerson(session, ControlStaff.class, MunicipalManager.class);
     }
 
     @Override
     public boolean delete(HttpSession session, Integer arg) {
-        Reservation r = reservationDao.getById(arg);
-        if (r == null || r.isEnded()) return forbidden();
-        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
-        if (r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now()))
-            return forbidden();
         Person user = getUser(session);
+        Reservation r = reservationDao.getById(arg);
+        if (r == null || reservationService.isEnded(r)) return forbidden();
         return ifPerson(session, ControlStaff.class, MunicipalManager.class) || (user instanceof Citizen && r.getCitizen() == user.getId());
     }
 
@@ -93,10 +89,16 @@ public class ReservationValidator extends Validator<Reservation> {
             errors.accept("date", "Solo se puede reservar como maximo con dos dias de antelacion");
         }
 
+        if (r.getEnter() != null && r.getEnter().isBefore(areaPeriod.getPeriodStart())) {
+            errors.accept("enter", "La hora de entrada tiene que estar dentro del horario");
+        }
+
         if (r.getEnter() == null && r.getExit() != null) {
             errors.accept("exit", "No se puede definir si no ha entrado antes");
         } else if (r.getEnter() != null && r.getExit() != null && r.getExit().isBefore(r.getEnter())) {
             errors.accept("exit", "La salida debe ser posterior a la entrada");
+        } else if (r.getExit() != null && r.getExit().isAfter(areaPeriod.getPeriodEnd())) {
+            errors.accept("enter", "La hora de salida tiene que estar dentro del horario");
         }
 
         boolean zonesExist = zones.stream().allMatch(z -> z != null && z.getArea() == area.getId());

@@ -67,7 +67,10 @@ public class ReservationService extends app.service.generic.Service<Reservation>
             Municipality municipality = municipalityDao.getParentOf(area);
             int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
             Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", areaPeriod.scheduleEnd == null ? maxDay : Collections.min(List.of(maxDay, areaPeriod.scheduleEnd)));
-            map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity, "ended", isEnded(r)));
+            map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity));
+
+            if (r.getDate() != null)
+                map.put("ended", isEnded(r));
         }
 
         return map;
