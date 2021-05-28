@@ -32,8 +32,14 @@ public class ReservationService extends app.service.generic.Service<Reservation>
         if (user instanceof Citizen)
             return reservationDao.getChildsOf(user).stream().filter(Reservation::isNotCancelled).collect(Collectors.toList());
         if (user instanceof ControlStaff)
-            return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(r -> !r.isEnded()).collect(Collectors.toList());
-        return reservationDao.getByAreaPeriod(arg).stream().filter(r -> !r.isEnded()).collect(Collectors.toList());
+            return reservationDao.getByAreaPeriod(((ControlStaff) user).getAreaPeriod()).stream().filter(r -> !isEnded(r)).collect(Collectors.toList());
+        return reservationDao.getByAreaPeriod(arg).stream().filter(r -> !isEnded(r)).collect(Collectors.toList());
+    }
+
+    public boolean isEnded(Reservation r) {
+        if (r.isEnded()) return true;
+        AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
+        return r.getDate().equals(LocalDate.now()) && areaPeriod.getPeriodEnd().isBefore(LocalTime.now());
     }
 
     @Override
@@ -60,9 +66,8 @@ public class ReservationService extends app.service.generic.Service<Reservation>
             List<Zone> areaZone = zoneDao.getChildsOf(area).stream().filter(Zone::isActive).collect(Collectors.toList());
             Municipality municipality = municipalityDao.getParentOf(area);
             int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
-
             Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", areaPeriod.scheduleEnd == null ? maxDay : Collections.min(List.of(maxDay, areaPeriod.scheduleEnd)));
-            map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity));
+            map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity, "ended", isEnded(r)));
         }
 
         return map;
@@ -136,13 +141,13 @@ public class ReservationService extends app.service.generic.Service<Reservation>
     }
 
     @Override
-    public String addRedirect(HttpSession session, Integer arg) {
+    public String redirectParent(HttpSession session, Integer arg) {
         List<Reservation> reservations = listObjects(session, arg);
         return String.format("../view/%d", reservations.get(0).getId());
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         if (getUser(session) instanceof Citizen) return "../list";
         return String.format("../list/%d", reservationDao.getById(arg).getAreaPeriod());
     }

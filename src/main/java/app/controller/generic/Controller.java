@@ -135,7 +135,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/add", "/add/{arg}"}, method = RequestMethod.POST)
     public String addProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::add, "add", model, object, binding, service::addProcess, service::addObject, service::addRedirect);
+        return process(session, arg, validator::add, "add", model, object, binding, service::addProcess, service::addObject, service::redirectParent);
     }
 
     @RequestMapping({"/update", "/update/{arg}"})
@@ -145,7 +145,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping(path = {"/update", "/update/{arg}"}, method = RequestMethod.POST)
     public String updateProcess(HttpSession session, @PathVariable(required = false) Integer arg, Model model, @ModelAttribute("object") M object, BindingResult binding) {
-        return process(session, arg, validator::update, "update", model, object, binding, service::updateProcess, service::updateObject, service::getRedirect);
+        return process(session, arg, validator::update, "update", model, object, binding, service::updateProcess, service::updateObject, service::redirectSelf);
     }
 
     @RequestMapping({"/delete", "/delete/{arg}"})
@@ -153,7 +153,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
         return process(session, arg, validator::delete, "delete", () -> {
             service.deleteProcess(session, arg);
             return Optional.empty();
-        }, service::getRedirect);
+        }, service::redirectSelf);
     }
 
     /**

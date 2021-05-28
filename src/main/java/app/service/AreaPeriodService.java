@@ -49,7 +49,7 @@ public class AreaPeriodService extends ScheduableService<AreaPeriod> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         return String.format("../list/%d", areaPeriodDao.getById(arg).getArea());
     }
 

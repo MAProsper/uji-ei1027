@@ -53,7 +53,7 @@ public class ServiceService extends ScheduableService<app.model.Service> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         return String.format("../list/%d", serviceDao.getById(arg).getArea());
     }
 }

@@ -24,30 +24,36 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td class="text-center" colspan="8" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
-            <td class="text-center" colspan="9" data-th-unless="${session.user instanceOf T(app.model.Citizen)}">No hay ninguna reserva</td>
+            <td class="text-center" colspan="8" data-th-if="${session.user instanceOf T(app.model.Citizen)}">No hay
+                ninguna reserva
+            </td>
+            <td class="text-center" colspan="9" data-th-unless="${session.user instanceOf T(app.model.Citizen)}">No hay
+                ninguna reserva
+            </td>
         </tr>
         <tr data-th-each="object: ${object}">
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{data[objectStat.index].citizen.toDisplayName}"></td>
             <td data-th-text="*{object.occupied}"></td>
-            <td data-th-if="${session.user instanceOf T(app.model.Citizen)}" data-th-text="*{data[objectStat.index].municipality.name}"></td>
+            <td data-th-if="${session.user instanceOf T(app.model.Citizen)}"
+                data-th-text="*{data[objectStat.index].municipality.name}"></td>
             <td data-th-text="*{data[objectStat.index].area.name}"></td>
             <td data-th-text="*{data[objectStat.index].zone}"></td>
             <td data-th-text="*{object.date}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-            <td data-th-if="${session.user instanceof T(app.model.Citizen)}"><a class="btn btn-info" data-th-href="@{/reservation/view/{id}(id=${object.id})}"
-                                                                                         target="_blank">Abrir</a></td>
+            <td data-th-if="${session.user instanceof T(app.model.Citizen)}"><a class="btn btn-info"
+                                                                                data-th-href="@{/reservation/view/{id}(id=${object.id})}"
+                                                                                target="_blank">Abrir</a></td>
             <td data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-text="*{object.toPeriodString}"></td>
             <td>
-                <a data-th-if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and not object.ended and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}"
+                <a data-th-if="${((session.user instanceof T(app.model.MunicipalManager)) or (session.user instanceof T(app.model.ControlStaff))) and not data[objectStat.index].ended and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}"
                    data-th-href="@{/reservation/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
                 <a data-th-href="@{/reservation/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea cancelar la reserva?')"
                    class="btn btn-danger" role="button"
-                   data-th-if="*{object.cancelable and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}">Cancelar</a>
+                   data-th-if="*{not data[objectStat.index].ended and object.enter == null and session.user != null and not (session.user instanceof T(app.model.EnviromentalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active}">Cancelar</a>
             </td>
         </tr>
         </tbody>

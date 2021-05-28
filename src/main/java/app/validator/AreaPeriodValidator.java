@@ -20,7 +20,6 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
     @Autowired AreaDao areaDao;
     @Autowired AreaPeriodDao areaPeriodDao;
 
-
     @Override
     public void object(AreaPeriod object, FieldErrors errors) {
         super.object(object, errors);
@@ -41,13 +40,11 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
             if (area == null) return forbidden();
             if (!area.isActive()) return false;
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return municipality.isActive();
         } else if (user instanceof MunicipalManager) {
             Area area = areaDao.getById(arg);
             if (area == null) return forbidden();
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;

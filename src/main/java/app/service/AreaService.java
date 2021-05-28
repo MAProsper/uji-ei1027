@@ -49,7 +49,7 @@ public class AreaService extends PlaceService<Area> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         return "../list";
     }
 }

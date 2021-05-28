@@ -88,27 +88,27 @@ public abstract class Service<M extends Model> {
     }
 
     /**
-     * Obtener URL a redirecion despues de añadido
+     * Obtener URL a redirecionar despues de vistas depedientes (list, add)
      *
      * @param session sesion
      * @param arg     argumento opcional
      * @return URL a redirecionar
      */
-    public String addRedirect(HttpSession session, Integer arg) {
+    public String redirectParent(HttpSession session, Integer arg) {
         return arg == null ? "list" : String.format("../list/%d", arg);
     }
 
     /**
-     * Obtener URL a redirecion despues de modificaciones
+     * Obtener URL a redirecionar despues de vistas propias (update, delete)
      *
      * @param session sesion
      * @param arg     argumento opcional
      * @return URL a redirecionar
      */
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         if (arg != null)
             throw new ApplicationException("No existe operacion por defecto");
-        return addRedirect(session, arg);
+        return redirectParent(session, arg);
     }
 
     /**

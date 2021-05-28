@@ -24,7 +24,7 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     // A partir de la sessión y el id del "areaPeriod" comprueba que sea válido
     private boolean comprobacion(HttpSession session, Integer areaPeriodId) {
         AreaPeriod areaPeriod = areaPeriodDao.getById(areaPeriodId);
-        if (!Activeable.isActive(areaPeriod)) return forbidden();
+        if (areaPeriod == null || areaPeriod.isEnded()) return forbidden();
         Area area = areaDao.getParentOf(areaPeriod);
         if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
@@ -45,18 +45,14 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
             if (areaPeriod == null) return forbidden();
             if (!areaPeriod.isEnded()) return false;
             Area area = areaDao.getParentOf(areaPeriod);
-            if (area == null) return forbidden();
             if (!area.isActive()) return false;
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return municipality.isActive();
         } else if (user instanceof MunicipalManager) {
             AreaPeriod areaPeriod = this.areaPeriodDao.getById(arg);
             if (areaPeriod == null) return forbidden();
             Area area = areaDao.getParentOf(areaPeriod);
-            if (area == null) return forbidden();
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;
@@ -74,7 +70,7 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     public boolean update(HttpSession session, Integer arg) {
         if (arg == null) return ifPerson(session, ControlStaff.class);
         ControlStaff controlStaff = this.controlStaffDao.getById(arg);
-        if (controlStaff == null || !controlStaff.isActive()) return forbidden();
+        if (!Activeable.isActive(controlStaff)) return forbidden();
         return this.comprobacion(session, controlStaff.getAreaPeriod());
     }
 
@@ -82,9 +78,7 @@ public class ControlStaffValidator extends PersonValidator<ControlStaff> {
     @Override
     public boolean delete(HttpSession session, Integer arg) {
         if (arg == null) return forbidden();
-        ControlStaff controlStaff = this.controlStaffDao.getById(arg);
-        if (controlStaff == null || !controlStaff.isActive()) return forbidden();
-        return this.comprobacion(session, arg);
+        return update(session, arg);
     }
 
 

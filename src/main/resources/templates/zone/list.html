@@ -10,10 +10,11 @@
             <th>Nombre</th>
             <th>Capacidad</th>
             <th>Fecha de alta / Fecha de baja</th>
-            <th class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
+            <th class="text-center"
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
                 <a
-                   data-th-href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
-                   role="button">Añadir</a>
+                        data-th-href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                        role="button">Añadir</a>
             </th>
         </tr>
         </thead>
@@ -25,7 +26,8 @@
             <td data-th-text="*{object.name}"></td>
             <td data-th-text="*{object.capacity}"></td>
             <td data-th-text="*{object.toSignString}"></td>
-            <td class="text-center" data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
+            <td class="text-center"
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
                 <a data-th-if="*{object.active}"
                    data-th-href="@{/zone/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>

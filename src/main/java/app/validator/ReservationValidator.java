@@ -33,9 +33,7 @@ public class ReservationValidator extends Validator<Reservation> {
             AreaPeriod areaPeriod = this.areaPeriodDao.getById(arg);
             if (areaPeriod == null) return forbidden();
             Area area = areaDao.getParentOf(areaPeriod);
-            if (area == null) return forbidden();
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;

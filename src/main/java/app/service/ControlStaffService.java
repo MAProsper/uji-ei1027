@@ -90,7 +90,7 @@ public class ControlStaffService extends PersonService<ControlStaff> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         if (arg != null) return "../list/" + this.controlStaffDao.getById(arg).getAreaPeriod();
         else return "list";
     }

@@ -33,13 +33,11 @@ public class ServiceValidator extends ScheduleableValidator<app.model.Service> {
             if (area == null) return forbidden();
             if (!area.isActive()) return false;
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return municipality.isActive();
         } else if (user instanceof MunicipalManager) {
             Area area = areaDao.getById(arg);
             if (area == null) return forbidden();
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;

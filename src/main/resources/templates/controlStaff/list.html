@@ -17,17 +17,19 @@
             <th>Horario</th>
             <th data-th-if="${(session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active and data[0].areaPeriod.active) or (session.user instanceof T(app.model.ControlStaff))}">
                 <a
-                   data-th-href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id})}" class="btn btn-success"
-                   role="button">Añadir</a>
+                        data-th-href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id})}" class="btn btn-success"
+                        role="button">Añadir</a>
             </th>
         </tr>
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td class="text-center" colspan="6" data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal
+            <td class="text-center" colspan="6" data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">No
+                hay ningún personal
                 de control registrado
             </td>
-            <td class="text-center" colspan="5" data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal
+            <td class="text-center" colspan="5"
+                data-th-unless="${session.user instanceof T(app.model.MunicipalManager)}">No hay ningún personal
                 de control registrado
             </td>
         </tr>

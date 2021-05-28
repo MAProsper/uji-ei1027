@@ -47,7 +47,7 @@ public class ZoneService extends PlaceService<Zone> {
     }
 
     @Override
-    public String getRedirect(HttpSession session, Integer arg) {
+    public String redirectSelf(HttpSession session, Integer arg) {
         return String.format("../list/%d", zoneDao.getById(arg).getArea());
     }
 }

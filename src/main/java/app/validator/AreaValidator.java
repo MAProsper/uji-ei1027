@@ -16,10 +16,8 @@ import javax.servlet.http.HttpSession;
 
 @Service
 public class AreaValidator extends PlaceValidator<Area> {
-    @Autowired
-    MunicipalityDao municipalityDao;
-    @Autowired
-    AreaDao areaDao;
+    @Autowired MunicipalityDao municipalityDao;
+    @Autowired AreaDao areaDao;
 
     @Override
     public boolean list(HttpSession session, Integer arg) {

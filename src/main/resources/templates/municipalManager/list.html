@@ -23,10 +23,12 @@
         </thead>
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
-            <td class="text-center" colspan="7" data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y
+            <td class="text-center" colspan="7"
+                data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de gestores y
                 gestoras municipales
             </td>
-            <td class="text-center" colspan="6" data-th-unless="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de
+            <td class="text-center" colspan="6"
+                data-th-unless="${session.user instanceof T(app.model.EnviromentalManager)}">Lista de
                 gestores y
                 gestoras municipales
             </td>

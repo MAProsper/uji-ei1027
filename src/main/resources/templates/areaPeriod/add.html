@@ -10,7 +10,8 @@
         <table>
             <tr>
                 <th><label for="scheduleStart">Fecha de inicio</label></th>
-                <td><input required="required" type="date" id="scheduleStart" data-th-field="*{scheduleStart}" data-th-attr="min=${data.today}"></td>
+                <td><input required="required" type="date" id="scheduleStart" data-th-field="*{scheduleStart}"
+                           data-th-attr="min=${data.today}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('scheduleStart')}">
                 <td colspan="2">
@@ -19,7 +20,8 @@
             </tr>
             <tr>
                 <th><label for="scheduleEnd">Fecha de fin</label></th>
-                <td><input type="date" id="scheduleEnd" data-th-field="*{scheduleEnd}" data-th-attr="min=${data.today}"></td>
+                <td><input type="date" id="scheduleEnd" data-th-field="*{scheduleEnd}" data-th-attr="min=${data.today}">
+                </td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('scheduleEnd')}">
                 <td colspan="2">

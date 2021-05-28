@@ -29,7 +29,6 @@ public class ZoneValidator extends PlaceValidator<Zone> {
             Area area = areaDao.getById(arg);
             if (area == null) return forbidden();
             Municipality municipality = municipalityDao.getParentOf(area);
-            if (municipality == null) return forbidden();
             return ((MunicipalManager) user).getMunicipality() == municipality.getId();
         }
         return false;
@@ -48,7 +47,7 @@ public class ZoneValidator extends PlaceValidator<Zone> {
     @Override
     public boolean update(HttpSession session, Integer arg) {
         Zone service = this.zoneDao.getById(arg);
-        if (service == null || !service.isActive()) return forbidden();
+        if (!Activeable.isActive(service)) return forbidden();
         Area area = this.areaDao.getParentOf(service);
         if (!area.isActive()) return forbidden();
         Municipality municipality = municipalityDao.getParentOf(area);
