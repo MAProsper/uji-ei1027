@@ -6,9 +6,10 @@ INSERT INTO AreaPeriod VALUES(1, '2021-01-01', '2022-01-02', '07:00:00', '12:00:
 INSERT INTO AreaPeriod VALUES(2, '2021-01-01', '2022-01-02', '16:00:00', '23:00:00', 1);
 INSERT INTO AreaPeriod VALUES(3, '2021-01-01', '2022-01-02', '16:00:00', '23:00:00', 2);
 INSERT INTO Citizen VALUES(1, '2021-01-01 00:00:00', NULL, 'MAProsper', 'Miguel Ángel Prosper', 'al386125@uji.es', 'password', 67, 'Benicassim', 'Major, Nº 3');
-INSERT INTO ControlStaff VALUES(1, '2021-01-01 00:00:00', NULL, 'ALuque', 'Adrián Luque Bueso', 'al387532@uji.es', 'password', 1);
+INSERT INTO ControlStaff VALUES(1, '2021-01-01 00:00:00', NULL, 'ALuque', 'Adrián Lu
+que Bueso', 'al387532@uji.es', 'password', 1);
 INSERT INTO MunicipalManager VALUES(1, '2021-01-01 00:00:00', NULL, 'PXPluijter', 'Paul Ximo Pluijter', 'al386152@uji.es', 'password', 1, '964728000');
-INSERT INTO EnviromentalManager VALUES(1, '2021-01-01 00:00:00', NULL, 'lopeza', 'María de los Ángles López Malo', 'lopeza@uji.es ', 'password');
+INSERT INTO EnviromentalManager VALUES(1, '2021-01-01 00:00:00', NULL, 'lopeza', 'María de los Ángeles López Malo', 'lopeza@uji.es ', 'password');
 INSERT INTO Reservation VALUES(1, 1, '2021-01-02', 1, 12, '00:00:00', '12:00:00');
 INSERT INTO Zone VALUES(1, '2021-01-01 00:00:00', NULL, 'A1', 1, 12);
 INSERT INTO Zone VALUES(2, '2021-01-01 00:00:00', NULL, 'A2', 1, 11);
