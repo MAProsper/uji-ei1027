@@ -8,7 +8,7 @@
             data-th-object="${object}" method="post">
         <table>
             <tr>
-                <th><label for="identification">Identificación</label></th>
+                <th><label for="identification">Identificación (NIF)</label></th>
                 <td><input required="required" type="text" id="identification" data-th-field="*{identification}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('identification')}">
