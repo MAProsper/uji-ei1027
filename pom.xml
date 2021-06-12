@@ -12,7 +12,6 @@
     <groupId>es.uji.ei1027</groupId>
     <artifactId>sana</artifactId>
     <version>0.0.1</version>
-
     <properties>
         <java.version>11</java.version>
         <maven.compiler.source>11</maven.compiler.source>
@@ -78,6 +77,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.2</version>
             </plugin>
         </plugins>
     </build>
