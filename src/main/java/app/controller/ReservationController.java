@@ -34,6 +34,6 @@ public class ReservationController extends app.controller.generic.Controller<Res
 
     @RequestMapping(path = {"/view", "/view/{arg}"})
     public String view(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return object(session, arg, validator::view, "view", model, service::updateObject, service::data, service::updateObject);
+        return object(session, arg, validator::view, "view", model, service::updateObject, service::updateObject, service::data);
     }
 }
