@@ -96,7 +96,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @return vista o error
      */
     protected String process(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Supplier<Optional<String>> process, BiFunction<HttpSession, Integer, String> redirect) {
-        return setup(session, arg, validator, view).orElseGet(() -> process.get().orElse(getRedirect(redirect.apply(session, arg))));
+        return setup(session, arg, validator, view).orElseGet(() -> process.get().orElseGet(() -> getRedirect(redirect.apply(session, arg))));
     }
 
     /**

@@ -79,14 +79,17 @@ public class ReservationValidator extends Validator<Reservation> {
         AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
         Area area = areaDao.getParentOf(areaPeriod);
         LocalDate today = LocalDate.now();
+        LocalTime now = LocalTime.now();
         LocalDate date = r.getDate();
 
         if (date == null) {
-            errors.accept("date", "Formato de fecha invalido");
+            errors.accept("date", "Formato de fecha inválido");
         } else if (date.isBefore(areaPeriod.scheduleStart) || (areaPeriod.getScheduleEnd() != null && date.isAfter(areaPeriod.scheduleEnd))) {
             errors.accept("date", "Fecha selecionada fuera del horario reservado");
         } else if (date.isBefore(today) || date.isAfter(today.plusDays(2))) {
-            errors.accept("date", "Solo se puede reservar como maximo con dos dias de antelacion");
+            errors.accept("date", "Solo se puede reservar como máximo con dos días de antelación");
+        } else if (now.isAfter(areaPeriod.getPeriodEnd())) {
+            errors.accept("date", "El horario actual para el día seleccionado ya ha pasado");
         }
 
         if (r.getEnter() != null && r.getEnter().isBefore(areaPeriod.getPeriodStart())) {
@@ -109,7 +112,7 @@ public class ReservationValidator extends Validator<Reservation> {
             } else {
                 int capacity = zones.stream().mapToInt(Zone::getCapacity).sum();
                 if (r.getOccupied() > capacity) {
-                    errors.accept("occupied", "Demasiadas personas para la capacidad de las zonas selecionadas");
+                    errors.accept("occupied", "Demasiadas personas para la capacidad de las zonas seleccionadas");
                 }
             }
 
@@ -117,23 +120,10 @@ public class ReservationValidator extends Validator<Reservation> {
             zoneUsed.retainAll(r.getZones());
             if (!zoneUsed.isEmpty()) {
                 String zoneJoin = zoneUsed.stream().map(zoneDao::getById).map(Zone::getName).collect(Collectors.joining(", "));
-                errors.accept("zones", String.format("Las zonas %s esta opcupadas el %s", zoneJoin, date));
+                errors.accept("zones", String.format("Las zonas %s esta ocupadas el %s", zoneJoin, date));
             }
         } else {
-            errors.accept("zone", "Alguna zona selecionada no esta dentro del area reservada");
+            errors.accept("zones", "Alguna zona seleccionada no esta dentro del área reservada");
         }
     }
 }
-
-// Comprobar que, para toda reserva que estás haciendo, no existra otra en:
-// - en el área que estás reservando,
-// - en el día que estás reservando
-// - y en el horario que estás reservando
-// Set<Reservation> reservations = new HashSet<>(this.reservationDao.getByAreaPeriod(r.getAreaPeriod()));
-// Set<Integer> idReservedZones = new HashSet<>();
-// for (Reservation reservation : reservations) {
-//     if (reservation.getDate().equals(r.getDate()))
-//         for (ReservationZone reservationZone : this.reservationZoneDao.getChildsOf(reservation))
-//             idReservedZones.add(reservationZone.getZone());
-// }
-// idReservedZones ==> intersección entre las zonas reservadas de cualquier reserva (menos r) y las zonas reservadas en r

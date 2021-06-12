@@ -3,10 +3,9 @@
         class="reservation-view"
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title"
-      data-th-text="'Reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
+      data-th-text="'Información de la reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main data-layout-fragment="content">
     <form data-th-object="${object}">
-        <h2>Información de la reserva</h2>
         <table>
             <tr>
                 <th>Código QR</th>
@@ -33,13 +32,16 @@
                 <td data-th-text="*{occupied}"></td>
             </tr>
         </table>
-        <div role="presentation" class="text-left instrucciones">
-            <h2>Instrucciones</h2>
+        <div role="presentation" class="text-left info">
+            <h2>Información adicional</h2>
             <p>
                 Presente el código QR para acceder a la zona reservada.
             </p>
             <p>
-                Si quiere volver a acceder a estos datos, se puede realizar desde Gestió de reservas.
+                Si quiere volver a acceder a estos datos, siempre puede ver los desde Gestión de reservas.
+            </p>
+            <p>
+                También dispone de una confirmación de reserva en su correo.
             </p>
         </div>
         <a

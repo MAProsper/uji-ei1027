@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <th><label for="occupied">Seleccione el número de personas</label></th>
-                <td><input required="required" type="number" id="occupied" data-th-field="*{occupied}" min="1"></td>
+                <td><input required="required" type="number" id="occupied" data-th-field="*{occupied}" min="1" data-th-attr="max=${data.capacity}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">

@@ -26,7 +26,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      *
      * @param session sesion
      * @param arg     argumento opcional
-     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion inválida)
      */
     public boolean list(HttpSession session, Integer arg) {
         return forbidden();
@@ -37,7 +37,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      *
      * @param session sesion
      * @param arg     argumento opcional
-     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion inválida)
      */
     public boolean add(HttpSession session, Integer arg) {
         return forbidden();
@@ -48,7 +48,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      *
      * @param session sesion
      * @param arg     argumento opcional
-     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion inválida)
      */
     public boolean update(HttpSession session, Integer arg) {
         return forbidden();
@@ -59,7 +59,7 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
      *
      * @param session sesion
      * @param arg     argumento opcional
-     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion invalida)
+     * @return true (tiene permisos), false (iniciar sesion), forbidden (peticion inválida)
      */
     public boolean delete(HttpSession session, Integer arg) {
         return forbidden();
@@ -75,9 +75,9 @@ public abstract class Validator<T extends Model> extends Parametrized<T> impleme
     }
 
     /**
-     * La peticion es invalida y iniciar sesion no lo solucionara
+     * La peticion es inválida y iniciar sesion no lo solucionara
      *
-     * @return peticion invalida
+     * @return peticion inválida
      */
     protected boolean forbidden() {
         throw new ApplicationException("La operacion que ha intentado realizar no esta permitida");

@@ -18,6 +18,6 @@ public abstract class PersonValidator<T extends Person> extends SignableValidato
         if (duplicate) errors.accept("identification", "El identificador ya esta en uso");
 
         if (!object.getMail().matches(".+@.+"))
-            errors.accept("mail", "Formato de mail invalido");
+            errors.accept("mail", "Formato de mail inválido");
     }
 }

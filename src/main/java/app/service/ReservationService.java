@@ -59,14 +59,16 @@ public class ReservationService extends app.service.generic.Service<Reservation>
         }
 
         if (r.getAreaPeriod() != 0) {
-            LocalDate today = LocalDate.now();
-            LocalDate maxDay = today.plusDays(2);
+            LocalTime now = LocalTime.now();
+            LocalDate minDay = LocalDate.now();
+            LocalDate maxDay = minDay.plusDays(2);
             AreaPeriod areaPeriod = areaPeriodDao.getParentOf(r);
             Area area = areaDao.getParentOf(areaPeriod);
             List<Zone> areaZone = zoneDao.getChildsOf(area).stream().filter(Zone::isActive).collect(Collectors.toList());
             Municipality municipality = municipalityDao.getParentOf(area);
             int capacity = areaZone.stream().mapToInt(Zone::getCapacity).sum();
-            Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(today, areaPeriod.scheduleStart)), "end", areaPeriod.scheduleEnd == null ? maxDay : Collections.min(List.of(maxDay, areaPeriod.scheduleEnd)));
+            if (now.isAfter(areaPeriod.getPeriodEnd())) minDay = minDay.plusDays(1);
+            Map<String, LocalDate> date = Map.of("start", Collections.max(List.of(minDay, areaPeriod.scheduleStart)), "end", areaPeriod.scheduleEnd == null ? maxDay : Collections.min(List.of(maxDay, areaPeriod.scheduleEnd)));
             map.putAll(Map.of("area", area, "municipality", municipality, "areaPeriod", areaPeriod, "areaZone", areaZone, "date", date, "capacity", capacity));
 
             if (r.getDate() != null)

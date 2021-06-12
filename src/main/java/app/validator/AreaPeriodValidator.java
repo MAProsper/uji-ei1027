@@ -28,7 +28,7 @@ public class AreaPeriodValidator extends ScheduleableValidator<AreaPeriod> {
         boolean overlap = periods.stream().anyMatch(period -> period.getId() != object.getId() && period.overlapsWith(object));
 
         if (overlap)
-            errors.accept("periodStart", "Se solapa con otro horario.");
+            errors.accept("periodStart", "Se solapa con otro horario");
     }
 
     @Override
