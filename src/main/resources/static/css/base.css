@@ -62,3 +62,34 @@ footer {
   flex-shrink: 0;
   text-align: center;
 }
+
+html.reservation-view h2{
+    font-size: 1.5rem;
+}
+html.reservation-view main img{
+    margin: -2em;
+    z-index: -1;
+    border: none;
+}
+
+html.reservation-view .instrucciones{
+    margin: 3rem 0;
+    /*margin-top: 3em;*/
+}
+
+html.reservation-view .instrucciones h2{
+    font-size: 1.25rem;
+}
+
+html.reservation-view .instrucciones p:not(:last-child){
+    margin-bottom: 0rem;
+}
+
+html.reservation-form .zones th{
+    vertical-align: top;
+}
+
+main img{
+    margin: 1rem 0;
+    border: solid;
+}

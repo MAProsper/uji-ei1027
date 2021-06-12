@@ -4,4 +4,5 @@
 <span data-layout-fragment="title">Inicio</span>
 <main data-layout-fragment="content">
     <img class="img-fluid" src="" data-th-src="@{/img/index.jpg}">
+    <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}">Si desea ver la información sobre las áreas o realizar una reserva, clique en "Ver municipios" en el menú superior.</p>
 </main>

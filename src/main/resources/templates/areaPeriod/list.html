@@ -4,6 +4,9 @@
 <span data-layout-fragment="title"
       data-th-text="'Horarios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
 <main data-layout-fragment="content">
+    <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" class="text-muted">
+        Si desea realizar una reserva, clique en "Reservar" en el horario deseado.
+    </p>
     <table class="table table-striped">
         <thead>
         <tr>

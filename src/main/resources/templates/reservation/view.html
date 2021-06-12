@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html
+        class="reservation-view"
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title"
       data-th-text="'Reserva para ' + ${data.area.name} + ' (' + ${data.municipality.name} + ')'"></span>
 <main data-layout-fragment="content">
     <form data-th-object="${object}">
-        <img class="img-fluid view" src="" data-th-src="@{/reservation/img/{id}(id=${object.id})}">
+        <h2>Información de la reserva</h2>
         <table>
+            <tr>
+                <th>Código QR</th>
+                <td>  <img class="img-fluid view" src="" data-th-src="@{/reservation/img/{id}(id=${object.id})}"></td>
+            </tr>
             <tr>
                 <th>Ciudadano</th>
                 <td data-th-text="${data.citizen.toDisplayName}"></td>
@@ -28,6 +33,15 @@
                 <td data-th-text="*{occupied}"></td>
             </tr>
         </table>
+        <div role="presentation" class="text-left instrucciones">
+            <h2>Instrucciones</h2>
+            <p>
+                Presente el código QR para acceder a la zona reservada.
+            </p>
+            <p>
+                Si quiere volver a acceder a estos datos, se puede realizar desde Gestió de reservas.
+            </p>
+        </div>
         <a
                 data-th-href="@{/reservation/list}" class="btn btn-info"
                 role="button">Gestionar reservas</a>

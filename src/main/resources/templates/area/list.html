@@ -3,6 +3,11 @@
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title" data-th-text="'Áreas de ' + ${data[0].municipality.name}"></span>
 <main data-layout-fragment="content">
+    <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" class="text-muted">
+        En los botones de la derecha aparece la información de horarios y servicios que ofrece el área. <br>
+        Si desea realizar una reserva, se realiza desde "Horarios". <br>
+        Si clica en las coordenadas para abrirlas en Google Maps.
+    </p>
     <table class="table table-striped">
         <thead>
         <tr>
