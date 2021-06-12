@@ -6,6 +6,9 @@
 <main data-layout-fragment="content">
     <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" class="text-muted">
         Si desea realizar una reserva, clique en "Reservar" en el horario deseado.
+        <span data-th-if="${session.user == null}" class="text-muted">
+        <br>Para realizar una reserva es necesario haberse registrado e iniciado sesión.
+    </span>
     </p>
     <table class="table table-striped">
         <thead>
