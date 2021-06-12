@@ -15,7 +15,7 @@
                 <td data-th-text="${data.citizen.toDisplayName}"></td>
             </tr>
             <tr>
-                <th><label for="date">Fecha</label></th>
+                <th><label for="date">Seleccione la fecha<br>(máximo hasta pasado mañana)</label></th>
                 <td><input required="required" type="date" id="date" data-th-field="*{date}"
                            data-th-attr="min=${data.date.start},max=${data.date.end}"></td>
             </tr>
@@ -25,13 +25,14 @@
                 </td>
             </tr>
             <tr>
-                <th>Horario</th>
+                <th>Horario seleccionado</th>
                 <td data-th-text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th><label for="enter">Entrada</label></th>
                 <td><input type="time" id="enter" data-th-field="*{enter}"
-                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
+                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
+                           data-th-disabled="${data.origin.enter != null}"></td>
             </tr>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
                 data-th-each="err : ${#fields.errors('enter')}">
@@ -42,16 +43,17 @@
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th><label for="exit">Salida</label></th>
                 <td><input type="time" id="exit" data-th-field="*{exit}"
-                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"></td>
+                           data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
+                           data-th-disabled="${data.origin.exit != null}"></td>
             </tr>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}"
-                data-th-each="err : ${#fields.errors('enter')}">
+                data-th-each="err : ${#fields.errors('exit')}">
                 <td colspan="2">
                     <div class="alert alert-danger" role="alert" data-th-text="${err}"></div>
                 </td>
             </tr>
-            <tr>
-                <th><label for="zones">Zonas</label></th>
+            <tr class="zones">
+                <th><label for="zones">Seleccione las zonas</label></th>
                 <td>
                     <select required="required" id="zones" data-th-field="*{zones}" multiple="multiple">
                         <option data-th-each="zone: ${data.areaZone}" data-th-value="${zone.id}"
@@ -65,9 +67,8 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="occupied">Número de personas</label></th>
-                <td><input required="required" type="number" id="occupied" data-th-field="*{occupied}" min="1"
-                           data-th-attr="max=${data.capacity}"></td>
+                <th><label for="occupied">Seleccione el número de personas</label></th>
+                <td><input required="required" type="number" id="occupied" data-th-field="*{occupied}" min="1"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('occupied')}">
                 <td colspan="2">
