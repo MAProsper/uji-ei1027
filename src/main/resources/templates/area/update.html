@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html
-        data-layout-decorate="~{fragments/base}">
+<html data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title" data-th-text="'Actualizar area de ' + ${data.municipality.name}"></span>
 <main data-layout-fragment="content">
     <form onsubmit="return confirm('¿Seguro que desea actualizar el area y los datos son correctos?')"
@@ -50,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="image">URL de la imágen</label></th>
+                <th><label for="image">URL del plano</label></th>
                 <td><input required="required" type="url" id="image" data-th-field="*{image}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('image')}">

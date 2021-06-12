@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html
-        data-layout-decorate="~{fragments/base}">
+<html data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title" data-th-text="'Añadir area a ' + ${data.municipality.name}"></span>
 <main data-layout-fragment="content">
     <form
@@ -42,7 +41,7 @@
             <tr>
                 <th><label for="location">Coordenadas</label></th>
                 <td><input required="required" type="text" placeholder="-24.844638, 18.783207"
-                           pattern="-?(90|[1-8]?[0-9])\.[0-9]+, -?(180|1[0-9][0-9]|[1-9]?[0-9])\.[0-9]+" id="location"
+                           pattern="-?(90|[1-8]?[0-9])\.[0-9]+, ?-?(180|1[0-9][0-9]|[1-9]?[0-9])\.[0-9]+" id="location"
                            data-th-field="*{location}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('location')}">
@@ -51,7 +50,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="image">URL de la imágen</label></th>
+                <th><label for="image">URL del plano</label></th>
                 <td><input required="required" type="url" id="image" data-th-field="*{image}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('image')}">

@@ -10,9 +10,9 @@
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Validez</th>
             <th>Tipo</th>
             <th>Descripción</th>
-            <th>Localización</th>
+            <th>Mapa</th>
             <th>Ocupación</th>
-            <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Mapa</th>
+            <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Plano</th>
             <th class="text-center"><a
                     data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}"
                     data-th-href="@{/municipality/list}" class="btn btn-info"
@@ -51,7 +51,7 @@
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td data-th-text="*{object.type.name}"></td>
             <td data-th-text="*{object.description}"></td>
-            <td data-th-text="*{object.location}"></td>
+            <td><a data-th-href="@{https://www.google.com/maps/search/?api=1&query={loc}(loc=*{object.location})}" target="_blank" data-th-text="*{object.location}"></a></td>
             <td data-th-text="${data[objectStat.index].occupied}"></td>
             <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"><a class="btn btn-info"
                                                                                          data-th-href="*{object.image}"
