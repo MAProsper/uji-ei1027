@@ -69,10 +69,12 @@ public class ControlStaffService extends PersonService<ControlStaff> {
 
     @Override
     public Map<String, Object> data(ControlStaff controlStaff) {
+        Map<String, Object> data = super.data(controlStaff);
         AreaPeriod areaPeriod = this.areaPeriodDao.getById(controlStaff.getAreaPeriod());
         Area area = this.areaDao.getParentOf(areaPeriod);
         Municipality municipality = this.municipalityDao.getParentOf(area);
-        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "areaPeriod", areaPeriod);
+        data.putAll(Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "areaPeriod", areaPeriod));
+        return data;
     }
 
     @Override

@@ -42,8 +42,10 @@ public class ZoneService extends PlaceService<Zone> {
 
     @Override
     public Map<String, Object> data(Zone zone) {
+        Map<String, Object> data = super.data(zone);
         Area area = areaDao.getParentOf(zone);
-        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area);
+        data.putAll(Map.of("municipality", municipalityDao.getParentOf(area), "area", area));
+        return data;
     }
 
     @Override

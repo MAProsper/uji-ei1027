@@ -42,6 +42,7 @@ public class ServiceService extends ScheduableService<app.model.Service> {
 
     @Override
     public Map<String, Object> data(app.model.Service service) {
+        Map<String, Object> data = super.data(service);
         LocalDate today = LocalDate.now();
         Area area = areaDao.getParentOf(service);
         List<ServiceType> types = serviceTypeDao.getAll();
@@ -49,7 +50,8 @@ public class ServiceService extends ScheduableService<app.model.Service> {
         if (serviceType == null) serviceType = new ServiceType();
         String manager = enviromentalManagerDao.getAll().stream().map(EnviromentalManager::getMail).collect(Collectors.joining(","));
         String mail = String.format("mailto:%s?subject=%s", manager, "Solicitud%20de%20nuevo%20tipo%20de%20servicio");
-        return Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "serviceType", serviceType, "typeSelect", types, "today", today, "mail", mail);
+        data.putAll(Map.of("municipality", municipalityDao.getParentOf(area), "area", area, "serviceType", serviceType, "typeSelect", types, "today", today, "mail", mail));
+        return data;
     }
 
     @Override

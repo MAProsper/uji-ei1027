@@ -44,7 +44,7 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public Map<String, Object> data(Reservation r) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = super.data(r);
 
         String reservationZone = reservationZoneDao.getChildsOf(r).stream().map(zoneDao::getParentOf).map(Zone::getName).collect(Collectors.joining(", "));
         map.put("zone", reservationZone);
