@@ -184,6 +184,8 @@ CREATE TABLE ReservationZone(
 );
 
 
+--Correo simulado--
+
 CREATE TABLE Mail(
   id INTEGER PRIMARY KEY,
   mail TEXT NOT NULL,
