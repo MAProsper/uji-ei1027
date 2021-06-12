@@ -51,7 +51,7 @@
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td data-th-text="*{object.type.name}"></td>
             <td data-th-text="*{object.description}"></td>
-            <td><a data-th-href="@{https://www.google.com/maps/search/?api=1&query={loc}(loc=*{object.location})}" target="_blank" data-th-text="*{object.location}"></a></td>
+            <td><a data-th-href="@{https://www.google.com/maps/search/?api=1&query={loc}(loc=*{object.location})}" target="_blank" data-th-text="*{object.location}" title="Abrir en Maps"></a></td>
             <td data-th-text="${data[objectStat.index].occupied}"></td>
             <td data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"><a class="btn btn-info"
                                                                                          data-th-href="*{object.image}"
