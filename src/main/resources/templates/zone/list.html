@@ -2,7 +2,7 @@
 <html
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title"
-      data-th-text="'Zonas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      data-th-text="'Zonas de ' + ${session.data.area.name} + ' (' + ${session.data.municipality.name} + ')'"></span>
 <main data-layout-fragment="content">
     <table class="table table-striped">
         <thead>
@@ -11,9 +11,9 @@
             <th>Capacidad</th>
             <th>Fecha de alta / Fecha de baja</th>
             <th class="text-center"
-                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.data.municipality.active and session.data.area.active}">
                 <a
-                        data-th-href="@{/zone/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                        data-th-href="@{/zone/add/{id}(id=${session.data.area.id})}" class="btn btn-success"
                         role="button">Añadir</a>
             </th>
         </tr>
@@ -27,7 +27,7 @@
             <td data-th-text="*{object.capacity}"></td>
             <td data-th-text="*{object.toSignString}"></td>
             <td class="text-center"
-                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active}">
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.data.municipality.active and session.data.area.active}">
                 <a data-th-if="*{object.active}"
                    data-th-href="@{/zone/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>

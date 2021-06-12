@@ -2,7 +2,7 @@
 <html
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title"
-      data-th-text="'Horarios de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+      data-th-text="'Horarios de ' + ${session.data.area.name} + ' (' + ${session.data.municipality.name} + ')'"></span>
 <main data-layout-fragment="content">
     <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" class="text-muted">
         Si desea realizar una reserva, clique en "Reservar" en el horario deseado.
@@ -17,14 +17,14 @@
             <th>Horario</th>
             <th class="text-center"><a
                     data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}"
-                    data-th-href="@{/area/list/{id}(id=${data[0].municipality.id})}" class="btn btn-info"
+                    data-th-href="@{/area/list/{id}(id=${session.data.municipality.id})}" class="btn btn-info"
                     role="button">Atras</a><span
                     data-th-unless="${session.user == null or session.user instanceof T(app.model.Citizen)}">Información</span>
             </th>
             <th class="text-center"
-                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}">
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == session.data.municipality.id and session.data.municipality.active and session.data.area.active}">
                 <a
-                        data-th-href="@{/area-period/add/{id}(id=${data[0].area.id})}" class="btn btn-success"
+                        data-th-href="@{/area-period/add/{id}(id=${session.data.area.id})}" class="btn btn-success"
                         role="button">Añadir</a>
             </th>
         </tr>
@@ -32,11 +32,11 @@
         <tbody>
         <tr data-th-if="${#lists.isEmpty(object)}">
             <td class="text-center" colspan="3"
-                data-th-unless="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}">
+                data-th-unless="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == session.data.municipality.id and session.data.municipality.active and session.data.area.active}">
                 No hay ningun horario registrado
             </td>
             <td class="text-center" colspan="4"
-                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == data[0].municipality.id and data[0].municipality.active and data[0].area.active}">
+                data-th-if="${session.user instanceof T(app.model.MunicipalManager) and session.user.municipality == session.data.municipality.id and session.data.municipality.active and session.data.area.active}">
                 No hay ningun horario registrado
             </td>
         </tr>

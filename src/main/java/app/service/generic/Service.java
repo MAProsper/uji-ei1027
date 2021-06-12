@@ -1,21 +1,30 @@
 package app.service.generic;
 
 import app.ApplicationException;
+import app.dao.EnviromentalManagerDao;
 import app.dao.generic.Dao;
+import app.model.EnviromentalManager;
 import app.model.generic.Model;
 import app.model.generic.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public abstract class Service<M extends Model> {
     @Autowired protected Dao<M> dao;
+    @Autowired protected EnviromentalManagerDao enviromentalManagerDao;
 
     public Map<String, Object> data(M object) {
-        return Collections.emptyMap();
+        String manager = enviromentalManagerDao.getAll().stream().map(EnviromentalManager::getMail).collect(Collectors.joining(","));
+        String mail = String.format("mailto:%s?subject=%s", manager, "Notificaci%C3%B3n%20de%20error");
+        Map<String, Object> data = new HashMap<>();
+        data.put("mailtoerror", mail);
+        return data;
     }
 
     /**

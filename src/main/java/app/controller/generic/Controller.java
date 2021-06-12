@@ -47,13 +47,15 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * Obtener un modelo y vista
      *
      * @param model  modelo de la vista
-     * @param object objeto referencia
+     * @param factory objeto referencia
      * @param data   obtener datos del objeto
      * @param view   vista actual
      * @return vista
      */
-    protected <T> String model(Model model, T object, Function<T, Object> data, String view) {
+    protected <T> String model(HttpSession session, Integer arg, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data, String view, BiFunction<HttpSession, Integer, M> emptyFactory) {
+        T object = factory.apply(session, arg);
         model.addAttribute("object", object).addAttribute("data", data.apply(object));
+        session.setAttribute("data", service.data(emptyFactory.apply(session,  arg)));
         return getView(view);
     }
 
@@ -61,11 +63,10 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * Obtener datos de los objetos de un listado
      *
      * @param objects objetos referencia
-     * @param empty   objeto vacio
      * @return datos del objeto
      */
-    protected List<Map<String, Object>> data(List<M> objects, M empty) {
-        return objects.isEmpty() ? Collections.singletonList(service.data(empty)) : objects.stream().map(service::data).collect(Collectors.toList());
+    protected List<Map<String, Object>> data(List<M> objects) {
+        return objects.stream().map(service::data).collect(Collectors.toList());
     }
 
     /**
@@ -80,8 +81,8 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
      * @param data      obtener datos del objeto
      * @return vista o error
      */
-    protected <T> String object(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data) {
-        return setup(session, arg, validator, view).orElseGet(() -> model(model, factory.apply(session, arg), data, view));
+    protected <T> String object(HttpSession session, Integer arg, BiFunction<HttpSession, Integer, Boolean> validator, String view, Model model, BiFunction<HttpSession, Integer, T> factory, Function<T, Object> data, BiFunction<HttpSession, Integer, M> emptyFactory) {
+        return setup(session, arg, validator, view).orElseGet(() -> model(session, arg, model, factory, data, view, emptyFactory));
     }
 
     /**
@@ -117,7 +118,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
         return process(session, arg, validator, view, () -> {
             reflect.merge(factory.apply(session, arg), object);
             this.validator.validate(object, binding);
-            if (binding.hasErrors()) return Optional.of(model(model, object, service::data, view));
+            if (binding.hasErrors()) return Optional.of(model(session, arg, model, (s, a) -> object, service::data, view, factory));
             process.accept(session, arg, object);
             return Optional.empty();
         }, redirect);
@@ -125,12 +126,12 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping({"/list", "/list/{arg}"})
     public String list(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return object(session, arg, validator::list, "list", model, service::listObjects, l -> data(l, service.addObject(session, arg)));
+        return object(session, arg, validator::list, "list", model, service::listObjects, this::data, service::addObject);
     }
 
     @RequestMapping({"/add", "/add/{arg}"})
     public String add(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return object(session, arg, validator::add, "add", model, service::addObject, service::data);
+        return object(session, arg, validator::add, "add", model, service::addObject, service::data, service::addObject);
     }
 
     @RequestMapping(path = {"/add", "/add/{arg}"}, method = RequestMethod.POST)
@@ -140,7 +141,7 @@ public abstract class Controller<M extends app.model.generic.Model> extends Para
 
     @RequestMapping({"/update", "/update/{arg}"})
     public String update(HttpSession session, @PathVariable(required = false) Integer arg, Model model) {
-        return object(session, arg, validator::update, "update", model, service::updateObject, service::data);
+        return object(session, arg, validator::update, "update", model, service::updateObject, service::data, service::updateObject);
     }
 
     @RequestMapping(path = {"/update", "/update/{arg}"}, method = RequestMethod.POST)

@@ -3,7 +3,7 @@
 <span data-layout-fragment="title">
     <span data-th-if="*{session.user instanceof T(app.model.MunicipalManager)}">Tus datos</span>
     <span data-th-if="*{session.user instanceof T(app.model.EnviromentalManager)}"
-          data-th-text="'Gestores municipales de ' + ${data[0].municipality.name}"></span>
+          data-th-text="'Gestores municipales de ' + ${session.data.municipality.name}"></span>
 </span>
 <main data-layout-fragment="content">
     <table class="table table-striped">
@@ -16,7 +16,7 @@
             <th>Teléfono</th>
             <th>
                 <a data-th-if="${session.user instanceof T(app.model.EnviromentalManager)}"
-                   data-th-href="@{/municipal-manager/add/{id}(id=${data[0].municipality.id})}" class="btn btn-success"
+                   data-th-href="@{/municipal-manager/add/{id}(id=${session.data.municipality.id})}" class="btn btn-success"
                    role="button">Añadir</a>
             </th>
         </tr>

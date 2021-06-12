@@ -88,7 +88,7 @@ public class ReservationValidator extends Validator<Reservation> {
             errors.accept("date", "Fecha selecionada fuera del horario reservado");
         } else if (date.isBefore(today) || date.isAfter(today.plusDays(2))) {
             errors.accept("date", "Solo se puede reservar como máximo con dos días de antelación");
-        } else if (now.isAfter(areaPeriod.getPeriodEnd())) {
+        } else if (now.isAfter(areaPeriod.getPeriodEnd()) && r.getDate().isEqual(today)) {
             errors.accept("date", "El horario actual para el día seleccionado ya ha pasado");
         }
 

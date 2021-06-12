@@ -4,7 +4,7 @@
 <span data-layout-fragment="title">
     <span data-th-if="*{session.user instanceof T(app.model.Citizen)}">Tus reservas</span>
     <span data-th-unless="*{session.user instanceof T(app.model.Citizen)}"
-          data-th-text="'Reservas de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')'"></span>
+          data-th-text="'Reservas de ' + ${session.data.area.name} + ' (' + ${session.data.municipality.name} + ')'"></span>
 </span>
 <main data-layout-fragment="content">
     <table class="table table-striped">

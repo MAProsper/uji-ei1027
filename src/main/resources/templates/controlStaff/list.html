@@ -4,7 +4,7 @@
 <span data-layout-fragment="title">
     <span data-th-if="*{session.user instanceof T(app.model.ControlStaff)}">Tus datos</span>
     <span data-th-unless="*{session.user instanceof T(app.model.ControlStaff)}"
-          data-th-text="'Personal de control de ' + ${data[0].area.name} + ' (' + ${data[0].municipality.name} + ')' "></span>
+          data-th-text="'Personal de control de ' + ${session.data.area.name} + ' (' + ${session.data.municipality.name} + ')' "></span>
 </span>
 <main data-layout-fragment="content">
     <table class="table table-striped">
@@ -15,9 +15,9 @@
             <th data-th-if="${session.user instanceof T(app.model.MunicipalManager)}">Validez</th>
             <th>Correo electrónico</th>
             <th>Horario</th>
-            <th data-th-if="${(session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active and data[0].areaPeriod.active) or (session.user instanceof T(app.model.ControlStaff))}">
+            <th data-th-if="${(session.user instanceof T(app.model.MunicipalManager) and session.data.municipality.active and session.data.area.active and session.data.areaPeriod.active) or (session.user instanceof T(app.model.ControlStaff))}">
                 <a
-                        data-th-href="@{/control-staff/add/{id}(id=${data[0].areaPeriod.id})}" class="btn btn-success"
+                        data-th-href="@{/control-staff/add/{id}(id=${session.data.areaPeriod.id})}" class="btn btn-success"
                         role="button">Añadir</a>
             </th>
         </tr>
@@ -40,7 +40,7 @@
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager)}"></td>
             <td data-th-text="*{object.mail}"></td>
             <td data-th-text="*{data[objectStat.index].areaPeriod.toPeriodString}"></td>
-            <td data-th-if="${(session.user instanceof T(app.model.MunicipalManager) and data[0].municipality.active and data[0].area.active and data[0].areaPeriod.active) or (session.user instanceof T(app.model.ControlStaff))}">
+            <td data-th-if="${(session.user instanceof T(app.model.MunicipalManager) and session.data.municipality.active and session.data.area.active and session.data.areaPeriod.active) or (session.user instanceof T(app.model.ControlStaff))}">
                 <a data-th-if="${object.active and (session.user instanceof T(app.model.MunicipalManager)) and data[objectStat.index].municipality.active and data[objectStat.index].area.active and data[objectStat.index].areaPeriod.active and data[objectStat.index].municipality.active and data[objectStat.index].area.active}"
                    data-th-href="@{/control-staff/update/{id}(id=${object.id})}" class="btn btn-warning" role="button">Actualizar
                 </a>
