@@ -7,7 +7,7 @@
     <form
             onsubmit="return confirm('¿Seguro que desea realizar la reserva y los datos son correctos?')"
             data-th-object="${object}" method="post">
-        <img class="img-fluid" src="" data-th-src="${data.area.image}">
+        <img class="img-fluid" src="" data-th-src="${data.area.image}" alt="Plano">
         <table>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th>Ciudadano</th>

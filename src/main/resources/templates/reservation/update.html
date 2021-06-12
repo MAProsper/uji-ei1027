@@ -5,7 +5,7 @@
 <main data-layout-fragment="content">
     <form data-th-object="${object}" method="post"
           onsubmit="return confirm('¿Seguro que desea actualizar los datos y los datos son correctos?')">
-        <img class="img-fluid" src="" data-th-src="${data.area.image}">
+        <img class="img-fluid" src="" data-th-src="${data.area.image}" alt="Plano">
         <table>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
                 <th>Ciudadano</th>
