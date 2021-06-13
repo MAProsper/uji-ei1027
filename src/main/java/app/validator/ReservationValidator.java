@@ -62,7 +62,7 @@ public class ReservationValidator extends Validator<Reservation> {
     public boolean update(HttpSession session, Integer arg) {
         Reservation r = reservationDao.getById(arg);
         if (r == null || reservationService.isEnded(r)) return forbidden();
-        return ifPerson(session, ControlStaff.class, MunicipalManager.class);
+        return ifPerson(session, ControlStaff.class, MunicipalManager.class, Citizen.class);
     }
 
     @Override

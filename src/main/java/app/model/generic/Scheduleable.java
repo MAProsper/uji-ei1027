@@ -50,7 +50,13 @@ public abstract class Scheduleable extends Model implements Activeable {
     }
 
     public boolean overlapsWith(Scheduleable other) {
-        return getPeriodStart().isBefore(other.getPeriodEnd()) && getPeriodEnd().isBefore(other.getPeriodStart());
+        // this solapa a other si se cumplen uno de los siguientes puntos:
+        // - la hora de fin de this está entre las horas de inicio y de fin de other
+        // - la hora de inicio de this está entre las horas de inicio y de fin de other
+        // - la hora de inicio de this es anterior o igual a la de other y la hora de fin de this es posterior o igual a la de other
+        return (getPeriodEnd().compareTo(other.getPeriodStart()) >= 0 && getPeriodEnd().compareTo(other.getPeriodEnd()) <= 0) ||
+                (getPeriodStart().compareTo(other.getPeriodStart()) >= 0 && getPeriodStart().compareTo(other.getPeriodEnd()) <= 0) ||
+                (getPeriodStart().compareTo(other.getPeriodStart()) <= 0 && getPeriodEnd().compareTo(other.getPeriodEnd()) >= 0);
     }
 
     public String toPeriodString() {
@@ -80,7 +86,7 @@ public abstract class Scheduleable extends Model implements Activeable {
 
     public boolean isEnded() {
         LocalDate now = LocalDate.now();
-        return scheduleEnd == null || scheduleEnd.compareTo(now) >= 0;
+        return scheduleEnd == null || scheduleEnd.isBefore(now);
     }
 
     @Override
