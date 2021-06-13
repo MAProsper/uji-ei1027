@@ -16,6 +16,10 @@ header {
     margin: 0 0.5em;
 }
 
+.nav-link:focus, .nav-link:hover {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
 main {
   flex: 1 0 auto;
 }
