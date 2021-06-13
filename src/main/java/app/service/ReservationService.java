@@ -153,7 +153,8 @@ public class ReservationService extends app.service.generic.Service<Reservation>
 
     @Override
     public String redirectSelf(HttpSession session, Integer arg) {
-        if (getUser(session) instanceof Citizen) return "../list";
+        Person user = getUser(session);
+        if (user instanceof Citizen || user instanceof ControlStaff) return "../list";
         return String.format("../list/%d", reservationDao.getById(arg).getAreaPeriod());
     }
 }

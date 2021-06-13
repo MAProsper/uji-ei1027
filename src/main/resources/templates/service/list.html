@@ -39,10 +39,10 @@
             <td data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}"></td>
             <td class="text-center"
                 data-th-if="${session.user instanceof T(app.model.MunicipalManager) and data[objectStat.index].municipality.active and data[objectStat.index].area.active}">
-                <a data-th-if="*{object.ended}"
+                <a data-th-unless="*{object.ended}"
                    data-th-href="@{/service/update/{id}(id=${object.id})}" class="btn btn-warning"
                    role="button">Actualizar</a>
-                <a data-th-if="*{object.ended}"
+                <a data-th-unless="*{object.ended}"
                    data-th-href="@{/service/delete/{id}(id=${object.id})}"
                    onclick="return confirm('¿Seguro que desea eliminar el servicio?')"
                    class="btn btn-danger" role="button">Eliminar</a>

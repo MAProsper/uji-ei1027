@@ -29,7 +29,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="periodStart">Hora de inicio</label></th>
+                <th><label for="periodStart">Hora de inicio<br>(no admite segundos)</label></th>
                 <td><input required="required" type="time" id="periodStart" data-th-field="*{periodStart}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('periodStart')}">
@@ -38,7 +38,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="periodEnd">Hora de fin</label></th>
+                <th><label for="periodEnd">Hora de fin<br>(no admite segundos)</label></th>
                 <td><input required="required" type="time" id="periodEnd" data-th-field="*{periodEnd}"></td>
             </tr>
             <tr data-th-each="err : ${#fields.errors('periodEnd')}">

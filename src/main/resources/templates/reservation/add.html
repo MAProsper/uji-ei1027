@@ -29,7 +29,7 @@
                 <td data-th-text="${data.areaPeriod.toPeriodString}"></td>
             </tr>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
-                <th><label for="enter">Entrada</label></th>
+                <th><label for="enter">Entrada<br>(no admite segundos)</label></th>
                 <td><input type="time" id="enter" data-th-field="*{enter}"
                            data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
                            data-th-disabled="${data.origin.enter != null}"></td>
@@ -41,7 +41,7 @@
                 </td>
             </tr>
             <tr data-th-unless="${session.user instanceOf T(app.model.Citizen)}">
-                <th><label for="exit">Salida</label></th>
+                <th><label for="exit">Salida<br>(no admite segundos)</label></th>
                 <td><input type="time" id="exit" data-th-field="*{exit}"
                            data-th-attr="min=${data.areaPeriod.periodStart},max=${data.areaPeriod.periodEnd}"
                            data-th-disabled="${data.origin.exit != null}"></td>
