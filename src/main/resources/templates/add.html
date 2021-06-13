@@ -3,6 +3,7 @@
         data-layout-decorate="~{fragments/base}">
 <span data-layout-fragment="title">Inicio de sesión</span>
 <main data-layout-fragment="content">
+    <p data-th-if="${session.user == null or session.user instanceof T(app.model.Citizen)}" class="text-muted">¿No tienes cuenta? Registrate desde la página de arriba a la derecha, clicando en "Registrarse".</p>
     <form data-th-object="${object}" method="post">
         <table>
             <tr>
