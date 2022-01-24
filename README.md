@@ -1,4 +1,4 @@
-# EI1017 - Diseño e Implementación de Sistemas de Información
+# EI1027 - Diseño e Implementación de Sistemas de Información
 ## Autores
 - Luque Bueso, Adrián
 - Prosper Quirós, Miguel Ángel
